@@ -6,41 +6,17 @@ pathadd() {
     fi
 }
 # get the directory of the script
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" &>/dev/null && pwd 2>/dev/null)"
-distro=$(lsb_release -i | cut -f2)
-os_version=$(lsb_release -r | cut -f2)
-echo "Setting up CROWN for $distro Version $os_version"
-# check if the distro is centos
-if [[ "$distro" == "CentOS" ]]; then
-    # if the first number of os_version is a 7, we are on centOS 7
-    if [[ ${os_version:0:1} == "7" ]]; then # if uname -a | grep -E 'el7' -q
-        # source /cvmfs/sft-nightlies.cern.ch/lcg/views/dev3/latest/x86_64-centos7-gcc11-opt/setup.sh
-        # source /cvmfs/sft-nightlies.cern.ch/lcg/views/dev3/latest/x86_64-centos7-clang12-opt/setup.sh
-        # source /cvmfs/sft-nightlies.cern.ch/lcg/views/dev3/latest/x86_64-centos7-gcc11-dbg/setup.sh
-        source /cvmfs/sft.cern.ch/lcg/views/LCG_102/x86_64-centos7-gcc11-opt/setup.sh
-    else
-        echo "Unsupported CentOS version, exiting..."
-        return 0
-    fi
-elif [[ "$distro" == "RedHatEnterprise" ]]; then
-    if [[ ${os_version:0:1} == "8" ]]; then # elif uname -a | grep -E 'el8' -q
-        source /cvmfs/sft.cern.ch/lcg/views/LCG_102/x86_64-centos8-gcc11-opt/setup.sh
-    else
-        echo "Unsupported CentOS version, exiting..."
-        return 0
-    fi
-elif [[ "$distro" == "Ubuntu" ]]; then
-    if [[ ${os_version:0:2} == "20" ]]; then
-        source /cvmfs/sft.cern.ch/lcg/views/LCG_102/x86_64-ubuntu2004-gcc9-opt/setup.sh
-    elif [[ ${os_version:0:2} == "22" ]]; then
-        source /cvmfs/sft.cern.ch/lcg/views/LCG_102/x86_64-ubuntu2204-gcc11-opt/setup.sh
-    else
-        echo "Unsupported Ubuntu version, exiting..."
-        return 0
-    fi
+SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
+if uname -a | grep -E 'el7' -q
+then
+    # source /cvmfs/sft.cern.ch/lcg/views/LCG_99/x86_64-centos7-clang10-opt/setup.sh
+    # source /cvmfs/sft-nightlies.cern.ch/lcg/views/dev3/latest/x86_64-centos7-gcc11-opt/setup.sh
+    # source /cvmfs/sft-nightlies.cern.ch/lcg/views/dev3/latest/x86_64-centos7-clang12-opt/setup.sh
+    # source /cvmfs/sft-nightlies.cern.ch/lcg/views/dev3/latest/x86_64-centos7-gcc11-dbg/setup.sh
+    ### Use a more permanent LCG stack, for now LCG 102
+    source /cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/setup.sh
 else
-    echo "You are not running on CentOS or Ubuntu, exiting..."
-    return 0
+    echo "You are not running on CentOS7, things will propably break..."
 fi
 # add ~/.local/bin to path if it is not already there
 pathadd "${HOME}/.local/bin/"
