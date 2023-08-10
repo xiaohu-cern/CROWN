@@ -201,7 +201,7 @@ def build_config(
     configuration.add_config_parameters(
         "global",
         {
-            "min_muon_pt": 20.0, # vh
+            "min_muon_pt": 5, # vh change muon min pt 20 to 5
             "max_muon_eta": 2.4, # vh
             "max_muon_dxy": 0.05, # vh
             "max_muon_dz": 0.10, # vh
@@ -229,7 +229,7 @@ def build_config(
     configuration.add_config_parameters(
         "global",
         {
-            "min_ele_pt": 20.0,
+            "min_ele_pt": 7,
             "max_ele_eta": 2.5,
             "upper_threshold_barrel": 1.444,
             "lower_threshold_endcap": 1.566,
@@ -247,7 +247,7 @@ def build_config(
     configuration.add_config_parameters(
         scopes,
         {
-            "min_muon_pt": 20.0,
+            "min_muon_pt": 5,
             "max_muon_eta": 2.4,
             "muon_iso_cut": 0.25,
         }
@@ -372,20 +372,20 @@ def build_config(
                     "2022": 2.5,
                 }
             ),
-            "btag_cut_loose": EraModifier(  # loose # vh TODO update this for DeepCSV
+            "btag_cut_loose": EraModifier(  # loose # vh TODO update this for DeepCSV (vhmm Run2 use DeepCSV)
                 {
-                    "2016": 0.3093,
-                    "2017": 0.3040,
-                    "2018": 0.2783,
-                    "2022": 0.2783,
+                    "2016": 0.1918, # 2016preVFP: 0.2027, 2016postVFP: 0.1918
+                    "2017": 0.1355, # 2017: 0.1355
+                    "2018": 0.1208, # 2018: 0.1208
+                    "2022": 0.1208,
                 }
             ),
             "btag_cut_medium": EraModifier(  # medium # vh TODO verify this for DeepCSV
                 {
-                    "2016": 0.3093,
-                    "2017": 0.3040,
-                    "2018": 0.2783,
-                    "2022": 0.2783,
+                    "2016": 0.5847, # 2016preVFP: 0.6001, 2016postVFP: 0.5847
+                    "2017": 0.4506, # 2017: 0.4506
+                    "2018": 0.4168, # 2018: 0.4168
+                    "2022": 0.4168,
                 }
             ),
         },
@@ -592,7 +592,7 @@ def build_config(
             # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
             
             #
-            scalefactors.MuonIDIso_SF, # TODO 3 muon SF
+            # scalefactors.MuonIDIso_SF, # TODO 3 muon SF
             p4.mu1_fromH_pt,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
@@ -684,8 +684,8 @@ def build_config(
             muons.LVMu2,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             
-            scalefactors.MuonIDIso_SF, # TODO 3 muon SF
-            scalefactors.EleID_SF,
+            # scalefactors.MuonIDIso_SF, # TODO 3 muon SF
+            # scalefactors.EleID_SF,
             p4.mu1_fromH_pt,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
@@ -764,8 +764,8 @@ def build_config(
             muons.LVMu2,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             
-            scalefactors.MuonIDIso_SF,
-            scalefactors.EleID_SF,
+            # scalefactors.MuonIDIso_SF,
+            # scalefactors.EleID_SF,
             p4.mu1_fromH_pt,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
@@ -845,7 +845,7 @@ def build_config(
             muons.LVMu4,
             triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel,
             
-            scalefactors.MuonIDIso_SF,
+            # scalefactors.MuonIDIso_SF,
             p4.mu1_fromH_pt,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
@@ -919,7 +919,7 @@ def build_config(
             muons.LVMu2,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
-            scalefactors.MuonIDIso_SF,
+            # scalefactors.MuonIDIso_SF,
             p4.mu1_fromH_pt,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
@@ -1115,12 +1115,12 @@ def build_config(
             triggers.GenerateSingleMuonTriggerFlags.output_group,
             
             #
-            q.id_wgt_mu_1,
-            q.iso_wgt_mu_1,
-            q.id_wgt_mu_2,
-            q.iso_wgt_mu_2,
-            q.id_wgt_mu_3,
-            q.iso_wgt_mu_3,
+            # q.id_wgt_mu_1,
+            # q.iso_wgt_mu_1,
+            # q.id_wgt_mu_2,
+            # q.iso_wgt_mu_2,
+            # q.id_wgt_mu_3,
+            # q.iso_wgt_mu_3,
         ],
     )
     configuration.add_outputs(
@@ -1175,13 +1175,13 @@ def build_config(
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
 
             #
-            q.id_wgt_mu_1,
-            q.iso_wgt_mu_1,
-            q.id_wgt_mu_2,
-            q.iso_wgt_mu_2,
-            #
-            q.id_wgt_ele_wp90nonIso_1,
-            q.id_wgt_ele_wp80nonIso_1,
+            # q.id_wgt_mu_1,
+            # q.iso_wgt_mu_1,
+            # q.id_wgt_mu_2,
+            # q.iso_wgt_mu_2,
+            # #
+            # q.id_wgt_ele_wp90nonIso_1,
+            # q.id_wgt_ele_wp80nonIso_1,
         ],
     )
     configuration.add_outputs(
@@ -1220,15 +1220,15 @@ def build_config(
             q.Z_H_cosThStar,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
             #
-            q.id_wgt_mu_1,
-            q.iso_wgt_mu_1,
-            q.id_wgt_mu_2,
-            q.iso_wgt_mu_2,
+            # q.id_wgt_mu_1,
+            # q.iso_wgt_mu_1,
+            # q.id_wgt_mu_2,
+            # q.iso_wgt_mu_2,
             #
-            q.id_wgt_ele_wp90nonIso_1,
-            q.id_wgt_ele_wp80nonIso_1,
-            q.id_wgt_ele_wp90nonIso_2,
-            q.id_wgt_ele_wp80nonIso_2,
+            # q.id_wgt_ele_wp90nonIso_1,
+            # q.id_wgt_ele_wp80nonIso_1,
+            # q.id_wgt_ele_wp90nonIso_2,
+            # q.id_wgt_ele_wp80nonIso_2,
         ],
     )
     configuration.add_outputs(
@@ -1270,14 +1270,14 @@ def build_config(
             #
             triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel.output_group,
             #
-            q.id_wgt_mu_1,
-            q.iso_wgt_mu_1,
-            q.id_wgt_mu_2,
-            q.iso_wgt_mu_2,
-            q.id_wgt_mu_3,
-            q.iso_wgt_mu_3,
-            q.id_wgt_mu_4,
-            q.iso_wgt_mu_4,
+            # q.id_wgt_mu_1,
+            # q.iso_wgt_mu_1,
+            # q.id_wgt_mu_2,
+            # q.iso_wgt_mu_2,
+            # q.id_wgt_mu_3,
+            # q.iso_wgt_mu_3,
+            # q.id_wgt_mu_4,
+            # q.iso_wgt_mu_4,
         ],
     )
     configuration.add_outputs(
@@ -1304,10 +1304,10 @@ def build_config(
             q.Flag_DiMuonFromHiggs,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
             
-            q.id_wgt_mu_1,
-            q.iso_wgt_mu_1,
-            q.id_wgt_mu_2,
-            q.iso_wgt_mu_2,
+            # q.id_wgt_mu_1,
+            # q.iso_wgt_mu_1,
+            # q.id_wgt_mu_2,
+            # q.iso_wgt_mu_2,
             
             q.genmu1_fromH_pt,
             q.genmu1_fromH_eta,
@@ -1361,14 +1361,14 @@ def build_config(
             "global",
             RemoveProducer(
                 producers=[jets.GoodJets,],
-                samples=["data"],
+                samples=sample,
             ),
         )
         configuration.add_modification_rule(
             "global",
             AppendProducer(
                 producers=[jets.GoodJets_2022,],
-                samples=["data"],
+                samples=sample,
                 update_output=False,
             ),
         )
@@ -1386,7 +1386,7 @@ def build_config(
         RemoveProducer(
             producers=[
                 # genparticles.MMGenDiTauPairQuantities,
-                scalefactors.MuonIDIso_SF,
+                # scalefactors.MuonIDIso_SF,
                 genparticles.BosonDecayMode,
             ],
             samples=["data"],
@@ -1425,7 +1425,7 @@ def build_config(
         ["e2m","eemm"],
         RemoveProducer(
             producers=[
-                scalefactors.EleID_SF,
+                # scalefactors.EleID_SF,
             ],
             samples=["data"],
         ),
@@ -1447,8 +1447,8 @@ def build_config(
             shift_config={"m2m": {"muon_sf_varation": "systup"}},
             producers={
                 "m2m": [
-                    scalefactors.Muon_1_ID_SF,
-                    scalefactors.Muon_2_ID_SF,
+                    # scalefactors.Muon_1_ID_SF,
+                    # scalefactors.Muon_2_ID_SF,
                 ]
             },
         )
@@ -1459,8 +1459,8 @@ def build_config(
             shift_config={"m2m": {"muon_sf_varation": "systdown"}},
             producers={
                 "m2m": [
-                    scalefactors.Muon_1_ID_SF,
-                    scalefactors.Muon_2_ID_SF,
+                    # scalefactors.Muon_1_ID_SF,
+                    # scalefactors.Muon_2_ID_SF,
                 ]
             },
         )
