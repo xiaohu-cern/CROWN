@@ -387,3 +387,31 @@ elemuCR_pt = Quantity("elemuCR_pt")
 elemuCR_eta = Quantity("elemuCR_eta")
 elemuCR_phi = Quantity("elemuCR_phi")
 elemuCR_mass = Quantity("elemuCR_mass")
+
+# Fat Jet 
+FatJet_pt_corrected = Quantity("FatJet_pt_corrected")
+FatJet_mass_corrected = Quantity("FatJet_mass_corrected")
+good_fatjets_mask = Quantity("good_fatjets_mask")
+fatjet_id_mask = Quantity("fatjet_id_mask")
+fatjet_overlap_veto_mask = Quantity("fatjet_overlap_veto_mask")
+nfatjets = Quantity("nfatjets")
+good_fatjet_collection = Quantity("good_fatjet_collection")
+fatjet_p4_1 = Quantity("fatjet_p4_1")
+Flag_MaxMetCut = Quantity("Flag_MaxMetCut") # Max MET in fjmm is 150
+
+fatjet_pt = Quantity("fatjet_pt")
+fatjet_eta = Quantity("fatjet_eta")
+fatjet_phi = Quantity("fatjet_phi")
+fatjet_mass = Quantity("fatjet_mass")
+fatjet_msoftdrop = Quantity("fatjet_msoftdrop")
+
+fatjet_mmH_deta = Quantity("fatjet_mmH_deta")
+fatjet_mmH_dphi = Quantity("fatjet_mmH_dphi")
+fatjet_mmH_dR = Quantity("fatjet_mmH_dR")
+
+fatjet_mu1_deta = Quantity("fatjet_mu1_deta")
+fatjet_mu1_dphi = Quantity("fatjet_mu1_dphi")
+fatjet_mu1_dR = Quantity("fatjet_mu1_dR")
+fatjet_mu2_deta = Quantity("fatjet_mu2_deta")
+fatjet_mu2_dphi = Quantity("fatjet_mu2_dphi")
+fatjet_mu2_dR = Quantity("fatjet_mu2_dR")

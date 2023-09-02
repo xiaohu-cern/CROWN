@@ -133,3 +133,21 @@ TauEmbedding_InitialPairCandidates = NanoAODQuantity(
 )
 TauEmbedding_SelectionOldMass = NanoAODQuantity("TauEmbedding_SelectionOldMass")
 TauEmbedding_SelectionNewMass = NanoAODQuantity("TauEmbedding_SelectionNewMass")
+
+## Fat Jet Quantities
+GenJetAK8_pt = NanoAODQuantity("GenJetAK8_pt")
+GenJetAK8_eta = NanoAODQuantity("GenJetAK8_eta")
+GenJetAK8_phi = NanoAODQuantity("GenJetAK8_phi")
+
+FatJet_eta = NanoAODQuantity("FatJet_eta")
+FatJet_phi = NanoAODQuantity("FatJet_phi")
+FatJet_pt = NanoAODQuantity("FatJet_pt")
+FatJet_mass = NanoAODQuantity("FatJet_mass")
+FatJet_area = NanoAODQuantity("FatJet_area")
+FatJet_rawFactor = NanoAODQuantity("FatJet_rawFactor")
+FatJet_ID = NanoAODQuantity("FatJet_jetId")
+FatJet_msoftdrop = NanoAODQuantity("FatJet_msoftdrop")
+# FatJet_PUID = NanoAODQuantity("FatJet_puId")
+# Jet_associatedGenJet = NanoAODQuantity("Jet_genJetIdx")
+#BJet_discriminator = NanoAODQuantity("Jet_btagDeepFlavB") # DeepFlavour
+BFatJet_discriminator = NanoAODQuantity("FatJet_btagDeepB") # vh DeepCSV

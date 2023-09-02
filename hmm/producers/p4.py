@@ -15,7 +15,7 @@ mu1_fromH_pt = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.mu1_fromH_pt],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
 )
 mu1_fromH_eta = Producer(
     name="mu1_fromH_eta",
@@ -24,7 +24,7 @@ mu1_fromH_eta = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.mu1_fromH_eta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
 )
 mu1_fromH_phi = Producer(
     name="mu1_fromH_phi",
@@ -33,7 +33,7 @@ mu1_fromH_phi = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.mu1_fromH_phi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
 )
 # mu1_fromH_mass = Producer(
 #     name="mu1_fromH_mass",
@@ -54,7 +54,7 @@ mu2_fromH_pt = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu2_fromH_pt],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
 )
 mu2_fromH_eta = Producer(
     name="mu2_fromH_eta",
@@ -63,7 +63,7 @@ mu2_fromH_eta = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu2_fromH_eta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
 )
 mu2_fromH_phi = Producer(
     name="mu2_fromH_phi",
@@ -72,7 +72,7 @@ mu2_fromH_phi = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu2_fromH_phi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
 )
 # mu2_fromH_mass = Producer(
 #     name="mu2_fromH_mass",
@@ -93,7 +93,7 @@ H_pt = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.H_pt],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
 )
 H_eta = Producer(
     name="H_eta",
@@ -102,7 +102,7 @@ H_eta = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.H_eta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
 )
 H_phi = Producer(
     name="H_phi",
@@ -111,7 +111,7 @@ H_phi = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.H_phi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
 )
 H_mass = Producer(
     name="H_mass",
@@ -120,7 +120,7 @@ H_mass = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.H_mass],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
 )
 
 ##### for met pt and phi
@@ -132,7 +132,7 @@ met_pt = Producer(
       q.met_p4,
     ],
     output=[q.met_pt],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","nnmm_dycontrol","nnmm_topcontrol"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol"],
 )
 met_phi = Producer(
     name="met_phi",
@@ -141,7 +141,7 @@ met_phi = Producer(
       q.met_p4,
     ],
     output=[q.met_phi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","nnmm_dycontrol","nnmm_topcontrol"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol"],
 )
 
 ##### for gen met pt and phi
@@ -153,7 +153,7 @@ genmet_pt = Producer(
       q.genmet_p4,
     ],
     output=[q.genmet_pt],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","nnmm_dycontrol","nnmm_topcontrol"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol"],
 )
 genmet_phi = Producer(
     name="genmet_phi",
@@ -162,7 +162,7 @@ genmet_phi = Producer(
       q.genmet_p4,
     ],
     output=[q.genmet_phi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","nnmm_dycontrol","nnmm_topcontrol"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol"],
 )
 
 ##### for extra lepton
@@ -471,4 +471,41 @@ genmu2_fromH_mass = Producer(
     ],
     output=[q.genmu2_fromH_mass],
     scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+)
+## for fatjet + mm channel
+fatjet_pt = Producer(
+    name="fatjet_pt",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+    ],
+    output=[q.fatjet_pt],
+    scopes=["fjmm"],
+)
+fatjet_eta = Producer(
+    name="fatjet_eta",
+    call='quantities::eta({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+    ],
+    output=[q.fatjet_eta],
+    scopes=["fjmm"],
+)
+fatjet_phi = Producer(
+    name="fatjet_phi",
+    call='quantities::phi({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+    ],
+    output=[q.fatjet_phi],
+    scopes=["fjmm"],
+)
+fatjet_mass = Producer(
+    name="fatjet_mass",
+    call='quantities::mass({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+    ],
+    output=[q.fatjet_mass],
+    scopes=["fjmm"],
 )

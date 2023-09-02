@@ -133,6 +133,8 @@ ROOT::RDF::RNode Calc_CosThetaStar_ZH(ROOT::RDF::RNode df, const std::string &ou
 ROOT::RDF::RNode RedirectZlepID(ROOT::RDF::RNode df, const int ifMu, const std::string &outputname);
 ROOT::RDF::RNode MetCut(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &met_p4, const float pt_threshold);
+ROOT::RDF::RNode MaxMetCut(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &met_p4, const float pt_threshold);
 ROOT::RDF::RNode HiggsCandDiMuonGenPairCollection(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &Muon_indexToGen,
                                  const std::string &dimuon_index);
@@ -180,6 +182,9 @@ ROOT::RDF::RNode TopControlEleMuPairP4(ROOT::RDF::RNode df, const std::string &o
                                  const std::string &ele_phis,
                                  const std::string &ele_masses,
                                  const std::string &elemu_index);
+ROOT::RDF::RNode LeadingFatJetSoftDropMass(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &fatjet_softdrop_mass, 
+                                 const std::string &good_fatjets_index);
 // ROOT::RDF::RNode HiggsToMuMu_Cand(ROOT::RDF::RNode df, const std::string &maskname,
 //                         const std::string &dimuon_p4);
 // ROOT::RDF::RNode GetFirstElement(ROOT::RDF::RNode df,

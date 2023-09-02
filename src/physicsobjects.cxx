@@ -988,6 +988,20 @@ ROOT::RDF::RNode MetCut(ROOT::RDF::RNode df, const std::string &outputname,
         df.Define(outputname, cut_met, {met_p4});
     return df1;
 }
+ROOT::RDF::RNode MaxMetCut(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &met_p4, const float pt_threshold) {
+    auto cut_met = [pt_threshold](ROOT::Math::PtEtaPhiMVector &met) {
+                                if ((float)met.Pt() <= pt_threshold) {
+                                    return 1;
+                                } else {
+                                    return 0;
+                                }
+                            };
+    auto df1 = 
+        df.Define(outputname, cut_met, {met_p4});
+    return df1;
+}
+
 ////
 /// function to pick dimuon Gen pair from Higgs
 ROOT::RDF::RNode HiggsCandDiMuonGenPairCollection(ROOT::RDF::RNode df, const std::string &outputname,
@@ -1324,6 +1338,20 @@ ROOT::RDF::RNode TopControlEleMuPairP4(ROOT::RDF::RNode df, const std::string &o
     return df1;
 }
 ///
+/// function  to make a flag that if exist dimuon pair from Higgs
+ROOT::RDF::RNode LeadingFatJetSoftDropMass(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &fatjet_softdrop_mass, 
+                                 const std::string &good_fatjets_index) {
+    auto FatJetSDM = [](const ROOT::RVec<float> &fatjet_softdrop_mass,
+                              const ROOT::RVec<int> &good_fatjets_index) {
+                                // just return the MassSD after good fatjet
+                                 float FatJet_MSD = fatjet_softdrop_mass.at(good_fatjets_index[0]);
+                                 return FatJet_MSD;
+                             };
+    auto df1 = 
+        df.Define(outputname, FatJetSDM, {fatjet_softdrop_mass, good_fatjets_index});
+    return df1;
+}
 ///
 /// Make Higgs To MuMu Pair Return to a mask
 // ROOT::RDF::RNode HiggsToMuMu_Cand(ROOT::RDF::RNode df, const std::string &maskname,

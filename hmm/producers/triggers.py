@@ -36,7 +36,7 @@ GenerateSingleMuonTriggerFlagsForDiMuChannel = ExtendedVectorProducer(
         nanoAOD.TriggerObject_phi,
     ],
     output="flagname",
-    scope=["e2m","eemm","nnmm"],
+    scope=["e2m","eemm","nnmm","fjmm"],
     vec_config="singlemuon_trigger",
 )
 GenerateSingleMuonTriggerFlagsForQuadMuChannel = ExtendedVectorProducer(

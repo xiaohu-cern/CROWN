@@ -53,7 +53,7 @@ BosonDecayMode = Producer(
         nanoAOD.GenParticle_statusFlags,
     ],
     output=[q.BosonDecayMode],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm"],
 )
 
 MMGenPair = Producer(

@@ -204,18 +204,32 @@ FilterNMuons_4m = Producer(
     scopes=["mmmm"],
 )
 FilterNMuons_nnmm = Producer(
-    name="FilterNMuons",
+    name="FilterNMuons_nnmm",
     call='basefunctions::FilterThreshold({df}, {input}, {vh_nnmm_nmuons}, "==", "Number of muons 2")',
     input=[q.nmuons],
     output=None,
     scopes=["nnmm","nnmm_dycontrol"],
+)
+FilterNMuons_fjmm = Producer(
+    name="FilterNMuons_fjmm",
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_fjmm_nmuons}, "==", "Number of muons 2")',
+    input=[q.nmuons],
+    output=None,
+    scopes=["fjmm"],
+)
+FilterNFatjets_fjmm = Producer(
+    name="FilterNFatjets_fjmm",
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_fjmm_nfatjets}, ">=", "Number of fatjets > 1")',
+    input=[q.nfatjets],
+    output=None,
+    scopes=["fjmm"],
 )
 DimuonMinMassCut = Producer(
     name="DimuonMinMassCut",
     call='basefunctions::FilterThreshold({df}, {input}, {min_dimuon_mass}, ">=", "No m(mm) < 12 GeV")',
     input=[q.smallest_dimuon_mass],
     output=None,
-    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","nnmm_dycontrol"],
+    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol"],
 )
 DielectronMinMassCut = Producer(
     name="DielectronMinMassCut",
@@ -230,7 +244,7 @@ Flag_DiMuonFromHiggs = Producer(
     call='physicsobject::DiMuonFromHiggs({df}, {output}, {input})',
     input=[q.dimuon_HiggsCand_collection],
     output=[q.Flag_DiMuonFromHiggs],
-    scopes=["global","e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["global","e2m","m2m","eemm","mmmm","nnmm","fjmm"],
 )
 ### need a collection that di_ele after cut
 Flag_DiEleFromZ = Producer(
@@ -250,7 +264,7 @@ HiggsToDiMuonPair_p4 = Producer(
            nanoAOD.Muon_mass,
            q.dimuon_HiggsCand_collection],
     output=[q.dimuon_p4_Higgs],
-    scopes=["global","e2m","m2m","eemm","nnmm"],
+    scopes=["global","e2m","m2m","eemm","nnmm","fjmm"],
 )
 HiggsToDiMuonPair_p4_4m = Producer(
     name="HiggsToDiMuonPair_p4_4m",
@@ -307,7 +321,7 @@ Mask_DiMuonPair = Producer(
            nanoAOD.Muon_charge,
            q.good_muon_collection],
     output=[q.dimuon_HiggsCand_collection], # index about the two selected muons may from Higgs
-    scopes=["global","e2m","m2m","eemm","nnmm"],
+    scopes=["global","e2m","m2m","eemm","nnmm","fjmm"],
 )
 Mask_DiElectronPair = Producer(
     name="Mask_DiElectronPair",
@@ -359,7 +373,7 @@ mumuH_dR = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mumuH_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
 )
 ### e2m channel 
 muSSwithElectronW_p4 = Producer(
@@ -525,7 +539,7 @@ met_mmH_dphi = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.met_H_dphi],
-    scopes=["nnmm"],
+    scopes=["nnmm","fjmm"],
 )
 ### dphi mu1H and mu2H
 mumuH_dphi = Producer(
@@ -588,21 +602,21 @@ FilterFlagDiMuFromH = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {flag_DiMuonFromHiggs}, "==", "DiMuon From Higgs")',
     input=[q.Flag_DiMuonFromHiggs],
     output=None,
-    scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
 )
 FilterFlagLepChargeSum = Producer(
     name="FilterFlagLepChargeSum",
     call='basefunctions::FilterThreshold({df}, {input}, {flag_LeptonChargeSumVeto}, "==", "LeptonChargeSum")',
     input=[q.Flag_LeptonChargeSumVeto],
     output=None,
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","nnmm_dycontrol","nnmm_topcontrol"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol"],
 )
 FilterFlagEleVeto = Producer(
     name="FilterFlagEleVeto",
     call='basefunctions::FilterThreshold({df}, {input}, {flag_Ele_Veto}, "==", "Electron Veto")',
     input=[q.Flag_Ele_Veto],
     output=None,
-    scopes=["m2m","mmmm","nnmm","nnmm_dycontrol"],
+    scopes=["m2m","mmmm","nnmm","fjmm","nnmm_dycontrol"],
 )
 FilterFlagDiEleZMassVeto = Producer(
     name="FilterFlagDiEleZMassVeto",
@@ -620,7 +634,7 @@ mumuH_MHT_dphi = Producer(
       q.MHT_p4,
     ],
     output=[q.mumuH_MHT_dphi],
-    scopes=["e2m","m2m","nnmm"],
+    scopes=["e2m","m2m","nnmm","fjmm"],
 )
 mu1_MHT_dphi = Producer(
     name="mu1_MHT_dphi",
@@ -630,7 +644,7 @@ mu1_MHT_dphi = Producer(
       q.MHT_p4,
     ],
     output=[q.mu1_MHT_dphi],
-    scopes=["e2m","m2m","nnmm"],
+    scopes=["e2m","m2m","nnmm","fjmm"],
 )
 mu2_MHT_dphi = Producer(
     name="mu2_MHT_dphi",
@@ -640,7 +654,7 @@ mu2_MHT_dphi = Producer(
       q.MHT_p4,
     ],
     output=[q.mu2_MHT_dphi],
-    scopes=["e2m","m2m","nnmm"],
+    scopes=["e2m","m2m","nnmm","fjmm"],
 )
 mu1_mu2_dphi = Producer(
     name="mu1_mu2_dphi",
@@ -650,7 +664,7 @@ mu1_mu2_dphi = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu1_mu2_dphi],
-    scopes=["e2m","m2m","nnmm"],
+    scopes=["e2m","m2m","nnmm","fjmm"],
 )
 lep_mu1_dphi = Producer(
     name="lep_mu1_dphi",
@@ -781,4 +795,139 @@ FilterFlagMetCut = Producer(
     input=[q.Flag_MetCut],
     output=None,
     scopes=["nnmm","nnmm_dycontrol","nnmm_topcontrol"],
+)
+# fatjet
+Flag_MaxMetCut = Producer(
+    name="Flag_MaxMetCut",
+    call="physicsobject::MaxMetCut({df}, {output}, {input}, {max_met})",
+    input=[
+      q.met_p4,
+    ],
+    output=[q.Flag_MaxMetCut],
+    scopes=["fjmm"],
+)
+FilterFlagMaxMetCut = Producer(
+    name="FilterFlagMaxMetCut",
+    call='basefunctions::FilterThreshold({df}, {input}, {flag_MaxMetCut}, "==", "MET <= 150 GeV")',
+    input=[q.Flag_MaxMetCut],
+    output=None,
+    scopes=["fjmm"],
+)
+##################################
+################## fatjet and Higgs
+##################################
+### deta fatjet and H
+fatjet_mmH_deta = Producer(
+    name="fatjet_mmH_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.dimuon_p4_Higgs,
+    ],
+    output=[q.fatjet_mmH_deta],
+    scopes=["fjmm"],
+)
+### dphi fatjet and H
+fatjet_mmH_dphi = Producer(
+    name="fatjet_mmH_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.dimuon_p4_Higgs,
+    ],
+    output=[q.fatjet_mmH_dphi],
+    scopes=["fjmm"],
+)
+### dR fatjet and H
+fatjet_mmH_dR = Producer(
+    name="fatjet_mmH_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.dimuon_p4_Higgs,
+    ],
+    output=[q.fatjet_mmH_dR],
+    scopes=["fjmm"],
+)
+##################################
+################## fatjet and mu1
+##################################
+### deta fatjet and mu1
+fatjet_mu1_deta = Producer(
+    name="fatjet_mu1_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.muon_leadingp4_H,
+    ],
+    output=[q.fatjet_mu1_deta],
+    scopes=["fjmm"],
+)
+### dphi fatjet and mu1
+fatjet_mu1_dphi = Producer(
+    name="fatjet_mu1_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.muon_leadingp4_H,
+    ],
+    output=[q.fatjet_mu1_dphi],
+    scopes=["fjmm"],
+)
+### dR fatjet and mu1
+fatjet_mu1_dR = Producer(
+    name="fatjet_mu1_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.muon_leadingp4_H,
+    ],
+    output=[q.fatjet_mu1_dR],
+    scopes=["fjmm"],
+)
+##################################
+################## fatjet and mu2
+##################################
+### deta fatjet and mu2
+fatjet_mu2_deta = Producer(
+    name="fatjet_mu2_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.muon_subleadingp4_H,
+    ],
+    output=[q.fatjet_mu2_deta],
+    scopes=["fjmm"],
+)
+### dphi fatjet and mu2
+fatjet_mu2_dphi = Producer(
+    name="fatjet_mu2_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.muon_subleadingp4_H,
+    ],
+    output=[q.fatjet_mu2_dphi],
+    scopes=["fjmm"],
+)
+### dR fatjet and mu2
+fatjet_mu2_dR = Producer(
+    name="fatjet_mu2_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.muon_subleadingp4_H,
+    ],
+    output=[q.fatjet_mu2_dR],
+    scopes=["fjmm"],
+)
+### return the SoftDrop Mass of the fatjets
+fatjetSoftDropMass = Producer(
+    name="fatjetSoftDropMass",
+    call='physicsobject::LeadingFatJetSoftDropMass({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_msoftdrop,
+           q.good_fatjet_collection],
+    output=[q.fatjet_msoftdrop],
+    scopes=["fjmm"],
 )

@@ -92,14 +92,14 @@ NumberOfBaseElectrons = Producer(
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
     input=[q.base_electrons_mask],
     output=[q.nelectrons],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","nnmm_dycontrol","nnmm_topcontrol"],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol"],
 )
 Ele_Veto = Producer(
     name="Ele_Veto",
     call="physicsobject::Ele_Veto({df}, {output}, {input})",
     input=[q.base_electrons_mask],
     output=[q.Flag_Ele_Veto],
-    scopes=["global","m2m","mmmm","nnmm","nnmm_dycontrol"],
+    scopes=["global","m2m","mmmm","nnmm","fjmm","nnmm_dycontrol"],
 )
 ### Electron collection and their properties
 ElectronCollection = Producer(
