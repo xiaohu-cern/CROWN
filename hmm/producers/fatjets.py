@@ -99,7 +99,7 @@ FatJetIDCut = Producer(
 )
 VetoOverlappingFatJetsWithMuons = Producer(
     name="VetoOverlappingFatJetsWithMuons",
-    call="jet::VetoOverlappingJets({df}, {output}, {input}, {deltaR_jet_veto})",
+    call="jet::VetoOverlappingJets({df}, {output}, {input}, {deltaR_fatjet_veto})",
     input=[nanoAOD.FatJet_eta, nanoAOD.FatJet_phi, nanoAOD.Muon_eta, nanoAOD.Muon_phi, q.base_muons_mask], # vh base or good muon?
     output=[q.fatjet_overlap_veto_mask],
     scopes=["global"],

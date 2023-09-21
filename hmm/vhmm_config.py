@@ -400,7 +400,7 @@ def build_config(
     configuration.add_config_parameters(
         "global",
         {
-            "min_fatjet_pt": 250, # vhbb selection
+            "min_fatjet_pt": 150, # vhbb selection 250
             "max_fatjet_eta": 2.5, # vhbb selection
             "min_fatjet_MSD": 50, # soft drop mass > 50 GeV
             # "fatjet_id": 2,  # default: 2==pass tight ID and fail tightLepVeto
@@ -1608,6 +1608,16 @@ def build_config(
         ],
     )
     
+    # configuration.add_outputs(
+    #     "fjmm",
+    #     [   
+    #         nanoAOD.FatJet_deepTag_WvsQCD,
+    #         nanoAOD.FatJet_deepTag_ZvsQCD,
+    #         nanoAOD.FatJet_deepTag_QCD,
+    #         nanoAOD.FatJet_deepTagMD_WvsQCD,
+    #         nanoAOD.FatJet_deepTagMD_ZvsQCD,
+    #     ],
+    # )
     # add genWeight for everything but data
     if sample != "data":
         configuration.add_outputs(

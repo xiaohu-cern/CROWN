@@ -151,3 +151,10 @@ FatJet_msoftdrop = NanoAODQuantity("FatJet_msoftdrop")
 # Jet_associatedGenJet = NanoAODQuantity("Jet_genJetIdx")
 #BJet_discriminator = NanoAODQuantity("Jet_btagDeepFlavB") # DeepFlavour
 BFatJet_discriminator = NanoAODQuantity("FatJet_btagDeepB") # vh DeepCSV
+
+# FatJet DeepBoostedJet tagger
+FatJet_deepTag_WvsQCD = NanoAODQuantity("FatJet_deepTag_WvsQCD") # DeepBoostedJet tagger W vs QCD discriminator
+FatJet_deepTag_ZvsQCD = NanoAODQuantity("FatJet_deepTag_ZvsQCD") # DeepBoostedJet tagger Z vs QCD discriminator
+FatJet_deepTag_QCD = NanoAODQuantity("FatJet_deepTag_QCD") # DeepBoostedJet tagger QCD(bb,cc,b,c,others) sum
+FatJet_deepTagMD_WvsQCD = NanoAODQuantity("FatJet_deepTagMD_WvsQCD") # Mass-decorrelated DeepBoostedJet tagger W vs QCD discriminator
+FatJet_deepTagMD_ZvsQCD = NanoAODQuantity("FatJet_deepTagMD_ZvsQCD") # Mass-decorrelated DeepBoostedJet tagger Z vs QCD discriminator
