@@ -1353,6 +1353,21 @@ ROOT::RDF::RNode LeadingFatJetSoftDropMass(ROOT::RDF::RNode df, const std::strin
     return df1;
 }
 ///
+ROOT::RDF::RNode LeadingFatJetVar(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &fatjet_deepTag, 
+                                 const std::string &good_fatjets_index) {
+    auto FatJetVar = [](const ROOT::RVec<float> &fatjet_deepTag,
+                              const ROOT::RVec<int> &good_fatjets_index) {
+                                // just return the MassSD after good fatjet
+                                 float FatJet_deepTag = fatjet_deepTag.at(good_fatjets_index[0]);
+                                 return FatJet_deepTag;
+                             };
+    auto df1 = 
+        df.Define(outputname, FatJetVar, {fatjet_deepTag, good_fatjets_index});
+    return df1;
+}
+
+///
 /// Make Higgs To MuMu Pair Return to a mask
 // ROOT::RDF::RNode HiggsToMuMu_Cand(ROOT::RDF::RNode df, const std::string &maskname,
 //                         const std::string &dimuon_p4) {

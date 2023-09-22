@@ -1140,7 +1140,6 @@ def build_config(
             p4.fatjet_eta,
             p4.fatjet_phi,
             p4.fatjet_mass,
-            event.fatjetSoftDropMass,
             event.fatjet_mmH_deta,
             event.fatjet_mmH_dphi,
             event.fatjet_mmH_dR,
@@ -1150,6 +1149,12 @@ def build_config(
             event.fatjet_mu2_deta,
             event.fatjet_mu2_dphi,
             event.fatjet_mu2_dR,
+            event.fatjetSoftDropMass,
+            event.fatjet_deepTag_WvsQCD,
+            event.fatjet_deepTag_ZvsQCD,
+            event.fatjet_deepTag_QCD,
+            event.fatjet_deepTagMD_WvsQCD,
+            event.fatjet_deepTagMD_ZvsQCD,
         ],
     )
     configuration.add_producers(
@@ -1561,7 +1566,7 @@ def build_config(
             # q.genmu2_fromH_eta,
             # q.genmu2_fromH_phi,
             # q.genmu2_fromH_mass,
-            # nanoAOD.FatJet_msoftdrop, 
+            # nanoAOD.fatjet_msoftdrop, 
             q.fatjet_msoftdrop,
             q.fatjet_pt,
             q.fatjet_eta,
@@ -1576,6 +1581,11 @@ def build_config(
             q.fatjet_mu2_deta,
             q.fatjet_mu2_dphi,
             q.fatjet_mu2_dR,
+            q.fatjet_deepTag_WvsQCD,
+            q.fatjet_deepTag_ZvsQCD,
+            q.fatjet_deepTag_QCD,
+            q.fatjet_deepTagMD_WvsQCD,
+            q.fatjet_deepTagMD_ZvsQCD,
         ],
     )
     configuration.add_outputs(

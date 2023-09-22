@@ -185,6 +185,9 @@ ROOT::RDF::RNode TopControlEleMuPairP4(ROOT::RDF::RNode df, const std::string &o
 ROOT::RDF::RNode LeadingFatJetSoftDropMass(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &fatjet_softdrop_mass, 
                                  const std::string &good_fatjets_index);
+ROOT::RDF::RNode LeadingFatJetVar(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &fatjet_deepTag, 
+                                 const std::string &good_fatjets_index);
 // ROOT::RDF::RNode HiggsToMuMu_Cand(ROOT::RDF::RNode df, const std::string &maskname,
 //                         const std::string &dimuon_p4);
 // ROOT::RDF::RNode GetFirstElement(ROOT::RDF::RNode df,
