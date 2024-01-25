@@ -473,8 +473,8 @@ def build_config(
                     "2016postVFP": '"data/jsonpog-integration/POG/JME/2016postVFP_UL/fatJet_jerc.json.gz"',
                     "2017": '"data/jsonpog-integration/POG/JME/2017_UL/fatJet_jerc.json.gz"',
                     "2018": '"data/jsonpog-integration/POG/JME/2018_UL/fatJet_jerc.json.gz"',
-                    "2022preEE": '"data/jsonpog-integration/POG/JME/2018_UL/fatJet_jerc.json.gz"',
-                    "2022postEE": '"data/jsonpog-integration/POG/JME/2018_UL/fatJet_jerc.json.gz"',
+                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt-zhiyuan/fatJet_jerc.json.gz"',
+                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE-zhiyuan/fatJet_jerc.json.gz"',
                 }
             ),
             "fatjet_jer_tag": EraModifier(
@@ -483,8 +483,8 @@ def build_config(
                     "2016postVFP": '"Summer20UL16_JRV3_MC"',
                     "2017": '"Summer19UL17_JRV2_MC"',
                     "2018": '"Summer19UL18_JRV2_MC"',
-                    "2022preEE": '"Summer19UL18_JRV2_MC"',
-                    "2022postEE": '"Summer19UL18_JRV2_MC"',
+                    "2022preEE": '"JR_Winter22Run3_V1_MC"', # just for testing (TBD)
+                    "2022postEE": '"Summer22EEPrompt_JRV1_MC"', # just for testing (TBD)
                 }
             ),
             "fatjet_jes_tag_data": '""',
@@ -494,8 +494,8 @@ def build_config(
                     "2016postVFP": '"Summer19UL16_V7_MC"',
                     "2017": '"Summer19UL17_V5_MC"',
                     "2018": '"Summer19UL18_V5_MC"',
-                    "2022preEE": '"Summer19UL18_V5_MC"',
-                    "2022postEE": '"Summer19UL18_V5_MC"',
+                    "2022preEE": '"Winter22Run3_V2_MC"', # just for testing (TBD)
+                    "2022postEE": '"Summer22EEPrompt_V1_MC"', # just for testing (TBD)
                 }
             ),
             "fatjet_jec_algo": '"AK8PFPuppi"',
@@ -516,14 +516,14 @@ def build_config(
                     "2022postEE": 2.5,
                 }
             ),
-            "btag_cut_loose": EraModifier(  # loose # (vhmm Run2 use DeepCSV)
+            "btag_cut_loose": EraModifier(  # loose # (vhmm Run2 use DeepCSV) https://btv-wiki.docs.cern.ch/ScaleFactors/UL2018/
                 {
-                    "2016preVFP": 0.2027, # 2016preVFP: 0.2027, 2016postVFP: 0.1918
-                    "2016postVFP": 0.1918, # 2016preVFP: 0.2027, 2016postVFP: 0.1918
-                    "2017": 0.1355, # 2017: 0.1355
-                    "2018": 0.1208, # 2018: 0.1208
-                    "2022preEE": 0.1208,
-                    "2022postEE": 0.1208,
+                    "2016preVFP": 0.2027, # 2016preVFP: 0.2027, 2016postVFP: 0.1918 (DeepCSV)
+                    "2016postVFP": 0.1918, # 2016preVFP: 0.2027, 2016postVFP: 0.1918 (DeepCSV)
+                    "2017": 0.1355, # 2017: 0.1355 (DeepCSV)
+                    "2018": 0.1208, # 2018: 0.1208 (DeepCSV)
+                    "2022preEE": 0.047, # (PNet)
+                    "2022postEE": 0.0499, # (PNet)
                 }
             ),
             "btag_cut_medium": EraModifier(  # medium
@@ -532,8 +532,8 @@ def build_config(
                     "2016postVFP": 0.5847, # 2016preVFP: 0.6001, 2016postVFP: 0.5847
                     "2017": 0.4506, # 2017: 0.4506
                     "2018": 0.4168, # 2018: 0.4168
-                    "2022preEE": 0.4168,
-                    "2022postEE": 0.4168,
+                    "2022preEE": 0.245, # (PNet)
+                    "2022postEE": 0.2605, # (PNet)
                 }
             ),
         },
