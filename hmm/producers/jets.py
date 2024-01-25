@@ -120,10 +120,24 @@ BTagCutLoose = Producer(
     output=[],
     scopes=["global"],
 )
+BTagCutLoose_PNet = Producer(
+    name="BTagCutLoose_PNet",
+    call="physicsobject::jet::CutRawID({df}, {input}, {output}, {btag_cut_loose})",
+    input=[nanoAOD.BJet_discriminator_PNet],
+    output=[],
+    scopes=["global"],
+)
 BTagCutMedium = Producer(
     name="BTagCutMedium",
     call="physicsobject::jet::CutRawID({df}, {input}, {output}, {btag_cut_medium})",
     input=[nanoAOD.BJet_discriminator],
+    output=[],
+    scopes=["global"],
+)
+BTagCutMedium_PNet = Producer(
+    name="BTagCutMedium_PNet",
+    call="physicsobject::jet::CutRawID({df}, {input}, {output}, {btag_cut_medium})",
+    input=[nanoAOD.BJet_discriminator_PNet],
     output=[],
     scopes=["global"],
 )
@@ -165,6 +179,14 @@ GoodBJetsLoose = ProducerGroup(
     scopes=["global"],
     subproducers=[BJetPtCut, BJetEtaCut, BTagCutLoose],
 )
+GoodBJetsLoose_PNet = ProducerGroup(
+    name="GoodBJetsLoose_PNet",
+    call="physicsobject::CombineMasks({df}, {output}, {input})",
+    input=[q.good_jets_mask],
+    output=[q.good_bjets_mask_loose],
+    scopes=["global"],
+    subproducers=[BJetPtCut, BJetEtaCut, BTagCutLoose_PNet],
+)
 GoodBJetsMedium = ProducerGroup(
     name="GoodBJetsMedium",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
@@ -172,6 +194,14 @@ GoodBJetsMedium = ProducerGroup(
     output=[q.good_bjets_mask_medium],
     scopes=["global"],
     subproducers=[BTagCutMedium],
+)
+GoodBJetsMedium_PNet = ProducerGroup(
+    name="GoodBJetsMedium_PNet",
+    call="physicsobject::CombineMasks({df}, {output}, {input})",
+    input=[q.good_bjets_mask_loose],
+    output=[q.good_bjets_mask_medium],
+    scopes=["global"],
+    subproducers=[BTagCutMedium_PNet],
 )
 
 NumberOfLooseB = Producer(

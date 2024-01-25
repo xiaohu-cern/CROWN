@@ -421,3 +421,11 @@ fatjet_deepTag_ZvsQCD = Quantity("fatjet_deepTag_ZvsQCD")
 fatjet_deepTag_QCD = Quantity("fatjet_deepTag_QCD")
 fatjet_deepTagMD_WvsQCD = Quantity("fatjet_deepTagMD_WvsQCD")
 fatjet_deepTagMD_ZvsQCD = Quantity("fatjet_deepTagMD_ZvsQCD")
+
+fatjet_PNet_QCD = Quantity("fatjet_PNet_QCD")
+fatjet_PNet_withMass_QCD = Quantity("fatjet_PNet_withMass_QCD")
+fatjet_PNet_withMass_WvsQCD = Quantity("fatjet_PNet_withMass_WvsQCD")
+fatjet_PNet_withMass_ZvsQCD = Quantity("fatjet_PNet_withMass_ZvsQCD")
+fatjet_PNet_withMass_TvsQCD = Quantity("fatjet_PNet_withMass_TvsQCD")
+
+ele_uchar_id_mask = Quantity("ele_uchar_id_mask")

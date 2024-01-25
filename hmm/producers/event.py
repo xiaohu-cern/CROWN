@@ -977,3 +977,86 @@ fatjet_deepTagMD_ZvsQCD = Producer(
     output=[q.fatjet_deepTagMD_ZvsQCD],
     scopes=["fjmm"],
 )
+### FatJet PNet in Nano v12
+fatjet_PNet_QCD = Producer(
+    name="fatjet_PNet_QCD",
+    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_particleNet_QCD,
+           q.good_fatjet_collection],
+    output=[q.fatjet_PNet_QCD],
+    scopes=["fjmm"],
+)
+fatjet_PNet_withMass_QCD = Producer(
+    name="fatjet_PNet_withMass_QCD",
+    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_particleNetWithMass_QCD,
+           q.good_fatjet_collection],
+    output=[q.fatjet_PNet_withMass_QCD],
+    scopes=["fjmm"],
+)
+fatjet_PNet_withMass_WvsQCD = Producer(
+    name="fatjet_PNet_withMass_WvsQCD",
+    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_particleNetWithMass_WvsQCD,
+           q.good_fatjet_collection],
+    output=[q.fatjet_PNet_withMass_WvsQCD],
+    scopes=["fjmm"],
+)
+fatjet_PNet_withMass_ZvsQCD = Producer(
+    name="fatjet_PNet_withMass_ZvsQCD",
+    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_particleNetWithMass_ZvsQCD,
+           q.good_fatjet_collection],
+    output=[q.fatjet_PNet_withMass_ZvsQCD],
+    scopes=["fjmm"],
+)
+fatjet_PNet_withMass_TvsQCD = Producer(
+    name="fatjet_PNet_withMass_TvsQCD",
+    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_particleNetWithMass_TvsQCD,
+           q.good_fatjet_collection],
+    output=[q.fatjet_PNet_withMass_TvsQCD],
+    scopes=["fjmm"],
+)
+### FatJet PNet in Nano v9
+fatjet_PNet_withMass_QCD_Nanov9 = Producer(
+    name="fatjet_PNet_withMass_QCD_Nanov9",
+    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_particleNet_QCD_Nanov9,
+           q.good_fatjet_collection],
+    output=[q.fatjet_PNet_withMass_QCD],
+    scopes=["fjmm"],
+)
+fatjet_PNet_withMass_WvsQCD_Nanov9 = Producer(
+    name="fatjet_PNet_withMass_WvsQCD_Nanov9",
+    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_particleNet_WvsQCD_Nanov9,
+           q.good_fatjet_collection],
+    output=[q.fatjet_PNet_withMass_WvsQCD],
+    scopes=["fjmm"],
+)
+fatjet_PNet_withMass_ZvsQCD_Nanov9 = Producer(
+    name="fatjet_PNet_withMass_ZvsQCD_Nanov9",
+    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_particleNet_ZvsQCD_Nanov9,
+           q.good_fatjet_collection],
+    output=[q.fatjet_PNet_withMass_ZvsQCD],
+    scopes=["fjmm"],
+)
+fatjet_PNet_withMass_TvsQCD_Nanov9 = Producer(
+    name="fatjet_PNet_withMass_TvsQCD_Nanov9",
+    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_particleNet_TvsQCD_Nanov9,
+           q.good_fatjet_collection],
+    output=[q.fatjet_PNet_withMass_TvsQCD],
+    scopes=["fjmm"],
+)

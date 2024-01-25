@@ -68,8 +68,9 @@ Jet_rawFactor = NanoAODQuantity("Jet_rawFactor")
 Jet_ID = NanoAODQuantity("Jet_jetId")
 Jet_PUID = NanoAODQuantity("Jet_puId")
 Jet_associatedGenJet = NanoAODQuantity("Jet_genJetIdx")
-#BJet_discriminator = NanoAODQuantity("Jet_btagDeepFlavB") # DeepFlavour
-BJet_discriminator = NanoAODQuantity("Jet_btagDeepB") # vh DeepCSV
+# BJet_discriminator = NanoAODQuantity("Jet_btagDeepFlavB") # DeepFlavour
+BJet_discriminator = NanoAODQuantity("Jet_btagDeepB") # vh DeepCSV it seems previous work using Jet_btagDeepB
+BJet_discriminator_PNet = NanoAODQuantity("Jet_btagPNetB") # PNet 
 
 Pileup_nTrueInt = NanoAODQuantity("Pileup_nTrueInt")
 rho = NanoAODQuantity("Pileup_pudensity")
@@ -158,3 +159,18 @@ FatJet_deepTag_ZvsQCD = NanoAODQuantity("FatJet_deepTag_ZvsQCD") # DeepBoostedJe
 FatJet_deepTag_QCD = NanoAODQuantity("FatJet_deepTag_QCD") # DeepBoostedJet tagger QCD(bb,cc,b,c,others) sum
 FatJet_deepTagMD_WvsQCD = NanoAODQuantity("FatJet_deepTagMD_WvsQCD") # Mass-decorrelated DeepBoostedJet tagger W vs QCD discriminator
 FatJet_deepTagMD_ZvsQCD = NanoAODQuantity("FatJet_deepTagMD_ZvsQCD") # Mass-decorrelated DeepBoostedJet tagger Z vs QCD discriminator
+
+# in NanoAOD v9
+FatJet_particleNet_QCD_Nanov9 = NanoAODQuantity("FatJet_particleNet_QCD") # ParticleNet tagger QCD(bb,cc,b,c,others) sum
+FatJet_particleNet_WvsQCD_Nanov9 = NanoAODQuantity("FatJet_particleNet_WvsQCD") # ParticleNet tagger W vs QCD discriminator
+FatJet_particleNet_ZvsQCD_Nanov9 = NanoAODQuantity("FatJet_particleNet_ZvsQCD") # ParticleNet tagger Z vs QCD discriminator
+FatJet_particleNet_TvsQCD_Nanov9 = NanoAODQuantity("FatJet_particleNet_TvsQCD") # ParticleNet tagger top vs QCD discriminator
+
+# in NanoAOD v12
+FatJet_particleNet_QCD = NanoAODQuantity("FatJet_particleNet_QCD") # ParticleNet tagger QCD(0+1+2HF) sum
+FatJet_particleNetWithMass_QCD = NanoAODQuantity("FatJet_particleNetWithMass_QCD") # ParticleNet tagger (w/ mass) QCD(bb,cc,b,c,others) sum
+FatJet_particleNetWithMass_WvsQCD = NanoAODQuantity("FatJet_particleNetWithMass_WvsQCD") # ParticleNet tagger (w/ mass) W vs QCD discriminator
+FatJet_particleNetWithMass_ZvsQCD = NanoAODQuantity("FatJet_particleNetWithMass_ZvsQCD") # ParticleNet tagger (w/ mass) Z vs QCD discriminator
+FatJet_particleNetWithMass_TvsQCD = NanoAODQuantity("FatJet_particleNetWithMass_TvsQCD") # ParticleNet tagger (w/ mass) top vs QCD discriminator
+
+Electron_cutBased = NanoAODQuantity("Electron_cutBased")
