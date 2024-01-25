@@ -267,6 +267,11 @@ ROOT::RDF::RNode CutID(ROOT::RDF::RNode df, const std::string &maskname,
     auto df1 = df.Define(maskname, basefunctions::FilterJetID(idxID), {nameID});
     return df1;
 }
+ROOT::RDF::RNode CutUCharID(ROOT::RDF::RNode df, const std::string &maskname,
+                       const std::string &nameID, const unsigned char &idxID) {
+    auto df1 = df.Define(maskname, basefunctions::FilterJetUCharID(idxID), {nameID});
+    return df1;
+}
 /// Function to cut jets based on the jet pileup ID
 ///
 /// \param[in] df the input dataframe
@@ -376,7 +381,7 @@ JetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                                          const ROOT::RVec<float> &area_values,
                                          const ROOT::RVec<float>
                                              &rawFactor_values,
-                                         const ROOT::RVec<int> &ID_values,
+                                         const ROOT::RVec<unsigned char> &ID_values,
                                          const ROOT::RVec<float> &gen_pt_values,
                                          const ROOT::RVec<float>
                                              &gen_eta_values,

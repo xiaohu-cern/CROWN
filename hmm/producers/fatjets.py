@@ -61,6 +61,14 @@ RenameFatJetMass = Producer(
     output=[q.FatJet_mass_corrected],
     scopes=["global"],
 )
+FatJetEnergyCorrection_2017_noPtCorr = ProducerGroup(
+    name="FatJetEnergyCorrection_2017_noPtCorr",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["global"],
+    subproducers=[RenameFatJetPt, FatJetMassCorrection],
+)
 RenameFatJetsData = ProducerGroup(
     name="RenameFatJetsData",
     call=None,
@@ -97,6 +105,14 @@ FatJetIDCut = Producer(
     output=[q.fatjet_id_mask],
     scopes=["global"],
 )
+## 2022preEE fatjet id UChar_t 
+FatJetIDCut_UChar = Producer(
+    name="FatJetIDCut_UChar",
+    call="physicsobject::jet::CutUCharID({df}, {output}, {input}, {fatjet_id})",
+    input=[nanoAOD.FatJet_ID],
+    output=[q.fatjet_id_mask],
+    scopes=["global"],
+)
 VetoOverlappingFatJetsWithMuons = Producer(
     name="VetoOverlappingFatJetsWithMuons",
     call="jet::VetoOverlappingJets({df}, {output}, {input}, {deltaR_fatjet_veto})",
@@ -110,7 +126,7 @@ GoodFatJets = ProducerGroup(
     input=[],
     output=[q.good_fatjets_mask],
     scopes=["global"],
-    subproducers=[FatJetPtCut, FatJetEtaCut, FatJetSDMassCut, FatJetIDCut, VetoOverlappingFatJetsWithMuons],
+    subproducers=[FatJetPtCut, FatJetEtaCut, FatJetSDMassCut, FatJetIDCut_UChar, VetoOverlappingFatJetsWithMuons],
 )
 NumberOfGoodFatJets = Producer(
     name="NumberOfGoodFatJets",

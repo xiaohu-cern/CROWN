@@ -34,6 +34,8 @@ namespace jet {
 
 ROOT::RDF::RNode CutID(ROOT::RDF::RNode df, const std::string &maskname,
                        const std::string &nameID, const int &idxID);
+ROOT::RDF::RNode CutUCharID(ROOT::RDF::RNode df, const std::string &maskname,
+                       const std::string &nameID, const unsigned char &idxID);
 ROOT::RDF::RNode CutPUID(ROOT::RDF::RNode df, const std::string &maskname,
                          const std::string &nameID, const std::string &jet_pt,
                          const int &idxID, const float &jet_pt_cut);

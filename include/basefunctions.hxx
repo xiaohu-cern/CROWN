@@ -298,7 +298,12 @@ inline auto FilterMax(const float &cut) {
         return mask;
     };
 }
-
+inline auto FilterMaxUChar(const unsigned char &cut) {
+    return [cut](const ROOT::RVec<unsigned char> &values) {
+        ROOT::RVec<int> mask = values < cut;
+        return mask;
+    };
+}
 /// Function to apply a maximal filter requirement to an integer quantity.
 /// Returns true if the value is smaller than the given cut value
 ///
@@ -409,6 +414,14 @@ inline auto FilterJetID(const int &index) {
         ROOT::RVec<int> mask = IDs >= index;
         Logger::get("FilterJetID")->debug("IDs: {}", IDs);
         Logger::get("FilterJetID")->debug("Filtered mask: {}", mask);
+        return mask;
+    };
+}
+inline auto FilterJetUCharID(const unsigned char &index) {
+    return [index](const ROOT::RVec<UChar_t> &IDs) {
+        ROOT::RVec<int> mask = IDs >= index;
+        Logger::get("FilterJetUCharID")->debug("IDs: {}", IDs);
+        Logger::get("FilterJetUCharID")->debug("Filtered mask: {}", mask);
         return mask;
     };
 }

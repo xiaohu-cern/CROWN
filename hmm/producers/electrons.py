@@ -48,6 +48,13 @@ ElectronIDCut = Producer(
     output=[],
     scopes=["global"],
 )
+ElectronUCharIDCut = Producer(
+    name="ElectronUCharIDCut",
+    call='physicsobject::electron::CutUCharID({df}, {output}, {input}, {ele_cutbaseid})', 
+    input=[nanoAOD.Electron_cutBased],
+    output=[q.ele_uchar_id_mask],
+    scopes=["global"],
+)
 ElectronSIP3DCut = Producer(
     name="MuonSIP3DCut",
     call="physicsobject::CutVarMax({df}, {input}, {output}, {max_sip3d})",
@@ -69,6 +76,13 @@ ElectronMissingHitsCut = Producer(
     output=[],
     scopes=["global"],
 )
+ElectronMissingHitsCut_UChar = Producer(
+    name="ElectronMissingHitsCut_UChar",
+    call="physicsobject::CutVarMaxUChar({df}, {input}, {output}, {ele_missing_hits})",
+    input=[nanoAOD.Electron_lostHits],
+    output=[],
+    scopes=["global"],
+)
 BaseElectrons = ProducerGroup(
     name="BaseElectrons",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
@@ -80,10 +94,12 @@ BaseElectrons = ProducerGroup(
         ElectronECalGapVeto,
         ElectronDxyCut,
         ElectronDzCut,
-        ElectronIDCut,
+        # ElectronIDCut,
+        ElectronUCharIDCut,
         ElectronSIP3DCut,
         ElectronConvVeto,
-        ElectronMissingHitsCut,
+        # ElectronMissingHitsCut,
+        ElectronMissingHitsCut_UChar,
         Electron_mvaTTH_Cut,
     ],
 )

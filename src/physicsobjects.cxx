@@ -1026,14 +1026,14 @@ ROOT::RDF::RNode BosonDecayMode(ROOT::RDF::RNode df, const std::string &outputna
                                  const std::string &GenPart_motherid,
                                  const std::string &GenPart_statusFlags) {
     auto DecayMode = [](const ROOT::RVec<int> &GenPart_pdgId,
-                        const ROOT::RVec<int> &GenPart_motherid,
-                        const ROOT::RVec<int> &GenPart_statusFlags) {
-                                 const ROOT::RVec<int> ids_lepton = {11, 12, 13, 14, 15, 16};
-                                 const ROOT::RVec<int> ids_hadron = {1, 2, 3, 4, 5, 6, 21};
+                        const ROOT::RVec<short> &GenPart_motherid,
+                        const ROOT::RVec<unsigned short> &GenPart_statusFlags) {
+                                 const ROOT::RVec<short> ids_lepton = {11, 12, 13, 14, 15, 16};
+                                 const ROOT::RVec<short> ids_hadron = {1, 2, 3, 4, 5, 6, 21};
                                  /// #isLastCopy = ( ((part.statusFlags) >> 13) & 1 )
-                                 const ROOT::RVec<int> ids_lepton_Z = {11, 13, 15};
-                                 const ROOT::RVec<int> ids_hadron_Z = {1, 2, 3, 4, 5, 6, 21};
-                                 const ROOT::RVec<int> ids_invis = {12, 14, 16};
+                                 const ROOT::RVec<short> ids_lepton_Z = {11, 13, 15};
+                                 const ROOT::RVec<short> ids_hadron_Z = {1, 2, 3, 4, 5, 6, 21};
+                                 const ROOT::RVec<short> ids_invis = {12, 14, 16};
                                  for (unsigned int i = 0; i < (int)GenPart_pdgId.size(); ++i ) {
                                     // check if the gen particle is W
                                     if ( ( abs(GenPart_pdgId.at(i)) == 24 ) && ( (GenPart_statusFlags.at(i) >> 13) & 1 == 1 ) ) {
@@ -1436,6 +1436,12 @@ ROOT::RDF::RNode CutVarMax(ROOT::RDF::RNode df, const std::string &quantity,
                        const std::string &maskname, const float &threshold) {
     auto df1 =
         df.Define(maskname, basefunctions::FilterMax(threshold), {quantity});
+    return df1;
+}
+ROOT::RDF::RNode CutVarMaxUChar(ROOT::RDF::RNode df, const std::string &quantity,
+                       const std::string &maskname, const unsigned char &threshold) {
+    auto df1 =
+        df.Define(maskname, basefunctions::FilterMaxUChar(threshold), {quantity});
     return df1;
 }
 /// [end] a couple of general functions added in developing vhmm analysis
@@ -2378,6 +2384,11 @@ ROOT::RDF::RNode CutID(ROOT::RDF::RNode df, const std::string &maskname,
         maskname,
         [](const ROOT::RVec<Bool_t> &id) { return (ROOT::RVec<int>)id; },
         {nameID});
+    return df1;
+}
+ROOT::RDF::RNode CutUCharID(ROOT::RDF::RNode df, const std::string &maskname,
+                       const std::string &nameID, const unsigned char &idxID) {
+    auto df1 = df.Define(maskname, basefunctions::FilterJetUCharID(idxID), {nameID});
     return df1;
 }
 /// Function to cut electrons based on the cut based electron ID

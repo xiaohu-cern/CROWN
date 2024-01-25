@@ -198,6 +198,8 @@ ROOT::RDF::RNode CutVarMin(ROOT::RDF::RNode df, const std::string &quantity,
                        const std::string &maskname, const float &threshold);
 ROOT::RDF::RNode CutVarMax(ROOT::RDF::RNode df, const std::string &quantity,
                        const std::string &maskname, const float &threshold);
+ROOT::RDF::RNode CutVarMaxUChar(ROOT::RDF::RNode df, const std::string &quantity,
+                       const std::string &maskname, const unsigned char &threshold);
 ROOT::RDF::RNode CutPt(ROOT::RDF::RNode df, const std::string &quantity,
                        const std::string &maskname, const float &ptThreshold);
 ROOT::RDF::RNode CutEta(ROOT::RDF::RNode df, const std::string &quantity,
@@ -349,6 +351,8 @@ PtCorrection_byValue(ROOT::RDF::RNode df, const std::string &corrected_pt,
 
 ROOT::RDF::RNode CutID(ROOT::RDF::RNode df, const std::string &maskname,
                        const std::string &nameID);
+ROOT::RDF::RNode CutUCharID(ROOT::RDF::RNode df, const std::string &maskname,
+                       const std::string &nameID, const unsigned char &idxID);
 ROOT::RDF::RNode CutCBID(ROOT::RDF::RNode df, const std::string &maskname,
                          const std::string &nameID, const int &IDvalue);
 ROOT::RDF::RNode AntiCutCBID(ROOT::RDF::RNode df, const std::string &maskname,

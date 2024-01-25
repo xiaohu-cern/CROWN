@@ -106,6 +106,13 @@ JetIDCut = Producer(
     output=[q.jet_id_mask],
     scopes=["global"],
 )
+JetIDCut_UChar = Producer(
+    name="JetIDCut_UChar",
+    call="physicsobject::jet::CutUCharID({df}, {output}, {input}, {jet_id})",
+    input=[nanoAOD.Jet_ID],
+    output=[q.jet_id_mask],
+    scopes=["global"],
+)
 JetPUIDCut = Producer(
     name="JetPUIDCut",
     call="physicsobject::jet::CutPUID({df}, {output}, {input}, {jet_puid}, {jet_puid_max_pt})",
@@ -159,7 +166,7 @@ GoodJets = ProducerGroup(
     input=[],
     output=[q.good_jets_mask],
     scopes=["global"],
-    subproducers=[JetPtCut, JetEtaCut, JetIDCut, JetPUIDCut, VetoOverlappingJetsWithMuons],
+    subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar, JetPUIDCut, VetoOverlappingJetsWithMuons],
 )
 ### As now 2022 data has no Jet_puID, so no possible to do JetPUIDCut
 GoodJets_2022 = ProducerGroup(
@@ -168,7 +175,7 @@ GoodJets_2022 = ProducerGroup(
     input=[],
     output=[q.good_jets_mask],
     scopes=["global"],
-    subproducers=[JetPtCut, JetEtaCut, JetIDCut, VetoOverlappingJetsWithMuons],
+    subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar, VetoOverlappingJetsWithMuons],
 )
 
 GoodBJetsLoose = ProducerGroup(
