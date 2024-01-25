@@ -53,7 +53,7 @@ def build_config(
                     "2016postVFP": "data/pileup/Data_Pileup_2016_271036-284044_13TeVMoriond17_23Sep2016ReReco_69p2mbMinBiasXS.root",
                     "2017": "data/pileup/Data_Pileup_2017_294927-306462_13TeVSummer17_PromptReco_69p2mbMinBiasXS.root",
                     "2018": "data/pileup/Data_Pileup_2018_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18.root",
-                    # "2022": "not/available/yet",
+                    # "2022": need to update now
                     "2022preEE": "data/pileup/Data_Pileup_2018_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18.root",
                     "2022postEE": "data/pileup/Data_Pileup_2018_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18.root",
                 }
@@ -279,10 +279,10 @@ def build_config(
                     "2016postVFP": "Electron_mvaFall17V2noIso_WP90",
                     "2017": "Electron_mvaFall17V2noIso_WP90",
                     "2018": "Electron_mvaFall17V2noIso_WP90",
-                    "2022preEE": "Electron_mvaNoIso_WP90",
-                    "2022postEE": "Electron_mvaNoIso_WP90",
-                    # "2022preEE": "Electron_cutBased",
-                    # "2022postEE": "Electron_cutBased",
+                    # "2022preEE": "Electron_mvaNoIso_WP90",
+                    # "2022postEE": "Electron_mvaNoIso_WP90",
+                    "2022preEE": "Electron_cutBased",
+                    "2022postEE": "Electron_cutBased",
                 }
             ),
             "ele_cutbaseid": 3, # UChar_t	cut-based ID RunIII Winter22 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
@@ -412,8 +412,8 @@ def build_config(
                     "2016postVFP": '"data/jsonpog-integration/POG/JME/2016postVFP_UL/jet_jerc.json.gz"',
                     "2017": '"data/jsonpog-integration/POG/JME/2017_UL/jet_jerc.json.gz"',
                     "2018": '"data/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz"',
-                    "2022preEE": '"data/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz"',
-                    "2022postEE": '"data/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz"',
+                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt-zhiyuan/jet_jerc.json.gz"',
+                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE-zhiyuan/jet_jerc.json.gz"',
                 }
             ),
             "jet_jer_tag": EraModifier(
@@ -422,8 +422,8 @@ def build_config(
                     "2016postVFP": '"Summer20UL16_JRV3_MC"',
                     "2017": '"Summer19UL17_JRV2_MC"',
                     "2018": '"Summer19UL18_JRV2_MC"',
-                    "2022preEE": '"Summer19UL18_JRV2_MC"',
-                    "2022postEE": '"Summer19UL18_JRV2_MC"',
+                    "2022preEE": '"JR_Winter22Run3_V1_MC"', # just for testing (TBD)
+                    "2022postEE": '"Summer22EEPrompt_JRV1_MC"', # just for testing (TBD)
                 }
             ),
             "jet_jes_tag_data": '""',
@@ -433,11 +433,11 @@ def build_config(
                     "2016postVFP": '"Summer19UL16_V7_MC"',
                     "2017": '"Summer19UL17_V5_MC"',
                     "2018": '"Summer19UL18_V5_MC"',
-                    "2022preEE": '"Summer19UL18_V5_MC"',
-                    "2022postEE": '"Summer19UL18_V5_MC"',
+                    "2022preEE": '"Winter22Run3_V2_MC"', # just for testing (TBD)
+                    "2022postEE": '"Summer22EEPrompt_V1_MC"', # just for testing (TBD)
                 }
             ),
-            "jet_jec_algo": '"AK4PFchs"',
+            "jet_jec_algo": '"AK4PFPuppi"', # AK4PFchs for run2?
         },
     )
     # fat jet base selection:

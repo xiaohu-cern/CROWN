@@ -367,9 +367,15 @@ JetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
     auto JER_SF_evaluator = correction::CorrectionSet::from_file(jec_file)->at(
         jer_tag + "_ScaleFactor_" + jec_algo);
     auto JetEnergyResolutionSF =
-        [JER_SF_evaluator](const float eta, const std::string jer_shift) {
-            return JER_SF_evaluator->evaluate({eta, jer_shift});
-        };
+        [JER_SF_evaluator](const float eta, float pt, const std::string jer_shift) {
+            try{ 
+                // annoyingly the 2022 EE has 3 inputs?
+                return JER_SF_evaluator->evaluate({eta, jer_shift});    
+            }
+            catch (const std::exception&) {
+            return JER_SF_evaluator->evaluate({eta, pt, jer_shift});
+        }
+    };
     // lambda run with dataframe
     auto JetEnergyCorrectionLambda = [reapplyJES, JetEnergyScaleShifts,
                                       JetEnergyScaleSF, JetEnergyResolution,
@@ -411,7 +417,7 @@ JetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
             // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
             float reso = JetEnergyResolution(
                 eta_values.at(i), pt_values_corrected.at(i), rho_value);
-            float resoSF = JetEnergyResolutionSF(eta_values.at(i), jer_shift);
+            float resoSF = JetEnergyResolutionSF(eta_values.at(i), pt_values.at(i), jer_shift);
             Logger::get("JetEnergyResolution")
                 ->debug("Calculate JER {}:  SF: {} resolution: {} ", jer_shift,
                         resoSF, reso);
