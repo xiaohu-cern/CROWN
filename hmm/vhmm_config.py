@@ -47,6 +47,29 @@ def build_config(
     configuration.add_config_parameters(
         "global",
         {
+            # "PU_reweighting_file": EraModifier(
+            #     {
+            #         "2016preVFP": "data/jsonpog-integration/POG/LUM/2016preVFP_UL/puWeights.json.gz",
+            #         "2016postVFP": "data/jsonpog-integration/POG/LUM/2016postVFP_UL/puWeights.json.gz",
+            #         "2017": "data/jsonpog-integration/POG/LUM/2017_UL/puWeights.json.gz",
+            #         "2018": "data/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz",
+            #         # "2022": TBD pileup file
+            #         "2022preEE": "data/jsonpog-integration/POG/LUM/2022preEE-TBD/puWeights_2022preEE.json.gz",
+            #         "2022postEE": "data/jsonpog-integration/POG/LUM/2022postEE-TBD/puWeights_2022postEE.json.gz",
+            #     }
+            # ),
+            # "PU_reweighting_era": EraModifier(
+            #     {
+            #         "2016preVFP": "Collisions16_UltraLegacy_goldenJSON",
+            #         "2016postVFP": "Collisions16_UltraLegacy_goldenJSON",
+            #         "2017": "Collisions17_UltraLegacy_goldenJSON",
+            #         "2018": "Collisions18_UltraLegacy_goldenJSON",
+            #         # "2022": TBD pileup file
+            #         "2022preEE": "Collision22_preEE_goldenJSON", 
+            #         "2022postEE": "Collision22_postEE_goldenJSON", 
+            #     }
+            # ),
+            # "PU_reweighting_variation": "nominal",
             "PU_reweighting_file": EraModifier(
                 {
                     "2016preVFP": "data/pileup/Data_Pileup_2016_271036-284044_13TeVMoriond17_23Sep2016ReReco_69p2mbMinBiasXS.root",
@@ -423,7 +446,7 @@ def build_config(
                     "2017": '"Summer19UL17_JRV2_MC"',
                     "2018": '"Summer19UL18_JRV2_MC"',
                     "2022preEE": '"JR_Winter22Run3_V1_MC"', # just for testing (TBD)
-                    "2022postEE": '"Summer22EEPrompt_JRV1_MC"', # just for testing (TBD)
+                    "2022postEE": '"Summer22EEPrompt22_JRV1_MC"', # just for testing (TBD)
                 }
             ),
             "jet_jes_tag_data": '""',
@@ -434,7 +457,7 @@ def build_config(
                     "2017": '"Summer19UL17_V5_MC"',
                     "2018": '"Summer19UL18_V5_MC"',
                     "2022preEE": '"Winter22Run3_V2_MC"', # just for testing (TBD)
-                    "2022postEE": '"Summer22EEPrompt_V1_MC"', # just for testing (TBD)
+                    "2022postEE": '"Summer22EEPrompt22_V1_MC"', # just for testing (TBD)
                 }
             ),
             "jet_jec_algo": '"AK4PFPuppi"', # AK4PFchs for run2?
@@ -484,7 +507,7 @@ def build_config(
                     "2017": '"Summer19UL17_JRV2_MC"',
                     "2018": '"Summer19UL18_JRV2_MC"',
                     "2022preEE": '"JR_Winter22Run3_V1_MC"', # just for testing (TBD)
-                    "2022postEE": '"Summer22EEPrompt_JRV1_MC"', # just for testing (TBD)
+                    "2022postEE": '"Summer22EEPrompt22_JRV1_MC"', # just for testing (TBD)
                 }
             ),
             "fatjet_jes_tag_data": '""',
@@ -495,7 +518,7 @@ def build_config(
                     "2017": '"Summer19UL17_V5_MC"',
                     "2018": '"Summer19UL18_V5_MC"',
                     "2022preEE": '"Winter22Run3_V2_MC"', # just for testing (TBD)
-                    "2022postEE": '"Summer22EEPrompt_V1_MC"', # just for testing (TBD)
+                    "2022postEE": '"Summer22EEPrompt22_V1_MC"', # just for testing (TBD)
                 }
             ),
             "fatjet_jec_algo": '"AK8PFPuppi"',
