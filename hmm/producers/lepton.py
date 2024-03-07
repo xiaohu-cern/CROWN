@@ -18,7 +18,19 @@ CalcSmallestDiMuonMass = Producer(
            nanoAOD.Muon_charge,
            q.good_muon_collection],
     output=[q.smallest_dimuon_mass],
-    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol"],
+    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+)
+CalcSmallestBaseDiMuonMass = Producer(
+    name="CalcSmallestBaseDiMuonMass",
+    call='physicsobject::M_dileptonMass({df}, {output}, {input})',
+    input=[nanoAOD.Muon_pt,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           nanoAOD.Muon_charge,
+           q.base_muon_collection],
+    output=[q.smallest_dimuon_mass],
+    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
 )
 CalcSmallestDiElectronMass = Producer(
     name="CalcSmallestDiElectronMass",
@@ -38,7 +50,15 @@ LeptonChargeSumVeto = Producer(
     input=[nanoAOD.Muon_charge,  # only in m2m and 4m can input only muon charge
            q.good_muon_collection],
     output=[q.Flag_LeptonChargeSumVeto],   # 1 stands pm1, 2 stands 0, 0 stands others
-    scopes=["global","m2m","mmmm","nnmm","fjmm","nnmm_dycontrol"],
+    scopes=["global","m2m","mmmm","nnmm","fjmm","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+)
+BaseLeptonChargeSumVeto = Producer(
+    name="BaseLeptonChargeSumVeto",
+    call='physicsobject::LeptonChargeSum({df}, {output}, {input})',
+    input=[nanoAOD.Muon_charge,  # only in m2m and 4m can input only muon charge
+           q.base_muon_collection],
+    output=[q.Flag_LeptonChargeSumVeto],   # 1 stands pm1, 2 stands 0, 0 stands others
+    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 LeptonChargeSumVeto_elemu = Producer(
     name="LeptonChargeSumVeto_elemu",
@@ -48,7 +68,7 @@ LeptonChargeSumVeto_elemu = Producer(
            q.good_muon_collection,
            q.base_electron_collection],
     output=[q.Flag_LeptonChargeSumVeto],   # 1 stands pm1, 2 stands 0, 0 stands others
-    scopes=["global","e2m","eemm","nnmm_topcontrol"],
+    scopes=["global","e2m","eemm","nnmm_topcontrol","e2m_dyfakeinge_regionb"],
 )
 ### extra lepton (muon) in m2m channel
 Mu1_W_m2m_index = Producer(
@@ -65,6 +85,20 @@ Mu1_W_m2m_index = Producer(
     output=[q.extra_muon_index],
     scopes=["m2m"],
 )
+Mu1_W_m2m_index_regionc = Producer(
+    name="Mu1_W_m2m_index_regionc",
+    call="physicsobject::ExtraMuonIndexFromW({df}, {output}, {input})",
+    input=[
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+        q.base_muon_collection,
+        q.dimuon_HiggsCand_collection,
+    ],
+    output=[q.extra_muon_index],
+    scopes=["m2m_dyfakeingmu_regionc"],
+)
 Mu1_W_m2m = Producer(
     name="Mu1_W_m2m",
     call="physicsobject::ExtraMuonFromW({df}, {output}, {input})",
@@ -76,7 +110,7 @@ Mu1_W_m2m = Producer(
         q.extra_muon_index,
     ],
     output=[q.extra_lep_p4],
-    scopes=["m2m"],
+    scopes=["m2m","m2m_dyfakeingmu_regionc"],
 )
 ### extra lepton (electron) in e2m channel
 Ele1_W_e2m = Producer(

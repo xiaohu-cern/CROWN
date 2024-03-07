@@ -169,9 +169,22 @@ FilterNMuons = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {vh_m2m_nmuons}, "==", "Number of muons 3")',
     input=[q.nmuons],
     output=None,
-    scopes=["m2m"],
+    scopes=["m2m","m2m_dyfakeingmu_regionb"],
 )
-
+FilterNMuons_regioncd = Producer(
+    name="FilterNMuons_regioncd",
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_regioncd_2muons}, "==", "Number of good muons 2")',
+    input=[q.nmuons],
+    output=None,
+    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+)
+FilterNBaseMuons_regioncd = Producer(
+    name="FilterNBaseMuons_regioncd",
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_regioncd_3loosemuon}, "==", "Number of muons 3, mvaTTH > -1 ")',
+    input=[q.nloosemuons],
+    output=None,
+    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+)
 # write by botao
 ### e2m
 FilterNMuons_e2m = Producer(
@@ -179,14 +192,14 @@ FilterNMuons_e2m = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {vh_e2m_nmuons}, "==", "Number of muons 2 in e2m")',
     input=[q.nmuons],
     output=None,
-    scopes=["e2m"],
+    scopes=["e2m","e2m_dyfakeinge_regionb"],
 )
 FilterNElectrons_e2m = Producer(
     name="FilterNElectrons_e2m",
     call='basefunctions::FilterThreshold({df}, {input}, {vh_e2m_nelectrons}, "==", "Number of electrons 1 in e2m")',
     input=[q.nelectrons],
     output=None,
-    scopes=["e2m"],
+    scopes=["e2m","e2m_dyfakeinge_regionb"],
 )
 ###  2e2m
 FilterNMuons_2e2m = Producer(
@@ -236,7 +249,7 @@ DimuonMinMassCut = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {min_dimuon_mass}, ">=", "No m(mm) < 12 GeV")',
     input=[q.smallest_dimuon_mass],
     output=None,
-    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol"],
+    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
 )
 DielectronMinMassCut = Producer(
     name="DielectronMinMassCut",
@@ -251,7 +264,7 @@ Flag_DiMuonFromHiggs = Producer(
     call='physicsobject::DiMuonFromHiggs({df}, {output}, {input})',
     input=[q.dimuon_HiggsCand_collection],
     output=[q.Flag_DiMuonFromHiggs],
-    scopes=["global","e2m","m2m","eemm","mmmm","nnmm","fjmm"],
+    scopes=["global","e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
 )
 ### need a collection that di_ele after cut
 Flag_DiEleFromZ = Producer(
@@ -271,7 +284,7 @@ HiggsToDiMuonPair_p4 = Producer(
            nanoAOD.Muon_mass,
            q.dimuon_HiggsCand_collection],
     output=[q.dimuon_p4_Higgs],
-    scopes=["global","e2m","m2m","eemm","nnmm","fjmm"],
+    scopes=["global","e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
 )
 HiggsToDiMuonPair_p4_4m = Producer(
     name="HiggsToDiMuonPair_p4_4m",
@@ -318,6 +331,30 @@ DiMuonMassFromZVeto = Producer(
     output=[q.Flag_dimuon_Zmass_veto], # 1 stands for noZmass, 0 stands for has dimuon from Zmass
     scopes=["global","m2m","eemm","mmmm"],
 )
+BaseDiMuonMassFromZVeto = Producer(
+    name="BaseDiMuonMassFromZVeto",
+    call='physicsobject::DiMuonFromZVeto({df}, {output}, {input})',
+    input=[nanoAOD.Muon_pt,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           nanoAOD.Muon_charge,
+           q.base_muon_collection],
+    output=[q.Flag_dimuon_Zmass_veto], # 1 stands for noZmass, 0 stands for has dimuon from Zmass
+    scopes=["m2m_dyfakeingmu_regionc"],
+)
+Mask_BaseDiMuonPair = Producer(
+    name="Mask_BaseDiMuonPair",
+    call='physicsobject::HiggsCandDiMuonPairCollection({df}, {output}, {input})',
+    input=[nanoAOD.Muon_pt,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           nanoAOD.Muon_charge,
+           q.base_muon_collection],
+    output=[q.dimuon_HiggsCand_collection], # index about the two selected muons may from Higgs
+    scopes=["global","e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+)
 Mask_DiMuonPair = Producer(
     name="Mask_DiMuonPair",
     call='physicsobject::HiggsCandDiMuonPairCollection({df}, {output}, {input})',
@@ -328,7 +365,7 @@ Mask_DiMuonPair = Producer(
            nanoAOD.Muon_charge,
            q.good_muon_collection],
     output=[q.dimuon_HiggsCand_collection], # index about the two selected muons may from Higgs
-    scopes=["global","e2m","m2m","eemm","nnmm","fjmm"],
+    scopes=["global","e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
 )
 Mask_DiElectronPair = Producer(
     name="Mask_DiElectronPair",
@@ -609,21 +646,21 @@ FilterFlagDiMuFromH = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {flag_DiMuonFromHiggs}, "==", "DiMuon From Higgs")',
     input=[q.Flag_DiMuonFromHiggs],
     output=None,
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
 )
 FilterFlagLepChargeSum = Producer(
     name="FilterFlagLepChargeSum",
     call='basefunctions::FilterThreshold({df}, {input}, {flag_LeptonChargeSumVeto}, "==", "LeptonChargeSum")',
     input=[q.Flag_LeptonChargeSumVeto],
     output=None,
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
 )
 FilterFlagEleVeto = Producer(
     name="FilterFlagEleVeto",
     call='basefunctions::FilterThreshold({df}, {input}, {flag_Ele_Veto}, "==", "Electron Veto")',
     input=[q.Flag_Ele_Veto],
     output=None,
-    scopes=["m2m","mmmm","nnmm","fjmm","nnmm_dycontrol"],
+    scopes=["m2m","mmmm","nnmm","fjmm","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 FilterFlagDiEleZMassVeto = Producer(
     name="FilterFlagDiEleZMassVeto",

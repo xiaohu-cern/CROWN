@@ -429,3 +429,6 @@ fatjet_PNet_withMass_ZvsQCD = Quantity("fatjet_PNet_withMass_ZvsQCD")
 fatjet_PNet_withMass_TvsQCD = Quantity("fatjet_PNet_withMass_TvsQCD")
 
 ele_uchar_id_mask = Quantity("ele_uchar_id_mask")
+
+nloosemuons = Quantity("nloosemuons")
+base_muon_collection = Quantity("base_muon_collection")

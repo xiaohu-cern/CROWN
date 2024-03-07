@@ -17,14 +17,26 @@ DY_DiMuonPair_CR = Producer(
            nanoAOD.Muon_charge,
            q.good_muon_collection],
     output=[q.dimuon_ZControl_collection], # index about the two selected muons may from Higgs
-    scopes=["nnmm_dycontrol"],
+    scopes=["nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+)
+DY_BaseDiMuonPair_CR = Producer(
+    name="DY_BaseDiMuonPair_CR",
+    call='physicsobject::DY_DiMuonPair_CR({df}, {output}, {input})',
+    input=[nanoAOD.Muon_pt,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           nanoAOD.Muon_charge,
+           q.base_muon_collection],
+    output=[q.dimuon_ZControl_collection], # index about the two selected muons may from Higgs
+    scopes=["m2m_dyfakeingmu_regiond"],
 )
 Flag_DiMuonFromCR = Producer(
     name="Flag_DiMuonFromCR",
     call='physicsobject::DiMuonFromCR({df}, {output}, {input})',
     input=[q.dimuon_ZControl_collection],
     output=[q.Flag_DiMuonFromCR],
-    scopes=["nnmm_dycontrol"],
+    scopes=["nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
 )
 ###
 DiMuonPairCR_p4 = Producer(
@@ -36,7 +48,7 @@ DiMuonPairCR_p4 = Producer(
            nanoAOD.Muon_mass,
            q.dimuon_ZControl_collection],
     output=[q.dimuon_p4_CR],
-    scopes=["nnmm_dycontrol"],
+    scopes=["nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
 )
 ### cut flag
 FilterFlag_DiMuonFromCR = Producer(
@@ -44,7 +56,7 @@ FilterFlag_DiMuonFromCR = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {flag_DiMuonFromCR}, "==", "DiMuon From DY CR")',
     input=[q.Flag_DiMuonFromCR],
     output=None,
-    scopes=["nnmm_dycontrol"],
+    scopes=["nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
 )
 #####
 dimuonCR_pt = Producer(
@@ -54,7 +66,7 @@ dimuonCR_pt = Producer(
       q.dimuon_p4_CR,
     ],
     output=[q.dimuonCR_pt],
-    scopes=["nnmm_dycontrol"],
+    scopes=["nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
 )
 dimuonCR_eta = Producer(
     name="dimuonCR_eta",
@@ -63,7 +75,7 @@ dimuonCR_eta = Producer(
       q.dimuon_p4_CR,
     ],
     output=[q.dimuonCR_eta],
-    scopes=["nnmm_dycontrol"],
+    scopes=["nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
 )
 dimuonCR_phi = Producer(
     name="dimuonCR_phi",
@@ -72,7 +84,7 @@ dimuonCR_phi = Producer(
       q.dimuon_p4_CR,
     ],
     output=[q.dimuonCR_phi],
-    scopes=["nnmm_dycontrol"],
+    scopes=["nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
 )
 dimuonCR_mass = Producer(
     name="dimuonCR_mass",
@@ -81,7 +93,7 @@ dimuonCR_mass = Producer(
       q.dimuon_p4_CR,
     ],
     output=[q.dimuonCR_mass],
-    scopes=["nnmm_dycontrol"],
+    scopes=["nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
 )
 
 ########

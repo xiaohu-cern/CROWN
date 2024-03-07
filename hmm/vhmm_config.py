@@ -165,7 +165,7 @@ def build_config(
 
     # vh add triggers (copying htautau mtau TODO)
     configuration.add_config_parameters(
-        ["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol"],
+        ["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
         {
             "singlemuon_trigger": EraModifier(
                 {
@@ -284,12 +284,20 @@ def build_config(
             "min_muon_pt": 5, # vh change muon min pt 20 to 5
             "max_muon_eta": 2.4, # vh
             "max_muon_dxy": 0.05, # vh
+            # change muon dz 0.1
             "max_muon_dz": 0.10, # vh
             "max_sip3d" : 8.0, # vh
-            #"min_lepmva" : 0.4, 
-            "min_muon_mvaTTH" : 0.4,
-            "muon_id": "Muon_mediumId", # vh cut-based atm https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Medium_Muon
+            #"min_lepmva" : 0.4, change base to medium? -1, 0.4 
+            "min_muon_mvaTTH" : -1.0,
+            # "muon_id": "Muon_mediumId", # vh cut-based atm https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Medium_Muon
+            # muon iso < 0.25
             "muon_iso_cut": 0.25, # vh PFIsoLoose dR=0.4 https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Particle_Flow_isolation
+            # change base muon id medium to loose
+            # goodmuon id medium
+            # "muon_id": "Muon_looseId",
+            "muon_id": "Muon_mediumId",
+            # add medium id in scopes
+            # "muon_medium_id": "Muon_mediumId",
         },
     )
     # electron base selection:
@@ -334,12 +342,15 @@ def build_config(
         {
             "min_muon_pt": 5,
             "max_muon_eta": 2.4,
-            "muon_iso_cut": 0.25,
+            "min_muon_mvaTTH" : 0.4,
+            # "muon_iso_cut": 0.25, # 
+            # "muon_medium_id": "Muon_mediumId",
+            # "max_muon_dz" : 0.10, # basemuon to goodmuon cut dz
         }
     )
     # Muon scale factors configuration
     configuration.add_config_parameters(
-        ["e2m","m2m","eemm","mmmm","nnmm","nnmm_dycontrol","nnmm_topcontrol"],
+        ["e2m","m2m","eemm","mmmm","nnmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
         {
             "muon_sf_file": EraModifier(
                 {
@@ -580,8 +591,43 @@ def build_config(
             "min_dimuon_mass" : 12,
             "flag_DiMuonFromHiggs" : 1,
             "flag_Ele_Veto" : 1,
-            "flag_LeptonChargeSumVeto" : 1,
+            "flag_LeptonChargeSumVeto" : 1, # 1 stands pm1, 2 stands 0, 0 stands others
             # "dimuon_pair" : 1, # dimuon_pair in [110,150] >=1
+        }
+    )
+    # m2m regionB: pass 3 medium muons and fail m(mm) in [110,150], actually in [70,110]
+    configuration.add_config_parameters(
+        "m2m_dyfakeingmu_regionb",
+        {
+            "vh_m2m_nmuons" : 3,
+            "min_dimuon_mass" : 12,
+            "flag_DiMuonFromCR" : 1, # m(mm) in [70,110]
+            "flag_Ele_Veto" : 1,
+            "flag_LeptonChargeSumVeto" : 1, # 1 stands pm1, 2 stands 0, 0 stands others
+        }
+    )
+    # m2m regionC: fail 3 medium muons (actually 2 muons) and pass m(mm) in [110,150]
+    configuration.add_config_parameters(
+        "m2m_dyfakeingmu_regionc",
+        {
+            "vh_regioncd_2muons" : 2, # actually pass 2 good (medium) muons, 1 base (loose) muon
+            "vh_regioncd_3loosemuon": 3,
+            "min_dimuon_mass" : 12,
+            "flag_DiMuonFromHiggs" : 1, # pass m(mm) in [110,150]
+            "flag_Ele_Veto" : 1, # no ele
+            "flag_LeptonChargeSumVeto" : 1, # 1 stands pm1, 2 stands 0, 0 stands others
+        }
+    )
+    # Region D: fail 3 medium muons (actually 2 muons) and fail m(mm) in [110,150], actually in [70,110]
+    configuration.add_config_parameters(
+        "m2m_dyfakeingmu_regiond",
+        {
+            "vh_regioncd_2muons" : 2, # actually pass 2 medium muons
+            "vh_regioncd_3loosemuon": 3, # and 1 loose muon
+            "min_dimuon_mass" : 12,
+            "flag_DiMuonFromCR" : 1, # m(mm) in [70,110]
+            "flag_Ele_Veto" : 1,
+            "flag_LeptonChargeSumVeto" : 1, # 1 stands pm1, 2 stands 0, 0 stands others
         }
     )
     # e2m cuts
@@ -592,9 +638,30 @@ def build_config(
             "vh_e2m_nelectrons" : 1,
             "min_dimuon_mass" : 12,
             "flag_DiMuonFromHiggs" : 1,
-            "flag_LeptonChargeSumVeto" : 1,
+            "flag_LeptonChargeSumVeto" : 1, # 1 stands pm1, 2 stands 0, 0 stands others
         }
     )
+    # Region B: pass 2 medium muons, 1 ele and fail m(mm) in [110,150], actually in [70,110]
+    configuration.add_config_parameters(
+        "e2m_dyfakeinge_regionb",
+        {
+            "vh_e2m_nmuons" : 2,
+            "vh_e2m_nelectrons" : 1,
+            "min_dimuon_mass" : 12,
+            "flag_DiMuonFromCR" : 1, # m(mm) in [70,110]
+            "flag_LeptonChargeSumVeto" : 1, # 1 stands pm1, 2 stands 0, 0 stands others
+        }
+    )
+    # configuration.add_config_parameters(
+    #     "e2m_dyfakeinge_regionc",
+    #     {
+    #         "vh_e2m_nmuons" : 2,
+    #         "vh_e2m_nelectrons" : 1,
+    #         "min_dimuon_mass" : 12,
+    #         "flag_DiMuonFromCR" : 1, # m(mm) in [70,110]
+    #         "flag_LeptonChargeSumVeto" : 1, # 1 stands pm1, 2 stands 0, 0 stands others
+    #     }
+    # )
     configuration.add_config_parameters(
         "eemm",
         {
@@ -603,7 +670,7 @@ def build_config(
             "min_dimuon_mass" : 12,
             "min_dielectron_mass" : 12,
             "flag_DiMuonFromHiggs" : 1,
-            "flag_LeptonChargeSumVeto" : 2,
+            "flag_LeptonChargeSumVeto" : 2, # 1 stands pm1, 2 stands 0, 0 stands others
             "flag_DiEleFromZ" : 1,
         }
     )
@@ -614,7 +681,7 @@ def build_config(
             "min_dimuon_mass" : 12,
             "flag_DiMuonFromHiggs" : 1,
             "flag_Ele_Veto" : 1,
-            "flag_LeptonChargeSumVeto" : 2,
+            "flag_LeptonChargeSumVeto" : 2, # 1 stands pm1, 2 stands 0, 0 stands others
         }
     )
     configuration.add_config_parameters(
@@ -625,7 +692,7 @@ def build_config(
             "min_dimuon_mass" : 12,
             "flag_DiMuonFromHiggs" : 1,
             "flag_Ele_Veto" : 1,
-            "flag_LeptonChargeSumVeto" : 2,
+            "flag_LeptonChargeSumVeto" : 2, # 1 stands pm1, 2 stands 0, 0 stands others
             "flag_MetCut" : 1,
         }
     )
@@ -638,7 +705,7 @@ def build_config(
             "min_dimuon_mass" : 12,
             "flag_DiMuonFromHiggs" : 1,
             "flag_Ele_Veto" : 1,
-            "flag_LeptonChargeSumVeto" : 2,
+            "flag_LeptonChargeSumVeto" : 2, # 1 stands pm1, 2 stands 0, 0 stands others
             "flag_MaxMetCut" : 1,
         }
     )
@@ -810,6 +877,164 @@ def build_config(
         ],
     )
     configuration.add_producers(
+        # Region B: pass 3 medium muons and fail m(mm) in [110,150], actually in [70,110]
+        "m2m_dyfakeingmu_regionb",
+        [
+            muons.GoodMuons, # vh tighter selections on muons
+            muons.NumberOfGoodMuons,
+            event.FilterNMuons, # vh ==3 muons
+            muons.MuonCollection, # collect ordered by pt
+            # write by botao
+            lepton.CalcSmallestDiMuonMass,
+            event.DimuonMinMassCut,
+            ###
+            lepton.LeptonChargeSumVeto,
+            electrons.NumberOfBaseElectrons,
+            electrons.ElectronCollection,
+            electrons.Ele_Veto,
+            event.FilterFlagLepChargeSum,
+            event.FilterFlagEleVeto,
+            ### dimuon pairs in [70,110]
+            cr.DY_DiMuonPair_CR,
+            cr.Flag_DiMuonFromCR,
+            cr.FilterFlag_DiMuonFromCR,
+            cr.DiMuonPairCR_p4,
+            cr.dimuonCR_pt,
+            cr.dimuonCR_eta,
+            cr.dimuonCR_phi,
+            cr.dimuonCR_mass,
+            # event.DiMuonMassFromZVeto,  # has dimuon from Z return mask equal to 0, otherwise return 1
+            ###
+            # flag cut
+            # event.FilterFlagDiMuFromH,
+            ###
+            muons.LVMu1,
+            muons.LVMu2,
+            muons.LVMu3,
+            triggers.GenerateSingleMuonTriggerFlags, # vh check trigger matching TODO
+            # # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
+            
+            # #
+            # # scalefactors.MuonIDIso_SF, # TODO 3 muon SF
+            p4.met_pt,
+            p4.met_phi,
+            p4.genmet_pt,
+            p4.genmet_phi,
+            genparticles.BosonDecayMode,
+        ],
+    )
+    configuration.add_producers(
+        "m2m_dyfakeingmu_regionc",
+        [
+            muons.GoodMuons, # vh tighter selections on muons
+            muons.NumberOfGoodMuons, # medium muon 2
+            muons.NumberOfBaseMuons, # loose muon 3
+            event.FilterNBaseMuons_regioncd,
+            event.FilterNMuons_regioncd, # vh reigon c, d ==2 medium good muons
+            muons.MuonCollection, # collect ordered by pt
+            muons.BaseMuonCollection, # collect ordered by pt
+            # lepton.CalcSmallestDiMuonMass,
+            lepton.CalcSmallestBaseDiMuonMass,
+            event.DimuonMinMassCut, # filter cut dimuon mass < 12 GeV
+            lepton.BaseLeptonChargeSumVeto,
+            # lepton.BaseLeptonChargeSumVeto,
+            event.BaseDiMuonMassFromZVeto,
+            lepton.Mu1_W_m2m_index_regionc,
+            # lepton.Mu1_W_m2m_index_regionc,
+            lepton.Mu1_W_m2m,
+            electrons.NumberOfBaseElectrons,
+            electrons.ElectronCollection,
+            electrons.Ele_Veto,
+            # flag cut
+            event.FilterFlagLepChargeSum,
+            event.FilterFlagEleVeto,
+            ###
+            event.Mask_DiMuonPair, # select the dimuon index in [110,150]
+            # event.Mask_BaseDiMuonPair, # select the dimuon index in [110,150]
+            event.Flag_DiMuonFromHiggs, # create the flag
+            event.HiggsToDiMuonPair_p4, # make dimuon p4
+            event.FilterFlagDiMuFromH, # flag dimuon Higgs cut
+            ###
+            muons.Mu1_H,
+            muons.Mu2_H,
+            # muons.LVMu1,
+            # muons.LVMu2,
+            # muons.LVMu3,
+            muons.BaseLVMu1,
+            muons.BaseLVMu2,
+            muons.BaseLVMu3,
+            triggers.GenerateSingleMuonTriggerFlags,
+            ###
+            p4.mu1_fromH_pt,
+            p4.mu1_fromH_eta,
+            p4.mu1_fromH_phi,
+            p4.mu2_fromH_pt,
+            p4.mu2_fromH_eta,
+            p4.mu2_fromH_phi,
+            p4.extra_lep_pt,
+            p4.extra_lep_eta,
+            p4.extra_lep_phi,
+            p4.H_pt,
+            p4.H_eta,
+            p4.H_phi,
+            p4.H_mass,
+            
+            p4.met_pt,
+            p4.met_phi,
+            p4.genmet_pt,
+            p4.genmet_phi,
+            genparticles.BosonDecayMode,
+        ]
+    )
+    # Region D: fail 3 medium muons (actually 2 muons) and fail m(mm) in [110,150], actually in [70,110]
+    configuration.add_producers(
+        "m2m_dyfakeingmu_regiond",
+        [
+            muons.GoodMuons, # vh tighter selections on muons
+            muons.NumberOfGoodMuons,
+            muons.NumberOfBaseMuons, # loose muon 3
+            event.FilterNBaseMuons_regioncd,
+            event.FilterNMuons_regioncd, # vh reigon c, d ==2 muons
+            muons.MuonCollection, # collect ordered by pt
+            muons.BaseMuonCollection, # collect ordered by pt
+            # lepton.CalcSmallestDiMuonMass,
+            lepton.CalcSmallestBaseDiMuonMass,
+            event.DimuonMinMassCut, # filter cut dimuon mass < 12 GeV
+            lepton.BaseLeptonChargeSumVeto,
+            # lepton.BaseLeptonChargeSumVeto,
+            # lepton.Mu1_W_m2m_index_regionc,
+            # lepton.Mu1_W_m2m,
+            electrons.NumberOfBaseElectrons,
+            electrons.ElectronCollection,
+            electrons.Ele_Veto,
+            # flag cut
+            event.FilterFlagLepChargeSum,
+            event.FilterFlagEleVeto,
+            # m(mm) in [70,110]
+            cr.DY_DiMuonPair_CR,
+            # cr.DY_BaseDiMuonPair_CR,
+            cr.Flag_DiMuonFromCR,
+            cr.FilterFlag_DiMuonFromCR,
+            cr.DiMuonPairCR_p4,
+            cr.dimuonCR_pt,
+            cr.dimuonCR_eta,
+            cr.dimuonCR_phi,
+            cr.dimuonCR_mass,
+            # muons.LVMu1,
+            # muons.LVMu2,
+            # muons.LVMu3,
+            muons.BaseLVMu1,
+            muons.BaseLVMu2,
+            muons.BaseLVMu3,
+            triggers.GenerateSingleMuonTriggerFlags,
+            p4.met_pt,
+            p4.met_phi,
+            p4.genmet_pt,
+            p4.genmet_phi,
+            genparticles.BosonDecayMode,
+        ]
+    )
+    configuration.add_producers(
         "e2m",
         [
             muons.GoodMuons, # missing good muons selection in NOTE
@@ -901,6 +1126,44 @@ def build_config(
             p4.genmet_phi,            
             genparticles.BosonDecayMode,
         ],
+    )
+    # Region B: pass 2 medium muons, 1 ele and fail m(mm) in [110,150], actually in [70,110]
+    configuration.add_producers(
+        "e2m_dyfakeinge_regionb",
+        [
+            muons.GoodMuons, # missing good muons selection in NOTE
+            muons.NumberOfGoodMuons,
+            event.FilterNMuons_e2m, # nmuons == 2
+            muons.MuonCollection, # collect ordered by pt
+            ###
+            lepton.CalcSmallestDiMuonMass,  # SFOS, e2m only has 2m
+            lepton.LeptonChargeSumVeto_elemu, # only in e2m and 2e2m channel
+            event.FilterFlagLepChargeSum,
+            event.DimuonMinMassCut,
+            ###
+            electrons.NumberOfBaseElectrons,
+            event.FilterNElectrons_e2m, # nelectrons == 1
+            electrons.ElectronCollection, # collect ordered by pt
+            ###
+            # m(mm) in [70,110]
+            cr.DY_DiMuonPair_CR,
+            cr.Flag_DiMuonFromCR,
+            cr.FilterFlag_DiMuonFromCR,
+            cr.DiMuonPairCR_p4,
+            cr.dimuonCR_pt,
+            cr.dimuonCR_eta,
+            cr.dimuonCR_phi,
+            cr.dimuonCR_mass,
+            ###
+            muons.LVMu1,
+            muons.LVMu2,
+            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
+            p4.met_pt,
+            p4.met_phi,
+            p4.genmet_pt,
+            p4.genmet_phi,
+            genparticles.BosonDecayMode,
+        ]
     )
     configuration.add_producers(
         "eemm",
@@ -1339,7 +1602,7 @@ def build_config(
         ],
     )
     configuration.add_outputs(
-        ["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
+        ["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
         [
             q.mu1_fromH_pt,
             q.mu1_fromH_eta,
@@ -1418,6 +1681,63 @@ def build_config(
         ],
     )
     configuration.add_outputs(
+        # Region B: pass 3 medium muons and fail m(mm) in [110,150], actually in [70,110]
+        "m2m_dyfakeingmu_regionb",
+        [
+            q.nelectrons,
+            q.smallest_dimuon_mass,
+            q.Flag_LeptonChargeSumVeto,
+            q.Flag_Ele_Veto,
+            q.Flag_DiMuonFromCR,
+            # q.dimuon_p4_CR,
+            q.dimuonCR_pt,
+            q.dimuonCR_eta,
+            q.dimuonCR_phi,
+            q.dimuonCR_mass,
+            q.BosonDecayMode,
+            triggers.GenerateSingleMuonTriggerFlags.output_group,
+        ],
+    )
+    configuration.add_outputs(
+        # Region C: fail 3 medium muons (actually 2 muons) and pass m(mm) in [110,150]
+        "m2m_dyfakeingmu_regionc",
+        [
+            q.extra_lep_pt,
+            q.extra_lep_eta,
+            q.extra_lep_phi,
+
+            q.nloosemuons,
+            q.nelectrons,
+            q.smallest_dimuon_mass,
+            q.Flag_LeptonChargeSumVeto,
+            q.Flag_Ele_Veto,
+            q.Flag_DiMuonFromHiggs,
+            q.Flag_dimuon_Zmass_veto,
+            
+            triggers.GenerateSingleMuonTriggerFlags.output_group,
+        ]
+    )
+    configuration.add_outputs(
+        # Region D: fail 3 medium muons (actually 2 muons) and fail m(mm) in [110,150], actually in [70,110]
+        "m2m_dyfakeingmu_regiond",
+        [
+            q.nloosemuons,
+            q.nelectrons,
+            q.smallest_dimuon_mass,
+            q.Flag_LeptonChargeSumVeto,
+            q.Flag_Ele_Veto,
+            q.Flag_DiMuonFromCR,
+            # q.dimuon_p4_CR,
+            q.dimuonCR_pt,
+            q.dimuonCR_eta,
+            q.dimuonCR_phi,
+            q.dimuonCR_mass,
+            q.BosonDecayMode,
+            
+            triggers.GenerateSingleMuonTriggerFlags.output_group,
+        ]
+    )
+    configuration.add_outputs(
         "e2m",
         [
             q.nelectrons,
@@ -1477,6 +1797,22 @@ def build_config(
             # q.id_wgt_ele_wp90nonIso_1,
             # q.id_wgt_ele_wp80nonIso_1,
         ],
+    )
+    configuration.add_outputs(
+        "e2m_dyfakeinge_regionb",
+        [
+            q.nelectrons,
+            q.smallest_dimuon_mass,
+            q.Flag_LeptonChargeSumVeto,
+            q.Flag_DiMuonFromCR,
+            q.dimuonCR_pt,
+            q.dimuonCR_eta,
+            q.dimuonCR_phi,
+            q.dimuonCR_mass,
+            q.BosonDecayMode,
+            
+            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
+        ]
     )
     configuration.add_outputs(
         "eemm",
@@ -1820,8 +2156,8 @@ def build_config(
         ),
     )    
     configuration.add_modification_rule(
-        # scopes,
-        ["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
+        scopes,
+        # ["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
         RemoveProducer(
             producers=[
                 # genparticles.MMGenDiTauPairQuantities,

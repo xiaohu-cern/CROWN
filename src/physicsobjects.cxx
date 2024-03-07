@@ -677,6 +677,7 @@ ROOT::RDF::RNode ExtraMuonIndexFromW(ROOT::RDF::RNode df, const std::string &out
                                 for (unsigned int k = 0; k < (int)goodmuons_index.size(); ++k) {
                                     if ( goodmuons_index[k] != dimuons_index[0] && goodmuons_index[k] != dimuons_index[1] ) {
                                         if ( dimuons_index[0] != -1 && dimuons_index[1] != -1 ) {
+                                            // vec(1,6); means "1" stands length, "6" stands inital value
                                             ROOT::RVec<int> extra_muon_index(1, goodmuons_index[k]);
                                             return extra_muon_index;
                                         }
@@ -1113,8 +1114,8 @@ ROOT::RDF::RNode DY_DiMuonPair_CR(ROOT::RDF::RNode df, const std::string &output
                                          if ( particle_charges[goodmuons_index[i]] + particle_charges[goodmuons_index[j]] != 0 ) {
                                              continue;
                                          }
-                                         /// Add dimuon mass window, 70,110,150
-                                         if ( (p4_1[i] + p4_2[j]).mass() < 70 || (p4_1[i] + p4_2[j]).mass() > 150 ) {
+                                         /// Add dimuon mass window, 70,110
+                                         if ( (p4_1[i] + p4_2[j]).mass() < 70 || (p4_1[i] + p4_2[j]).mass() > 110 ) {
                                              continue;
                                          }
                                          if ( p4_1[i].pt() + p4_2[j].pt() > ptsum) {
