@@ -432,3 +432,9 @@ ele_uchar_id_mask = Quantity("ele_uchar_id_mask")
 
 nloosemuons = Quantity("nloosemuons")
 base_muon_collection = Quantity("base_muon_collection")
+nbaseelectrons = Quantity("nbaseelectrons")
+good_electron_collection = Quantity("good_electron_collection")
+
+# some m2m_regionb d var
+lep_Z_dR = Quantity("lep_Z_dR")
+lep_Z_dphi = Quantity("lep_Z_dphi")

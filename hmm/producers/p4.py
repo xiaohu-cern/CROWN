@@ -15,7 +15,7 @@ mu1_fromH_pt = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.mu1_fromH_pt],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 mu1_fromH_eta = Producer(
     name="mu1_fromH_eta",
@@ -24,7 +24,7 @@ mu1_fromH_eta = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.mu1_fromH_eta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 mu1_fromH_phi = Producer(
     name="mu1_fromH_phi",
@@ -33,7 +33,7 @@ mu1_fromH_phi = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.mu1_fromH_phi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 # mu1_fromH_mass = Producer(
 #     name="mu1_fromH_mass",
@@ -54,7 +54,7 @@ mu2_fromH_pt = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu2_fromH_pt],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 mu2_fromH_eta = Producer(
     name="mu2_fromH_eta",
@@ -63,7 +63,7 @@ mu2_fromH_eta = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu2_fromH_eta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 mu2_fromH_phi = Producer(
     name="mu2_fromH_phi",
@@ -72,7 +72,7 @@ mu2_fromH_phi = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu2_fromH_phi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 # mu2_fromH_mass = Producer(
 #     name="mu2_fromH_mass",
@@ -93,7 +93,7 @@ H_pt = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.H_pt],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 H_eta = Producer(
     name="H_eta",
@@ -102,7 +102,7 @@ H_eta = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.H_eta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 H_phi = Producer(
     name="H_phi",
@@ -111,7 +111,7 @@ H_phi = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.H_phi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 H_mass = Producer(
     name="H_mass",
@@ -120,7 +120,7 @@ H_mass = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.H_mass],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 ##### for met pt and phi
@@ -132,7 +132,7 @@ met_pt = Producer(
       q.met_p4,
     ],
     output=[q.met_pt],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 met_phi = Producer(
     name="met_phi",
@@ -141,7 +141,7 @@ met_phi = Producer(
       q.met_p4,
     ],
     output=[q.met_phi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 
 ##### for gen met pt and phi
@@ -153,7 +153,7 @@ genmet_pt = Producer(
       q.genmet_p4,
     ],
     output=[q.genmet_pt],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 genmet_phi = Producer(
     name="genmet_phi",
@@ -162,7 +162,7 @@ genmet_phi = Producer(
       q.genmet_p4,
     ],
     output=[q.genmet_phi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 
 ##### for extra lepton
@@ -174,7 +174,7 @@ extra_lep_pt = Producer(
       q.extra_lep_p4,
     ],
     output=[q.extra_lep_pt],
-    scopes=["e2m","m2m","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 extra_lep_eta = Producer(
     name="extra_lep_eta",
@@ -183,7 +183,7 @@ extra_lep_eta = Producer(
       q.extra_lep_p4,
     ],
     output=[q.extra_lep_eta],
-    scopes=["e2m","m2m","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 extra_lep_phi = Producer(
     name="extra_lep_phi",
@@ -192,7 +192,7 @@ extra_lep_phi = Producer(
       q.extra_lep_p4,
     ],
     output=[q.extra_lep_phi],
-    scopes=["e2m","m2m","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 # extra_lep_mass = Producer(
 #     name="extra_lep_mass",
@@ -213,7 +213,7 @@ muOS_pt = Producer(
       q.mu_p4_OSwithLep,
     ],
     output=[q.muOS_pt],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 muOS_eta = Producer(
     name="muOS_eta",
@@ -222,7 +222,7 @@ muOS_eta = Producer(
       q.mu_p4_OSwithLep,
     ],
     output=[q.muOS_eta],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 muOS_phi = Producer(
     name="muOS_phi",
@@ -231,7 +231,7 @@ muOS_phi = Producer(
       q.mu_p4_OSwithLep,
     ],
     output=[q.muOS_phi],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 # muOS_mass = Producer(
 #     name="muOS_mass",
@@ -252,7 +252,7 @@ muSS_pt = Producer(
       q.mu_p4_SSwithLep,
     ],
     output=[q.muSS_pt],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 muSS_eta = Producer(
     name="muSS_eta",
@@ -261,7 +261,7 @@ muSS_eta = Producer(
       q.mu_p4_SSwithLep,
     ],
     output=[q.muSS_eta],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 muSS_phi = Producer(
     name="muSS_phi",
@@ -270,7 +270,7 @@ muSS_phi = Producer(
       q.mu_p4_SSwithLep,
     ],
     output=[q.muSS_phi],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 # muSS_mass = Producer(
 #     name="muSS_mass",

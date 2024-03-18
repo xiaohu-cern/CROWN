@@ -18,7 +18,7 @@ CalcSmallestDiMuonMass = Producer(
            nanoAOD.Muon_charge,
            q.good_muon_collection],
     output=[q.smallest_dimuon_mass],
-    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 CalcSmallestBaseDiMuonMass = Producer(
     name="CalcSmallestBaseDiMuonMass",
@@ -40,7 +40,7 @@ CalcSmallestDiElectronMass = Producer(
            nanoAOD.Electron_phi, 
            nanoAOD.Electron_mass,
            nanoAOD.Electron_charge,
-           q.base_electron_collection],
+           q.good_electron_collection],
     output=[q.smallest_dielectron_mass],
     scopes=["global","eemm"],
 )
@@ -66,9 +66,19 @@ LeptonChargeSumVeto_elemu = Producer(
     input=[nanoAOD.Muon_charge,  # only in e2m and 2e2m can input only muon charge
            nanoAOD.Electron_charge,
            q.good_muon_collection,
-           q.base_electron_collection],
+           q.good_electron_collection],
     output=[q.Flag_LeptonChargeSumVeto],   # 1 stands pm1, 2 stands 0, 0 stands others
     scopes=["global","e2m","eemm","nnmm_topcontrol","e2m_dyfakeinge_regionb"],
+)
+LeptonChargeSumVeto_baseelegoodmu_regioncd = Producer(
+    name="LeptonChargeSumVeto_baseelegoodmu_regioncd",
+    call='physicsobject::LeptonChargeSumEleMu({df}, {output}, {input})',
+    input=[nanoAOD.Muon_charge,  # only in e2m and 2e2m can input only muon charge
+           nanoAOD.Electron_charge,
+           q.good_muon_collection,
+           q.base_electron_collection],
+    output=[q.Flag_LeptonChargeSumVeto],   # 1 stands pm1, 2 stands 0, 0 stands others
+    scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 ### extra lepton (muon) in m2m channel
 Mu1_W_m2m_index = Producer(
@@ -85,6 +95,20 @@ Mu1_W_m2m_index = Producer(
     output=[q.extra_muon_index],
     scopes=["m2m"],
 )
+Mu1_W_m2m_index_regionb = Producer(
+    name="Mu1_W_m2m_index_regionb",
+    call="physicsobject::ExtraMuonIndexFromW({df}, {output}, {input})",
+    input=[
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+        q.good_muon_collection,
+        q.dimuon_ZControl_collection,
+    ],
+    output=[q.extra_muon_index],
+    scopes=["m2m_dyfakeingmu_regionb"],
+)
 Mu1_W_m2m_index_regionc = Producer(
     name="Mu1_W_m2m_index_regionc",
     call="physicsobject::ExtraMuonIndexFromW({df}, {output}, {input})",
@@ -99,6 +123,20 @@ Mu1_W_m2m_index_regionc = Producer(
     output=[q.extra_muon_index],
     scopes=["m2m_dyfakeingmu_regionc"],
 )
+Mu1_W_m2m_index_regiond = Producer(
+    name="Mu1_W_m2m_index_regiond",
+    call="physicsobject::ExtraMuonIndexFromW({df}, {output}, {input})",
+    input=[
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+        q.base_muon_collection,
+        q.dimuon_ZControl_collection,
+    ],
+    output=[q.extra_muon_index],
+    scopes=["m2m_dyfakeingmu_regiond"],
+)
 Mu1_W_m2m = Producer(
     name="Mu1_W_m2m",
     call="physicsobject::ExtraMuonFromW({df}, {output}, {input})",
@@ -110,11 +148,24 @@ Mu1_W_m2m = Producer(
         q.extra_muon_index,
     ],
     output=[q.extra_lep_p4],
-    scopes=["m2m","m2m_dyfakeingmu_regionc"],
+    scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### extra lepton (electron) in e2m channel
 Ele1_W_e2m = Producer(
     name="Ele1_W_e2m",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.good_electron_collection,
+        nanoAOD.Electron_pt,
+        nanoAOD.Electron_eta,
+        nanoAOD.Electron_phi,
+        nanoAOD.Electron_mass,
+    ],
+    output=[q.extra_lep_p4],
+    scopes=["e2m","e2m_dyfakeinge_regionb"],
+)
+Ele1_W_e2m_regioncd = Producer(
+    name="Ele1_W_e2m_regioncd",
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.base_electron_collection,
@@ -124,7 +175,7 @@ Ele1_W_e2m = Producer(
         nanoAOD.Electron_mass,
     ],
     output=[q.extra_lep_p4],
-    scopes=["e2m"],
+    scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 ### calc MT_W using lepton_p4 and met
 Calc_MT_W = Producer(
@@ -135,7 +186,7 @@ Calc_MT_W = Producer(
         q.met_p4,
     ],
     output=[q.mt_W],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### Z lep ID
 RenameZlepID_eemm = Producer(

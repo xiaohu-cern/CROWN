@@ -192,7 +192,7 @@ FilterNMuons_e2m = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {vh_e2m_nmuons}, "==", "Number of muons 2 in e2m")',
     input=[q.nmuons],
     output=None,
-    scopes=["e2m","e2m_dyfakeinge_regionb"],
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 FilterNElectrons_e2m = Producer(
     name="FilterNElectrons_e2m",
@@ -200,6 +200,20 @@ FilterNElectrons_e2m = Producer(
     input=[q.nelectrons],
     output=None,
     scopes=["e2m","e2m_dyfakeinge_regionb"],
+)
+FilterNGoodElectrons_e2m_regioncd = Producer(
+    name="FilterNGoodElectrons_e2m_regioncd",
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_e2m_good_nelectrons}, "==", "Number of good electrons 0 in e2m region cd")',
+    input=[q.nelectrons],
+    output=None,
+    scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+FilterNBaseElectrons_e2m_regioncd = Producer(
+    name="FilterNBaseElectrons_e2m_regioncd",
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_e2m_base_nelectrons}, "==", "Number of base electrons 1 in e2m region cd")',
+    input=[q.nbaseelectrons],
+    output=None,
+    scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 ###  2e2m
 FilterNMuons_2e2m = Producer(
@@ -249,7 +263,7 @@ DimuonMinMassCut = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {min_dimuon_mass}, ">=", "No m(mm) < 12 GeV")',
     input=[q.smallest_dimuon_mass],
     output=None,
-    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 DielectronMinMassCut = Producer(
     name="DielectronMinMassCut",
@@ -264,7 +278,7 @@ Flag_DiMuonFromHiggs = Producer(
     call='physicsobject::DiMuonFromHiggs({df}, {output}, {input})',
     input=[q.dimuon_HiggsCand_collection],
     output=[q.Flag_DiMuonFromHiggs],
-    scopes=["global","e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["global","e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 ### need a collection that di_ele after cut
 Flag_DiEleFromZ = Producer(
@@ -284,7 +298,7 @@ HiggsToDiMuonPair_p4 = Producer(
            nanoAOD.Muon_mass,
            q.dimuon_HiggsCand_collection],
     output=[q.dimuon_p4_Higgs],
-    scopes=["global","e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["global","e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 HiggsToDiMuonPair_p4_4m = Producer(
     name="HiggsToDiMuonPair_p4_4m",
@@ -365,7 +379,7 @@ Mask_DiMuonPair = Producer(
            nanoAOD.Muon_charge,
            q.good_muon_collection],
     output=[q.dimuon_HiggsCand_collection], # index about the two selected muons may from Higgs
-    scopes=["global","e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["global","e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 Mask_DiElectronPair = Producer(
     name="Mask_DiElectronPair",
@@ -375,7 +389,7 @@ Mask_DiElectronPair = Producer(
            nanoAOD.Electron_phi,
            nanoAOD.Electron_mass,
            nanoAOD.Electron_charge,
-           q.base_electron_collection],
+           q.good_electron_collection],
     output=[q.dielectron_ZCand_collection], # index about the two selected electrons may from Z boson
     scopes=["eemm"],
 )
@@ -407,7 +421,17 @@ lepton_H_dR = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.lep_H_dR],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
+)
+lepton_Z_dR = Producer(
+    name="lepton_Z_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.extra_lep_p4,
+      q.dimuon_p4_CR,
+    ],
+    output=[q.lep_Z_dR],
+    scopes=["e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
 )
 mumuH_dR = Producer(
     name="mumuH_dR",
@@ -417,7 +441,7 @@ mumuH_dR = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mumuH_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 ### e2m channel 
 muSSwithElectronW_p4 = Producer(
@@ -431,10 +455,58 @@ muSSwithElectronW_p4 = Producer(
         nanoAOD.Muon_charge,
         nanoAOD.Electron_charge,
         q.dimuon_HiggsCand_collection,
-        q.base_electron_collection,
+        q.good_electron_collection,
     ],
     output=[q.mu_p4_SSwithLep],
     scopes=["e2m"],
+)
+muSSwithElectronW_p4_e2m_regionb = Producer(
+    name="muSSwithElectronW_p4_e2m_regionb",
+    call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 1)',
+    input=[
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta, 
+        nanoAOD.Muon_phi, 
+        nanoAOD.Muon_mass,
+        nanoAOD.Muon_charge,
+        nanoAOD.Electron_charge,
+        q.dimuon_ZControl_collection,
+        q.good_electron_collection,
+    ],
+    output=[q.mu_p4_SSwithLep],
+    scopes=["e2m_dyfakeinge_regionb"],
+)
+muSSwithElectronW_p4_e2m_regionc = Producer(
+    name="muSSwithElectronW_p4_e2m_regionc",
+    call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 1)',
+    input=[
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta, 
+        nanoAOD.Muon_phi, 
+        nanoAOD.Muon_mass,
+        nanoAOD.Muon_charge,
+        nanoAOD.Electron_charge,
+        q.dimuon_HiggsCand_collection,
+        q.base_electron_collection,
+    ],
+    output=[q.mu_p4_SSwithLep],
+    scopes=["e2m_dyfakeinge_regionc"],
+)
+muSSwithElectronW_p4_e2m_regiond = Producer(
+    name="muSSwithElectronW_p4_e2m_regiond",
+    call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 1)',
+    input=[
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta, 
+        nanoAOD.Muon_phi, 
+        nanoAOD.Muon_mass,
+        nanoAOD.Muon_charge,
+        nanoAOD.Electron_charge,
+        q.dimuon_ZControl_collection,
+        q.base_electron_collection,
+    ],
+    output=[q.mu_p4_SSwithLep],
+    scopes=["e2m_dyfakeinge_regiond"],
 )
 muOSwithElectronW_p4 = Producer(
     name="muOSwithElectronW_p4",
@@ -447,10 +519,58 @@ muOSwithElectronW_p4 = Producer(
         nanoAOD.Muon_charge,
         nanoAOD.Electron_charge,
         q.dimuon_HiggsCand_collection,
-        q.base_electron_collection,
+        q.good_electron_collection,
     ],
     output=[q.mu_p4_OSwithLep],
     scopes=["e2m"],
+)
+muOSwithElectronW_p4_e2m_regionb = Producer(
+    name="muOSwithElectronW_p4_e2m_regionb",
+    call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 0)',
+    input=[
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta, 
+        nanoAOD.Muon_phi, 
+        nanoAOD.Muon_mass,
+        nanoAOD.Muon_charge,
+        nanoAOD.Electron_charge,
+        q.dimuon_ZControl_collection,
+        q.good_electron_collection,
+    ],
+    output=[q.mu_p4_OSwithLep],
+    scopes=["e2m_dyfakeinge_regionb"],
+)
+muOSwithElectronW_p4_e2m_regionc = Producer(
+    name="muOSwithElectronW_p4_e2m_regionc",
+    call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 0)',
+    input=[
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta, 
+        nanoAOD.Muon_phi, 
+        nanoAOD.Muon_mass,
+        nanoAOD.Muon_charge,
+        nanoAOD.Electron_charge,
+        q.dimuon_HiggsCand_collection,
+        q.base_electron_collection,
+    ],
+    output=[q.mu_p4_OSwithLep],
+    scopes=["e2m_dyfakeinge_regionc"],
+)
+muOSwithElectronW_p4_e2m_regiond = Producer(
+    name="muOSwithElectronW_p4_e2m_regiond",
+    call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 0)',
+    input=[
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta, 
+        nanoAOD.Muon_phi, 
+        nanoAOD.Muon_mass,
+        nanoAOD.Muon_charge,
+        nanoAOD.Electron_charge,
+        q.dimuon_ZControl_collection,
+        q.base_electron_collection,
+    ],
+    output=[q.mu_p4_OSwithLep],
+    scopes=["e2m_dyfakeinge_regiond"],
 )
 ### m2m channel 
 muSSwithMuonW_p4 = Producer(
@@ -467,7 +587,23 @@ muSSwithMuonW_p4 = Producer(
         q.extra_muon_index,
     ],
     output=[q.mu_p4_SSwithLep],
-    scopes=["m2m"],
+    scopes=["m2m","m2m_dyfakeingmu_regionc"],
+)
+muSSwithMuonW_p4_regionbd = Producer(
+    name="muSSwithMuonW_p4_regionbd",
+    call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 1)',
+    input=[
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta, 
+        nanoAOD.Muon_phi, 
+        nanoAOD.Muon_mass,
+        nanoAOD.Muon_charge,
+        nanoAOD.Muon_charge,
+        q.dimuon_ZControl_collection,
+        q.extra_muon_index,
+    ],
+    output=[q.mu_p4_SSwithLep],
+    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
 )
 muOSwithMuonW_p4 = Producer(
     name="muOSwithMuonW_p4",
@@ -483,7 +619,23 @@ muOSwithMuonW_p4 = Producer(
         q.extra_muon_index,
     ],
     output=[q.mu_p4_OSwithLep],
-    scopes=["m2m"],
+    scopes=["m2m","m2m_dyfakeingmu_regionc"],
+)
+muOSwithMuonW_p4_regionbd = Producer(
+    name="muOSwithMuonW_p4_regionbd",
+    call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 0)',
+    input=[
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta, 
+        nanoAOD.Muon_phi, 
+        nanoAOD.Muon_mass,
+        nanoAOD.Muon_charge,
+        nanoAOD.Muon_charge,
+        q.dimuon_ZControl_collection,
+        q.extra_muon_index,
+    ],
+    output=[q.mu_p4_OSwithLep],
+    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
 )
 ### dR lepW and muSS
 lepton_muSS_dR = Producer(
@@ -494,7 +646,7 @@ lepton_muSS_dR = Producer(
       q.mu_p4_SSwithLep,
     ],
     output=[q.lep_muSS_dR],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### dR lepW and muOS
 lepton_muOS_dR = Producer(
@@ -505,7 +657,7 @@ lepton_muOS_dR = Producer(
       q.mu_p4_OSwithLep,
     ],
     output=[q.lep_muOS_dR],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 #######################
 ### deta lepW and mumuH
@@ -517,7 +669,7 @@ lepton_H_deta = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.lep_H_deta],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 ### deta lepW and muSS
 lepton_muSS_deta = Producer(
@@ -528,7 +680,7 @@ lepton_muSS_deta = Producer(
       q.mu_p4_SSwithLep,
     ],
     output=[q.lep_muSS_deta],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### deta lepW and muOS
 lepton_muOS_deta = Producer(
@@ -539,7 +691,7 @@ lepton_muOS_deta = Producer(
       q.mu_p4_OSwithLep,
     ],
     output=[q.lep_muOS_deta],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### dR llZ
 leplepZ_dR = Producer(
@@ -605,7 +757,7 @@ Calc_MT_muSS_MHT = Producer(
         q.MHT_p4,
     ],
     output=[q.mt_muSSAndMHT],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### calc MT(muOS and MHT)
 Calc_MT_muOS_MHT = Producer(
@@ -616,7 +768,7 @@ Calc_MT_muOS_MHT = Producer(
         q.MHT_p4,
     ],
     output=[q.mt_muOSAndMHT],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### calc MT(lepW and MHT)
 Calc_MT_lepton_MHT = Producer(
@@ -627,7 +779,7 @@ Calc_MT_lepton_MHT = Producer(
         q.MHT_p4,
     ],
     output=[q.mt_lepWAndMHT],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### calc dphi(lepW and MHT)
 lepW_MHT_dphi = Producer(
@@ -638,7 +790,7 @@ lepW_MHT_dphi = Producer(
       q.MHT_p4,
     ],
     output=[q.lep_MHT_dphi],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### cut flag
 FilterFlagDiMuFromH = Producer(
@@ -646,14 +798,14 @@ FilterFlagDiMuFromH = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {flag_DiMuonFromHiggs}, "==", "DiMuon From Higgs")',
     input=[q.Flag_DiMuonFromHiggs],
     output=None,
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 FilterFlagLepChargeSum = Producer(
     name="FilterFlagLepChargeSum",
     call='basefunctions::FilterThreshold({df}, {input}, {flag_LeptonChargeSumVeto}, "==", "LeptonChargeSum")',
     input=[q.Flag_LeptonChargeSumVeto],
     output=None,
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 FilterFlagEleVeto = Producer(
     name="FilterFlagEleVeto",
@@ -678,7 +830,7 @@ mumuH_MHT_dphi = Producer(
       q.MHT_p4,
     ],
     output=[q.mumuH_MHT_dphi],
-    scopes=["e2m","m2m","nnmm","fjmm"],
+    scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 mu1_MHT_dphi = Producer(
     name="mu1_MHT_dphi",
@@ -688,7 +840,7 @@ mu1_MHT_dphi = Producer(
       q.MHT_p4,
     ],
     output=[q.mu1_MHT_dphi],
-    scopes=["e2m","m2m","nnmm","fjmm"],
+    scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 mu2_MHT_dphi = Producer(
     name="mu2_MHT_dphi",
@@ -698,7 +850,7 @@ mu2_MHT_dphi = Producer(
       q.MHT_p4,
     ],
     output=[q.mu2_MHT_dphi],
-    scopes=["e2m","m2m","nnmm","fjmm"],
+    scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 mu1_mu2_dphi = Producer(
     name="mu1_mu2_dphi",
@@ -708,7 +860,7 @@ mu1_mu2_dphi = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu1_mu2_dphi],
-    scopes=["e2m","m2m","nnmm","fjmm"],
+    scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 lep_mu1_dphi = Producer(
     name="lep_mu1_dphi",
@@ -718,7 +870,7 @@ lep_mu1_dphi = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.lep_mu1_dphi],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 lep_mu2_dphi = Producer(
     name="lep_mu2_dphi",
@@ -728,7 +880,7 @@ lep_mu2_dphi = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.lep_mu2_dphi],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 lep_H_dphi = Producer(
     name="lep_H_dphi",
@@ -738,7 +890,17 @@ lep_H_dphi = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.lep_H_dphi],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
+)
+lep_Z_dphi = Producer(
+    name="lep_Z_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.extra_lep_p4,
+      q.dimuon_p4_CR,
+    ],
+    output=[q.lep_Z_dphi],
+    scopes=["e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
 )
 lepW_MHTALL_dphi = Producer(
     name="lepW_MHTALL_dphi",
@@ -755,14 +917,14 @@ PassFlagZmassVeto = Producer(
     call='physicsobject::PassFlag({df}, {output})',
     input=[],
     output=[q.Flag_dimuon_Zmass_veto], # e2m channel using this all pass flag
-    scopes=["e2m"],
+    scopes=["e2m","e2m_dyfakeinge_regionc"],
 )
 PassFlagEleVeto = Producer(
     name="PassFlagEleVeto",
     call='physicsobject::PassFlag({df}, {output})',
     input=[],
     output=[q.Flag_Ele_Veto], # e2m, eemm channel using this all pass flag
-    scopes=["e2m","eemm"],
+    scopes=["e2m","eemm","e2m_dyfakeinge_regionc"],
 )
 PassFlagZZVeto = Producer(
     name="PassFlagZZVeto",
@@ -801,7 +963,7 @@ Calc_CosThStar_lep_muOS = Producer(
       q.mu_p4_OSwithLep,
     ],
     output=[q.lep_muOS_cosThStar],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 Calc_CosThStar_lep_muSS = Producer(
     name="Calc_CosThStar_lep_muSS",
@@ -811,7 +973,7 @@ Calc_CosThStar_lep_muSS = Producer(
       q.mu_p4_SSwithLep,
     ],
     output=[q.lep_muSS_cosThStar],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 Calc_CosThStar_Z_H = Producer(
     name="Calc_CosThStar_Z_H",

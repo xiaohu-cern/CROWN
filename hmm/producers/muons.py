@@ -130,7 +130,7 @@ GoodMuon_mvaTTH_Cut = Producer(
     call="physicsobject::CutVarMin({df}, {input}, {output}, {min_muon_mvaTTH})",
     input=[nanoAOD.Muon_mvaTTH],
     output=[],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 # here actually goodmuon ptcut etacut and isocut are same as base muon, so no need to do now
 # only need to add medium id cut
@@ -139,7 +139,7 @@ GoodMuons = ProducerGroup(
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[q.base_muons_mask],
     output=[q.good_muons_mask], # vh these are the final selection muons' mask
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
     subproducers=[
         GoodMuon_mvaTTH_Cut,
         # GoodMuonDzCut,
@@ -155,7 +155,7 @@ NumberOfGoodMuons = Producer(
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
     input=[q.good_muons_mask],
     output=[q.nmuons],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 NumberOfBaseMuons = Producer(
     name="NumberOfBaseMuons",
@@ -240,7 +240,7 @@ MuonCollection = Producer(
     call="jet::OrderJetsByPt({df}, {output}, {input})",
     input=[nanoAOD.Muon_pt, q.good_muons_mask],
     output=[q.good_muon_collection],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 BaseMuonCollection = Producer(
     name="BaseMuonCollection",
@@ -273,7 +273,7 @@ LVMu1 = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_1],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 BaseLVMu2 = Producer(
     name="BaseLVMu2",
@@ -299,7 +299,7 @@ LVMu2 = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_2],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 BaseLVMu3 = Producer(
     name="BaseLVMu3",
@@ -353,7 +353,7 @@ Mu1_H = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_leadingp4_H],
-    scopes=["e2m","m2m", "eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m", "eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 ##### The sub leading muon form Higgs
 Mu2_H = Producer(
@@ -367,7 +367,7 @@ Mu2_H = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_subleadingp4_H],
-    scopes=["e2m","m2m", "eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m", "eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 ##### The leading muon from Higgs in 4m channel
 Mu1_H_4m = Producer(
