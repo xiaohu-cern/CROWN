@@ -770,6 +770,9 @@ def build_config(
             event.Lumi,
             event.MetFilter,
             muons.BaseMuons, # vh
+            
+            # muons.GoodMuons, # vh tighter selections on muons
+            # muons.NumberOfGoodMuons,
             # vh muon Rochester corr, FSR recovery, GeoFit? TODO
             # vh muon FSR recovery
             
@@ -853,6 +856,7 @@ def build_config(
             event.Calc_MT_muOS_MHT,
             event.Calc_MT_lepton_MHT,
             event.lepW_MHT_dphi,
+            event.MHT_lep_dphi,
             ###
             event.mumuH_MHT_dphi,
             event.mu1_MHT_dphi,
@@ -1029,6 +1033,7 @@ def build_config(
             event.Calc_MT_muOS_MHT,
             event.Calc_MT_lepton_MHT,
             event.lepW_MHT_dphi,
+            event.MHT_lep_dphi,
             event.mumuH_MHT_dphi,
             event.mu1_MHT_dphi,
             event.mu2_MHT_dphi,
@@ -1187,6 +1192,7 @@ def build_config(
             event.Calc_MT_muOS_MHT,
             event.Calc_MT_lepton_MHT,
             event.lepW_MHT_dphi,
+            event.MHT_lep_dphi,
             #electrons.LVEle1,
             event.mumuH_MHT_dphi,
             event.mu1_MHT_dphi,
@@ -1338,6 +1344,7 @@ def build_config(
             event.Calc_MT_muOS_MHT,
             event.Calc_MT_lepton_MHT,
             event.lepW_MHT_dphi,
+            event.MHT_lep_dphi,
             event.mumuH_MHT_dphi,
             event.mu1_MHT_dphi,
             event.mu2_MHT_dphi,
@@ -1450,6 +1457,9 @@ def build_config(
             muons.MuonCollection, # collect ordered by pt
             ###
             electrons.NumberOfBaseElectrons,
+            electrons.GoodElectrons,
+            electrons.NumberOfGoodElectrons,
+
             event.FilterNElectrons_2e2m,
             electrons.ElectronCollection, # collect ordered by pt (2 electrons)
             ###
@@ -1531,6 +1541,8 @@ def build_config(
             muons.MuonCollection,
             #
             electrons.NumberOfBaseElectrons,
+            electrons.GoodElectrons,
+            electrons.NumberOfGoodElectrons,
             ###
             lepton.CalcSmallestDiMuonMass,
             event.DimuonMinMassCut,
@@ -1623,6 +1635,8 @@ def build_config(
             lepton.LeptonChargeSumVeto,
             ###
             electrons.NumberOfBaseElectrons,
+            electrons.GoodElectrons,
+            electrons.NumberOfGoodElectrons,
             # electrons.ElectronCollection,
             electrons.Ele_Veto,
             # flag cut
@@ -1699,6 +1713,8 @@ def build_config(
             lepton.LeptonChargeSumVeto,
             ###
             electrons.NumberOfBaseElectrons,
+            electrons.GoodElectrons,
+            electrons.NumberOfGoodElectrons,
             # electrons.ElectronCollection,
             electrons.Ele_Veto,
             # flag cut
@@ -1797,6 +1813,8 @@ def build_config(
             lepton.LeptonChargeSumVeto,
             ###
             electrons.NumberOfBaseElectrons,
+            electrons.GoodElectrons,
+            electrons.NumberOfGoodElectrons,
             electrons.Ele_Veto,
             # flag cut
             event.FilterFlagLepChargeSum,
@@ -1824,6 +1842,8 @@ def build_config(
             muons.GoodMuons, # vh tighter selections on muons
             muons.NumberOfGoodMuons,
             electrons.NumberOfBaseElectrons,
+            electrons.GoodElectrons,
+            electrons.NumberOfGoodElectrons,
             event.Flag_MetCut,
             event.FilterFlagMetCut, # MET >= 50
             cr.FilterNMuons_nnmm_topcontrol,
@@ -1924,6 +1944,7 @@ def build_config(
             q.mt_muOSAndMHT,
             q.mt_lepWAndMHT,
             q.lep_MHT_dphi,
+            q.MHT_lep_dphi,
             ###
             q.mumuH_MHT_dphi,
             q.mu1_MHT_dphi,

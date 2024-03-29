@@ -120,13 +120,20 @@ VetoOverlappingFatJetsWithMuons = Producer(
     output=[q.fatjet_overlap_veto_mask],
     scopes=["global"],
 )
+VetoOverlappingFatJetsWithEles = Producer(
+    name="VetoOverlappingFatJetsWithEles",
+    call="jet::VetoOverlappingJets({df}, {output}, {input}, {deltaR_fatjet_veto})",
+    input=[nanoAOD.FatJet_eta, nanoAOD.FatJet_phi, nanoAOD.Electron_eta, nanoAOD.Electron_phi, q.base_electrons_mask], # vh base or good muon?
+    output=[q.fatjet_overlap_veto_ele_mask],
+    scopes=["global"],
+)
 GoodFatJets = ProducerGroup(
     name="GoodFatJets",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.good_fatjets_mask],
     scopes=["global"],
-    subproducers=[FatJetPtCut, FatJetEtaCut, FatJetSDMassCut, FatJetIDCut_UChar, VetoOverlappingFatJetsWithMuons],
+    subproducers=[FatJetPtCut, FatJetEtaCut, FatJetSDMassCut, FatJetIDCut_UChar, VetoOverlappingFatJetsWithMuons, VetoOverlappingFatJetsWithEles],
 )
 NumberOfGoodFatJets = Producer(
     name="NumberOfGoodFatJets",

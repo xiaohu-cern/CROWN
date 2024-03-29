@@ -792,6 +792,16 @@ lepW_MHT_dphi = Producer(
     output=[q.lep_MHT_dphi],
     scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
+MHT_lep_dphi = Producer(
+    name="MHT_lep_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.MHT_p4,
+      q.extra_lep_p4,
+    ],
+    output=[q.MHT_lep_dphi],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+)
 ### cut flag
 FilterFlagDiMuFromH = Producer(
     name="FilterFlagDiMuFromH",

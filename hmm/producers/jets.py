@@ -159,14 +159,21 @@ VetoOverlappingJetsWithMuons = Producer(
     output=[q.jet_overlap_veto_mask],
     scopes=["global"],
 )
-
+# may be also need to do overlap removal with ele in e2m
+VetoOverlappingJetsWithEles = Producer(
+    name="VetoOverlappingJetsWithEles",
+    call="jet::VetoOverlappingJets({df}, {output}, {input}, {deltaR_jet_veto})",
+    input=[nanoAOD.Jet_eta, nanoAOD.Jet_phi, nanoAOD.Electron_eta, nanoAOD.Electron_phi, q.base_electrons_mask], # vh base or good muon?
+    output=[q.jet_overlap_veto_ele_mask],
+    scopes=["global"],
+)
 GoodJets = ProducerGroup(
     name="GoodJets",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.good_jets_mask],
     scopes=["global"],
-    subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar, JetPUIDCut, VetoOverlappingJetsWithMuons],
+    subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar, JetPUIDCut, VetoOverlappingJetsWithMuons, VetoOverlappingJetsWithEles],
 )
 ### As now 2022 data has no Jet_puID, so no possible to do JetPUIDCut
 GoodJets_2022 = ProducerGroup(
@@ -175,7 +182,7 @@ GoodJets_2022 = ProducerGroup(
     input=[],
     output=[q.good_jets_mask],
     scopes=["global"],
-    subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar, VetoOverlappingJetsWithMuons],
+    subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar, VetoOverlappingJetsWithMuons, VetoOverlappingJetsWithEles],
 )
 
 GoodBJetsLoose = ProducerGroup(
@@ -327,7 +334,7 @@ Calc_MHT_all = Producer(
         nanoAOD.Electron_eta,
         nanoAOD.Electron_phi,
         nanoAOD.Electron_mass,
-        q.base_electron_collection,
+        q.good_electron_collection,
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
         nanoAOD.Jet_phi,
