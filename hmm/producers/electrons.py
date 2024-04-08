@@ -105,17 +105,17 @@ BaseElectrons = ProducerGroup(
 )
 GoodElectron_mvaTTH_Cut = Producer(
     name="GoodElectron_mvaTTH_Cut",
-    call="physicsobject::CutVarMin({df}, {input}, {output}, {min_electron_mvaTTH})",
+    call="physicsobject::CutVarMin({df}, {input}, {output}, {min_goodelectron_mvaTTH})",
     input=[nanoAOD.Electron_mvaTTH],
     output=[],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 GoodElectrons = ProducerGroup(
     name="GoodElectrons",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[q.base_electrons_mask],
     output=[q.good_electrons_mask], # vh these are the final selection muons' mask
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
     subproducers=[
         GoodElectron_mvaTTH_Cut,
     ],
@@ -125,14 +125,14 @@ NumberOfBaseElectrons = Producer(
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
     input=[q.base_electrons_mask],
     output=[q.nbaseelectrons],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 NumberOfGoodElectrons = Producer(
     name="NumberOfGoodElectrons",
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
     input=[q.good_electrons_mask],
     output=[q.nelectrons],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 Ele_Veto = Producer(
     name="Ele_Veto",
@@ -147,7 +147,7 @@ ElectronCollection = Producer(
     call="jet::OrderJetsByPt({df}, {output}, {input})",
     input=[nanoAOD.Electron_pt, q.good_electrons_mask],
     output=[q.good_electron_collection],  # eles after ordered by pt
-    scopes=["e2m","m2m","eemm","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["global","e2m","m2m","eemm","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
 )
 ### Base Electron collection and their properties
 BaseElectronCollection = Producer(
@@ -155,7 +155,7 @@ BaseElectronCollection = Producer(
     call="jet::OrderJetsByPt({df}, {output}, {input})",
     input=[nanoAOD.Electron_pt, q.base_electrons_mask],
     output=[q.base_electron_collection],  # eles after ordered by pt
-    scopes=["e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 LVEle1 = Producer(
     name="LVEle1",

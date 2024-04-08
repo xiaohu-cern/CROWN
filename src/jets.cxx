@@ -49,7 +49,9 @@ VetoOverlappingJets(ROOT::RDF::RNode df, const std::string &output_col,
                     ->debug("Jet {}:  Eta: {} Phi: {} ", idx, jet.Eta(), jet.Phi());
                 int _mdx = 0;
                 for(std::size_t mdx = 0; mdx < muon_mask.size(); ++mdx){
-                    if( muon_mask[mdx] == 0 ) continue; // only check with the selected muons
+                    // input collection, not mask, so they are index, no need to judge mask 0 or 1
+                    // if( muon_mask[mdx] == 0 ) continue; // only check with the selected muons
+                    // if( muon_mask[mdx] ) continue; // only check with the selected muons
                     ROOT::Math::RhoEtaPhiVectorF muon(0, muon_eta.at(mdx), muon_phi.at(mdx));
                     Logger::get("VetoOverlappingJets (N particles)")
                         ->debug("Lepton {}:  Eta: {} Phi: {} ", _mdx, muon.Eta(), muon.Phi());
