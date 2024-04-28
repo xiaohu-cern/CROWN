@@ -76,7 +76,6 @@ BaseMuons = ProducerGroup(
         MuonDxyCut,
         MuonDzCut,
         MuonSIP3DCut,
-        # TODO vh add LepMVA
         # Muon_mvaTTH_Cut,
         MuonIDCut,
         MuonIsoCut,

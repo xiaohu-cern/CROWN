@@ -94,13 +94,27 @@ BaseElectrons = ProducerGroup(
         ElectronECalGapVeto,
         ElectronDxyCut,
         ElectronDzCut,
-        # ElectronIDCut,
         ElectronUCharIDCut,
         ElectronSIP3DCut,
         ElectronConvVeto,
-        # ElectronMissingHitsCut,
         ElectronMissingHitsCut_UChar,
-        # Electron_mvaTTH_Cut,
+    ],
+)
+BaseElectrons_run2 = ProducerGroup(
+    name="BaseElectrons_run2",
+    call="physicsobject::CombineMasks({df}, {output}, {input})",
+    input=[],
+    output=[q.base_electrons_mask],
+    scopes=["global"],
+    subproducers=[
+        ElectronPtCut,
+        ElectronECalGapVeto,
+        ElectronDxyCut,
+        ElectronDzCut,
+        ElectronIDCut,
+        ElectronSIP3DCut,
+        ElectronConvVeto,
+        ElectronMissingHitsCut,
     ],
 )
 GoodElectron_mvaTTH_Cut = Producer(

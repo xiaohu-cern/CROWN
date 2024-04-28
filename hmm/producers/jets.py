@@ -27,6 +27,24 @@ JetPtCorrection = Producer(
     output=[q.Jet_pt_corrected],
     scopes=["global"],
 )
+JetPtCorrection_run2 = Producer(
+    name="JetPtCorrection_run2",
+    call="physicsobject::jet::JetPtCorrection_run2({df}, {output}, {input}, {jet_reapplyJES}, {jet_jes_sources}, {jet_jes_shift}, {jet_jer_shift}, {jet_jec_file}, {jet_jer_tag}, {jet_jes_tag}, {jet_jec_algo})",
+    input=[
+        nanoAOD.Jet_pt,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        nanoAOD.Jet_area,
+        nanoAOD.Jet_rawFactor,
+        nanoAOD.Jet_ID,
+        nanoAOD.GenJet_pt,
+        nanoAOD.GenJet_eta,
+        nanoAOD.GenJet_phi,
+        nanoAOD.rho,
+    ],
+    output=[q.Jet_pt_corrected],
+    scopes=["global"],
+)
 JetMassCorrection = Producer(
     name="JetMassCorrection",
     call="physicsobject::ObjectMassCorrectionWithPt({df}, {output}, {input})",
@@ -45,6 +63,14 @@ JetEnergyCorrection = ProducerGroup(
     output=None,
     scopes=["global"],
     subproducers=[JetPtCorrection, JetMassCorrection],
+)
+JetEnergyCorrection_run2 = ProducerGroup(
+    name="JetEnergyCorrection_run2",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["global"],
+    subproducers=[JetPtCorrection_run2, JetMassCorrection],
 )
 # in data and embdedded sample, we simply rename the nanoAOD jets to the jet_pt_corrected column
 RenameJetPt = Producer(
@@ -125,7 +151,7 @@ BTagCutLoose = Producer(
     call="physicsobject::jet::CutRawID({df}, {input}, {output}, {btag_cut_loose})",
     input=[nanoAOD.BJet_discriminator],
     output=[],
-    scopes=["global"],
+    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 BTagCutLoose_PNet = Producer(
     name="BTagCutLoose_PNet",
@@ -139,7 +165,7 @@ BTagCutMedium = Producer(
     call="physicsobject::jet::CutRawID({df}, {input}, {output}, {btag_cut_medium})",
     input=[nanoAOD.BJet_discriminator],
     output=[],
-    scopes=["global"],
+    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 BTagCutMedium_PNet = Producer(
     name="BTagCutMedium_PNet",
@@ -168,15 +194,6 @@ BTagCutMedium_PNet = Producer(
 #     output=[q.jet_overlap_veto_ele_mask],
 #     # scopes=["global"],
 #     scopes=["m2m","e2m","mmmm","eemm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb"],    
-# )
-# GoodJets = ProducerGroup(
-#     name="GoodJets",
-#     call="physicsobject::CombineMasks({df}, {output}, {input})",
-#     input=[],
-#     output=[q.good_jets_mask],
-#     scopes=["global"],
-#     # subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar, JetPUIDCut, VetoOverlappingJetsWithMuons, VetoOverlappingJetsWithEles],
-#     subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar, JetPUIDCut],
 # )
 ### As now 2022 data has no Jet_puID, so no possible to do JetPUIDCut
 # GoodJets_2022 = ProducerGroup(
@@ -250,6 +267,34 @@ GoodJets_2022_BaseEle_GoodMu = ProducerGroup(
     subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar,VetoOverlappingJets_BaseEle, VetoOverlappingJets_GoodMuon],
 )
 ########################
+# Jet_jetid -> jet_id UChar_t in v12, Int_t in v9
+########################
+########################
+GoodJets_run2_GoodMu_GoodEle = ProducerGroup(
+    name="GoodJets_run2_GoodMu_GoodEle",
+    call="physicsobject::CombineMasks({df}, {output}, {input})",
+    input=[],
+    output=[q.good_jets_mask],
+    scopes=["m2m","e2m","mmmm","eemm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb"],
+    subproducers=[JetPtCut, JetEtaCut, JetIDCut, JetPUIDCut, VetoOverlappingJets_GoodMuon, VetoOverlappingJets_GoodEle],
+)
+GoodJets_run2_BaseMu = ProducerGroup(
+    name="GoodJets_run2_BaseMu",
+    call="physicsobject::CombineMasks({df}, {output}, {input})",
+    input=[],
+    output=[q.good_jets_mask],
+    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    subproducers=[JetPtCut, JetEtaCut, JetIDCut,VetoOverlappingJets_BaseMuon],
+)
+GoodJets_run2_BaseEle_GoodMu = ProducerGroup(
+    name="GoodJets_run2_BaseEle_GoodMu",
+    call="physicsobject::CombineMasks({df}, {output}, {input})",
+    input=[],
+    output=[q.good_jets_mask],
+    scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    subproducers=[JetPtCut, JetEtaCut, JetIDCut,VetoOverlappingJets_BaseEle, VetoOverlappingJets_GoodMuon],
+)
+########################
 ########################
 ########################
 
@@ -258,7 +303,7 @@ GoodBJetsLoose = ProducerGroup(
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[q.good_jets_mask],
     output=[q.good_bjets_mask_loose],
-    scopes=["global"],
+    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
     subproducers=[BJetPtCut, BJetEtaCut, BTagCutLoose],
 )
 GoodBJetsMedium = ProducerGroup(
@@ -266,7 +311,7 @@ GoodBJetsMedium = ProducerGroup(
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[q.good_bjets_mask_loose],
     output=[q.good_bjets_mask_medium],
-    scopes=["global"],
+    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
     subproducers=[BTagCutMedium],
 )
 #############################

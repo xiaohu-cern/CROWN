@@ -456,7 +456,17 @@ def build_config(
                     "2022postEE": '"Summer22EEPrompt22_V1_MC"', # just for testing (TBD)
                 }
             ),
-            "jet_jec_algo": '"AK4PFPuppi"', # AK4PFchs for run2?
+            # "jet_jec_algo": '"AK4PFPuppi"', # AK4PFchs for run2?
+            "jet_jec_algo": EraModifier(
+                {
+                    "2016preVFP": '"AK4PFchs"',
+                    "2016postVFP": '"AK4PFchs"',
+                    "2017": '"AK4PFchs"',
+                    "2018": '"AK4PFchs"',
+                    "2022preEE": '"AK4PFPuppi"',
+                    "2022postEE": '"AK4PFPuppi"',
+                }    
+            )
         },
     )
     configuration.add_config_parameters(
@@ -792,37 +802,71 @@ def build_config(
             electrons.NumberOfGoodElectrons,
             electrons.BaseElectronCollection, # collect ordered by pt
             electrons.ElectronCollection,
-            
-            jets.JetEnergyCorrection, # vh include pt corr and mass corr
-            fatjets.FatJetEnergyCorrection,
+
             met.MetBasics, # build met vector for calculation
             met.BuildGenMetVector,
         ],
     )
     # as different lepton in final state, so need to overlap at each scope
-    # currently overlap with bjet for test # TODO
-    configuration.add_producers(
-        # overlap with good muon and good ele
-        ["m2m","e2m","mmmm","eemm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb"],
-        [
-            jets.GoodJets_2022_GoodMu_GoodEle, 
-            # jets.GoodJets_2022,
-        ]
-    )
-    configuration.add_producers(
-        # overlap with base muon
-        ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
-        [
-            jets.GoodJets_2022_BaseMu, 
-        ]
-    )
-    configuration.add_producers(
-        # overlap with good muon and base ele
-        ["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-        [
-            jets.GoodJets_2022_BaseEle_GoodMu, 
-        ]
-    )
+    if era == "2022preEE" or era == "2022postEE":
+        configuration.add_producers(
+            "global",
+            [
+                jets.JetEnergyCorrection, # vh include pt corr and mass corr
+                fatjets.FatJetEnergyCorrection,
+            ]
+        )
+        configuration.add_producers(
+            # overlap with good muon and good ele
+            ["m2m","e2m","mmmm","eemm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb"],
+            [
+                jets.GoodJets_2022_GoodMu_GoodEle, 
+                # jets.GoodJets_2022,
+            ]
+        )
+        configuration.add_producers(
+            # overlap with base muon
+            ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+            [
+                jets.GoodJets_2022_BaseMu, 
+            ]
+        )
+        configuration.add_producers(
+            # overlap with good muon and base ele
+            ["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+            [
+                jets.GoodJets_2022_BaseEle_GoodMu, 
+            ]
+        )
+    elif era == "2018" or era == "2017" or era == "2016preVFP" or era == "2016postVFP":
+        configuration.add_producers(
+            "global",
+            [
+                jets.JetEnergyCorrection_run2, # vh include pt corr and mass corr
+                fatjets.FatJetEnergyCorrection_run2,
+            ]
+        )
+        configuration.add_producers(
+            # overlap with good muon and good ele
+            ["m2m","e2m","mmmm","eemm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb"],
+            [
+                jets.GoodJets_run2_GoodMu_GoodEle, 
+            ]
+        )
+        configuration.add_producers(
+            # overlap with base muon
+            ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+            [
+                jets.GoodJets_run2_BaseMu, 
+            ]
+        )
+        configuration.add_producers(
+            # overlap with good muon and base ele
+            ["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+            [
+                jets.GoodJets_run2_BaseEle_GoodMu, 
+            ]
+        )
     configuration.add_producers(
         scopes,
         [
@@ -2305,6 +2349,44 @@ def build_config(
     # ParticleNet Vars are different in v9 and v12
     if era == "2018" or era == "2017" or era == "2016preVFP" or era == "2016postVFP":
         configuration.add_modification_rule(
+            "global",
+            RemoveProducer(
+                producers=[
+                    electrons.BaseElectrons,
+                ],
+                samples=sample,
+            ),
+        )
+        configuration.add_modification_rule(
+            "global",
+            AppendProducer(
+                producers=[
+                    electrons.BaseElectrons_run2,
+                ],
+                samples=sample,
+                update_output=False, # false , no need the internal mask to output
+            ),
+        )
+        configuration.add_modification_rule(
+            "fjmm",
+            RemoveProducer(
+                producers=[
+                    fatjets.GoodFatJets,
+                ],
+                samples=sample,
+            ),
+        )
+        configuration.add_modification_rule(
+            "fjmm",
+            AppendProducer(
+                producers=[
+                    fatjets.GoodFatJets_run2,
+                ],
+                samples=sample,
+                update_output=False, # false , no need the internal mask to output
+            ),
+        )
+        configuration.add_modification_rule(
             "fjmm",
             RemoveProducer(
                 producers=[
@@ -2327,59 +2409,145 @@ def build_config(
                     event.fatjet_PNet_withMass_TvsQCD_Nanov9,
                 ],
                 samples=sample,
-                # update_output=True,
             ),
         )
-
-    #     configuration.add_outputs(
-    #         "fjmm",
-    #         [
-    #             q.fatjet_PNet_QCD,
-    #             q.fatjet_PNet_withMass_QCD,
-    #             q.fatjet_PNet_withMass_WvsQCD,
-    #             q.fatjet_PNet_withMass_ZvsQCD,
-    #         ],
-    #     )    
-
-    # if era == "2018" or era == "2017" or era == "2016preVFP" or era == "2016postVFP":
-    #     configuration.add_outputs(
-    #         "fjmm",
-    #         [
-    #             q.fatjet_deepTag_WvsQCD,
-    #             q.fatjet_deepTag_ZvsQCD,
-    #             q.fatjet_deepTag_QCD,
-    #             q.fatjet_deepTagMD_WvsQCD,
-    #             q.fatjet_deepTagMD_ZvsQCD,
-    #         ],
-    #     )    
-
-    configuration.add_modification_rule(
-        "global",
-        RemoveProducer(
-            producers=[event.PUweights, jets.JetEnergyCorrection, fatjets.FatJetEnergyCorrection, met.BuildGenMetVector,],
-            samples=["data"],
-        ),
-    )
-    # changes needed for data
+        configuration.add_modification_rule(
+            scopes,
+            RemoveProducer(
+                producers=[
+                    jets.GoodBJetsLoose_PNet, 
+                    jets.GoodBJetsMedium_PNet,
+                ],
+                samples=sample,
+            ),
+        )
+        configuration.add_modification_rule(
+            scopes,
+            AppendProducer(
+                producers=[
+                    jets.GoodBJetsLoose, 
+                    jets.GoodBJetsMedium,
+                ],
+                samples=sample,
+                update_output=False, # false , no need the internal mask to output
+            ),
+        )
+        configuration.add_modification_rule(
+            scopes,
+            RemoveProducer(
+                producers=[
+                    genparticles.BosonDecayMode,
+                ],
+                samples=sample,
+            ),
+        )
+        configuration.add_modification_rule(
+            scopes,
+            AppendProducer(
+                producers=[
+                    genparticles.BosonDecayMode_run2,
+                ],
+                samples = ["vhmm","diboson","dyjets","top","triboson"],
+            ),
+        )
+        configuration.add_modification_rule(
+            ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+            RemoveProducer(
+                producers=[
+                    triggers.GenerateSingleMuonTriggerFlags,
+                ],
+                samples=sample,
+            ),
+        )
+        configuration.add_modification_rule(
+            ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+            AppendProducer(
+                producers=[
+                    triggers.GenerateSingleMuonTriggerFlags_run2,
+                ],
+                samples=sample,
+                # update_output=False,
+            ),
+        )
+        configuration.add_modification_rule(
+            ["e2m","eemm","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+            RemoveProducer(
+                producers=[
+                    triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
+                ],
+                samples=sample,
+            ),
+        )
+        configuration.add_modification_rule(
+            ["e2m","eemm","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+            AppendProducer(
+                producers=[
+                    triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel_run2,
+                ],
+                samples=sample,
+                # update_output=False,
+            ),
+        )
+        configuration.add_modification_rule(
+            "mmmm",
+            RemoveProducer(
+                producers=[
+                    triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel,
+                ],
+                samples=sample,
+            ),
+        )
+        configuration.add_modification_rule(
+            "mmmm",
+            AppendProducer(
+                producers=[
+                    triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel_run2,
+                ],
+                samples=sample,
+                # update_output=False,
+            ),
+        )
+        # for data
+        configuration.add_modification_rule(
+            "global",
+            RemoveProducer(
+                producers=[event.PUweights, jets.JetEnergyCorrection_run2, fatjets.FatJetEnergyCorrection_run2, met.BuildGenMetVector,],
+                samples=["data"],
+            ),
+        )
+        # configuration.add_modification_rule(
+        #     scopes,
+        #     RemoveProducer(
+        #         producers=[
+        #             genparticles.BosonDecayMode_run2,
+        #         ],
+        #         samples=["data"],
+        #     ),
+        # )
+    if era == "2022preEE" or era == "2022postEE":
+        configuration.add_modification_rule(
+            "global",
+            RemoveProducer(
+                producers=[event.PUweights, jets.JetEnergyCorrection, fatjets.FatJetEnergyCorrection, met.BuildGenMetVector,],
+                samples=["data"],
+            ),
+        )
+        configuration.add_modification_rule(
+            scopes,
+            RemoveProducer(
+                producers=[
+                    genparticles.BosonDecayMode,
+                ],
+                samples=["data"],
+            ),
+        )
     # global scope
     configuration.add_modification_rule(
         "global",
         AppendProducer(
             producers=[jets.RenameJetsData, fatjets.RenameFatJetsData, event.JSONFilter,],
             samples=["data"],
-            update_output=False,
-        ),
-    )    
-    configuration.add_modification_rule(
-        scopes,
-        # ["e2m","m2m","eemm","mmmm","nnmm","fjmm"],
-        RemoveProducer(
-            producers=[
-                # genparticles.MMGenDiTauPairQuantities,
-                # scalefactors.MuonIDIso_SF,
-                genparticles.BosonDecayMode,
-            ],
-            samples=["data"],
+            # update_output=False,
         ),
     )
     configuration.add_modification_rule(

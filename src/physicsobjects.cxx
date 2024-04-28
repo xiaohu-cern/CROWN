@@ -1075,6 +1075,59 @@ ROOT::RDF::RNode BosonDecayMode(ROOT::RDF::RNode df, const std::string &outputna
         df.Define(outputname, DecayMode, {GenPart_pdgId, GenPart_motherid, GenPart_statusFlags});
     return df1;
 }
+ROOT::RDF::RNode BosonDecayMode_run2(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &GenPart_pdgId,
+                                 const std::string &GenPart_motherid,
+                                 const std::string &GenPart_statusFlags) {
+    auto DecayMode = [](const ROOT::RVec<int> &GenPart_pdgId,
+                        const ROOT::RVec<int> &GenPart_motherid,
+                        const ROOT::RVec<int> &GenPart_statusFlags) {
+                                 const ROOT::RVec<int> ids_lepton = {11, 12, 13, 14, 15, 16};
+                                 const ROOT::RVec<int> ids_hadron = {1, 2, 3, 4, 5, 6, 21};
+                                 /// #isLastCopy = ( ((part.statusFlags) >> 13) & 1 )
+                                 const ROOT::RVec<int> ids_lepton_Z = {11, 13, 15};
+                                 const ROOT::RVec<int> ids_hadron_Z = {1, 2, 3, 4, 5, 6, 21};
+                                 const ROOT::RVec<int> ids_invis = {12, 14, 16};
+                                 for (unsigned int i = 0; i < (int)GenPart_pdgId.size(); ++i ) {
+                                    // check if the gen particle is W
+                                    if ( ( abs(GenPart_pdgId.at(i)) == 24 ) && ( (GenPart_statusFlags.at(i) >> 13) & 1 == 1 ) ) {
+                                        // check gen particle's daughter
+                                        for (unsigned int j = 0; j < (int)GenPart_pdgId.size(); ++j ) {
+                                            // find the gen part daughter
+                                            if ( GenPart_motherid.at(j) == i ) {
+                                                // return abs(GenPart_pdgId.at(j));
+                                                if (std::find(ids_lepton.begin(), ids_lepton.end(), abs(GenPart_pdgId.at(j))) != ids_lepton.end()) {
+                                                    return 0; // 0 stands for W leptonic decay
+                                                } else if (std::find(ids_hadron.begin(), ids_hadron.end(), abs(GenPart_pdgId.at(j))) != ids_hadron.end()) {
+                                                    return 1; // 1 stands for W hadronic decay
+                                                }
+                                            }
+                                        }
+                                        return -1; // -1 stands no W or Z
+                                    } else if ( ( abs(GenPart_pdgId.at(i)) == 23 ) && ( (GenPart_statusFlags.at(i) >> 13) & 1 == 1 ) ) { // gen particle is Z
+                                        // check gen particle's daughter
+                                        for (unsigned int k = 0; k < (int)GenPart_pdgId.size(); ++k ) {
+                                            // find the gen part daughter
+                                            if ( GenPart_motherid.at(k) == i ) {
+                                                // return abs(GenPart_pdgId.at(k));
+                                                if (std::find(ids_lepton_Z.begin(), ids_lepton_Z.end(), abs(GenPart_pdgId.at(k))) != ids_lepton_Z.end()) {
+                                                    return 0; // 0 stands for Z leptonic decay
+                                                } else if (std::find(ids_hadron_Z.begin(), ids_hadron_Z.end(), abs(GenPart_pdgId.at(k))) != ids_hadron_Z.end()) {
+                                                    return 1; // 1 stands for Z hadronic decay
+                                                } else if (std::find(ids_invis.begin(), ids_invis.end(), abs(GenPart_pdgId.at(k))) != ids_invis.end()) {
+                                                    return 2; // 2 stands for Z invisible decay
+                                                }
+                                            }
+                                        }
+                                        return -1; // -1 stands no W or Z
+                                    } 
+                                 }
+                                 return -1; // -1 stands no W or Z
+                             };
+    auto df1 = 
+        df.Define(outputname, DecayMode, {GenPart_pdgId, GenPart_motherid, GenPart_statusFlags});
+    return df1;
+}
 /// function to pick dimuon pair in DY control region
 ROOT::RDF::RNode DY_DiMuonPair_CR(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &particle_pts,

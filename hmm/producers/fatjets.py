@@ -27,6 +27,24 @@ FatJetPtCorrection = Producer(
     output=[q.FatJet_pt_corrected],
     scopes=["global"],
 )
+FatJetPtCorrection_run2 = Producer(
+    name="FatJetPtCorrection_run2",
+    call="physicsobject::jet::JetPtCorrection_run2({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jes_sources}, {fatjet_jes_shift}, {fatjet_jer_shift}, {fatjet_jec_file}, {fatjet_jer_tag}, {fatjet_jes_tag}, {fatjet_jec_algo})",
+    input=[
+        nanoAOD.FatJet_pt,
+        nanoAOD.FatJet_eta,
+        nanoAOD.FatJet_phi,
+        nanoAOD.FatJet_area,
+        nanoAOD.FatJet_rawFactor,
+        nanoAOD.FatJet_ID,
+        nanoAOD.GenJetAK8_pt,
+        nanoAOD.GenJetAK8_eta,
+        nanoAOD.GenJetAK8_phi,
+        nanoAOD.rho,
+    ],
+    output=[q.FatJet_pt_corrected],
+    scopes=["global"],
+)
 FatJetMassCorrection = Producer(
     name="FatJetMassCorrection",
     call="physicsobject::ObjectMassCorrectionWithPt({df}, {output}, {input})",
@@ -45,6 +63,14 @@ FatJetEnergyCorrection = ProducerGroup(
     output=None,
     scopes=["global"],
     subproducers=[FatJetPtCorrection, FatJetMassCorrection],
+)
+FatJetEnergyCorrection_run2 = ProducerGroup(
+    name="FatJetEnergyCorrection_run2",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["global"],
+    subproducers=[FatJetPtCorrection_run2, FatJetMassCorrection],
 )
 # in data and embdedded sample, we simply rename the nanoAOD jets to the jet_pt_corrected column
 RenameFatJetPt = Producer(
@@ -135,6 +161,14 @@ GoodFatJets = ProducerGroup(
     output=[q.good_fatjets_mask],
     scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
     subproducers=[FatJetPtCut, FatJetEtaCut, FatJetSDMassCut, FatJetIDCut_UChar, VetoOverlappingFatJetsWithMuons],
+)
+GoodFatJets_run2 = ProducerGroup(
+    name="GoodFatJets_run2",
+    call="physicsobject::CombineMasks({df}, {output}, {input})",
+    input=[],
+    output=[q.good_fatjets_mask],
+    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    subproducers=[FatJetPtCut, FatJetEtaCut, FatJetSDMassCut, FatJetIDCut, VetoOverlappingFatJetsWithMuons],
 )
 NumberOfGoodFatJets = Producer(
     name="NumberOfGoodFatJets",

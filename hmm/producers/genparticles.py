@@ -55,6 +55,17 @@ BosonDecayMode = Producer(
     output=[q.BosonDecayMode],
     scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
+BosonDecayMode_run2 = Producer(
+    name="BosonDecayMode_run2",
+    call="physicsobject::BosonDecayMode_run2({df}, {output}, {input})",
+    input=[
+        nanoAOD.GenParticle_pdgId,
+        nanoAOD.GenParticle_motherid,
+        nanoAOD.GenParticle_statusFlags,
+    ],
+    output=[q.BosonDecayMode],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
 
 MMGenPair = Producer(
     name="MMGenPair",

@@ -15,7 +15,7 @@ ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL18NanoAODv9
   nfiles: 25
   nick: ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: diboson
-  xsec: 3.676
+  xsec: 3.696
 ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -24,7 +24,7 @@ ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8_RunIISummer20UL18NanoAODv9-106X:
   nfiles: 64
   nick: ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: diboson
-  xsec: 0.6008
+  xsec: 0.601
 WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -33,7 +33,7 @@ WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL18NanoAODv9-106X:
   nfiles: 18
   nick: WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: diboson
-  xsec: 5.052
+  xsec: 4.658
 WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -42,7 +42,7 @@ WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL18NanoAODv9
   nfiles: 22
   nick: WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: diboson
-  xsec: 6.419
+  xsec: 6.321
 WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -51,7 +51,7 @@ WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X:
   nfiles: 37
   nick: WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: diboson
-  xsec: 10.48
+  xsec: 12.178
 GluGluToContinToZZTo2e2mu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /GluGluToContinToZZTo2e2mu_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -60,7 +60,7 @@ GluGluToContinToZZTo2e2mu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAOD
   nfiles: 17
   nick: GluGluToContinToZZTo2e2mu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: diboson
-  xsec: 0.003292
+  xsec: 0.00329
 GluGluToContinToZZTo2mu2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /GluGluToContinToZZTo2mu2tau_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -69,7 +69,7 @@ GluGluToContinToZZTo2mu2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoA
   nfiles: 16
   nick: GluGluToContinToZZTo2mu2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: diboson
-  xsec: 0.003294
+  xsec: 0.00329
 GluGluToContinToZZTo2e2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /GluGluToContinToZZTo2e2tau_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -78,7 +78,7 @@ GluGluToContinToZZTo2e2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAO
   nfiles: 6
   nick: GluGluToContinToZZTo2e2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: diboson
-  xsec: 0.003294
+  xsec: 0.00329
 GluGluToContinToZZTo4mu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /GluGluToContinToZZTo4mu_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -87,7 +87,7 @@ GluGluToContinToZZTo4mu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv9
   nfiles: 34
   nick: GluGluToContinToZZTo4mu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: diboson
-  xsec: 0.001608
+  xsec: 0.001402
 GluGluToContinToZZTo4tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /GluGluToContinToZZTo4tau_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -96,7 +96,7 @@ GluGluToContinToZZTo4tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv
   nfiles: 10
   nick: GluGluToContinToZZTo4tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: diboson
-  xsec: 0.0016263
+  xsec: 0.001402
 GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -105,7 +105,7 @@ GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAO
   nfiles: 9
   nick: GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: diboson
-  xsec: 0.01773
+  xsec: 0.001772
 TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -114,7 +114,7 @@ TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X:
   nfiles: 391
   nick: TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: top
-  xsec: 365.34
+  xsec: 358.57
 TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -123,7 +123,7 @@ TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X:
   nfiles: 155
   nick: TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: top
-  xsec: 88.29
+  xsec: 86.61
 ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -132,7 +132,7 @@ ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8_Run
   nfiles: 130
   nick: ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: top
-  xsec: 69.09
+  xsec: 80.95
 ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -141,7 +141,7 @@ ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8_RunIISu
   nfiles: 149
   nick: ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: top
-  xsec: 115.3
+  xsec: 136.02
 ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -150,7 +150,7 @@ ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18N
   nfiles: 23
   nick: ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: top
-  xsec: 34.97
+  xsec: 35.9
 ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -159,7 +159,7 @@ ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoA
   nfiles: 52
   nick: ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: top
-  xsec: 34.91
+  xsec: 35.9
 ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -168,7 +168,7 @@ ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL18Nan
   nfiles: 19
   nick: ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: top
-  xsec: 3.74
+  xsec: 3.40
 tZq_ll_4f_ckm_NLO_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /tZq_ll_4f_ckm_NLO_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -177,7 +177,7 @@ tZq_ll_4f_ckm_NLO_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL18NanoAODv9-106X
   nfiles: 14
   nick: tZq_ll_4f_ckm_NLO_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: top
-  xsec: 0.07561
+  xsec: 0.0758
 TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -186,7 +186,7 @@ TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8_RunIISummer20UL18NanoAOD
   nfiles: 13
   nick: TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: top
-  xsec: 0.2149
+  xsec: 0.2001
 TTZToLLNuNu_M-10_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /TTZToLLNuNu_M-10_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -195,7 +195,7 @@ TTZToLLNuNu_M-10_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL18NanoAODv9-106X:
   nfiles: 21
   nick: TTZToLLNuNu_M-10_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: top
-  xsec: 0.2432
+  xsec: 0.2529
 TTTT_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /TTTT_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -204,7 +204,7 @@ TTTT_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL18NanoAODv9-106X:
   nfiles: 49
   nick: TTTT_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: top
-  xsec: 0.008213
+  xsec: 0.0091
 TTTW_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /TTTW_TuneCP5_13TeV-madgraph-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -213,7 +213,7 @@ TTTW_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-106X:
   nfiles: 4
   nick: TTTW_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-
   sample_type: top
-  xsec: 0.0007314
+  xsec: 0.00073
 TTWW_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /TTWW_TuneCP5_13TeV-madgraph-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -222,7 +222,7 @@ TTWW_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-106X:
   nfiles: 3
   nick: TTWW_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: top
-  xsec: 0.006979
+  xsec: 0.00698
 TTTJ_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /TTTJ_TuneCP5_13TeV-madgraph-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -231,7 +231,7 @@ TTTJ_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-106X:
   nfiles: 4
   nick: TTTJ_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: top
-  xsec: 0.0003974
+  xsec: 0.00039
 SingleMuon_Run2018A-UL2018:
   dbs: /SingleMuon/Run2018A-UL2018_MiniAODv2_NanoAODv9-v2/NANOAOD
   era: 2018
@@ -276,7 +276,7 @@ WminusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X:
   nfiles: 2
   nick: WminusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: vhmm
-  xsec: 0.00011799
+  xsec: 0.0001164
 WplusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /WplusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -285,7 +285,7 @@ WplusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X:
   nfiles: 2
   nick: WplusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: vhmm
-  xsec: 0.000189
+  xsec: 0.0001858
 ZHToMuMu_M125_CP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /ZHToMuMu_M125_CP5_13TeV-powheg-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -294,16 +294,16 @@ ZHToMuMu_M125_CP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X:
   nfiles: 2
   nick: ZHToMuMu_M125_CP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: vhmm
-  xsec: 0.000172
-EWK_LLJJ_MLL-50_MJJ-120_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-106X:
-  dbs: /EWK_LLJJ_MLL-50_MJJ-120_TuneCP5_13TeV-madgraph-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
-  era: 2018
-  generator_weight: 1.0
-  nevents: 1979000
-  nfiles: 3
-  nick: EWK_LLJJ_MLL-50_MJJ-120_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-106X
-  sample_type: zjjew
-  xsec: 1.713
+  xsec: 0.0001923
+# EWK_LLJJ_MLL-50_MJJ-120_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-106X:
+#   dbs: /EWK_LLJJ_MLL-50_MJJ-120_TuneCP5_13TeV-madgraph-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
+#   era: 2018
+#   generator_weight: 1.0
+#   nevents: 1979000
+#   nfiles: 3
+#   nick: EWK_LLJJ_MLL-50_MJJ-120_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-106X
+#   sample_type: zjjew
+#   xsec: 1.713
 DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
   era: 2018
@@ -312,7 +312,7 @@ DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL18NanoAODv9-10
   nfiles: 204
   nick: DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: dyjets
-  xsec: 6529.0
+  xsec: 6225.4 # AN xsec 6225.4 # DAS 6529.0
 WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL18NanoAODv9-106X:
   dbs: /WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v1/NANOAODSIM
   era: 2018
@@ -358,39 +358,39 @@ DYJetsToLL_M-100to200_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL18NanoAO
   nick: DYJetsToLL_M-100to200_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL18NanoAODv9-106X
   sample_type: dyjets
   xsec: 247.8
-MuonEG_Run2018A-UL2018:
-  dbs: /MuonEG/Run2018A-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD
-  era: 2018
-  generator_weight: 1.0
-  nevents: 32958503
-  nfiles: 33
-  nick: MuonEG_Run2018A-UL2018
-  sample_type: data
-  xsec: 1.0
-MuonEG_Run2018B-UL2018:
-  dbs: /MuonEG/Run2018B-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD
-  era: 2018
-  generator_weight: 1.0
-  nevents: 16211567
-  nfiles: 20
-  nick: MuonEG_Run2018B-UL2018
-  sample_type: data
-  xsec: 1.0
-MuonEG_Run2018C-UL2018:
-  dbs: /MuonEG/Run2018C-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD
-  era: 2018
-  generator_weight: 1.0
-  nevents: 15652198
-  nfiles: 22
-  nick: MuonEG_Run2018C-UL2018
-  sample_type: data
-  xsec: 1.0
-MuonEG_Run2018D-UL2018:
-  dbs: /MuonEG/Run2018D-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD
-  era: 2018
-  generator_weight: 1.0
-  nevents: 71952025
-  nfiles: 63
-  nick: MuonEG_Run2018D-UL2018
-  sample_type: data
-  xsec: 1.0
+# MuonEG_Run2018A-UL2018:
+#   dbs: /MuonEG/Run2018A-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD
+#   era: 2018
+#   generator_weight: 1.0
+#   nevents: 32958503
+#   nfiles: 33
+#   nick: MuonEG_Run2018A-UL2018
+#   sample_type: data
+#   xsec: 1.0
+# MuonEG_Run2018B-UL2018:
+#   dbs: /MuonEG/Run2018B-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD
+#   era: 2018
+#   generator_weight: 1.0
+#   nevents: 16211567
+#   nfiles: 20
+#   nick: MuonEG_Run2018B-UL2018
+#   sample_type: data
+#   xsec: 1.0
+# MuonEG_Run2018C-UL2018:
+#   dbs: /MuonEG/Run2018C-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD
+#   era: 2018
+#   generator_weight: 1.0
+#   nevents: 15652198
+#   nfiles: 22
+#   nick: MuonEG_Run2018C-UL2018
+#   sample_type: data
+#   xsec: 1.0
+# MuonEG_Run2018D-UL2018:
+#   dbs: /MuonEG/Run2018D-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD
+#   era: 2018
+#   generator_weight: 1.0
+#   nevents: 71952025
+#   nfiles: 63
+#   nick: MuonEG_Run2018D-UL2018
+#   sample_type: data
+#   xsec: 1.0

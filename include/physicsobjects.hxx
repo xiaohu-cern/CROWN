@@ -142,6 +142,10 @@ ROOT::RDF::RNode BosonDecayMode(ROOT::RDF::RNode df, const std::string &outputna
                                  const std::string &GenPart_pdgId,
                                  const std::string &GenPart_motherid,
                                  const std::string &GenPart_statusFlags);
+ROOT::RDF::RNode BosonDecayMode_run2(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &GenPart_pdgId,
+                                 const std::string &GenPart_motherid,
+                                 const std::string &GenPart_statusFlags);
 ROOT::RDF::RNode DY_DiMuonPair_CR(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &particle_pts,
                                  const std::string &particle_etas,
