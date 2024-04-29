@@ -47,40 +47,38 @@ def build_config(
     configuration.add_config_parameters(
         "global",
         {
-            # "PU_reweighting_file": EraModifier(
-            #     {
-            #         "2016preVFP": "data/jsonpog-integration/POG/LUM/2016preVFP_UL/puWeights.json.gz",
-            #         "2016postVFP": "data/jsonpog-integration/POG/LUM/2016postVFP_UL/puWeights.json.gz",
-            #         "2017": "data/jsonpog-integration/POG/LUM/2017_UL/puWeights.json.gz",
-            #         "2018": "data/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz",
-            #         # "2022": TBD pileup file
-            #         "2022preEE": "data/jsonpog-integration/POG/LUM/2022preEE-TBD/puWeights_2022preEE.json.gz",
-            #         "2022postEE": "data/jsonpog-integration/POG/LUM/2022postEE-TBD/puWeights_2022postEE.json.gz",
-            #     }
-            # ),
-            # "PU_reweighting_era": EraModifier(
-            #     {
-            #         "2016preVFP": "Collisions16_UltraLegacy_goldenJSON",
-            #         "2016postVFP": "Collisions16_UltraLegacy_goldenJSON",
-            #         "2017": "Collisions17_UltraLegacy_goldenJSON",
-            #         "2018": "Collisions18_UltraLegacy_goldenJSON",
-            #         # "2022": TBD pileup file
-            #         "2022preEE": "Collision22_preEE_goldenJSON", 
-            #         "2022postEE": "Collision22_postEE_goldenJSON", 
-            #     }
-            # ),
-            # "PU_reweighting_variation": "nominal",
             "PU_reweighting_file": EraModifier(
                 {
-                    "2016preVFP": "data/pileup/Data_Pileup_2016_271036-284044_13TeVMoriond17_23Sep2016ReReco_69p2mbMinBiasXS.root",
-                    "2016postVFP": "data/pileup/Data_Pileup_2016_271036-284044_13TeVMoriond17_23Sep2016ReReco_69p2mbMinBiasXS.root",
-                    "2017": "data/pileup/Data_Pileup_2017_294927-306462_13TeVSummer17_PromptReco_69p2mbMinBiasXS.root",
-                    "2018": "data/pileup/Data_Pileup_2018_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18.root",
-                    # "2022": need to update now
-                    "2022preEE": "data/pileup/Data_Pileup_2018_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18.root",
-                    "2022postEE": "data/pileup/Data_Pileup_2018_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18.root",
+                    "2016preVFP": "data/jsonpog-integration/POG/LUM/2016preVFP_UL/puWeights.json.gz",
+                    "2016postVFP": "data/jsonpog-integration/POG/LUM/2016postVFP_UL/puWeights.json.gz",
+                    "2017": "data/jsonpog-integration/POG/LUM/2017_UL/puWeights.json.gz",
+                    "2018": "data/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz",
+                    "2022preEE": "data/jsonpog-integration/POG/LUM/2022_Summer22/puWeights.json.gz",
+                    "2022postEE": "data/jsonpog-integration/POG/LUM/2022_Summer22EE/puWeights.json.gz",
                 }
             ),
+            "PU_reweighting_era": EraModifier(
+                {
+                    "2016preVFP": "Collisions16_UltraLegacy_goldenJSON",
+                    "2016postVFP": "Collisions16_UltraLegacy_goldenJSON",
+                    "2017": "Collisions17_UltraLegacy_goldenJSON",
+                    "2018": "Collisions18_UltraLegacy_goldenJSON",
+                    "2022preEE": "Collisions2022_355100_357900_eraBCD_GoldenJson", 
+                    "2022postEE": "Collisions2022_359022_362760_eraEFG_GoldenJson", 
+                }
+            ),
+            "PU_reweighting_variation": "nominal",
+            # "PU_reweighting_file": EraModifier(
+            #     {
+            #         "2016preVFP": "data/pileup/Data_Pileup_2016_271036-284044_13TeVMoriond17_23Sep2016ReReco_69p2mbMinBiasXS.root",
+            #         "2016postVFP": "data/pileup/Data_Pileup_2016_271036-284044_13TeVMoriond17_23Sep2016ReReco_69p2mbMinBiasXS.root",
+            #         "2017": "data/pileup/Data_Pileup_2017_294927-306462_13TeVSummer17_PromptReco_69p2mbMinBiasXS.root",
+            #         "2018": "data/pileup/Data_Pileup_2018_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18.root",
+            #         # "2022": need to update now
+            #         "2022preEE": "data/pileup/Data_Pileup_2018_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18.root",
+            #         "2022postEE": "data/pileup/Data_Pileup_2018_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18.root",
+            #     }
+            # ),
             "golden_json_file": EraModifier(
                 {
                     "2016preVFP": "data/golden_json/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt",
@@ -285,17 +283,10 @@ def build_config(
             "min_muon_pt": 5, # vh change muon min pt 20 to 5
             "max_muon_eta": 2.4, # vh
             "max_muon_dxy": 0.05, # vh
-            # change muon dz 0.1
             "max_muon_dz": 0.10, # vh
-            "max_sip3d" : 8.0, # vh
-            #"min_lepmva" : 0.4, change base to medium? -1, 0.4 
-            # "muon_id": "Muon_mediumId", # vh cut-based atm https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Medium_Muon
-            # muon iso < 0.25
+            "muon_max_sip3d" : 8.0, # vh
+            "muon_id": "Muon_mediumId", # vh cut-based atm https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Medium_Muon
             "muon_iso_cut": 0.25, # vh PFIsoLoose dR=0.4 https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Particle_Flow_isolation
-            # change base muon id medium to loose
-            # goodmuon id medium
-            # "muon_id": "Muon_looseId",
-            "muon_id": "Muon_mediumId",
             
             # for good muon
             "min_goodmuon_mvaTTH" : 0.4,
@@ -329,35 +320,14 @@ def build_config(
             "lower_threshold_endcap": 1.566,
             "max_ele_dxy": 0.05,
             "max_ele_dz": 0.10,
-            # "ele_id": "Electron_mvaFall17V2noIso_WP90", # 2022, Electron_mvaNoIso_WP90
             "ele_conv_veto": "Electron_convVeto",
             "ele_missing_hits": 2,
-            # also need max_sip3d
-            # "min_lepmva": 0.4,
+            "ele_max_sip3d" : 8.0, # vh
             
             # for good ele
             "min_goodelectron_mvaTTH" : 0.4,
         }
     )
-    # MM scope Muon selection
-    # configuration.add_config_parameters(
-    #     scopes,
-    #     {
-    #         "min_muon_pt": 5,
-    #         "max_muon_eta": 2.4,
-    #         "min_muon_mvaTTH" : 0.4,
-    #         # "muon_iso_cut": 0.25, # 
-    #         # "muon_medium_id": "Muon_mediumId",
-    #         # "max_muon_dz" : 0.10, # basemuon to goodmuon cut dz
-    #     }
-    # )
-    # # good electron selection
-    # configuration.add_config_parameters(
-    #     scopes,
-    #     {
-    #         "min_electron_mvaTTH" : 0.4,
-    #     }
-    # )
     # Muon scale factors configuration
     configuration.add_config_parameters(
         scopes,
@@ -369,28 +339,48 @@ def build_config(
                     "2016postVFP": "data/jsonpog-integration/POG/MUO/2016postVFP_UL/muon_Z.json.gz",
                     "2017": "data/jsonpog-integration/POG/MUO/2017_UL/muon_Z.json.gz",
                     "2018": "data/jsonpog-integration/POG/MUO/2018_UL/muon_Z.json.gz",
-                    "2022preEE": "data/jsonpog-integration/POG/MUO/2018_UL/muon_Z.json.gz",
-                    "2022postEE": "data/jsonpog-integration/POG/MUO/2018_UL/muon_Z.json.gz",
+                    "2022preEE": "data/jsonpog-integration/POG/MUO/2022_27Jun2023/muon_Z.json.gz", # JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
+                    "2022postEE": "data/jsonpog-integration/POG/MUO/2022EE_27Jun2023/muon_Z.json.gz",
                 }
             ),
             "muon_id_sf_name": "NUM_MediumID_DEN_TrackerMuons",
-            "muon_iso_sf_name": "NUM_TightRelIso_DEN_MediumID",
+            # "muon_iso_sf_name": "NUM_TightRelIso_DEN_MediumID", # for run2?
+            "muon_iso_sf_name": EraModifier(
+                {
+                    "2016preVFP": "NUM_TightRelIso_DEN_MediumID",
+                    "2016postVFP": "NUM_TightRelIso_DEN_MediumID",
+                    "2017": "NUM_TightRelIso_DEN_MediumID",
+                    "2018": "NUM_TightRelIso_DEN_MediumID",
+                    "2022preEE": "NUM_TightPFIso_DEN_MediumID",
+                    "2022postEE": "NUM_TightPFIso_DEN_MediumID",
+                }
+            ),
             "muon_sf_year_id": EraModifier(
                 {
                     "2016preVFP": "2016preVFP_UL",
                     "2016postVFP": "2016postVFP_UL",
                     "2017": "2017_UL",
                     "2018": "2018_UL",
-                    "2022preEE": "2018_UL",
-                    "2022postEE": "2018_UL",
+                    "2022preEE": "2022preEE", # 2022 year_id no need
+                    "2022postEE": "2022postEE",
                 }
             ),
-            "muon_sf_varation": "sf",  # "sf" is nominal, "systup"/"systdown" are up/down variations
+            # "muon_sf_varation": "sf",  # "sf" is nominal, "systup"/"systdown" are up/down variations
+            "muon_sf_varation": EraModifier(
+                {
+                    "2016preVFP": "sf",
+                    "2016postVFP": "sf",
+                    "2017": "sf",
+                    "2018": "sf",
+                    "2022preEE": "nominal",
+                    "2022postEE": "nominal",
+                }
+            ),
         },
     )
     # electron scale factors configuration
     configuration.add_config_parameters(
-        ["e2m","eemm"],
+        scopes,
         {
             "ele_sf_file": EraModifier(
                 {
@@ -398,19 +388,29 @@ def build_config(
                     "2016postVFP": "data/jsonpog-integration/POG/EGM/2016postVFP_UL/electron.json.gz",
                     "2017": "data/jsonpog-integration/POG/EGM/2017_UL/electron.json.gz",
                     "2018": "data/jsonpog-integration/POG/EGM/2018_UL/electron.json.gz",
-                    "2022preEE": "data/jsonpog-integration/POG/EGM/2018_UL/electron.json.gz",
-                    "2022postEE": "data/jsonpog-integration/POG/EGM/2018_UL/electron.json.gz",
+                    "2022preEE": "data/jsonpog-integration/POG/EGM/2022_Summer22/electron.json.gz", # correction for pt >= 10
+                    "2022postEE": "data/jsonpog-integration/POG/EGM/2022_Summer22EE/electron.json.gz",
                 }
             ),
-            "ele_id_sf_name": "UL-Electron-ID-SF",
+            # "ele_id_sf_name": "UL-Electron-ID-SF",
+            "ele_id_sf_name": EraModifier(
+                {
+                    "2016preVFP": "UL-Electron-ID-SF",
+                    "2016postVFP": "UL-Electron-ID-SF",
+                    "2017": "UL-Electron-ID-SF",
+                    "2018": "UL-Electron-ID-SF",
+                    "2022preEE": "Electron-ID-SF",
+                    "2022postEE": "Electron-ID-SF",
+                }
+            ),
             "ele_sf_year_id": EraModifier(
                 {
                     "2016preVFP": "2016preVFP",
                     "2016postVFP": "2016postVFP",
                     "2017": "2017",
                     "2018": "2018",
-                    "2022preEE": "2018",
-                    "2022postEE": "2018",
+                    "2022preEE": "2022Re-recoBCD",
+                    "2022postEE": "2022Re-recoE+PromptFG",
                 }
             ),
             "ele_sf_varation": "sf",  # "sf" is nominal, "sfup"/"sfdown" are up/down variations
@@ -431,8 +431,8 @@ def build_config(
                     "2016postVFP": '"data/jsonpog-integration/POG/JME/2016postVFP_UL/jet_jerc.json.gz"',
                     "2017": '"data/jsonpog-integration/POG/JME/2017_UL/jet_jerc.json.gz"',
                     "2018": '"data/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz"',
-                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt-zhiyuan/jet_jerc.json.gz"',
-                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE-zhiyuan/jet_jerc.json.gz"',
+                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/jet_jerc.json.gz"',
+                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/jet_jerc.json.gz"',
                 }
             ),
             "jet_jer_tag": EraModifier(
@@ -517,8 +517,8 @@ def build_config(
                     "2016postVFP": '"data/jsonpog-integration/POG/JME/2016postVFP_UL/fatJet_jerc.json.gz"',
                     "2017": '"data/jsonpog-integration/POG/JME/2017_UL/fatJet_jerc.json.gz"',
                     "2018": '"data/jsonpog-integration/POG/JME/2018_UL/fatJet_jerc.json.gz"',
-                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt-zhiyuan/fatJet_jerc.json.gz"',
-                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE-zhiyuan/fatJet_jerc.json.gz"',
+                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/fatJet_jerc.json.gz"',
+                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/fatJet_jerc.json.gz"',
                 }
             ),
             "fatjet_jer_tag": EraModifier(
@@ -614,53 +614,48 @@ def build_config(
         {
             "vetottH_max_nbjets_loose" : 1,
             "vetottH_max_nbjets_medium" : 0,
+            "min_dimuon_mass" : 12,
         }
     )
 
     # m2m cuts
+    # m2m regionB: pass 3 medium muons and fail m(mm) in [110,150], actually in [70,110]
     configuration.add_config_parameters(
-        "m2m",
+        ["m2m","m2m_dyfakeingmu_regionb"],
         {
-            "vh_m2m_nmuons" : 3,
-            "min_dimuon_mass" : 12,
+            "vh_good_nmuons" : 3,
             "flag_DiMuonFromHiggs" : 1,
             "flag_Ele_Veto" : 1,
             "flag_LeptonChargeSumVeto" : 1, # 1 stands pm1, 2 stands 0, 0 stands others
-            # "dimuon_pair" : 1, # dimuon_pair in [110,150] >=1
         }
     )
-    # m2m regionB: pass 3 medium muons and fail m(mm) in [110,150], actually in [70,110]
     configuration.add_config_parameters(
-        "m2m_dyfakeingmu_regionb",
+        ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
         {
-            "vh_m2m_nmuons" : 3,
-            "min_dimuon_mass" : 12,
-            "flag_DiMuonFromCR" : 1, # m(mm) in [70,110]
-            "flag_Ele_Veto" : 1,
+            "vh_good_nmuons" : 2, # actually pass 2 good (medium) muons, 1 base (loose) muon
+            "vh_regioncd_3loosemuon": 3,
+            "flag_Ele_Veto" : 1, # no good ele
             "flag_LeptonChargeSumVeto" : 1, # 1 stands pm1, 2 stands 0, 0 stands others
         }
     )
     # m2m regionC: fail 3 medium muons (actually 2 muons) and pass m(mm) in [110,150]
     configuration.add_config_parameters(
         "m2m_dyfakeingmu_regionc",
-        {
-            "vh_regioncd_2muons" : 2, # actually pass 2 good (medium) muons, 1 base (loose) muon
-            "vh_regioncd_3loosemuon": 3,
-            "min_dimuon_mass" : 12,
+        {            
             "flag_DiMuonFromHiggs" : 1, # pass m(mm) in [110,150]
-            "flag_Ele_Veto" : 1, # no ele
-            "flag_LeptonChargeSumVeto" : 1, # 1 stands pm1, 2 stands 0, 0 stands others
         }
     )
     # Region D: fail 3 medium muons (actually 2 muons) and fail m(mm) in [110,150], actually in [70,110]
     configuration.add_config_parameters(
         "m2m_dyfakeingmu_regiond",
         {
-            "vh_regioncd_2muons" : 2, # actually pass 2 medium muons
-            "vh_regioncd_3loosemuon": 3, # and 1 loose muon
-            "min_dimuon_mass" : 12,
             "flag_DiMuonFromCR" : 1, # m(mm) in [70,110]
-            "flag_Ele_Veto" : 1,
+        }
+    )
+    configuration.add_config_parameters(
+        ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        {
+            "vh_good_nmuons" : 2,
             "flag_LeptonChargeSumVeto" : 1, # 1 stands pm1, 2 stands 0, 0 stands others
         }
     )
@@ -668,42 +663,31 @@ def build_config(
     configuration.add_config_parameters(
         "e2m",
         {
-            "vh_e2m_nmuons" : 2,
             "vh_e2m_nelectrons" : 1,
-            "min_dimuon_mass" : 12,
             "flag_DiMuonFromHiggs" : 1,
-            "flag_LeptonChargeSumVeto" : 1, # 1 stands pm1, 2 stands 0, 0 stands others
         }
     )
     # Region B: pass 2 medium muons, 1 ele and fail m(mm) in [110,150], actually in [70,110]
     configuration.add_config_parameters(
         "e2m_dyfakeinge_regionb",
         {
-            "vh_e2m_nmuons" : 2,
             "vh_e2m_nelectrons" : 1,
-            "min_dimuon_mass" : 12,
             "flag_DiMuonFromCR" : 1, # m(mm) in [70,110]
-            "flag_LeptonChargeSumVeto" : 1, # 1 stands pm1, 2 stands 0, 0 stands others
         }
     )
     configuration.add_config_parameters(
         "e2m_dyfakeinge_regionc",
         {
-            "vh_e2m_nmuons" : 2,
             "vh_e2m_base_nelectrons" : 1, # base ele mva in (-1, 0.4)
             "vh_e2m_good_nelectrons" : 0, # good ele mva in (0.4, 1), no good ele
-            "min_dimuon_mass" : 12,
             "flag_DiMuonFromHiggs" : 1, # pass m(mm) in [110,150]
-            "flag_LeptonChargeSumVeto" : 1, # goodmu + baseele charge: 1 stands pm1, 2 stands 0, 0 stands others
         }
     )
     configuration.add_config_parameters(
         "e2m_dyfakeinge_regiond",
         {
-            "vh_e2m_nmuons" : 2,
             "vh_e2m_base_nelectrons" : 1, # base ele mva in (-1, 0.4)
             "vh_e2m_good_nelectrons" : 0, # good ele mva in (0.4, 1), no good ele
-            "min_dimuon_mass" : 12,
             "flag_DiMuonFromCR" : 1, # m(mm) in [70,110]
             "flag_LeptonChargeSumVeto" : 1, # goodmu + baseele charge: 1 stands pm1, 2 stands 0, 0 stands others
         }
@@ -711,9 +695,8 @@ def build_config(
     configuration.add_config_parameters(
         "eemm",
         {
-            "vh_2e2m_nmuons" : 2,
-            "vh_2e2m_nelectrons" : 2,
-            "min_dimuon_mass" : 12,
+            "vh_good_nmuons" : 2,
+            "vh_good_nelectrons" : 2,
             "min_dielectron_mass" : 12,
             "flag_DiMuonFromHiggs" : 1,
             "flag_LeptonChargeSumVeto" : 2, # 1 stands pm1, 2 stands 0, 0 stands others
@@ -723,8 +706,7 @@ def build_config(
     configuration.add_config_parameters(
         "mmmm",
         {
-            "vh_4m_nmuons" : 4,
-            "min_dimuon_mass" : 12,
+            "vh_good_nmuons" : 4,
             "flag_DiMuonFromHiggs" : 1,
             "flag_Ele_Veto" : 1,
             "flag_LeptonChargeSumVeto" : 2, # 1 stands pm1, 2 stands 0, 0 stands others
@@ -733,9 +715,8 @@ def build_config(
     configuration.add_config_parameters(
         "nnmm",
         {
-            "vh_nnmm_nmuons" : 2,
+            "vh_good_nmuons" : 2,
             "min_met" : 150.0,
-            "min_dimuon_mass" : 12,
             "flag_DiMuonFromHiggs" : 1,
             "flag_Ele_Veto" : 1,
             "flag_LeptonChargeSumVeto" : 2, # 1 stands pm1, 2 stands 0, 0 stands others
@@ -745,10 +726,9 @@ def build_config(
     configuration.add_config_parameters(
         "fjmm",
         {
-            "vh_fjmm_nmuons" : 2,
-            "vh_fjmm_nfatjets" : 1,
+            "vh_good_nmuons" : 2,
+            "vh_good_nfatjets" : 1,
             "max_met" : 150.0,
-            "min_dimuon_mass" : 12,
             "flag_DiMuonFromHiggs" : 1,
             "flag_Ele_Veto" : 1,
             "flag_LeptonChargeSumVeto" : 2, # 1 stands pm1, 2 stands 0, 0 stands others
@@ -758,9 +738,9 @@ def build_config(
     configuration.add_config_parameters(
         "nnmm_dycontrol", # DY control region m(mumu) from 70 to 110
         {
-            "vh_nnmm_nmuons" : 2,
+            "vh_good_nmuons" : 2,
             "min_met" : 50.0,
-            "min_dimuon_mass" : 12,
+            
             "flag_DiMuonFromCR" : 1,
             "flag_Ele_Veto" : 1,
             "flag_LeptonChargeSumVeto" : 2,
@@ -770,7 +750,7 @@ def build_config(
     configuration.add_config_parameters(
         "nnmm_topcontrol", # Top control reigon e mu final state
         {
-            "vh_nnmm_topcontrol_nmuons" : 1,
+            "vh_good_nmuons" : 1,
             "vh_nnmm_topcontrol_neles" : 1,
             "min_met" : 50.0,
             "flag_EleMuFromTopCR" : 1,
@@ -965,7 +945,6 @@ def build_config(
             # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
             
             #
-            # scalefactors.MuonIDIso_SF, # TODO 3 muon SF
             p4.mu1_fromH_pt,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
@@ -991,6 +970,7 @@ def build_config(
             p4.genmet_pt,
             p4.genmet_phi,
             genparticles.BosonDecayMode,
+            scalefactors.MuonIDIso_SF,
         ],
     )
     configuration.add_producers(
@@ -1296,9 +1276,7 @@ def build_config(
             muons.LVMu1,
             muons.LVMu2,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
-            
-            # scalefactors.MuonIDIso_SF, # TODO 3 muon SF
-            # scalefactors.EleID_SF,
+
             p4.mu1_fromH_pt,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
@@ -1324,6 +1302,8 @@ def build_config(
             p4.genmet_pt,
             p4.genmet_phi,            
             genparticles.BosonDecayMode,
+            scalefactors.MuonIDIso_SF,
+            scalefactors.EleID_SF,
         ],
     )
     # Region B: pass 2 medium muons, 1 ele and fail m(mm) in [110,150], actually in [70,110]
@@ -1978,6 +1958,22 @@ def build_config(
         ],
     )
     configuration.add_outputs(
+        ["e2m","m2m"],
+        [
+            q.id_wgt_mu_1,
+            q.iso_wgt_mu_1,
+            q.id_wgt_mu_2,
+            q.iso_wgt_mu_2,
+        ],
+    )
+    configuration.add_outputs(
+        ["e2m"],
+        [
+            q.id_wgt_ele_medium_1,
+            q.id_wgt_ele_wp90nonIso_1,
+        ],
+    )
+    configuration.add_outputs(
         ["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
         [
             q.lep_MHT_dphi,
@@ -2580,10 +2576,19 @@ def build_config(
         ),
     )
     configuration.add_modification_rule(
-        ["e2m","eemm"],
+        ["e2m"],
         RemoveProducer(
             producers=[
-                # scalefactors.EleID_SF,
+                scalefactors.EleID_SF,
+            ],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["e2m","m2m"],
+        RemoveProducer(
+            producers=[
+                scalefactors.MuonIDIso_SF,
             ],
             samples=["data"],
         ),

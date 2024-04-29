@@ -271,6 +271,13 @@ Ele_2_IDWP80_SF = Producer(
     output=[q.id_wgt_ele_wp80nonIso_2],
     scopes=["eemm"],
 )
+Ele_1_Medium_SF_e2m = Producer(
+    name="Ele_1_Medium_SF_e2m",
+    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "Medium", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    input=[q.extra_lep_p4],
+    output=[q.id_wgt_ele_medium_1],
+    scopes=["e2m"],
+)
 EleID_SF = ProducerGroup(
     name="EleID_SF",
     call=None,
@@ -278,7 +285,10 @@ EleID_SF = ProducerGroup(
     output=None,
     scopes=["e2m", "eemm"],
     subproducers={
-        "e2m": [Ele_1_IDWP90_SF_e2m, Ele_1_IDWP80_SF_e2m],
+        "e2m": [
+            Ele_1_Medium_SF_e2m, # for 2022
+            Ele_1_IDWP90_SF_e2m, # for run2
+        ],
         "eemm": [
             Ele_1_IDWP90_SF_eemm,
             Ele_1_IDWP80_SF_eemm,

@@ -36,7 +36,7 @@ MuonDzCut = Producer(
 )
 MuonSIP3DCut = Producer(
     name="MuonSIP3DCut",
-    call="physicsobject::CutVarMax({df}, {input}, {output}, {max_sip3d})", # vh developed CutVarMax/Min, TODO apply to others
+    call="physicsobject::CutVarMax({df}, {input}, {output}, {muon_max_sip3d})", # vh developed CutVarMax/Min, TODO apply to others
     input=[nanoAOD.Muon_sip3d],
     output=[],
     scopes=["global"],

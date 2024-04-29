@@ -57,7 +57,7 @@ ElectronUCharIDCut = Producer(
 )
 ElectronSIP3DCut = Producer(
     name="MuonSIP3DCut",
-    call="physicsobject::CutVarMax({df}, {input}, {output}, {max_sip3d})",
+    call="physicsobject::CutVarMax({df}, {input}, {output}, {ele_max_sip3d})",
     input=[nanoAOD.Electron_sip3d],
     output=[],
     scopes=["global"],

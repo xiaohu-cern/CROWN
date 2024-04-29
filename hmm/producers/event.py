@@ -134,20 +134,20 @@ Lumi = Producer(
     scopes=["global"],
 )
 
-PUweights = Producer(
-    name="PUweights",
-    call='reweighting::puweights({df}, {output}, {input}, "{PU_reweighting_file}", "{PU_reweighting_hist}")',
-    input=[nanoAOD.Pileup_nTrueInt],
-    output=[q.puweight],
-    scopes=["global"],
-)
 # PUweights = Producer(
 #     name="PUweights",
-#     call='reweighting::puweights({df}, {output}, {input}, "{PU_reweighting_file}", "{PU_reweighting_era}", "{PU_reweighting_variation}")',
+#     call='reweighting::puweights({df}, {output}, {input}, "{PU_reweighting_file}", "{PU_reweighting_hist}")',
 #     input=[nanoAOD.Pileup_nTrueInt],
 #     output=[q.puweight],
 #     scopes=["global"],
 # )
+PUweights = Producer(
+    name="PUweights",
+    call='reweighting::puweights({df}, {output}, {input}, "{PU_reweighting_file}", "{PU_reweighting_era}", "{PU_reweighting_variation}")',
+    input=[nanoAOD.Pileup_nTrueInt],
+    output=[q.puweight],
+    scopes=["global"],
+)
 
 VetottHLooseB = Producer(
     name="VetottHLooseB",
@@ -166,14 +166,14 @@ VetottHMediumB = Producer(
 
 FilterNMuons = Producer(
     name="FilterNMuons",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_m2m_nmuons}, "==", "Number of muons 3")',
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nmuons}, "==", "Number of muons 3")',
     input=[q.nmuons],
     output=None,
     scopes=["m2m","m2m_dyfakeingmu_regionb"],
 )
 FilterNMuons_regioncd = Producer(
     name="FilterNMuons_regioncd",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_regioncd_2muons}, "==", "Number of good muons 2")',
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nmuons}, "==", "Number of good muons 2")',
     input=[q.nmuons],
     output=None,
     scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
@@ -189,7 +189,7 @@ FilterNBaseMuons_regioncd = Producer(
 ### e2m
 FilterNMuons_e2m = Producer(
     name="FilterNMuons_e2m",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_e2m_nmuons}, "==", "Number of muons 2 in e2m")',
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nmuons}, "==", "Number of muons 2 in e2m")',
     input=[q.nmuons],
     output=None,
     scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -218,42 +218,42 @@ FilterNBaseElectrons_e2m_regioncd = Producer(
 ###  2e2m
 FilterNMuons_2e2m = Producer(
     name="FilterNMuons_2e2m",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_2e2m_nmuons}, "==", "Number of muons 2 in 2e2m")',
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nmuons}, "==", "Number of muons 2 in 2e2m")',
     input=[q.nmuons],
     output=None,
     scopes=["eemm"],
 )
 FilterNElectrons_2e2m = Producer(
     name="FilterNElectrons_2e2m",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_2e2m_nelectrons}, "==", "Number of electrons 2 in 2e2m")',
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nelectrons}, "==", "Number of electrons 2 in 2e2m")',
     input=[q.nelectrons],
     output=None,
     scopes=["eemm"],
 )
 FilterNMuons_4m = Producer(
     name="FilterNMuons_4m",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_4m_nmuons}, "==", "Number of muons 4")',
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nmuons}, "==", "Number of muons 4")',
     input=[q.nmuons],
     output=None,
     scopes=["mmmm"],
 )
 FilterNMuons_nnmm = Producer(
     name="FilterNMuons_nnmm",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_nnmm_nmuons}, "==", "Number of muons 2")',
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nmuons}, "==", "Number of muons 2")',
     input=[q.nmuons],
     output=None,
     scopes=["nnmm","nnmm_dycontrol"],
 )
 FilterNMuons_fjmm = Producer(
     name="FilterNMuons_fjmm",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_fjmm_nmuons}, "==", "Number of muons 2")',
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nmuons}, "==", "Number of muons 2")',
     input=[q.nmuons],
     output=None,
     scopes=["fjmm"],
 )
 FilterNFatjets_fjmm = Producer(
     name="FilterNFatjets_fjmm",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_fjmm_nfatjets}, ">=", "Number of fatjets > 1")',
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nfatjets}, ">=", "Number of fatjets > 1")',
     input=[q.nfatjets],
     output=None,
     scopes=["fjmm"],

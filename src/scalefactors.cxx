@@ -142,9 +142,17 @@ ROOT::RDF::RNode id_vhmm(ROOT::RDF::RNode df, const std::string &p4,
             double sf = 1.;
             // preventing muons with default values due to tau energy correction
             // shifts below good tau pt selection
-            if (pt >= 0.0 && std::abs(eta) >= 0.0) {
-                sf = evaluator->evaluate(
-                    {year_id, std::abs(eta), pt, variation});
+            if (pt > 15.0 && std::abs(eta) >= 0.0) {
+                if (year_id.find("2022") < year_id.length()) {
+                    sf = evaluator->evaluate(
+                        {std::abs(eta), pt, variation});    
+                } else {
+                    sf = evaluator->evaluate(
+                        {year_id, std::abs(eta), pt, variation});
+                }
+            } else if (pt < 15.0 && std::abs(eta) >= 0.0) {
+                // apply muon_JPsi sf TODO
+                sf = 1.;
             }
             return sf;
         },
@@ -220,9 +228,17 @@ ROOT::RDF::RNode iso_vhmm(ROOT::RDF::RNode df, const std::string &p4,
             double sf = 1.;
             // preventing muons with default values due to tau energy correction
             // shifts below good tau pt selection
-            if (pt >= 0.0 && std::abs(eta) >= 0.0) {
-                sf = evaluator->evaluate(
-                    {year_id, std::abs(eta), pt, variation});
+            if (pt > 15.0 && std::abs(eta) >= 0.0) {
+                if (year_id.find("2022") < year_id.length()) {
+                    sf = evaluator->evaluate(
+                        {std::abs(eta), pt, variation});    
+                } else {
+                    sf = evaluator->evaluate(
+                        {year_id, std::abs(eta), pt, variation});
+                }
+            } else if (pt < 15.0 && std::abs(eta) >= 0.0) {
+                // apply muon_JPsi sf TODO
+                sf = 1.;
             }
             return sf;
         },
@@ -913,8 +929,10 @@ ROOT::RDF::RNode id_e_vhmm(ROOT::RDF::RNode df,
                 ->debug("Year {}, Name {}, WP {}", year_id, idAlgorithm, wp);
             Logger::get("electronIDSF")->debug("ID - pt {}, eta {}", pt, eta);
             double sf = 1.;
-            if (pt >= 0.0) {
+            if (pt >= 10.0) {
                 sf = evaluator->evaluate({year_id, variation, wp, eta, pt});
+            } else if (pt < 10) {
+                sf = 1.;
             }
             Logger::get("electronIDSF")->debug("Scale Factor {}", sf);
             return sf;

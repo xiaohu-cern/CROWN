@@ -101,7 +101,7 @@ dimuonCR_mass = Producer(
 ########
 FilterNMuons_nnmm_topcontrol = Producer(
     name="FilterNMuons_nnmm_topcontrol",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_nnmm_topcontrol_nmuons}, "==", "Number of muons 1")',
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nmuons}, "==", "Number of muons 1")',
     input=[q.nmuons],
     output=None,
     scopes=["nnmm_topcontrol"],
