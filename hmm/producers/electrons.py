@@ -114,7 +114,7 @@ BaseElectrons_run2 = ProducerGroup(
         ElectronIDCut,
         ElectronSIP3DCut,
         ElectronConvVeto,
-        ElectronMissingHitsCut,
+        ElectronMissingHitsCut_UChar, # run2's Electron_lostHits also UChar_t
     ],
 )
 GoodElectron_mvaTTH_Cut = Producer(

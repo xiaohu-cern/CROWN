@@ -82,14 +82,14 @@ Muon_1_ID_SF_vhmm_regionbd = Producer(
 )
 Muon_1_ID_SF_vhmm_below15 = Producer(
     name="Muon_1_ID_SF_vhmm_below15",
-    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
+    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
     input=[q.muon_leadingp4_H],
     output=[q.id_wgt_mu_1_below15],
     scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm","nnmm","fjmm"],
 )
 Muon_1_ID_SF_vhmm_regionbd_below15 = Producer(
     name="Muon_1_ID_SF_vhmm_regionbd_below15",
-    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
+    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
     input=[q.muon_p4_1],
     output=[q.id_wgt_mu_1_below15],
     scopes=["e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
@@ -110,14 +110,14 @@ Muon_2_ID_SF_vhmm_regionbd = Producer(
 )
 Muon_2_ID_SF_vhmm_below15 = Producer(
     name="Muon_2_ID_SF_vhmm_below15",
-    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
+    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
     input=[q.muon_subleadingp4_H],
     output=[q.id_wgt_mu_2_below15],
     scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm","nnmm","fjmm"],
 )
 Muon_2_ID_SF_vhmm_regionbd_below15 = Producer(
     name="Muon_2_ID_SF_vhmm_regionbd_below15",
-    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
+    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
     input=[q.muon_p4_2],
     output=[q.id_wgt_mu_2_below15],
     scopes=["e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
@@ -131,7 +131,7 @@ Muon_3_ID_SF_vhmm_m2m = Producer(
 )
 Muon_3_ID_SF_vhmm_m2m_below15 = Producer(
     name="Muon_3_ID_SF_vhmm_m2m_below15",
-    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
+    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
     input=[q.extra_lep_p4],
     output=[q.id_wgt_mu_3_below15],
     scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
@@ -145,7 +145,7 @@ Muon_3_ID_SF_vhmm_mmmm = Producer(
 )
 Muon_3_ID_SF_vhmm_mmmm_below15 = Producer(
     name="Muon_3_ID_SF_vhmm_mmmm_below15",
-    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
+    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
     input=[q.lepton_leadingp4_Z],
     output=[q.id_wgt_mu_3_below15],
     scopes=["mmmm"],
@@ -159,7 +159,7 @@ Muon_4_ID_SF_vhmm_mmmm = Producer(
 )
 Muon_4_ID_SF_vhmm_mmmm_below15 = Producer(
     name="Muon_4_ID_SF_vhmm_mmmm_below15",
-    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
+    call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
     input=[q.lepton_subleadingp4_Z],
     output=[q.id_wgt_mu_4_below15],
     scopes=["mmmm"],
@@ -184,14 +184,14 @@ Muon_1_Iso_SF_vhmm_regionbd = Producer(
 )
 Muon_1_Iso_SF_vhmm_below15 = Producer(
     name="Muon_1_Iso_SF_vhmm_below15",
-    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
+    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
     input=[q.muon_leadingp4_H],
     output=[q.iso_wgt_mu_1_below15],
     scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm","nnmm","fjmm"],
 )
 Muon_1_Iso_SF_vhmm_regionbd_below15 = Producer(
     name="Muon_1_Iso_SF_vhmm_regionbd_below15",
-    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
+    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
     input=[q.muon_p4_1],
     output=[q.iso_wgt_mu_1_below15],
     scopes=["e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
@@ -212,14 +212,14 @@ Muon_2_Iso_SF_vhmm_regionbd = Producer(
 )
 Muon_2_Iso_SF_vhmm_below15 = Producer(
     name="Muon_2_Iso_SF_vhmm_below15",
-    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
+    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
     input=[q.muon_subleadingp4_H],
     output=[q.iso_wgt_mu_2_below15],
     scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm","nnmm","fjmm"],
 )
 Muon_2_Iso_SF_vhmm_regionbd_below15 = Producer(
     name="Muon_2_Iso_SF_vhmm_regionbd_below15",
-    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
+    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
     input=[q.muon_p4_2],
     output=[q.iso_wgt_mu_2_below15],
     scopes=["e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
@@ -233,7 +233,7 @@ Muon_3_Iso_SF_vhmm_m2m = Producer(
 )
 Muon_3_Iso_SF_vhmm_m2m_below15 = Producer(
     name="Muon_3_Iso_SF_vhmm_m2m_below15",
-    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
+    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
     input=[q.extra_lep_p4],
     output=[q.iso_wgt_mu_3_below15],
     scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
@@ -247,7 +247,7 @@ Muon_3_Iso_SF_vhmm_mmmm = Producer(
 )
 Muon_3_Iso_SF_vhmm_mmmm_below15 = Producer(
     name="Muon_3_Iso_SF_vhmm_mmmm_below15",
-    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
+    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
     input=[q.lepton_leadingp4_Z],
     output=[q.iso_wgt_mu_3_below15],
     scopes=["mmmm"],
@@ -261,7 +261,7 @@ Muon_4_Iso_SF_vhmm_mmmm = Producer(
 )
 Muon_4_Iso_SF_vhmm_mmmm_below15 = Producer(
     name="Muon_4_Iso_SF_vhmm_mmmm_below15",
-    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
+    call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_iso_sf_name_JPsi}")',
     input=[q.lepton_subleadingp4_Z],
     output=[q.iso_wgt_mu_4_below15],
     scopes=["mmmm"],

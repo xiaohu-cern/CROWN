@@ -176,7 +176,7 @@ FilterNGoodMuons = Producer(
 FilterNBaseMuons = Producer(
     name="FilterNBaseMuons",
     call='basefunctions::FilterThreshold({df}, {input}, {vh_base_nmuons}, "==", "Number of base muons {vh_base_nmuons}, mvaTTH > -1 ")',
-    input=[q.nloosemuons],
+    input=[q.nbasemuons],
     output=None,
     scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )

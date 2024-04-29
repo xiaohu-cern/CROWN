@@ -150,6 +150,7 @@ ROOT::RDF::RNode id_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                         sf = evaluator->evaluate(
                             {std::abs(eta), pt, variation});    
                     } else {
+                        // only run2 muon_Z file need year_id
                         sf = evaluator->evaluate(
                             {year_id, std::abs(eta), pt, variation});
                     }
@@ -159,14 +160,10 @@ ROOT::RDF::RNode id_vhmm(ROOT::RDF::RNode df, const std::string &p4,
             } else if (sf_file.find("muon_JPsi") < sf_file.length()) {
                 Logger::get("muon SF file:")->debug("{}", sf_file);
                 // apply sf for muon pt < 15 using JPsi file
+                // JPsi has no year_id
                 if (pt <= 15.0 && std::abs(eta) >= 0.0) {
-                    if (year_id.find("2022") < year_id.length()) {
-                        sf = evaluator->evaluate(
-                            {std::abs(eta), pt, variation});    
-                    } else {
-                        sf = evaluator->evaluate(
-                            {year_id, std::abs(eta), pt, variation});
-                    }
+                    sf = evaluator->evaluate(
+                        {std::abs(eta), pt, variation});    
                 } else if (pt > 15.0 && std::abs(eta) >= 0.0) {
                     sf = 1.;
                 }

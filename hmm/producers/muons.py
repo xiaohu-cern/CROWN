@@ -155,7 +155,7 @@ NumberOfBaseMuons = Producer(
     name="NumberOfBaseMuons",
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
     input=[q.base_muons_mask],
-    output=[q.nloosemuons],
+    output=[q.nbasemuons],
     scopes=["global","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 VetoMuons = Producer(

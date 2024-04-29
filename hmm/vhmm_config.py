@@ -379,6 +379,8 @@ def build_config(
                 }
             ),
             # "muon_sf_varation": "sf",  # "sf" is nominal, "systup"/"systdown" are up/down variations
+            # run2 Z sf, run2 JPsi nominal
+            # 2022 Z nominal, 2022 JPsi nominal
             "muon_sf_varation": EraModifier(
                 {
                     "2016preVFP": "sf",
@@ -389,6 +391,7 @@ def build_config(
                     "2022postEE": "nominal",
                 }
             ),
+            "muon_sf_varation_JPsi": "nominal",
         },
     )
     # electron scale factors configuration
@@ -1895,7 +1898,7 @@ def build_config(
             nanoAOD.event,
             q.puweight,
             
-            q.nloosemuons,
+            q.nbasemuons,
             q.nmuons,
             q.nbaseelectrons,
             q.nelectrons,
