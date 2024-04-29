@@ -99,20 +99,6 @@ dimuonCR_mass = Producer(
 ########
 ### for nnmm top control region
 ########
-FilterNMuons_nnmm_topcontrol = Producer(
-    name="FilterNMuons_nnmm_topcontrol",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nmuons}, "==", "Number of muons 1")',
-    input=[q.nmuons],
-    output=None,
-    scopes=["nnmm_topcontrol"],
-)
-FilterNElectrons_nnmm_topcontrol = Producer(
-    name="FilterNElectrons_nnmm_topcontrol",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_nnmm_topcontrol_neles}, "==", "Number of electrons 1 in top CR")',
-    input=[q.nelectrons],
-    output=None,
-    scopes=["nnmm_topcontrol"],
-)
 TOP_EleMuPair_CR = Producer(
     name="TOP_EleMuPair_CR",
     call='physicsobject::TOP_EleMuPair_CR({df}, {output}, {input})',

@@ -148,11 +148,11 @@ NumberOfGoodElectrons = Producer(
     output=[q.nelectrons],
     scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
-Ele_Veto = Producer(
-    name="Ele_Veto",
+GoodEle_Veto = Producer(
+    name="GoodEle_Veto",
     call="physicsobject::Ele_Veto({df}, {output}, {input})",
     input=[q.good_electrons_mask],
-    output=[q.Flag_Ele_Veto],
+    output=[q.Flag_GoodEle_Veto],
     scopes=["global","m2m","mmmm","nnmm","fjmm","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### Electron collection and their properties
