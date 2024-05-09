@@ -267,7 +267,9 @@ LVMu1 = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_1],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 BaseLVMu2 = Producer(
     name="BaseLVMu2",
@@ -293,7 +295,9 @@ LVMu2 = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_2],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 BaseLVMu3 = Producer(
     name="BaseLVMu3",
@@ -417,4 +421,35 @@ Mu2_Z_4m = Producer(
     ],
     output=[q.lepton_subleadingp4_Z],
     scopes=["mmmm"],
+)
+##### The leading muon from Z Cand in Z_CR region (fjmm_cr, regionbd)
+Mu1_Z_CR = Producer(
+    name="Mu1_Z_CR",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.dimuon_ZControl_collection,
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_leadingp4_Z_CR],
+    scopes=["fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+Mu2_Z_CR = Producer(
+    name="Mu2_Z_CR",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.dimuon_ZControl_collection,
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_subleadingp4_Z_CR],
+    scopes=["fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
 )

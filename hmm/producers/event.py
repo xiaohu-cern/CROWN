@@ -154,14 +154,20 @@ VetottHLooseB = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {vetottH_max_nbjets_loose}, "<=", "Veto ttH <= 1 bjet loose")',
     input=[q.nbjets_loose],
     output=None,
-    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 VetottHMediumB = Producer(
     name="VetottHMediumB",
     call='basefunctions::FilterThreshold({df}, {input}, {vetottH_max_nbjets_medium}, "<=", "Veto ttH <= 0 bjet medium")',
     input=[q.nbjets_medium],
     output=None,
-    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 
 FilterNGoodMuons = Producer(
@@ -171,7 +177,7 @@ FilterNGoodMuons = Producer(
     output=None,
     scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-            "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol"],
+            "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
 )
 FilterNBaseMuons = Producer(
     name="FilterNBaseMuons",
@@ -201,14 +207,16 @@ FilterNFatjets_fjmm = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nfatjets}, ">=", "Number of fatjets >= 1")',
     input=[q.nfatjets],
     output=None,
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 DimuonMinMassCut = Producer(
     name="DimuonMinMassCut",
     call='basefunctions::FilterThreshold({df}, {input}, {min_dimuon_mass}, ">=", "No m(mm) < 12 GeV")',
     input=[q.smallest_dimuon_mass],
     output=None,
-    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 DielectronMinMassCut = Producer(
     name="DielectronMinMassCut",
@@ -386,7 +394,45 @@ mumuH_dR = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mumuH_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm",
+            "e2m_dyfakeinge_regionc",
+            "m2m_dyfakeingmu_regionc"],
+)
+mumuZCR_dR = Producer(
+    name="mumuH_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_Z_CR,
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.mumuZCR_dR],
+    scopes=["fjmm_cr",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",],
+)
+mumuH_deta = Producer(
+    name="mumuH_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_H,
+      q.muon_subleadingp4_H,
+    ],
+    output=[q.mumuH_deta],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm",
+            "e2m_dyfakeinge_regionc",
+            "m2m_dyfakeingmu_regionc"],
+)
+mumuZCR_deta = Producer(
+    name="mumuZCR_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_Z_CR,
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.mumuZCR_deta],
+    scopes=["fjmm_cr",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",],
 )
 ### e2m channel 
 muSSwithElectronW_p4 = Producer(
@@ -682,6 +728,18 @@ met_mmH_dphi = Producer(
     output=[q.met_H_dphi],
     scopes=["nnmm","fjmm"],
 )
+met_mm_fromZCR_dphi = Producer(
+    name="met_mm_fromZCR_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.met_p4,
+      q.dimuon_p4_CR,
+    ],
+    output=[q.met_mm_fromZCR_dphi],
+    scopes=["fjmm_cr",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
+)
 ### dphi mu1H and mu2H
 mumuH_dphi = Producer(
     name="mumuH_dphi",
@@ -691,7 +749,21 @@ mumuH_dphi = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mumuH_dphi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm",
+            "e2m_dyfakeinge_regionc",
+            "m2m_dyfakeingmu_regionc"],
+)
+mumuZCR_dphi = Producer(
+    name="mumuZCR_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_Z_CR,
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.mumuZCR_dphi],
+    scopes=["fjmm_cr",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
 )
 ### calc MT(muSS and MHT)
 Calc_MT_muSS_MHT = Producer(
@@ -800,14 +872,14 @@ FilterFlagLepChargeSum = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {flag_LeptonChargeSumVeto}, "==", "LeptonChargeSum")',
     input=[q.Flag_LeptonChargeSumVeto],
     output=None,
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 FilterFlagGoodEleVeto = Producer(
     name="FilterFlagGoodEleVeto",
     call='basefunctions::FilterThreshold({df}, {input}, {flag_GoodEle_Veto}, "==", "Electron Veto")',
     input=[q.Flag_GoodEle_Veto],
     output=None,
-    scopes=["m2m","mmmm","nnmm","fjmm","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    scopes=["m2m","mmmm","nnmm","fjmm","fjmm_cr","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 FilterFlagDiEleZMassVeto = Producer(
     name="FilterFlagDiEleZMassVeto",
@@ -837,6 +909,18 @@ mumuH_MHTALL_dphi = Producer(
     output=[q.mumuH_MHTALL_dphi],
     scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
+ZCR_MHTALL_dphi = Producer(
+    name="ZCR_MHTALL_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.dimuon_p4_CR,
+      q.MHTALL_p4,
+    ],
+    output=[q.ZCR_MHTALL_dphi],
+    scopes=["fjmm_cr",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
+)
 mu1_MHT_dphi = Producer(
     name="mu1_MHT_dphi",
     call='quantities::deltaPhi({df}, {output}, {input})',
@@ -856,6 +940,18 @@ mu1_MHTALL_dphi = Producer(
     ],
     output=[q.mu1_MHTALL_dphi],
     scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
+)
+mu1_fromZCR_MHTALL_dphi = Producer(
+    name="mu1_fromZCR_MHTALL_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_Z_CR,
+      q.MHTALL_p4,
+    ],
+    output=[q.mu1_fromZCR_MHTALL_dphi],
+    scopes=["fjmm_cr",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
 )
 mu2_MHT_dphi = Producer(
     name="mu2_MHT_dphi",
@@ -877,6 +973,18 @@ mu2_MHTALL_dphi = Producer(
     output=[q.mu2_MHTALL_dphi],
     scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
+mu2_fromZCR_MHTALL_dphi = Producer(
+    name="mu2_fromZCR_MHTALL_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.muon_subleadingp4_Z_CR,
+      q.MHTALL_p4,
+    ],
+    output=[q.mu2_fromZCR_MHTALL_dphi],
+    scopes=["fjmm_cr",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
+)
 mu1_mu2_dphi = Producer(
     name="mu1_mu2_dphi",
     call='quantities::deltaPhi({df}, {output}, {input})',
@@ -886,6 +994,18 @@ mu1_mu2_dphi = Producer(
     ],
     output=[q.mu1_mu2_dphi],
     scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
+)
+mu1_mu2_fromZCR_dphi = Producer(
+    name="mu1_mu2_fromZCR_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_Z_CR,
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.mu1_mu2_fromZCR_dphi],
+    scopes=["fjmm_cr",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
 )
 lep_mu1_dphi = Producer(
     name="lep_mu1_dphi",
@@ -1025,14 +1145,14 @@ Flag_MaxMetCut = Producer(
       q.met_p4,
     ],
     output=[q.Flag_MaxMetCut],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 FilterFlagMaxMetCut = Producer(
     name="FilterFlagMaxMetCut",
     call='basefunctions::FilterThreshold({df}, {input}, {flag_MaxMetCut}, "==", "MET <= 150 GeV")',
     input=[q.Flag_MaxMetCut],
     output=None,
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 ##################################
 ################## fatjet and Higgs
@@ -1048,6 +1168,16 @@ fatjet_mmH_deta = Producer(
     output=[q.fatjet_mmH_deta],
     scopes=["fjmm"],
 )
+fatjet_ZCR_deta = Producer(
+    name="fatjet_ZCR_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.dimuon_p4_CR,
+    ],
+    output=[q.fatjet_ZCR_deta],
+    scopes=["fjmm_cr"],
+)
 ### dphi fatjet and H
 fatjet_mmH_dphi = Producer(
     name="fatjet_mmH_dphi",
@@ -1059,6 +1189,16 @@ fatjet_mmH_dphi = Producer(
     output=[q.fatjet_mmH_dphi],
     scopes=["fjmm"],
 )
+fatjet_ZCR_dphi = Producer(
+    name="fatjet_ZCR_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.dimuon_p4_CR,
+    ],
+    output=[q.fatjet_ZCR_dphi],
+    scopes=["fjmm_cr"],
+)
 ### dR fatjet and H
 fatjet_mmH_dR = Producer(
     name="fatjet_mmH_dR",
@@ -1069,6 +1209,16 @@ fatjet_mmH_dR = Producer(
     ],
     output=[q.fatjet_mmH_dR],
     scopes=["fjmm"],
+)
+fatjet_ZCR_dR = Producer(
+    name="fatjet_ZCR_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.dimuon_p4_CR,
+    ],
+    output=[q.fatjet_ZCR_dR],
+    scopes=["fjmm_cr"],
 )
 ##################################
 ################## fatjet and mu1
@@ -1084,6 +1234,16 @@ fatjet_mu1_deta = Producer(
     output=[q.fatjet_mu1_deta],
     scopes=["fjmm"],
 )
+fatjet_mu1_fromZCR_deta = Producer(
+    name="fatjet_mu1_fromZCR_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.muon_leadingp4_Z_CR,
+    ],
+    output=[q.fatjet_mu1_fromZCR_deta],
+    scopes=["fjmm_cr"],
+)
 ### dphi fatjet and mu1
 fatjet_mu1_dphi = Producer(
     name="fatjet_mu1_dphi",
@@ -1095,6 +1255,16 @@ fatjet_mu1_dphi = Producer(
     output=[q.fatjet_mu1_dphi],
     scopes=["fjmm"],
 )
+fatjet_mu1_fromZCR_dphi = Producer(
+    name="fatjet_mu1_fromZCR_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.muon_leadingp4_Z_CR,
+    ],
+    output=[q.fatjet_mu1_fromZCR_dphi],
+    scopes=["fjmm_cr"],
+)
 ### dR fatjet and mu1
 fatjet_mu1_dR = Producer(
     name="fatjet_mu1_dR",
@@ -1105,6 +1275,16 @@ fatjet_mu1_dR = Producer(
     ],
     output=[q.fatjet_mu1_dR],
     scopes=["fjmm"],
+)
+fatjet_mu1_fromZCR_dR = Producer(
+    name="fatjet_mu1_fromZCR_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.muon_leadingp4_Z_CR,
+    ],
+    output=[q.fatjet_mu1_fromZCR_dR],
+    scopes=["fjmm_cr"],
 )
 ##################################
 ################## fatjet and mu2
@@ -1120,6 +1300,16 @@ fatjet_mu2_deta = Producer(
     output=[q.fatjet_mu2_deta],
     scopes=["fjmm"],
 )
+fatjet_mu2_fromZCR_deta = Producer(
+    name="fatjet_mu2_fromZCR_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.fatjet_mu2_fromZCR_deta],
+    scopes=["fjmm_cr"],
+)
 ### dphi fatjet and mu2
 fatjet_mu2_dphi = Producer(
     name="fatjet_mu2_dphi",
@@ -1130,6 +1320,16 @@ fatjet_mu2_dphi = Producer(
     ],
     output=[q.fatjet_mu2_dphi],
     scopes=["fjmm"],
+)
+fatjet_mu2_fromZCR_dphi = Producer(
+    name="fatjet_mu2_fromZCR_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.fatjet_mu2_fromZCR_dphi],
+    scopes=["fjmm_cr"],
 )
 ### dR fatjet and mu2
 fatjet_mu2_dR = Producer(
@@ -1142,6 +1342,16 @@ fatjet_mu2_dR = Producer(
     output=[q.fatjet_mu2_dR],
     scopes=["fjmm"],
 )
+fatjet_mu2_fromZCR_dR = Producer(
+    name="fatjet_mu2_fromZCR_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.fatjet_p4_1,
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.fatjet_mu2_fromZCR_dR],
+    scopes=["fjmm_cr"],
+)
 ### return the SoftDrop Mass of the fatjets
 fatjetSoftDropMass = Producer(
     name="fatjetSoftDropMass",
@@ -1150,7 +1360,7 @@ fatjetSoftDropMass = Producer(
            nanoAOD.FatJet_msoftdrop,
            q.good_fatjet_collection],
     output=[q.fatjet_msoftdrop],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 ### return deepTag
 fatjet_deepTag_WvsQCD = Producer(
@@ -1206,7 +1416,7 @@ fatjet_PNet_QCD = Producer(
            nanoAOD.FatJet_particleNet_QCD,
            q.good_fatjet_collection],
     output=[q.fatjet_PNet_QCD],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 fatjet_PNet_withMass_QCD = Producer(
     name="fatjet_PNet_withMass_QCD",
@@ -1215,7 +1425,7 @@ fatjet_PNet_withMass_QCD = Producer(
            nanoAOD.FatJet_particleNetWithMass_QCD,
            q.good_fatjet_collection],
     output=[q.fatjet_PNet_withMass_QCD],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 fatjet_PNet_withMass_WvsQCD = Producer(
     name="fatjet_PNet_withMass_WvsQCD",
@@ -1224,7 +1434,7 @@ fatjet_PNet_withMass_WvsQCD = Producer(
            nanoAOD.FatJet_particleNetWithMass_WvsQCD,
            q.good_fatjet_collection],
     output=[q.fatjet_PNet_withMass_WvsQCD],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 fatjet_PNet_withMass_ZvsQCD = Producer(
     name="fatjet_PNet_withMass_ZvsQCD",
@@ -1233,7 +1443,7 @@ fatjet_PNet_withMass_ZvsQCD = Producer(
            nanoAOD.FatJet_particleNetWithMass_ZvsQCD,
            q.good_fatjet_collection],
     output=[q.fatjet_PNet_withMass_ZvsQCD],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 fatjet_PNet_withMass_TvsQCD = Producer(
     name="fatjet_PNet_withMass_TvsQCD",
@@ -1242,7 +1452,7 @@ fatjet_PNet_withMass_TvsQCD = Producer(
            nanoAOD.FatJet_particleNetWithMass_TvsQCD,
            q.good_fatjet_collection],
     output=[q.fatjet_PNet_withMass_TvsQCD],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 ### FatJet PNet in Nano v9
 fatjet_PNet_withMass_QCD_Nanov9 = Producer(
@@ -1252,7 +1462,7 @@ fatjet_PNet_withMass_QCD_Nanov9 = Producer(
            nanoAOD.FatJet_particleNet_QCD_Nanov9,
            q.good_fatjet_collection],
     output=[q.fatjet_PNet_withMass_QCD],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 fatjet_PNet_withMass_WvsQCD_Nanov9 = Producer(
     name="fatjet_PNet_withMass_WvsQCD_Nanov9",
@@ -1261,7 +1471,7 @@ fatjet_PNet_withMass_WvsQCD_Nanov9 = Producer(
            nanoAOD.FatJet_particleNet_WvsQCD_Nanov9,
            q.good_fatjet_collection],
     output=[q.fatjet_PNet_withMass_WvsQCD],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 fatjet_PNet_withMass_ZvsQCD_Nanov9 = Producer(
     name="fatjet_PNet_withMass_ZvsQCD_Nanov9",
@@ -1270,7 +1480,7 @@ fatjet_PNet_withMass_ZvsQCD_Nanov9 = Producer(
            nanoAOD.FatJet_particleNet_ZvsQCD_Nanov9,
            q.good_fatjet_collection],
     output=[q.fatjet_PNet_withMass_ZvsQCD],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 fatjet_PNet_withMass_TvsQCD_Nanov9 = Producer(
     name="fatjet_PNet_withMass_TvsQCD_Nanov9",
@@ -1279,5 +1489,5 @@ fatjet_PNet_withMass_TvsQCD_Nanov9 = Producer(
            nanoAOD.FatJet_particleNet_TvsQCD_Nanov9,
            q.good_fatjet_collection],
     output=[q.fatjet_PNet_withMass_TvsQCD],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )

@@ -18,7 +18,9 @@ CalcSmallestDiMuonMass = Producer(
            nanoAOD.Muon_charge,
            q.good_muon_collection],
     output=[q.smallest_dimuon_mass],
-    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 CalcSmallestBaseDiMuonMass = Producer(
     name="CalcSmallestBaseDiMuonMass",
@@ -50,7 +52,7 @@ LeptonChargeSumVeto = Producer(
     input=[nanoAOD.Muon_charge,  # only in m2m and 4m can input only muon charge
            q.good_muon_collection],
     output=[q.Flag_LeptonChargeSumVeto],   # 1 stands pm1, 2 stands 0, 0 stands others
-    scopes=["global","m2m","mmmm","nnmm","fjmm","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    scopes=["global","m2m","mmmm","nnmm","fjmm","fjmm_cr","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 BaseLeptonChargeSumVeto = Producer(
     name="BaseLeptonChargeSumVeto",

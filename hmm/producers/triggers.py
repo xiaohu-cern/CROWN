@@ -53,7 +53,7 @@ GenerateSingleMuonTriggerFlagsForDiMuChannel = ExtendedVectorProducer(
         nanoAOD.TriggerObject_phi,
     ],
     output="flagname",
-    scope=["e2m","eemm","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scope=["e2m","eemm","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
     vec_config="singlemuon_trigger",
 )
 GenerateSingleMuonTriggerFlagsForDiMuChannel_run2 = ExtendedVectorProducer(
@@ -69,7 +69,7 @@ GenerateSingleMuonTriggerFlagsForDiMuChannel_run2 = ExtendedVectorProducer(
         nanoAOD.TriggerObject_phi,
     ],
     output="flagname",
-    scope=["e2m","eemm","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scope=["e2m","eemm","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
     vec_config="singlemuon_trigger",
 )
 GenerateSingleMuonTriggerFlagsForQuadMuChannel = ExtendedVectorProducer(

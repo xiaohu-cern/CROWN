@@ -644,14 +644,14 @@ def build_config(
     # m2m regionC: fail 3 medium muons (actually 2 muons) and pass m(mm) in [110,150]
     # Region D: fail 3 medium muons (actually 2 muons) and fail m(mm) in [110,150], actually in [70,110]
     configuration.add_config_parameters(
-        ["e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","nnmm_dycontrol"],
+        ["e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","nnmm_dycontrol","fjmm_cr",],
         {
             "flag_DiMuonFromCR" : 1, # m(mm) in [70,110]
         }
     )
     configuration.add_config_parameters(
         ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-         "mmmm","nnmm","fjmm","nnmm_dycontrol",],
+         "mmmm","nnmm","fjmm","nnmm_dycontrol","fjmm_cr",],
         {
             "flag_GoodEle_Veto" : 1, # no good ele
         }
@@ -664,7 +664,7 @@ def build_config(
         }
     )
     configuration.add_config_parameters(
-        ["eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol"],
+        ["eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr",],
         {
             "flag_LeptonChargeSumVeto" : 2, # 2 stands 0
         }
@@ -672,7 +672,7 @@ def build_config(
     configuration.add_config_parameters(
         ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
          "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-         "eemm","nnmm","fjmm","nnmm_dycontrol",],
+         "eemm","nnmm","fjmm","nnmm_dycontrol","fjmm_cr",],
         {
             "vh_good_nmuons" : 2, # 2 good muons
         }
@@ -727,7 +727,7 @@ def build_config(
         }
     )
     configuration.add_config_parameters(
-        "fjmm",
+        ["fjmm","fjmm_cr",],
         {
             "vh_good_nfatjets" : 1,
             "max_met" : 150.0,
@@ -790,7 +790,8 @@ def build_config(
         )
         configuration.add_producers(
             # overlap with good muon and good ele
-            ["m2m","e2m","mmmm","eemm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb"],
+            ["m2m","e2m","mmmm","eemm","nnmm","fjmm",
+             "nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb","fjmm_cr"],
             [
                 jets.GoodJets_2022_GoodMu_GoodEle, 
                 # jets.GoodJets_2022,
@@ -820,7 +821,8 @@ def build_config(
         )
         configuration.add_producers(
             # overlap with good muon and good ele
-            ["m2m","e2m","mmmm","eemm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb"],
+            ["m2m","e2m","mmmm","eemm","nnmm","fjmm",
+             "nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb","fjmm_cr"],
             [
                 jets.GoodJets_run2_GoodMu_GoodEle, 
             ]
@@ -856,7 +858,7 @@ def build_config(
         ]
     )
     configuration.add_producers(
-        "fjmm",
+        ["fjmm","fjmm_cr"],
         [
             fatjets.GoodFatJets,
             fatjets.NumberOfGoodFatJets,
@@ -894,6 +896,8 @@ def build_config(
             lepton.Calc_MT_W,
             event.lepton_H_dR,
             event.mumuH_dR,
+            event.mumuH_dphi,
+            event.mumuH_deta,
             ###
             event.muSSwithMuonW_p4,
             event.muOSwithMuonW_p4,
@@ -1019,10 +1023,24 @@ def build_config(
             muons.LVMu1,
             muons.LVMu2,
             muons.LVMu3,
+            muons.Mu1_Z_CR,
+            muons.Mu2_Z_CR,
+            event.mumuZCR_dR,
+            event.mumuZCR_dphi,
+            event.mumuZCR_deta,
+            event.ZCR_MHTALL_dphi,
+            event.mu1_fromZCR_MHTALL_dphi,
+            event.mu2_fromZCR_MHTALL_dphi,
+            event.mu1_mu2_fromZCR_dphi,
+            event.met_mm_fromZCR_dphi,
+            p4.mu1_fromZCR_pt,
+            p4.mu1_fromZCR_eta,
+            p4.mu1_fromZCR_phi,
+            p4.mu2_fromZCR_pt,
+            p4.mu2_fromZCR_eta,
+            p4.mu2_fromZCR_phi,
             triggers.GenerateSingleMuonTriggerFlags, # vh check trigger matching TODO
             # # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
-            
-            # #
             p4.met_pt,
             p4.met_phi,
             p4.genmet_pt,
@@ -1072,6 +1090,8 @@ def build_config(
             lepton.Calc_MT_W,
             event.lepton_H_dR,
             event.mumuH_dR,
+            event.mumuH_dphi,
+            event.mumuH_deta,
             event.muSSwithMuonW_p4,
             event.muOSwithMuonW_p4,
             event.lepton_muSS_dR,
@@ -1189,6 +1209,22 @@ def build_config(
             muons.BaseLVMu1,
             muons.BaseLVMu2,
             muons.BaseLVMu3,
+            muons.Mu1_Z_CR,
+            muons.Mu2_Z_CR,
+            event.mumuZCR_dR,
+            event.mumuZCR_dphi,
+            event.mumuZCR_deta,
+            event.ZCR_MHTALL_dphi,
+            event.mu1_fromZCR_MHTALL_dphi,
+            event.mu2_fromZCR_MHTALL_dphi,
+            event.mu1_mu2_fromZCR_dphi,
+            event.met_mm_fromZCR_dphi,
+            p4.mu1_fromZCR_pt,
+            p4.mu1_fromZCR_eta,
+            p4.mu1_fromZCR_phi,
+            p4.mu2_fromZCR_pt,
+            p4.mu2_fromZCR_eta,
+            p4.mu2_fromZCR_phi,
             triggers.GenerateSingleMuonTriggerFlags,
             p4.met_pt,
             p4.met_phi,
@@ -1228,6 +1264,8 @@ def build_config(
             lepton.Calc_MT_W,
             event.lepton_H_dR,
             event.mumuH_dR,
+            event.mumuH_dphi,
+            event.mumuH_deta,
             ###
             event.muSSwithElectronW_p4,
             event.muOSwithElectronW_p4,
@@ -1343,6 +1381,22 @@ def build_config(
             ###
             muons.LVMu1,
             muons.LVMu2,
+            muons.Mu1_Z_CR,
+            muons.Mu2_Z_CR,
+            event.mumuZCR_dR,
+            event.mumuZCR_dphi,
+            event.mumuZCR_deta,
+            event.ZCR_MHTALL_dphi,
+            event.mu1_fromZCR_MHTALL_dphi,
+            event.mu2_fromZCR_MHTALL_dphi,
+            event.mu1_mu2_fromZCR_dphi,
+            event.met_mm_fromZCR_dphi,
+            p4.mu1_fromZCR_pt,
+            p4.mu1_fromZCR_eta,
+            p4.mu1_fromZCR_phi,
+            p4.mu2_fromZCR_pt,
+            p4.mu2_fromZCR_eta,
+            p4.mu2_fromZCR_phi,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             p4.met_pt,
             p4.met_phi,
@@ -1382,6 +1436,8 @@ def build_config(
             lepton.Calc_MT_W,
             event.lepton_H_dR,
             event.mumuH_dR,
+            event.mumuH_dphi,
+            event.mumuH_deta,
             event.muSSwithElectronW_p4_e2m_regionc,
             event.muOSwithElectronW_p4_e2m_regionc,
             event.lepton_muSS_dR,
@@ -1499,6 +1555,22 @@ def build_config(
             ###
             muons.LVMu1,
             muons.LVMu2,
+            muons.Mu1_Z_CR,
+            muons.Mu2_Z_CR,
+            event.mumuZCR_dR,
+            event.mumuZCR_dphi,
+            event.mumuZCR_deta,
+            event.ZCR_MHTALL_dphi,
+            event.mu1_fromZCR_MHTALL_dphi,
+            event.mu2_fromZCR_MHTALL_dphi,
+            event.mu1_mu2_fromZCR_dphi,
+            event.met_mm_fromZCR_dphi,
+            p4.mu1_fromZCR_pt,
+            p4.mu1_fromZCR_eta,
+            p4.mu1_fromZCR_phi,
+            p4.mu2_fromZCR_pt,
+            p4.mu2_fromZCR_eta,
+            p4.mu2_fromZCR_phi,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             p4.met_pt,
             p4.met_phi,
@@ -1544,6 +1616,8 @@ def build_config(
             muons.Mu1_H,
             muons.Mu2_H,
             event.mumuH_dR,
+            event.mumuH_dphi,
+            event.mumuH_deta,
             electrons.LVEle1,  # leading lep from Z
             electrons.LVEle2,  # subleading lep from Z
             ###
@@ -1551,7 +1625,6 @@ def build_config(
             lepton.RenameZlepID_eemm, # using pdgId to lep_ID
             event.llZ_mmH_deta,
             event.llZ_mmH_dphi,
-            event.mumuH_dphi,
             event.Calc_CosThStar_Z_H,
             #
             muons.LVMu1,
@@ -1614,6 +1687,8 @@ def build_config(
             muons.Mu1_H_4m,
             muons.Mu2_H_4m,
             event.mumuH_dR,
+            event.mumuH_dphi,
+            event.mumuH_deta,
             muons.Mu1_Z_4m, # leading lep from Z
             muons.Mu2_Z_4m, # subleading lep from Z
             ###
@@ -1621,7 +1696,6 @@ def build_config(
             lepton.RenameZlepID_mmmm, # using pdgId to lep_ID
             event.llZ_mmH_deta,
             event.llZ_mmH_dphi,
-            event.mumuH_dphi,
             event.Calc_CosThStar_Z_H,
             # pass flag, be consistent with eemm
             event.PassFlagDiEleFromZ,
@@ -1690,6 +1764,8 @@ def build_config(
             muons.Mu2_H, # vh
             ###
             event.mumuH_dR,
+            event.mumuH_dphi,
+            event.mumuH_deta,
             ###
             event.mumuH_MHT_dphi,
             event.mu1_MHT_dphi,
@@ -1765,6 +1841,8 @@ def build_config(
             muons.Mu2_H, # vh
             # ###
             event.mumuH_dR,
+            event.mumuH_dphi,
+            event.mumuH_deta,
             # ###
             event.mumuH_MHT_dphi,
             event.mu1_MHT_dphi,
@@ -1825,6 +1903,79 @@ def build_config(
             scalefactors.MuonIDIso_SF,
         ],
     )
+    configuration.add_producers(
+        "fjmm_cr",
+        [
+            event.FilterNGoodMuons, # vh fjmm ==2 muons
+            event.FilterNFatjets_fjmm,
+            event.Flag_MaxMetCut,
+            event.FilterFlagMaxMetCut, # MET <= 150
+            lepton.CalcSmallestDiMuonMass,  # SFOS, m2m only has m
+            event.DimuonMinMassCut,
+            ###
+            cr.DY_DiMuonPair_CR,
+            cr.Flag_DiMuonFromCR,
+            cr.FilterFlag_DiMuonFromCR,
+            cr.DiMuonPairCR_p4,
+            cr.dimuonCR_pt,
+            cr.dimuonCR_eta,
+            cr.dimuonCR_phi,
+            cr.dimuonCR_mass,      
+            lepton.LeptonChargeSumVeto,
+            electrons.GoodEle_Veto,
+            # flag cut
+            event.FilterFlagLepChargeSum,
+            event.FilterFlagGoodEleVeto,
+            # ###
+            event.mumuZCR_dR,
+            event.mumuZCR_dphi,
+            event.mumuZCR_deta,
+            event.ZCR_MHTALL_dphi,
+            event.mu1_fromZCR_MHTALL_dphi,
+            event.mu2_fromZCR_MHTALL_dphi,
+            event.mu1_mu2_fromZCR_dphi,
+            event.met_mm_fromZCR_dphi,
+
+            muons.LVMu1,
+            muons.LVMu2,
+            muons.Mu1_Z_CR,
+            muons.Mu2_Z_CR,
+            p4.mu1_fromZCR_pt,
+            p4.mu1_fromZCR_eta,
+            p4.mu1_fromZCR_phi,
+            p4.mu2_fromZCR_pt,
+            p4.mu2_fromZCR_eta,
+            p4.mu2_fromZCR_phi,
+            
+            p4.met_pt,
+            p4.met_phi,            
+            p4.genmet_pt,
+            p4.genmet_phi,
+            p4.fatjet_pt,
+            p4.fatjet_eta,
+            p4.fatjet_phi,
+            p4.fatjet_mass,
+            event.fatjet_ZCR_deta,
+            event.fatjet_ZCR_dphi,
+            event.fatjet_ZCR_dR,
+            event.fatjet_mu1_fromZCR_deta,
+            event.fatjet_mu1_fromZCR_dphi,
+            event.fatjet_mu1_fromZCR_dR,
+            event.fatjet_mu2_fromZCR_deta,
+            event.fatjet_mu2_fromZCR_dphi,
+            event.fatjet_mu2_fromZCR_dR,
+            event.fatjetSoftDropMass,
+            
+            event.fatjet_PNet_QCD,
+            event.fatjet_PNet_withMass_QCD,
+            event.fatjet_PNet_withMass_WvsQCD,
+            event.fatjet_PNet_withMass_ZvsQCD,
+            event.fatjet_PNet_withMass_TvsQCD,
+            genparticles.BosonDecayMode,
+            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
+            scalefactors.MuonIDIso_SF,
+        ],
+    )    
     configuration.add_producers(
         "nnmm_dycontrol",
         [
@@ -1933,7 +2084,7 @@ def build_config(
     configuration.add_outputs(
         ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
          "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-         "eemm","mmmm","nnmm","fjmm"],
+         "eemm","mmmm","nnmm","fjmm","fjmm_cr"],
         [
             q.id_wgt_mu_1,
             q.id_wgt_mu_2,
@@ -2009,6 +2160,8 @@ def build_config(
             q.lep_H_deta,
             q.lep_H_dphi,
             q.mumuH_dR,
+            q.mumuH_dphi,
+            q.mumuH_deta,
 
             q.muOS_pt,
             q.muOS_eta,
@@ -2039,7 +2192,15 @@ def build_config(
         # Region B: pass 3 medium muons and fail m(mm) in [110,150], actually in [70,110]
         ["e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
         [
-            
+            q.lep_Z_dR,
+            q.lep_Z_dphi,            
+        ],
+    )
+    configuration.add_outputs(
+        ["e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond",
+         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
+         "fjmm_cr"],
+        [
             q.smallest_dimuon_mass,
             q.Flag_LeptonChargeSumVeto,
             q.Flag_DiMuonFromCR,
@@ -2047,8 +2208,24 @@ def build_config(
             q.dimuonCR_eta,
             q.dimuonCR_phi,
             q.dimuonCR_mass,
-            q.lep_Z_dR,
-            q.lep_Z_dphi,            
+            q.dimuonCR_pt,
+            q.dimuonCR_eta,
+            q.dimuonCR_phi,
+            q.dimuonCR_mass,
+            q.mu1_fromZCR_pt,
+            q.mu1_fromZCR_eta,
+            q.mu1_fromZCR_phi,
+            q.mu2_fromZCR_pt,
+            q.mu2_fromZCR_eta,
+            q.mu2_fromZCR_phi,
+            q.mumuZCR_dR,
+            q.mumuZCR_dphi,
+            q.mumuZCR_deta,
+            q.ZCR_MHTALL_dphi,
+            q.mu1_fromZCR_MHTALL_dphi,
+            q.mu2_fromZCR_MHTALL_dphi,
+            q.mu1_mu2_fromZCR_dphi,
+            q.met_mm_fromZCR_dphi,            
             q.BosonDecayMode,
         ],
     )
@@ -2081,7 +2258,8 @@ def build_config(
         "eemm",
         [
             q.mumuH_dR,
-            
+            q.mumuH_dphi,
+            q.mumuH_deta,
             #
             q.lep1_fromZ_pt,
             q.lep1_fromZ_eta,
@@ -2131,6 +2309,8 @@ def build_config(
             q.Flag_ZZVeto,
             q.Flag_GoodEle_Veto,
             q.mumuH_dR,
+            q.mumuH_dphi,
+            q.mumuH_deta,
 
             q.lep1_fromZ_pt,
             q.lep1_fromZ_eta,
@@ -2148,7 +2328,6 @@ def build_config(
             q.Zlep_ID,
             q.Z_H_deta,
             q.Z_H_dphi,
-            q.mumuH_dphi,
             q.Z_H_cosThStar,
             #
             triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel.output_group,
@@ -2158,6 +2337,8 @@ def build_config(
         "nnmm",
         [
             q.mumuH_dR,
+            q.mumuH_dphi,
+            q.mumuH_deta,
             ###
             q.mumuH_MHT_dphi,
             q.mumuH_MHTALL_dphi,
@@ -2190,9 +2371,9 @@ def build_config(
         "fjmm",
         [
             q.mumuH_dR,
-            #
+            q.mumuH_dphi,
+            q.mumuH_deta,
             q.nfatjets,
-            ###
             q.mumuH_MHT_dphi,
             q.mumuH_MHTALL_dphi,
             q.mu1_MHT_dphi,
@@ -2201,8 +2382,7 @@ def build_config(
             q.mu2_MHTALL_dphi,
             q.mu1_mu2_dphi,
             q.met_H_dphi,
-            # q.MHTALL_p4,
-            #
+
             q.smallest_dimuon_mass,
             q.Flag_MaxMetCut,
             q.Flag_LeptonChargeSumVeto,
@@ -2229,6 +2409,26 @@ def build_config(
             q.fatjet_PNet_withMass_WvsQCD,
             q.fatjet_PNet_withMass_ZvsQCD,
             q.fatjet_PNet_withMass_TvsQCD,
+        ],
+    )
+    configuration.add_outputs(
+        "fjmm_cr",
+        [
+            q.nfatjets,
+            q.Flag_MaxMetCut,
+            q.Flag_GoodEle_Veto,
+            q.fatjet_msoftdrop,
+            q.fatjet_pt,
+            q.fatjet_eta,
+            q.fatjet_phi,
+            q.fatjet_mass,
+            q.fatjet_PNet_QCD,
+            q.fatjet_PNet_withMass_QCD,
+            q.fatjet_PNet_withMass_WvsQCD,
+            q.fatjet_PNet_withMass_ZvsQCD,
+            q.fatjet_PNet_withMass_TvsQCD,
+            q.BosonDecayMode,
+            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
         ],
     )
     configuration.add_outputs(
@@ -2305,7 +2505,7 @@ def build_config(
             ),
         )
         configuration.add_modification_rule(
-            "fjmm",
+            ["fjmm","fjmm_cr"],
             RemoveProducer(
                 producers=[
                     fatjets.GoodFatJets,
@@ -2314,7 +2514,7 @@ def build_config(
             ),
         )
         configuration.add_modification_rule(
-            "fjmm",
+            ["fjmm","fjmm_cr"],
             AppendProducer(
                 producers=[
                     fatjets.GoodFatJets_run2,
@@ -2324,7 +2524,7 @@ def build_config(
             ),
         )
         configuration.add_modification_rule(
-            "fjmm",
+            ["fjmm","fjmm_cr"],
             RemoveProducer(
                 producers=[
                     event.fatjet_PNet_QCD,
@@ -2337,7 +2537,7 @@ def build_config(
             ),
         )
         configuration.add_modification_rule(
-            "fjmm",
+            ["fjmm","fjmm_cr"],
             AppendProducer(
                 producers=[
                     event.fatjet_PNet_withMass_QCD_Nanov9,
@@ -2407,7 +2607,7 @@ def build_config(
             ),
         )
         configuration.add_modification_rule(
-            ["e2m","eemm","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+            ["e2m","eemm","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
             RemoveProducer(
                 producers=[
                     triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
@@ -2416,7 +2616,7 @@ def build_config(
             ),
         )
         configuration.add_modification_rule(
-            ["e2m","eemm","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+            ["e2m","eemm","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
             AppendProducer(
                 producers=[
                     triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel_run2,
@@ -2528,7 +2728,7 @@ def build_config(
     configuration.add_modification_rule(
         ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
          "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-         "eemm","mmmm","nnmm","fjmm"],
+         "eemm","mmmm","nnmm","fjmm","fjmm_cr"],
         RemoveProducer(
             producers=[
                 scalefactors.MuonIDIso_SF,

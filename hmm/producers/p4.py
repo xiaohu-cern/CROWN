@@ -132,7 +132,10 @@ met_pt = Producer(
       q.met_p4,
     ],
     output=[q.met_pt],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 met_phi = Producer(
     name="met_phi",
@@ -141,7 +144,10 @@ met_phi = Producer(
       q.met_p4,
     ],
     output=[q.met_phi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 
 ##### for gen met pt and phi
@@ -153,7 +159,10 @@ genmet_pt = Producer(
       q.genmet_p4,
     ],
     output=[q.genmet_pt],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 genmet_phi = Producer(
     name="genmet_phi",
@@ -162,7 +171,10 @@ genmet_phi = Producer(
       q.genmet_p4,
     ],
     output=[q.genmet_phi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 
 ##### for extra lepton
@@ -480,7 +492,7 @@ fatjet_pt = Producer(
       q.fatjet_p4_1,
     ],
     output=[q.fatjet_pt],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 fatjet_eta = Producer(
     name="fatjet_eta",
@@ -489,7 +501,7 @@ fatjet_eta = Producer(
       q.fatjet_p4_1,
     ],
     output=[q.fatjet_eta],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 fatjet_phi = Producer(
     name="fatjet_phi",
@@ -498,7 +510,7 @@ fatjet_phi = Producer(
       q.fatjet_p4_1,
     ],
     output=[q.fatjet_phi],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
 )
 fatjet_mass = Producer(
     name="fatjet_mass",
@@ -507,5 +519,73 @@ fatjet_mass = Producer(
       q.fatjet_p4_1,
     ],
     output=[q.fatjet_mass],
-    scopes=["fjmm"],
+    scopes=["fjmm","fjmm_cr"],
+)
+# Zmass CR's mu1, mu2
+mu1_fromZCR_pt = Producer(
+    name="mu1_fromZCR_pt",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_Z_CR,
+    ],
+    output=[q.mu1_fromZCR_pt],
+    scopes=["fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+mu1_fromZCR_eta = Producer(
+    name="mu1_fromZCR_eta",
+    call='quantities::eta({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_Z_CR,
+    ],
+    output=[q.mu1_fromZCR_eta],
+    scopes=["fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+mu1_fromZCR_phi = Producer(
+    name="mu1_fromZCR_phi",
+    call='quantities::phi({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_Z_CR,
+    ],
+    output=[q.mu1_fromZCR_phi],
+    scopes=["fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+##### mu2 #####
+mu2_fromZCR_pt = Producer(
+    name="mu2_fromZCR_pt",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.mu2_fromZCR_pt],
+    scopes=["fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+mu2_fromZCR_eta = Producer(
+    name="mu2_fromZCR_eta",
+    call='quantities::eta({df}, {output}, {input})',
+    input=[
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.mu2_fromZCR_eta],
+    scopes=["fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+mu2_fromZCR_phi = Producer(
+    name="mu2_fromZCR_phi",
+    call='quantities::phi({df}, {output}, {input})',
+    input=[
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.mu2_fromZCR_phi],
+    scopes=["fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
 )
