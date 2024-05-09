@@ -448,7 +448,7 @@ def build_config(
                     "2017": '"data/jsonpog-integration/POG/JME/2017_UL/jet_jerc.json.gz"',
                     "2018": '"data/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz"',
                     "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/jet_jerc.json.gz"',
-                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/jet_jerc.json.gz"',
+                    "2022postEE": '"data/jsonpog-integration-beforeCorr/POG/JME/2022_Summer22EE-zhiyuan/jet_jerc.json.gz"',
                 }
             ),
             "jet_jer_tag": EraModifier(
@@ -534,7 +534,7 @@ def build_config(
                     "2017": '"data/jsonpog-integration/POG/JME/2017_UL/fatJet_jerc.json.gz"',
                     "2018": '"data/jsonpog-integration/POG/JME/2018_UL/fatJet_jerc.json.gz"',
                     "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/fatJet_jerc.json.gz"',
-                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/fatJet_jerc.json.gz"',
+                    "2022postEE": '"data/jsonpog-integration-beforeCorr/POG/JME/2022_Summer22EE-zhiyuan/fatJet_jerc.json.gz"',
                 }
             ),
             "fatjet_jer_tag": EraModifier(
