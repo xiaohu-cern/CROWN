@@ -2471,7 +2471,7 @@ def build_config(
         configuration.add_modification_rule(
             "global",
             RemoveProducer(
-                producers=[fatjets.FatJetEnergyCorrection,],
+                producers=[fatjets.FatJetEnergyCorrection_run2,],
                 samples=sample,
             ),
         )
