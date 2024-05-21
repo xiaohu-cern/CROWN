@@ -21,7 +21,7 @@ ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8_RunIISummer20UL16NanoAODAPVv9-106X:
   era: 2016preVFP
   generator_weight: 1.0
   nevents: 1.0
-  nfiles: 24
+  nfiles: 25
   nick: ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8_RunIISummer20UL16NanoAODAPVv9-106X
   sample_type: diboson
   xsec: 0.601
@@ -57,7 +57,7 @@ GluGluToContinToZZTo2e2mu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAOD
   era: 2016preVFP
   generator_weight: 1.0
   nevents: 1.0
-  nfiles: 14
+  nfiles: 15
   nick: GluGluToContinToZZTo2e2mu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODAPVv9-106X
   sample: diboson
   xsec: 0.00329
@@ -66,7 +66,7 @@ GluGluToContinToZZTo2mu2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoA
   era: 2016preVFP
   generator_weight: 1.0
   nevents: 1.0
-  nfiles: 7
+  nfiles: 8
   nick: GluGluToContinToZZTo2mu2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODAPVv9-106X
   sample_type: diboson
   xsec: 0.00329
@@ -75,7 +75,7 @@ GluGluToContinToZZTo2e2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAO
   era: 2016preVFP
   generator_weight: 1.0
   nevents: 1.0
-  nfiles: 11
+  nfiles: 12
   nick: GluGluToContinToZZTo2e2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODAPVv9-106X
   sample_type: diboson
   xsec: 0.00329
@@ -102,7 +102,7 @@ GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAO
   era: 2016preVFP
   generator_weight: 1.0
   nevents: 1.0
-  nfiles: 8
+  nfiles: 9
   nick: GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODAPVv9-106X
   sample_type: diboson
   xsec: 0.01772
@@ -120,7 +120,7 @@ TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODAPVv9-106X:
   era: 2016preVFP
   generator_weight: 1.0
   nevents: 1.0
-  nfiles: 35
+  nfiles: 33
   nick: TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODAPVv9-106X
   sample_type: top
   xsec: 86.61
@@ -147,7 +147,7 @@ ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16N
   era: 2016preVFP
   generator_weight: 1.0
   nevents: 1.0
-  nfiles: 3
+  nfiles: 4
   nick: ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODAPVv9-106X
   sample_type: top
   xsec: 35.9
@@ -156,7 +156,7 @@ ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoA
   era: 2016preVFP
   generator_weight: 1.0
   nevents: 1.0
-  nfiles: 4
+  nfiles: 5
   nick: ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODAPVv9-106X
   sample_type: top
   xsec: 35.9
@@ -264,7 +264,7 @@ DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL16NanoAODAPVv9
   era: 2016preVFP
   generator_weight: 1.0
   nevents: 1.0
-  nfiles: 71
+  nfiles: 62
   nick: DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL16NanoAODAPVv9-106X
   sample_type: dyjets
   xsec: 6225.4 # AN xsec 6225.4 # DAS 6529.0
@@ -273,7 +273,7 @@ WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODAPVv9-106X:
   era: 2016preVFP
   generator_weight: 1.0
   nevents: 1.0
-  nfiles: 8
+  nfiles: 9
   nick: WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODAPVv9-106X
   sample_type: triboson
   xsec: 0.2086
@@ -282,7 +282,7 @@ WWZ_4F_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODAPVv9-106X:
   era: 2016preVFP
   generator_weight: 1.0
   nevents: 1.0
-  nfiles: 7
+  nfiles: 8
   nick: WWZ_4F_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODAPVv9-106X
   sample_type: triboson
   xsec: 0.1651
@@ -291,7 +291,7 @@ WZZ_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODAPVv9-106X:
   era: 2016preVFP
   generator_weight: 1.0
   nevents: 1.0
-  nfiles: 7
+  nfiles: 8
   nick: WZZ_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODAPVv9-106X
   sample_type: triboson
   xsec: 0.05565
@@ -309,7 +309,7 @@ SingleMuon_Run2016B-ver1_HIPM_UL2016:
   era: 2016preVFP
   generator_weight: 1.0
   nevents: 1.0
-  nfiles: 1
+  nfiles: 2
   nick: SingleMuon_Run2016B-ver1_HIPM_UL2016
   sample_type: data
   xsec: 1.0
