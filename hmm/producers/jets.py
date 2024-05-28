@@ -211,35 +211,6 @@ BTagCutMedium_PNet = Producer(
 # vh veto overlapping jets against muons
 # TODO this runs over all jets, not efficient!!!
 # need to run over only good jets
-# VetoOverlappingJetsWithMuons = Producer(
-#     name="VetoOverlappingJetsWithMuons",
-#     call="jet::VetoOverlappingJets({df}, {output}, {input}, {deltaR_jet_veto})",
-#     input=[nanoAOD.Jet_eta, nanoAOD.Jet_phi, nanoAOD.Muon_eta, nanoAOD.Muon_phi, q.base_muons_mask], # vh base or good muon?
-#     output=[q.jet_overlap_veto_mask],
-#     # scopes=["global"],
-#     scopes=["m2m","e2m","mmmm","eemm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb"],    
-# )
-# # may be also need to do overlap removal with ele in e2m
-# VetoOverlappingJetsWithEles = Producer(
-#     name="VetoOverlappingJetsWithEles",
-#     call="jet::VetoOverlappingJets({df}, {output}, {input}, {deltaR_jet_veto})",
-#     input=[nanoAOD.Jet_eta, nanoAOD.Jet_phi, nanoAOD.Electron_eta, nanoAOD.Electron_phi, q.base_electrons_mask], # vh base or good muon?
-#     output=[q.jet_overlap_veto_ele_mask],
-#     # scopes=["global"],
-#     scopes=["m2m","e2m","mmmm","eemm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb"],    
-# )
-### As now 2022 data has no Jet_puID, so no possible to do JetPUIDCut
-# GoodJets_2022 = ProducerGroup(
-#     name="GoodJets_2022",
-#     call="physicsobject::CombineMasks({df}, {output}, {input})",
-#     input=[],
-#     output=[q.good_jets_mask],
-#     # scopes=["global"],
-#     scopes=["m2m","e2m","mmmm","eemm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb"],    
-#     # subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar, VetoOverlappingJetsWithMuons, VetoOverlappingJetsWithEles],
-#     subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar, VetoOverlappingJetsWithMuons],
-#     # subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar],
-# )
 
 # overlap with good muon and good ele for m2m,e2m,regionb*2,nnmm,fjmm 
 VetoOverlappingJets_GoodMuon = Producer(

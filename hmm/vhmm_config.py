@@ -285,35 +285,20 @@ def build_config(
             "max_muon_dxy": 0.05, # vh
             "max_muon_dz": 0.10, # vh
             "muon_max_sip3d" : 8.0, # vh
-            "muon_id": "Muon_mediumId", # vh cut-based atm https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Medium_Muon
-            "muon_iso_cut": 0.25, # vh PFIsoLoose dR=0.4 https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Particle_Flow_isolation
+            "base_muon_id" : "Muon_looseId",
+            "base_muon_iso_cut" : 0.7,
             
             # for good muon
             "min_goodmuon_mvaTTH" : 0.4,
+            "good_muon_id": "Muon_mediumId", # vh cut-based atm https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Medium_Muon
+            "good_muon_iso_cut": 0.25, # vh PFIsoLoose dR=0.4 https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Particle_Flow_isolation
         },
     )
     # electron base selection:
     configuration.add_config_parameters(
         "global",
         {
-            "ele_id": EraModifier(
-                {
-                    "2016preVFP": "Electron_mvaFall17V2noIso_WP90",
-                    "2016postVFP": "Electron_mvaFall17V2noIso_WP90",
-                    "2017": "Electron_mvaFall17V2noIso_WP90",
-                    "2018": "Electron_mvaFall17V2noIso_WP90",
-                    # "2022preEE": "Electron_mvaNoIso_WP90",
-                    # "2022postEE": "Electron_mvaNoIso_WP90",
-                    "2022preEE": "Electron_cutBased",
-                    "2022postEE": "Electron_cutBased",
-                }
-            ),
-            "ele_cutbaseid": 3, # UChar_t	cut-based ID RunIII Winter22 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
-        }
-    )
-    configuration.add_config_parameters(
-        "global",
-        {
+            # for base ele v1, 
             "min_ele_pt": 7,
             "max_ele_eta": 2.5,
             "upper_threshold_barrel": 1.444,
@@ -324,8 +309,22 @@ def build_config(
             "ele_missing_hits": 2,
             "ele_max_sip3d" : 8.0, # vh
             
-            # for good ele
+            # extract from base ele v1 for base ele v2
+            # UChar_t for v12, Int_t for v9
+            "base_ele_cutbaseid": 2, # cut-based ID RunIII Winter22 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
+            
+            # extract from base ele v1 for good ele
             "min_goodelectron_mvaTTH" : 0.4,
+            "good_ele_id": EraModifier(
+                {
+                    "2016preVFP": "Electron_mvaFall17V2Iso_WP90",
+                    "2016postVFP": "Electron_mvaFall17V2Iso_WP90",
+                    "2017": "Electron_mvaFall17V2Iso_WP90",
+                    "2018": "Electron_mvaFall17V2Iso_WP90",
+                    "2022preEE": "Electron_mvaIso_WP90",
+                    "2022postEE": "Electron_mvaIso_WP90",
+                }
+            ),
         }
     )
     # Muon scale factors configuration
@@ -769,7 +768,9 @@ def build_config(
             
             # need use data driven, collect the low mva ele at scopes
             electrons.BaseElectrons,
-            electrons.GoodElectrons,
+            electrons.BaseElectrons_v2, # v2 add cutbaseID from base ele
+            electrons.GoodElectrons, # good ele add mvaTTH and mvaIsoID from base ele
+            
             electrons.NumberOfBaseElectrons,
             electrons.NumberOfGoodElectrons,
             electrons.BaseElectronCollection, # collect ordered by pt
@@ -2489,7 +2490,7 @@ def build_config(
             "global",
             RemoveProducer(
                 producers=[
-                    electrons.BaseElectrons,
+                    electrons.BaseElectrons_v2,
                 ],
                 samples=sample,
             ),
@@ -2498,7 +2499,7 @@ def build_config(
             "global",
             AppendProducer(
                 producers=[
-                    electrons.BaseElectrons_run2,
+                    electrons.BaseElectrons_v2_run2,
                 ],
                 samples=sample,
                 update_output=False, # false , no need the internal mask to output

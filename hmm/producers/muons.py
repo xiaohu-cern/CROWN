@@ -42,23 +42,23 @@ MuonSIP3DCut = Producer(
     scopes=["global"],
 )
 # TODO vh LepMVA
-Muon_mvaTTH_Cut = Producer(
-    name="Muon_mvaTTH_Cut",
-    call="physicsobject::CutVarMin({df}, {input}, {output}, {min_muon_mvaTTH})",
-    input=[nanoAOD.Muon_mvaTTH],
-    output=[],
-    scopes=["global"],
-)
+# Muon_mvaTTH_Cut = Producer(
+#     name="Muon_mvaTTH_Cut",
+#     call="physicsobject::CutVarMin({df}, {input}, {output}, {min_muon_mvaTTH})",
+#     input=[nanoAOD.Muon_mvaTTH],
+#     output=[],
+#     scopes=["global"],
+# )
 MuonIDCut = Producer(
     name="MuonIDCut",
-    call='physicsobject::muon::CutID({df}, {output}, "{muon_id}")',
+    call='physicsobject::muon::CutID({df}, {output}, "{base_muon_id}")',
     input=[],
     output=[],
     scopes=["global"],
 )
 MuonIsoCut = Producer(
     name="MuonIsoCut",
-    call="physicsobject::muon::CutIsolation({df}, {output}, {input}, {muon_iso_cut})",
+    call="physicsobject::muon::CutIsolation({df}, {output}, {input}, {base_muon_iso_cut})",
     input=[nanoAOD.Muon_pfRelIso04_all], # vh
     output=[],
     scopes=["global"],
@@ -76,6 +76,7 @@ BaseMuons = ProducerGroup(
         MuonDxyCut,
         MuonDzCut,
         MuonSIP3DCut,
+        # these 3 cut used as good muon
         # Muon_mvaTTH_Cut,
         MuonIDCut,
         MuonIsoCut,
@@ -89,38 +90,17 @@ BaseMuons = ProducerGroup(
 # vh just in case different muon selections are needed (e.g. loose vs tight id for fakes)
 # do cuts again for ALL the channels
 
-GoodMuonPtCut = Producer(
-    name="GoodMuonPtCut",
-    call="physicsobject::CutPt({df}, {input}, {output}, {min_muon_pt})",
-    input=[nanoAOD.Muon_pt],
-    output=[],
-    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
-)
-GoodMuonEtaCut = Producer(
-    name="GoodMuonEtaCut",
-    call="physicsobject::CutEta({df}, {input}, {output}, {max_muon_eta})",
-    input=[nanoAOD.Muon_eta],
-    output=[],
-    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
-)
 GoodMuonIsoCut = Producer(
     name="GoodMuonIsoCut",
-    call="physicsobject::electron::CutIsolation({df}, {output}, {input}, {muon_iso_cut})",
+    call="physicsobject::electron::CutIsolation({df}, {output}, {input}, {good_muon_iso_cut})",
     input=[nanoAOD.Muon_pfRelIso04_all],
     output=[],
     scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
 )
 GoodMuonIDCut = Producer(
     name="MuonIDCut",
-    call='physicsobject::muon::CutID({df}, {output}, "{muon_medium_id}")',
+    call='physicsobject::muon::CutID({df}, {output}, "{good_muon_id}")',
     input=[],
-    output=[],
-    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
-)
-GoodMuonDzCut = Producer(
-    name="GoodMuonDzCut",
-    call="physicsobject::CutDz({df}, {input}, {output}, {max_muon_dz})",
-    input=[nanoAOD.Muon_dz],
     output=[],
     scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
 )
@@ -141,6 +121,8 @@ GoodMuons = ProducerGroup(
     scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
     subproducers=[
         GoodMuon_mvaTTH_Cut,
+        GoodMuonIDCut,
+        GoodMuonIsoCut,
     ],
 )
 #

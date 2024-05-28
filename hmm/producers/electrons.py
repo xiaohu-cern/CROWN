@@ -41,18 +41,25 @@ Electron_mvaTTH_Cut = Producer(
     output=[],
     scopes=["global"],
 )
-ElectronIDCut = Producer(
-    name="ElectronIDCut",
-    call='physicsobject::electron::CutID({df}, {output}, "{ele_id}")', # notice here "{ele_id}"
-    input=[],
-    output=[],
-    scopes=["global"],
-)
+# ElectronIDCut = Producer(
+#     name="ElectronIDCut",
+#     call='physicsobject::electron::CutID({df}, {output}, "{ele_id}")', # notice here "{ele_id}"
+#     input=[],
+#     output=[],
+#     scopes=["global"],
+# )
 ElectronUCharIDCut = Producer(
     name="ElectronUCharIDCut",
-    call='physicsobject::electron::CutUCharID({df}, {output}, {input}, {ele_cutbaseid})', 
+    call='physicsobject::electron::CutUCharID({df}, {output}, {input}, {base_ele_cutbaseid})', 
     input=[nanoAOD.Electron_cutBased],
     output=[q.ele_uchar_id_mask],
+    scopes=["global"],
+)
+ElectronIntIDCut = Producer(
+    name="ElectronIntIDCut",
+    call='physicsobject::electron::CutCBID({df}, {output}, {input}, {base_ele_cutbaseid})', 
+    input=[nanoAOD.Electron_cutBased],
+    output=[q.ele_int_id_mask],
     scopes=["global"],
 )
 ElectronSIP3DCut = Producer(
@@ -94,33 +101,43 @@ BaseElectrons = ProducerGroup(
         ElectronECalGapVeto,
         ElectronDxyCut,
         ElectronDzCut,
-        ElectronUCharIDCut,
         ElectronSIP3DCut,
         ElectronConvVeto,
         ElectronMissingHitsCut_UChar,
     ],
 )
-BaseElectrons_run2 = ProducerGroup(
-    name="BaseElectrons_run2",
+
+BaseElectrons_v2 = ProducerGroup(
+    name="BaseElectrons_v2",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
-    input=[],
-    output=[q.base_electrons_mask],
+    input=[q.base_electrons_mask],
+    output=[q.base_electrons_v2_mask],
     scopes=["global"],
     subproducers=[
-        ElectronPtCut,
-        ElectronECalGapVeto,
-        ElectronDxyCut,
-        ElectronDzCut,
-        ElectronIDCut,
-        ElectronSIP3DCut,
-        ElectronConvVeto,
-        ElectronMissingHitsCut_UChar, # run2's Electron_lostHits also UChar_t
+        ElectronUCharIDCut,
+    ],
+)
+BaseElectrons_v2_run2 = ProducerGroup(
+    name="BaseElectrons_v2_run2",
+    call="physicsobject::CombineMasks({df}, {output}, {input})",
+    input=[q.base_electrons_mask],
+    output=[q.base_electrons_v2_mask],
+    scopes=["global"],
+    subproducers=[
+        ElectronIntIDCut,
     ],
 )
 GoodElectron_mvaTTH_Cut = Producer(
     name="GoodElectron_mvaTTH_Cut",
     call="physicsobject::CutVarMin({df}, {input}, {output}, {min_goodelectron_mvaTTH})",
     input=[nanoAOD.Electron_mvaTTH],
+    output=[],
+    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+GoodElectronIDCut = Producer(
+    name="GoodElectronIDCut",
+    call='physicsobject::electron::CutID({df}, {output}, "{good_ele_id}")', # notice here "{good_ele_id}"
+    input=[],
     output=[],
     scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -132,12 +149,13 @@ GoodElectrons = ProducerGroup(
     scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
     subproducers=[
         GoodElectron_mvaTTH_Cut,
+        GoodElectronIDCut,
     ],
 )
 NumberOfBaseElectrons = Producer(
     name="NumberOfBaseElectrons",
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
-    input=[q.base_electrons_mask],
+    input=[q.base_electrons_v2_mask],
     output=[q.nbaseelectrons],
     scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -167,7 +185,7 @@ ElectronCollection = Producer(
 BaseElectronCollection = Producer(
     name="BaseElectronCollection",
     call="jet::OrderJetsByPt({df}, {output}, {input})",
-    input=[nanoAOD.Electron_pt, q.base_electrons_mask],
+    input=[nanoAOD.Electron_pt, q.base_electrons_v2_mask],
     output=[q.base_electron_collection],  # eles after ordered by pt
     scopes=["global","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
