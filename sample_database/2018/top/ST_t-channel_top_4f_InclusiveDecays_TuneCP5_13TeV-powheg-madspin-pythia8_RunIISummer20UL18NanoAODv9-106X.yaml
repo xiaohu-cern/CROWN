@@ -150,3 +150,9 @@ filelist:
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL18NanoAODv9/ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v1/80000/B3EBF617-0266-D34C-96CE-4B6517D729E9.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL18NanoAODv9/ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v1/80000/42BB82B5-3CF3-BD43-9D6D-FA1187E04DEB.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL18NanoAODv9/ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v1/80000/CC5F80A2-A5E6-F542-9190-3547BBD8466E.root
+generator_weight: 1.0
+nevents: 178336000
+nfiles: 149
+nick: ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8_RunIISummer20UL18NanoAODv9-106X
+sample_type: top
+xsec: 136.02

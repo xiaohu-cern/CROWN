@@ -52,3 +52,9 @@ filelist:
 - root://cmsxrootd.fnal.gov//store/data/Run2018B/SingleMuon/NANOAOD/UL2018_MiniAODv2_NanoAODv9-v2/250000/0DE5A14A-8D7A-674E-AB1D-8630CC3271FE.root
 - root://cmsxrootd.fnal.gov//store/data/Run2018B/SingleMuon/NANOAOD/UL2018_MiniAODv2_NanoAODv9-v2/250000/916E39DD-FE10-E848-B045-42CE8FBBCED4.root
 - root://cmsxrootd.fnal.gov//store/data/Run2018B/SingleMuon/NANOAOD/UL2018_MiniAODv2_NanoAODv9-v2/250000/E7316692-89C9-284D-9665-F6B18DED9419.root
+generator_weight: 1.0
+nevents: 119918017
+nfiles: 51
+nick: SingleMuon_Run2018B-UL2018
+sample_type: data
+xsec: 1.0

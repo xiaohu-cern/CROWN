@@ -38,3 +38,9 @@ filelist:
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL18NanoAODv9/WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v2/230000/A86F7CA6-834F-4E48-AA4E-CED9AE11BFCA.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL18NanoAODv9/WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v2/260000/8CBFC25C-0115-4A44-9AD3-FFFDD3EE6C99.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL18NanoAODv9/WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v2/260000/37C41D33-D270-2743-8FD5-C38F40A77C6B.root
+generator_weight: 1.0
+nevents: 9994000
+nfiles: 37
+nick: WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL18NanoAODv9-106X
+sample_type: diboson
+xsec: 12.178

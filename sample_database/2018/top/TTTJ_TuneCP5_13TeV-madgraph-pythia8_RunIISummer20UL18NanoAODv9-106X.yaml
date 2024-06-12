@@ -5,3 +5,9 @@ filelist:
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL18NanoAODv9/TTTJ_TuneCP5_13TeV-madgraph-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v2/2520000/DBB31367-6197-CC4F-AE0C-CED640EE24A2.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL18NanoAODv9/TTTJ_TuneCP5_13TeV-madgraph-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v2/2530000/46BC5096-1D58-1A45-81F3-F3E18CD4695A.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL18NanoAODv9/TTTJ_TuneCP5_13TeV-madgraph-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v2/260000/4668BDC5-735F-D14C-8B2B-5DC437CA5B25.root
+generator_weight: 1.0
+nevents: 500000
+nfiles: 4
+nick: TTTJ_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL18NanoAODv9-106X
+sample_type: top
+xsec: 0.00039
