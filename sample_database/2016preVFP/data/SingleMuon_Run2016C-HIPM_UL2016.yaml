@@ -1,3 +1,6 @@
+dbs: /SingleMuon/Run2016C-HIPM_UL2016_MiniAODv2_NanoAODv9-v2/NANOAOD
+era: 2016preVFP
+filelist:
 root://cmsxrootd.fnal.gov//store/data/Run2016C/SingleMuon/NANOAOD/HIPM_UL2016_MiniAODv2_NanoAODv9-v2/40000/0D1698EF-F93D-D84F-8529-4706B02CCB04.root
 root://cmsxrootd.fnal.gov//store/data/Run2016C/SingleMuon/NANOAOD/HIPM_UL2016_MiniAODv2_NanoAODv9-v2/40000/110F91E7-5A73-9045-ADE5-8782FA482821.root
 root://cmsxrootd.fnal.gov//store/data/Run2016C/SingleMuon/NANOAOD/HIPM_UL2016_MiniAODv2_NanoAODv9-v2/40000/1518E78F-C65C-BE4C-95E5-D39D61228274.root
@@ -26,3 +29,9 @@ root://cmsxrootd.fnal.gov//store/data/Run2016C/SingleMuon/NANOAOD/HIPM_UL2016_Mi
 root://cmsxrootd.fnal.gov//store/data/Run2016C/SingleMuon/NANOAOD/HIPM_UL2016_MiniAODv2_NanoAODv9-v2/40000/EA99B430-33AA-F44D-82BF-F149B24AC333.root
 root://cmsxrootd.fnal.gov//store/data/Run2016C/SingleMuon/NANOAOD/HIPM_UL2016_MiniAODv2_NanoAODv9-v2/40000/F3D7E5C7-0278-FB4C-8A76-7756D7A9F67B.root
 root://cmsxrootd.fnal.gov//store/data/Run2016C/SingleMuon/NANOAOD/HIPM_UL2016_MiniAODv2_NanoAODv9-v2/40000/FB6C09E0-1378-FF4B-AC39-67DE52B5AB8E.root
+generator_weight: 1.0
+nevents: 67441308
+nfiles: 28
+nick: SingleMuon_Run2016C-HIPM_UL2016
+sample_type: data
+xsec: 1.0

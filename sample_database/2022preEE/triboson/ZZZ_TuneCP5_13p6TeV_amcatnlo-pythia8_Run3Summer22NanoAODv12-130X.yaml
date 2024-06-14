@@ -24,3 +24,9 @@ filelist:
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22NanoAODv12/ZZZ_TuneCP5_13p6TeV_amcatnlo-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_v5-v2/30000/2a136afd-d025-4de4-858c-2fe69012b87b.root
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22NanoAODv12/ZZZ_TuneCP5_13p6TeV_amcatnlo-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_v5-v2/30000/203513db-bc96-4f69-8b0a-fdad6be9abde.root
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22NanoAODv12/ZZZ_TuneCP5_13p6TeV_amcatnlo-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_v5-v2/30000/73640993-d8e0-4c5c-b28f-1cadaed24da5.root
+generator_weight: 1.0
+nevents: 1970234
+nfiles: 23
+nick: ZZZ_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer22NanoAODv12-130X
+sample_type: triboson
+xsec: 0.01591

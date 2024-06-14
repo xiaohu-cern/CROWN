@@ -1,3 +1,6 @@
+dbs: /WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM
+era: 2017
+filelist:
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/260000/FD647975-0939-1A45-9864-E379D9614C27.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/260000/653FA787-C843-3E46-AD04-68194826653A.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/260000/669D57FE-E473-B54C-8A39-06E9DDBF6646.root
@@ -44,3 +47,9 @@
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/260000/E577BAFE-5724-2340-A8C4-DF29CAC34458.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/260000/2AE21BB6-74DD-1842-8678-8987853765EA.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/260000/4DAF4938-FDE8-7444-BD35-FE3FBFB8EFC1.root
+generator_weight: 1.0
+nevents: 7098000
+nfiles: 46
+nick: WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL17NanoAODv9-106X
+sample_type: diboson
+xsec: 12.178

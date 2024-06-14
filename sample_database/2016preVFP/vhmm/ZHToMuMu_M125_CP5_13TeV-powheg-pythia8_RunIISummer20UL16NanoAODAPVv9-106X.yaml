@@ -1,2 +1,11 @@
+dbs: /ZHToMuMu_M125_CP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM
+era: 2016preVFP
+filelist:
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL16NanoAODAPVv9/ZHToMuMu_M125_CP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/80000/0F9D88B5-EE1F-B442-91D8-6E305A764045.root
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL16NanoAODAPVv9/ZHToMuMu_M125_CP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/80000/2DC26256-2236-324C-85C6-C053229AB42B.root
+generator_weight: 1.0
+nevents: 499660
+nfiles: 2
+nick: ZHToMuMu_M125_CP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODAPVv9-106X
+sample_type: vhmm
+xsec: 0.0001923

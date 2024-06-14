@@ -1,3 +1,6 @@
+dbs: /WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM
+era: 2017
+filelist:
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/2430000/87A74EE2-7B74-334A-80C4-4D74B72FFA77.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/2430000/F58B0E21-E164-B74D-A36F-CD1DDDCE8ECE.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/2430000/AACFAB76-A7C7-6642-BB59-53C30CEC76DC.root
@@ -28,3 +31,9 @@
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/50000/D6C51832-809A-344B-8B81-66586DBBCCF6.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/50000/EA5C596D-054A-4A4B-A248-69B88B7A62E4.root
 - root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/50000/EBF4CA9F-2985-254F-9B21-26D4FF6EA4BB.root
+generator_weight: 1.0
+nevents: 29091996
+nfiles: 30
+nick: WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL17NanoAODv9-106X
+sample_type: diboson
+xsec: 6.321

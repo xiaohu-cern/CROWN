@@ -1,3 +1,6 @@
+dbs: /ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM
+era: 2017
+filelist:
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/230000/E7F98B42-40FA-DE4C-8DFD-CE1147072FE4.root
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/230000/166A36F5-D67A-F747-85C9-143FC6D12FA0.root
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/100000/FAF0A41A-1D49-E340-B460-B6E866630F58.root
@@ -46,3 +49,9 @@ root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/ST_tW_antitop_5f_
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/260000/8312F13C-797C-4944-8816-992A11D898B0.root
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/260000/ACB9376C-E645-1A4C-BEBF-727FA5396267.root
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL17NanoAODv9/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v2/260000/D363BFF8-6983-A14C-B7E2-4C4A4913FF7C.root
+generator_weight: 1.0
+nevents: 5674000
+nfiles: 48
+nick: ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL17NanoAODv9-106X
+sample_type: top
+xsec: 35.9

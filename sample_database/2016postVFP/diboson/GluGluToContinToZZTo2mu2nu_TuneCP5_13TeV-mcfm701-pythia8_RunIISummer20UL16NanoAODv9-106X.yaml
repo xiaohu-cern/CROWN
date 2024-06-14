@@ -1,3 +1,6 @@
+dbs: /GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
+era: 2016postVFP
+filelist:
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL16NanoAODv9/GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/120000/69C897ED-F491-8443-8017-A2F1DF60C7F5.root
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL16NanoAODv9/GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/120000/B8C78965-8C25-D448-BC1E-C9776DC9AD2A.root
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL16NanoAODv9/GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/120000/C6C5A8B0-D886-7C48-A99E-977575CE9217.root
@@ -16,3 +19,9 @@ root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL16NanoAODv9/GluGluToContinToZ
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL16NanoAODv9/GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/70000/B023CCF7-C7CE-C84E-AD3B-DF99D83C4314.root
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL16NanoAODv9/GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/70000/C35D7594-1822-D248-B2BB-74AB7693337E.root
 root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL16NanoAODv9/GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/70000/F138C58F-6624-3641-8A61-CF367EC1982F.root
+generator_weight: 1.0
+nevents: 493000
+nfiles: 18
+nick: GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODv9-106X
+sample_type: diboson
+xsec: 0.01772

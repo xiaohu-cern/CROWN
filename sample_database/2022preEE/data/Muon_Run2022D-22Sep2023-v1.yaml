@@ -1,3 +1,6 @@
+dbs: /Muon/Run2022D-22Sep2023-v1/NANOAOD
+era: 2022preEE
+filelist:
 - root://cmsxrootd.fnal.gov//store/data/Run2022D/Muon/NANOAOD/22Sep2023-v1/2520000/50eb4dec-d0c0-400a-a1eb-4561043b266c.root
 - root://cmsxrootd.fnal.gov//store/data/Run2022D/Muon/NANOAOD/22Sep2023-v1/2520000/e79123e9-148a-423f-8fe8-47fa351714cb.root
 - root://cmsxrootd.fnal.gov//store/data/Run2022D/Muon/NANOAOD/22Sep2023-v1/2520000/ea3daa90-8674-4909-9f17-f0375f711bb0.root
@@ -80,3 +83,9 @@
 - root://cmsxrootd.fnal.gov//store/data/Run2022D/Muon/NANOAOD/22Sep2023-v1/2520000/16cc9f63-6237-4918-aba8-73aba36b0d20.root
 - root://cmsxrootd.fnal.gov//store/data/Run2022D/Muon/NANOAOD/22Sep2023-v1/2520000/e52cefee-6876-4fcf-885c-4fc2507a9027.root
 - root://cmsxrootd.fnal.gov//store/data/Run2022D/Muon/NANOAOD/22Sep2023-v1/2520000/438e3957-889e-42d2-80d3-19b9eed364df.root
+generator_weight: 1.0
+nevents: 75468381
+nfiles: 82
+nick: Muon_Run2022D-22Sep2023-v1
+sample_type: data
+xsec: 1.0

@@ -2,8 +2,8 @@ ZZTo4L_TuneCP5_13TeV_powheg_pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /ZZTo4L_TuneCP5_13TeV_powheg_pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
-  nfile: 99
+  nevents: 52104000
+  nfiles: 99
   nick: ZZTo4L_TuneCP5_13TeV_powheg_pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: diboson
   xsec: 1.325
@@ -11,7 +11,7 @@ ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL16NanoAODv9
   dbs: /ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 13740600
   nfiles: 14
   nick: ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: diboson
@@ -20,7 +20,7 @@ ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 15928000
   nfiles: 15
   nick: ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: diboson
@@ -29,7 +29,7 @@ WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 10441724
   nfiles: 31
   nick: WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: diboson
@@ -38,7 +38,7 @@ WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL16NanoAODv9
   dbs: /WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 13526954
   nfiles: 39
   nick: WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: diboson
@@ -47,25 +47,25 @@ WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 2900000
   nfiles: 7
   nick: WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODv9-106X
-  sample: diboson
+  sample_type: diboson
   xsec: 12.178
 GluGluToContinToZZTo2e2mu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODv9-106X:
-  dbs: /GluGluToContinToZZTo2e2mu_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL16NanoAODv2-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
+  dbs: /GluGluToContinToZZTo2e2mu_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 499000
   nfiles: 12
   nick: GluGluToContinToZZTo2e2mu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODv9-106X
-  sample: diboson
+  sample_type: diboson
   xsec: 0.00329
 GluGluToContinToZZTo2mu2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /GluGluToContinToZZTo2mu2tau_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 500000
   nfiles: 24
   nick: GluGluToContinToZZTo2mu2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: diboson
@@ -74,7 +74,7 @@ GluGluToContinToZZTo2e2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAO
   dbs: /GluGluToContinToZZTo2e2tau_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 500000
   nfiles: 19
   nick: GluGluToContinToZZTo2e2tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: diboson
@@ -83,7 +83,7 @@ GluGluToContinToZZTo4mu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODv9
   dbs: /GluGluToContinToZZTo4mu_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 997445
   nfiles: 2
   nick: GluGluToContinToZZTo4mu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: diboson
@@ -92,7 +92,7 @@ GluGluToContinToZZTo4tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODv
   dbs: /GluGluToContinToZZTo4tau_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 499183
   nfiles: 22
   nick: GluGluToContinToZZTo4tau_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: diboson
@@ -101,7 +101,7 @@ GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAO
   dbs: /GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 493000
   nfiles: 18
   nick: GluGluToContinToZZTo2mu2nu_TuneCP5_13TeV-mcfm701-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: diboson
@@ -110,8 +110,8 @@ TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X:
   dbs: /TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
-  nfiles: -1
+  nevents: 144722000
+  nfiles: 138
   nick: TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X
   sample_type: top
   xsec: 358.57
@@ -119,7 +119,7 @@ TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 43546000
   nfiles: 49
   nick: TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: top
@@ -128,8 +128,8 @@ ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8_Run
   dbs: /ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
-  nfiles: -1
+  nevents: 30609000
+  nfiles: 35
   nick: ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: top
   xsec: 80.95
@@ -137,8 +137,8 @@ ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8_RunIISu
   dbs: /ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
-  nfiles: -1
+  nevents: 63073000
+  nfiles: 86
   nick: ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: top
   xsec: 136.02
@@ -146,7 +146,7 @@ ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16N
   dbs: /ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 2554000
   nfiles: 23
   nick: ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: top
@@ -155,7 +155,7 @@ ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoA
   dbs: /ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 2491000
   nfiles: 24
   nick: ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: top
@@ -164,8 +164,8 @@ ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16Nan
   dbs: /ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
-  nfiles: -1
+  nevents: 5471000
+  nfiles: 19
   nick: ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: top
   xsec: 3.40
@@ -173,8 +173,8 @@ tZq_ll_4f_ckm_NLO_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL16NanoAODv9-106X
   dbs: /tZq_ll_4f_ckm_NLO_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
-  nfiles: -1
+  nevents: 3967000
+  nfiles: 52
   nick: tZq_ll_4f_ckm_NLO_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL16NanoAODv9-106X
   sample_type: top
   xsec: 0.0758
@@ -182,8 +182,8 @@ TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8_RunIISummer20UL16NanoAOD
   dbs: /TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
-  nfiles: -1
+  nevents: 3322643
+  nfiles: 12
   nick: TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: top
   xsec: 0.2001
@@ -191,8 +191,8 @@ TTZToLLNuNu_M-10_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /TTZToLLNuNu_M-10_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
-  nfiles: -1
+  nevents: 6017000
+  nfiles: 42
   nick: TTZToLLNuNu_M-10_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: top
   xsec: 0.2529
@@ -200,8 +200,8 @@ TTTT_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /TTTT_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
-  nfiles: -1
+  nevents: 4544000
+  nfiles: 23
   nick: TTTT_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: top
   xsec: 0.0091
@@ -209,8 +209,8 @@ TTTW_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /TTTW_TuneCP5_13TeV-madgraph-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
-  nfiles: -1
+  nevents: 159000
+  nfiles: 18
   nick: TTTW_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: top
   xsec: 0.00073
@@ -218,8 +218,8 @@ TTWW_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /TTWW_TuneCP5_13TeV-madgraph-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
-  nfiles: -1
+  nevents: 309000
+  nfiles: 13
   nick: TTWW_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: top
   xsec: 0.00698
@@ -227,8 +227,8 @@ TTTJ_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /TTTJ_TuneCP5_13TeV-madgraph-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
-  nfiles: -1
+  nevents: 160000
+  nfiles: 3
   nick: TTTJ_TuneCP5_13TeV-madgraph-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: top
   xsec: 0.00039
@@ -236,7 +236,7 @@ WminusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /WminusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 300000
   nfiles: 1
   nick: WminusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: vhmm
@@ -245,7 +245,7 @@ WplusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /WplusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 300000
   nfiles: 1
   nick: WplusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: vhmm
@@ -254,7 +254,7 @@ ZHToMuMu_M125_CP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /ZHToMuMu_M125_CP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 496320
   nfiles: 1
   nick: ZHToMuMu_M125_CP5_13TeV-powheg-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: vhmm
@@ -263,7 +263,7 @@ DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL16NanoAODv9-10
   dbs: /DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 71839442
   nfiles: 41
   nick: DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: dyjets
@@ -272,7 +272,7 @@ WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 69000
   nfiles: 14
   nick: WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: triboson
@@ -281,7 +281,7 @@ WWZ_4F_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /WWZ_4F_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 67000
   nfiles: 8
   nick: WWZ_4F_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: triboson
@@ -290,7 +290,7 @@ WZZ_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /WZZ_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 137000
   nfiles: 18
   nick: WZZ_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: triboson
@@ -299,7 +299,7 @@ ZZZ_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODv9-106X:
   dbs: /ZZZ_TuneCP5_13TeV-amcatnlo-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 72000
   nfiles: 4
   nick: ZZZ_TuneCP5_13TeV-amcatnlo-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: triboson
@@ -308,7 +308,7 @@ SingleMuon_Run2016F-UL2016:
   dbs: /SingleMuon/Run2016F-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 8024195
   nfiles: 5
   nick: SingleMuon_Run2016F-UL2016
   sample_type: data
@@ -317,7 +317,7 @@ SingleMuon_Run2016G-UL2016:
   dbs: /SingleMuon/Run2016G-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 149916849
   nfiles: 70
   nick: SingleMuon_Run2016G-UL2016
   sample_type: data
@@ -326,7 +326,7 @@ SingleMuon_Run2016H-UL2016:
   dbs: /SingleMuon/Run2016H-UL2016_MiniAODv2_NanoAODv9-v1/NANOAOD
   era: 2016postVFP
   generator_weight: 1.0
-  nevents: 1.0
+  nevents: 174035164
   nfiles: 82
   nick: SingleMuon_Run2016H-UL2016
   sample_type: data

@@ -1,3 +1,6 @@
+dbs: /WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EENanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v2/NANOAODSIM
+era: 2022postEE
+filelist:
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22EENanoAODv12/WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/2540000/3bcd9256-0f14-4646-bf26-bfce7eb4d90a.root
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22EENanoAODv12/WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/2540000/554f9dfe-99e4-49f5-a40f-4141c5d1fa10.root
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22EENanoAODv12/WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/2540000/26eea237-9eec-4a0c-8028-31e3b1597098.root
@@ -55,3 +58,9 @@
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22EENanoAODv12/WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/a0b4f6f0-5004-4720-b714-d027843f779e.root
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22EENanoAODv12/WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/277aa531-5887-41e5-b1fa-cde7382529cc.root
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22EENanoAODv12/WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/9d6ed81c-9c08-44e2-a210-f2602d2d1146.root
+generator_weight: 1.0
+nevents: 22428584
+nfiles: 57
+nick: WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22EENanoAODv12-130X
+sample_type: diboson
+xsec: 12.98

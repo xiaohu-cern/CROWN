@@ -1,3 +1,6 @@
+dbs: /WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8/Run3Summer22EENanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v2/NANOAODSIM
+era: 2022postEE
+filelist:
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22EENanoAODv12/WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/bbbc0610-22a0-42f5-bc4f-013c10de2f8a.root
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22EENanoAODv12/WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/64139261-13d5-48d3-b56a-0cead28843c0.root
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22EENanoAODv12/WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/596c716a-fe3b-4ca0-b462-59f58210817e.root
@@ -43,3 +46,9 @@
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22EENanoAODv12/WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/30000/7c950c4e-110a-4edf-ae7d-685f260aa114.root
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22EENanoAODv12/WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/30000/5252604f-90a6-4697-adfc-4ca19fb7e232.root
 - root://cmsxrootd.fnal.gov//store/mc/Run3Summer22EENanoAODv12/WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/a7e4b6dc-a03f-4d60-bc42-034e4511f590.root
+generator_weight: 1.0
+nevents: 1482480
+nfiles: 45
+nick: WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8_Run3Summer22EENanoAODv12-130X
+sample_type: triboson
+xsec: 0.2328
