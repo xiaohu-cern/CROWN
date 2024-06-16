@@ -1,8 +1,8 @@
 dbs: /WplusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM
 era: 2016preVFP
 filelist:
-root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL16NanoAODAPVv9/WplusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/40000/93DACCD2-E448-4443-B268-2F2EF020EF63.root
-root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL16NanoAODAPVv9/WplusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/40000/B2C52437-3CC3-6A44-92AE-46749453CCA5.root
+root://xrootd-cms.infn.it//store/mc/RunIISummer20UL16NanoAODAPVv9/WplusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/40000/93DACCD2-E448-4443-B268-2F2EF020EF63.root
+root://xrootd-cms.infn.it//store/mc/RunIISummer20UL16NanoAODAPVv9/WplusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/40000/B2C52437-3CC3-6A44-92AE-46749453CCA5.root
 generator_weight: 1.0
 nevents: 296165
 nfiles: 2

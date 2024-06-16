@@ -1,7 +1,7 @@
 dbs: /WminusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v1/NANOAODSIM
 era: 2016postVFP
 filelist:
-root://cmsxrootd.fnal.gov//store/mc/RunIISummer20UL16NanoAODv9/WminusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/80000/9EA4F61E-06C1-4A44-AD92-E087C358B5A6.root
+root://xrootd-cms.infn.it//store/mc/RunIISummer20UL16NanoAODv9/WminusHToMuMu_M125_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_v17-v1/80000/9EA4F61E-06C1-4A44-AD92-E087C358B5A6.root
 generator_weight: 1.0
 nevents: 300000
 nfiles: 1
