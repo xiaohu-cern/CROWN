@@ -385,3 +385,80 @@ DYJetsToLL_LHEFilterPtZ-650ToInf_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8
   nick: DYJetsToLL_LHEFilterPtZ-650ToInf_MatchEWPDG20_TuneCP5_13TeV-amcatnloFXFX-pythia8_RunIISummer20UL16NanoAODv9-106X
   sample_type: dyjets
   xsec: 0.04728
+########################
+########################
+##### DY HT sample #####
+########################
+########################
+DYJetsToLL_M-50_HT-70to100_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X:
+  dbs: /DYJetsToLL_M-50_HT-70to100_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
+  era: 2016postVFP
+  generator_weight: 1.0
+  nevents: 5893910
+  nfiles: 35
+  nick: DYJetsToLL_M-50_HT-70to100_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X
+  sample_type: dyjets
+  xsec: 140.0
+DYJetsToLL_M-50_HT-100to200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X:
+  dbs: /DYJetsToLL_M-50_HT-100to200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
+  era: 2016postVFP
+  generator_weight: 1.0
+  nevents: 8316351
+  nfiles: 43
+  nick: DYJetsToLL_M-50_HT-100to200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X
+  sample_type: dyjets
+  xsec: 139.2
+DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X:
+  dbs: /DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
+  era: 2016postVFP
+  generator_weight: 1.0
+  nevents: 5653782
+  nfiles: 26
+  nick: DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X
+  sample_type: dyjets
+  xsec: 38.4
+DYJetsToLL_M-50_HT-400to600_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X:
+  dbs: /DYJetsToLL_M-50_HT-400to600_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
+  era: 2016postVFP
+  generator_weight: 1.0
+  nevents: 2491416
+  nfiles: 32
+  nick: DYJetsToLL_M-50_HT-400to600_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X
+  sample_type: dyjets
+  xsec: 5.174
+DYJetsToLL_M-50_HT-600to800_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X:
+  dbs: /DYJetsToLL_M-50_HT-600to800_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
+  era: 2016postVFP
+  generator_weight: 1.0
+  nevents: 2299853
+  nfiles: 7
+  nick: DYJetsToLL_M-50_HT-600to800_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X
+  sample_type: dyjets
+  xsec: 1.258
+DYJetsToLL_M-50_HT-800to1200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X:
+  dbs: /DYJetsToLL_M-50_HT-800to1200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
+  era: 2016postVFP
+  generator_weight: 1.0
+  nevents: 2393976
+  nfiles: 36
+  nick: DYJetsToLL_M-50_HT-800to1200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X
+  sample_type: dyjets
+  xsec: 0.5598
+DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X:
+  dbs: /DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
+  era: 2016postVFP
+  generator_weight: 1.0
+  nevents: 1970857
+  nfiles: 19
+  nick: DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X
+  sample_type: dyjets
+  xsec: 0.1305
+DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X:
+  dbs: /DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
+  era: 2016postVFP
+  generator_weight: 1.0
+  nevents: 696811
+  nfiles: 22
+  nick: DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8_RunIISummer20UL16NanoAODv9-106X
+  sample_type: dyjets
+  xsec: 0.002997
