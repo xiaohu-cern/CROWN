@@ -1,4 +1,5 @@
 from ..quantities import output as q
+from ..quantities import nanoAOD as nanoAOD
 from code_generation.producer import Producer, ProducerGroup
 from code_generation.producer import ExtendedVectorProducer
 
@@ -505,49 +506,49 @@ Ele_2_IDWP80_SF = Producer(
 )
 
 #################### id SF for ele ####################
-Ele_1_Medium_SF_e2m = Producer(
-    name="Ele_1_Medium_SF_e2m",
-    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "Medium", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+Ele_1_Loose_SF_e2m = Producer(
+    name="Ele_1_Loose_SF_e2m",
+    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "Loose", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.extra_lep_p4],
-    output=[q.id_wgt_ele_medium_1],
+    output=[q.id_wgt_ele_loose_1],
     scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 Ele_1_IDWP90_SF_e2m = Producer(
     name="Ele_1_IDWP90_SF_e2m",
-    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp90noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp90iso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.extra_lep_p4],
-    output=[q.id_wgt_ele_wp90nonIso_1],
+    output=[q.id_wgt_ele_wp90Iso_1],
     scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 ################
 ## for 2 eles ##
 ################
-Ele_1_Medium_SF_eemm = Producer(
-    name="Ele_1_Medium_SF_eemm",
-    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "Medium", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+Ele_1_Loose_SF_eemm = Producer(
+    name="Ele_1_Loose_SF_eemm",
+    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "Loose", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_leadingp4_Z],
-    output=[q.id_wgt_ele_medium_1],
+    output=[q.id_wgt_ele_loose_1],
     scopes=["eemm"],
 )
 Ele_1_IDWP90_SF_eemm = Producer(
     name="Ele_1_IDWP90_SF_eemm",
-    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp90noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp90iso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_leadingp4_Z],
-    output=[q.id_wgt_ele_wp90nonIso_1],
+    output=[q.id_wgt_ele_wp90Iso_1],
     scopes=["eemm"],
 )
-Ele_2_Medium_SF_eemm = Producer(
-    name="Ele_2_Medium_SF_eemm",
-    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "Medium", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+Ele_2_Loose_SF_eemm = Producer(
+    name="Ele_2_Loose_SF_eemm",
+    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "Loose", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_subleadingp4_Z],
-    output=[q.id_wgt_ele_medium_2],
+    output=[q.id_wgt_ele_loose_2],
     scopes=["eemm"],
 )
 Ele_2_IDWP90_SF_eemm = Producer(
     name="Ele_2_IDWP90_SF_eemm",
-    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp90noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp90iso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_subleadingp4_Z],
-    output=[q.id_wgt_ele_wp90nonIso_2],
+    output=[q.id_wgt_ele_wp90Iso_2],
     scopes=["eemm"],
 )
 
@@ -559,26 +560,64 @@ EleID_SF = ProducerGroup(
     scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"],
     subproducers={
         "e2m": [
-            Ele_1_Medium_SF_e2m, # for 2022
+            Ele_1_Loose_SF_e2m, # for 2022
             Ele_1_IDWP90_SF_e2m, # for run2
         ],
         "e2m_dyfakeinge_regionb": [
-            Ele_1_Medium_SF_e2m, # for 2022
+            Ele_1_Loose_SF_e2m, # for 2022
             Ele_1_IDWP90_SF_e2m, # for run2
         ],
         "e2m_dyfakeinge_regionc": [
-            Ele_1_Medium_SF_e2m, # for 2022
+            Ele_1_Loose_SF_e2m, # for 2022
             Ele_1_IDWP90_SF_e2m, # for run2
         ],
         "e2m_dyfakeinge_regiond": [
-            Ele_1_Medium_SF_e2m, # for 2022
+            Ele_1_Loose_SF_e2m, # for 2022
             Ele_1_IDWP90_SF_e2m, # for run2
         ],
         "eemm": [
-            Ele_1_Medium_SF_eemm,
-            Ele_2_Medium_SF_eemm,
+            Ele_1_Loose_SF_eemm,
+            Ele_2_Loose_SF_eemm,
             Ele_1_IDWP90_SF_eemm,
             Ele_2_IDWP90_SF_eemm,
         ],
     },
+)
+
+#########################
+# b-tagging SF
+#########################
+btaggingloose_SF = Producer(
+    name="btaggingloose_SF",
+    call='scalefactor::jet::btagSF({df}, {input}, "{btag_sf_variation}", {output}, "{btag_sf_file}", "{btag_corr_algo}")',
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.BJet_discriminator_PNet,
+        nanoAOD.Jet_flavor,
+        q.good_jets_mask,
+        q.good_bjets_mask_loose,
+        q.jet_overlap_veto_mask, # since bjet_mask belongs to goodjet_mask, belongs to veto_mask(for muon), so bjet_mask is the tightest mask
+    ],
+    output=[q.btag_weight],
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "eemm","mmmm","nnmm","fjmm","fjmm_cr"],
+)
+btaggingloose_SF_run2 = Producer(
+    name="btaggingloose_SF_run2",
+    call='scalefactor::jet::btagSF({df}, {input}, "{btag_sf_variation}", {output}, "{btag_sf_file}", "{btag_corr_algo}")',
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.BJet_discriminator,
+        nanoAOD.Jet_flavor,
+        q.good_jets_mask,
+        q.good_bjets_mask_loose,
+        q.jet_overlap_veto_mask, # since bjet_mask belongs to goodjet_mask, belongs to veto_mask(for muon), so bjet_mask is the tightest mask
+    ],
+    output=[q.btag_weight],
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "eemm","mmmm","nnmm","fjmm","fjmm_cr"],
 )

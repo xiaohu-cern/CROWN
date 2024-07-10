@@ -18,6 +18,9 @@ from .producers import fatjets as fatjets
 # end 
 from .quantities import nanoAOD as nanoAOD
 from .quantities import output as q
+# shift
+from .jet_variations import add_jetVariations
+
 from code_generation.configuration import Configuration
 from code_generation.modifiers import EraModifier
 from code_generation.rules import RemoveProducer, AppendProducer
@@ -583,6 +586,24 @@ def build_config(
             "deltaR_fatjet_veto": 0.8, # vh fatjet-muon dR<0.8 overlap removal
         },
     )
+    # bjet scale factors
+    configuration.add_config_parameters(
+        scopes,
+        {
+            "btag_sf_file": EraModifier(
+                {
+                    "2016preVFP": "data/jsonpog-integration/POG/BTV/2016preVFP_UL/btagging.json.gz",
+                    "2016postVFP": "data/jsonpog-integration/POG/BTV/2016postVFP_UL/btagging.json.gz",
+                    "2017": "data/jsonpog-integration/POG/BTV/2017_UL/btagging.json.gz",
+                    "2018": "data/jsonpog-integration/POG/BTV/2018_UL/btagging.json.gz",
+                    "2022preEE": "data/jsonpog-integration/POG/BTV/2022_Summer22/btagging.json.gz",## TODO: update to 2022 recommendation when available. These lines only for testing
+                    "2022postEE": "data/jsonpog-integration/POG/BTV/2022_Summer22EE/btagging.json.gz",## TODO: update to 2022 recommendation when available. These lines only for testing
+                }
+            ),
+            "btag_sf_variation": "central",## TODO: update to 2022 recommendation when available. These lines only for testing
+            "btag_corr_algo": "deepJet_shape",## TODO: update to 2022 recommendation when available. These lines only for testing
+        },
+    )
     # bjet base selection:
     configuration.add_config_parameters(
         # "global",
@@ -855,7 +876,8 @@ def build_config(
             jets.NumberOfLooseB, # vh count loose bjets for ttH veto
             jets.NumberOfMediumB, # vh count medium bjets for ttH veto
             event.VetottHLooseB, # vh veto ttH no more than 1 loose bjet
-            event.VetottHMediumB, # vh veto ttH no more than 1 medium bjet            
+            event.VetottHMediumB, # vh veto ttH no more than 1 medium bjet   
+            scalefactors.btaggingloose_SF,
         ]
     )
     configuration.add_producers(
@@ -2057,6 +2079,7 @@ def build_config(
             q.njets,
             q.nbjets_loose,
             q.nbjets_medium,
+            q.btag_weight,
 
             q.met_pt,
             q.met_phi,
@@ -2118,15 +2141,15 @@ def build_config(
     configuration.add_outputs(
         ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"],
         [
-            q.id_wgt_ele_medium_1,
-            q.id_wgt_ele_wp90nonIso_1,
+            q.id_wgt_ele_loose_1,
+            q.id_wgt_ele_wp90Iso_1,
         ],
     )
     configuration.add_outputs(
         ["eemm"],
         [
-            q.id_wgt_ele_medium_2,
-            q.id_wgt_ele_wp90nonIso_2,
+            q.id_wgt_ele_loose_2,
+            q.id_wgt_ele_wp90Iso_2,
         ],
     )
     configuration.add_outputs(
@@ -2555,6 +2578,7 @@ def build_config(
                 producers=[
                     jets.GoodBJetsLoose_PNet, 
                     jets.GoodBJetsMedium_PNet,
+                    scalefactors.btaggingloose_SF,
                 ],
                 samples=sample,
             ),
@@ -2565,6 +2589,7 @@ def build_config(
                 producers=[
                     jets.GoodBJetsLoose, 
                     jets.GoodBJetsMedium,
+                    scalefactors.btaggingloose_SF_run2,
                 ],
                 samples=sample,
                 update_output=False, # false , no need the internal mask to output
@@ -2604,7 +2629,6 @@ def build_config(
                     triggers.GenerateSingleMuonTriggerFlags_run2,
                 ],
                 samples=sample,
-                # update_output=False,
             ),
         )
         configuration.add_modification_rule(
@@ -2623,7 +2647,6 @@ def build_config(
                     triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel_run2,
                 ],
                 samples=sample,
-                # update_output=False,
             ),
         )
         configuration.add_modification_rule(
@@ -2642,7 +2665,6 @@ def build_config(
                     triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel_run2,
                 ],
                 samples=sample,
-                # update_output=False,
             ),
         )
         # for data
@@ -2685,7 +2707,7 @@ def build_config(
         AppendProducer(
             producers=[jets.RenameJetsData, fatjets.RenameFatJetsData, event.JSONFilter,],
             samples=["data"],
-            # update_output=False,
+            update_output=False,
         ),
     )
     configuration.add_modification_rule(
@@ -2737,31 +2759,129 @@ def build_config(
             samples=["data"],
         ),
     )
+    
+    #######################
+    #### Pileup Shifts ####
+    #######################
     configuration.add_shift(
         SystematicShift(
-            name="MuonIDUp",
-            shift_config={"m2m": {"muon_sf_varation": "systup"}},
-            producers={
-                "m2m": [
-                    # scalefactors.Muon_1_ID_SF,
-                    # scalefactors.Muon_2_ID_SF,
-                ]
+            name="PileUpUp",
+            scopes=["global"],
+            shift_config={
+                ("global"): {"PU_reweighting_variation": "up"},
             },
-        )
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="MuonIDDown",
-            shift_config={"m2m": {"muon_sf_varation": "systdown"}},
             producers={
-                "m2m": [
-                    # scalefactors.Muon_1_ID_SF,
-                    # scalefactors.Muon_2_ID_SF,
-                ]
+                "global": [
+                    event.PUweights,
+                ],
             },
-        )
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data"]
+        ],
     )
 
+    configuration.add_shift(
+        SystematicShift(
+            name="PileUpDown",
+            scopes=["global"],
+            shift_config={
+                ("global"): {"PU_reweighting_variation": "down"},
+            },
+            producers={
+                "global": [
+                    event.PUweights,
+                ],
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data"]
+        ],
+    )
+    
+    ##########################
+    #### Muon IDIso shift ####
+    ##########################
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonIDIsoUp",
+            shift_config={
+                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
+                    "muon_sf_varation": "systup",
+                    "muon_sf_varation_JPsi": "systup",
+                }
+            },
+            producers={
+                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): [
+                    scalefactors.MuonIDIso_SF,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonIDIsoDown",
+            shift_config={
+                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
+                    "muon_sf_varation": "systdown",
+                    "muon_sf_varation_JPsi": "systdown",
+                }
+            },
+            producers={
+                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): [
+                    scalefactors.MuonIDIso_SF,
+                ]
+            },
+        )
+    )
+    
+    ###########################
+    #### Electron ID shift ####
+    ###########################
+    configuration.add_shift(
+            SystematicShift(
+                name="EleIDUp",
+                shift_config={
+                    ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): {
+                        "ele_sf_varation": "sfup",
+                    }
+                },
+                producers={("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): [
+                    scalefactors.EleID_SF,
+                ]},
+            )
+        )
+    configuration.add_shift(
+            SystematicShift(
+                name="EleIDDown",
+                shift_config={
+                    ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): {
+                        "ele_sf_varation": "sfdown",
+                    }
+                },
+                producers={("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): [
+                    scalefactors.EleID_SF,
+                ]},
+            )
+        )
+    
+    #########################
+    # Jet energy resolution and jet energy scale
+    #########################
+    # add_jetVariations(configuration, available_sample_types, era)
+    
     #########################
     # Finalize and validate the configuration
     #########################

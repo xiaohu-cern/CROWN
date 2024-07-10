@@ -1029,6 +1029,11 @@ btagSF(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
                 float jet_sf = 1.;
                 // considering only phase space where the scale factors are
                 // defined
+                float btag_tmp_values = btag_values.at(i);
+                if (btag_values.at(i) < 0){
+                    btag_tmp_values = 0;
+                }
+                Logger::get("btagSF")->debug("btag_tmp_values {}", btag_tmp_values);
                 if (pt_values.at(i) >= 20.0 && pt_values.at(i) < 10000.0 &&
                     std::abs(eta_values.at(i)) < 2.5) {
                     // for c jet related uncertainties only scale factors of
@@ -1039,28 +1044,31 @@ btagSF(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
                             jet_sf = evaluator->evaluate(
                                 {variation, flavors.at(i),
                                  std::abs(eta_values.at(i)), pt_values.at(i),
-                                 btag_values.at(i)});
-                        } else {
+                                 btag_tmp_values});
+                        } else if (flavors.at(i) == 0 || flavors.at(i) == 5) {
+                            // above line change else with else if (flavors.at(i) == 0 || flavors.at(i) == 5)
                             jet_sf = evaluator->evaluate(
                                 {"central", flavors.at(i),
                                  std::abs(eta_values.at(i)), pt_values.at(i),
-                                 btag_values.at(i)});
+                                 btag_tmp_values});
                         }
                     }
                     // for nominal/central and all other uncertainties c-jets
                     // have a scale factor of 1 (only for central defined in
                     // json file from BTV)
                     else {
-                        if (flavors.at(i) != 4) {
+                        // change flavors.at(i) != 4 with flavors.at(i) == 0 || flavors.at(i) == 5
+                        if (flavors.at(i) == 0 || flavors.at(i) == 5) {
                             jet_sf = evaluator->evaluate(
                                 {variation, flavors.at(i),
                                  std::abs(eta_values.at(i)), pt_values.at(i),
-                                 btag_values.at(i)});
-                        } else {
+                                 btag_tmp_values});
+                        } else if (flavors.at(i) == 4) {
+                            // above line change else with else if (flavors.at(i) == 4)
                             jet_sf = evaluator->evaluate(
                                 {"central", flavors.at(i),
                                  std::abs(eta_values.at(i)), pt_values.at(i),
-                                 btag_values.at(i)});
+                                 btag_tmp_values});
                         }
                     }
                 }

@@ -220,8 +220,13 @@ id_wgt_ele_wp90nonIso_2 = Quantity("id_wgt_ele_wp90nonIso_2")
 id_wgt_ele_wp80nonIso_1 = Quantity("id_wgt_ele_wp80nonIso_1")
 id_wgt_ele_wp80nonIso_2 = Quantity("id_wgt_ele_wp80nonIso_2")
 
+id_wgt_ele_wp90Iso_1 = Quantity("id_wgt_ele_wp90Iso_1")
+id_wgt_ele_wp90Iso_2 = Quantity("id_wgt_ele_wp90Iso_2")
+
 id_wgt_ele_medium_1 = Quantity("id_wgt_ele_medium_1")
 id_wgt_ele_medium_2 = Quantity("id_wgt_ele_medium_2")
+id_wgt_ele_loose_1 = Quantity("id_wgt_ele_loose_1")
+id_wgt_ele_loose_2 = Quantity("id_wgt_ele_loose_2")
 # Muon weights
 id_wgt_mu_1 = Quantity("id_wgt_mu_1")
 id_wgt_mu_2 = Quantity("id_wgt_mu_2")
@@ -492,3 +497,6 @@ fatjet_mu1_fromZCR_dR = Quantity("fatjet_mu1_fromZCR_dR")
 fatjet_mu2_fromZCR_deta = Quantity("fatjet_mu2_fromZCR_deta")
 fatjet_mu2_fromZCR_dphi = Quantity("fatjet_mu2_fromZCR_dphi")
 fatjet_mu2_fromZCR_dR = Quantity("fatjet_mu2_fromZCR_dR")
+
+# btag sf weight
+btag_weight = Quantity("btag_weight")
