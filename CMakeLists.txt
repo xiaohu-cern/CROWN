@@ -1,98 +1,17 @@
 cmake_minimum_required(VERSION 3.20)
-# unset some cached variables
+# Unset some cached variables
 unset(CMAKE_BUILD_TYPE CACHE)
 unset(CMAKE_CXX_FLAGS_RELEASE CACHE)
 
-# Check that config name is given with -DANALYSIS, needed to generate the C++ code
-if (NOT DEFINED ANALYSIS)
-    message(FATAL_ERROR "Please specify the Analysis to be used with -DANALYSIS=my_analysis_name")
-endif()
-
-if (NOT DEFINED CONFIG)
-    message(FATAL_ERROR "Please specify the config to be used with -DCONFIG=my_config_name")
-endif()
-
-if (NOT DEFINED SCOPES)
-    message(FATAL_ERROR "No scope specificed, set the scopes via comma seperated list e.g. -DSCOPES=et,mt,tt,em")
-endif()
-
-if (NOT DEFINED SHIFTS)
-    message(STATUS "No shifts specificed, using -DSHIFTS=all. If you want to run nominal only, use -DSHIFTS=none")
-    set(SHIFTS "all")
-endif()
-
-if (NOT DEFINED QUANTITIESMAP)
-    message(STATUS "No quantities map specified, none will be used. If you want to produce friends, you have to specify a quantities map e.g. -DQUANTITIESMAP=quantities_map.json. The input can be a json file or a root file (for debugging purposes).")
-    set(FRIENDS "false")
-    set(QUANTITIESMAP "none")
-else()
-    set(FRIENDS "true")
-endif()
-
-if (NOT DEFINED DEBUG)
-    message(STATUS "No Debug mode set, activate with -DDEBUG=true --> compile with debug symbols and run code generation with debug output")
-    set(DEBUG "false")
-endif()
-
-if (NOT DEFINED OPTIMIZED)
-    message(STATUS "No Optimization not set, building with -DOPTIMIZED=true --> slower build times but faster runtimes")
-    set(OPTIMIZED "true")
-endif()
-
-if (NOT DEFINED SAMPLES)
-    message(FATAL_ERROR "Please specify the samples to be used with -DSAMPLES=samples")
-endif()
-
-if (NOT DEFINED ERAS)
-    message(FATAL_ERROR "Please specify the eras to be used with -DERAS=eras")
-endif()
-
-if (NOT DEFINED THREADS)
-    message(STATUS "No threads set, using single threaded mode with -DTHREADS=1")
-    set(THREADS "1")
-endif()
-# convert args to lower case
-string( TOLOWER "${DEBUG}" DEBUG_PARSED)
-string( TOLOWER "${OPTIMIZED}" OPTIMIZED_PARSED)
-message(STATUS "---------------------------------------------")
-message(STATUS "|> Set up analysis for scopes ${SCOPES}.")
-message(STATUS "|> Set up analysis for ${ANALYSIS}.")
-message(STATUS "|> Set up analysis for config ${CONFIG}.")
-message(STATUS "|> Set up analysis for samples ${SAMPLES}.")
-message(STATUS "|> Set up analysis for eras ${ERAS}.")
-message(STATUS "|> Set up analysis for shifts ${SHIFTS}.")
-message(STATUS "|> Set up analysis with ${THREADS} threads.")
-message(STATUS "|> Set up analysis with debug mode : ${DEBUG_PARSED}.")
-message(STATUS "|> Set up analysis with optimization mode : ${OPTIMIZED_PARSED}.")
-message(STATUS "|> generator is set to ${CMAKE_GENERATOR}")
-message(STATUS "---------------------------------------------")
-# Define the default compiler flags for different build types, if different from the cmake defaults
-# The build type should be set so that the correct compiler flags are chosen
-if(DEBUG_PARSED STREQUAL "true")
-    message(STATUS "Debug mode")
-    set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel.")
-    set(CMAKE_CXX_FLAGS_DEBUG "-g" CACHE STRING "Set default compiler flags for build type Debug")
-else()
-    set(DEBUG_PARSED "false")
-    if(OPTIMIZED_PARSED STREQUAL "true")
-        message(STATUS "Optimized mode")
-        set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel.")
-        set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG" CACHE STRING "Set default compiler flags for build type Release")
-    else()
-        message(STATUS "Unoptimized mode")
-        set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel.")
-        set(CMAKE_CXX_FLAGS_RELEASE "-DNDEBUG" CACHE STRING "Set default compiler flags for build type Release")
-    endif()
-endif()
-
-
-string (REPLACE "," ";" ERAS "${ERAS}")
-string (REPLACE "," ";" SAMPLES "${SAMPLES}")
-message(STATUS "Set up analysis with --analysis ${ANALYSIS} --config ${CONFIG} --scopes ${SCOPES} --shifts ${SHIFTS} --samples ${SAMPLES} --eras ${ERAS} --threads ${THREADS} --debug ${DEBUG_PARSED} --friends ${FRIENDS} --quantities_map ${QUANTITIESMAP}")
-
+# include cmake modules
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+# parse args
+include(ParseArguments)
 
 # Set the default install directory to the build directory
-set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR} CACHE STRING "Set default install prefix to the build directory")
+set(CMAKE_INSTALL_PREFIX
+    ${CMAKE_BINARY_DIR}
+    CACHE STRING "Set default install prefix to the build directory")
 message(STATUS "Creating Project")
 # Create the project
 project(CROWN CXX)
@@ -176,7 +95,10 @@ message(STATUS "The executable is configured with following flags:")
 message(STATUS "  Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "  C++ compiler: ${CMAKE_CXX_COMPILER}")
 message(STATUS "  Base compiler flags: ${CMAKE_CXX_FLAGS}")
-message(STATUS "  Compiler flags from build type: ${CMAKE_CXX_FLAGS_${CMAKE_BUILD_TYPE_UPPER}}")
+message(
+  STATUS
+    "  Compiler flags from build type: ${CMAKE_CXX_FLAGS_${CMAKE_BUILD_TYPE_UPPER}}"
+)
 message(STATUS "")
 
 # Find Python 3
@@ -254,42 +176,33 @@ message(STATUS "Correctionlib library path: ${CORRECTION_LIB_PATH}")
 if (NOT DEFINED INSTALLDIR)
     message(STATUS "No -DINSTALLDIR specified, using default: ${CMAKE_CURRENT_BINARY_DIR}/bin")
     set(INSTALLDIR ${CMAKE_CURRENT_BINARY_DIR}/bin)
+message(STATUS "Finding Packages")
+# add the different dependencies
+include(AddBaseDependencies)
+include(AddRoot)
+include(AddLogging)
+include(AddCorrectionlib)
+include(AddOnnxruntime)
+include(ConfigurePython)
+
+# installdir
+if(NOT DEFINED INSTALLDIR)
+  message(
+    STATUS
+      "No -DINSTALLDIR specified, using default: ${CMAKE_CURRENT_BINARY_DIR}/bin"
+  )
+  set(INSTALLDIR ${CMAKE_CURRENT_BINARY_DIR}/bin)
 endif()
 set(GENERATE_CPP_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
-set(GENERATE_CPP_INPUT_TEMPLATE "${CMAKE_SOURCE_DIR}/code_generation/analysis_template.cxx")
-set(GENERATE_CPP_SUBSET_TEMPLATE "${CMAKE_SOURCE_DIR}/code_generation/subset_template.cxx")
 
-message(STATUS "")
-message(STATUS "Generate C++ code with following settings:")
-message(STATUS "  Output directory: ${GENERATE_CPP_OUTPUT_DIRECTORY}")
-message(STATUS "  Install directory: ${INSTALLDIR}")
-message(STATUS "  Template: ${GENERATE_CPP_INPUT_TEMPLATE}")
-message(STATUS "  Subset template: ${GENERATE_CPP_SUBSET_TEMPLATE}")
-message(STATUS "  Analysis: ${ANALYSIS}")
-message(STATUS "  Config: ${CONFIG}")
-message(STATUS "  Channels: ${SCOPES}")
-message(STATUS "  Shifts: ${SHIFTS}")
-message(STATUS "  Samples: ${SAMPLES}")
-message(STATUS "  Eras: ${ERAS}")
-message(STATUS "")
-
-file(MAKE_DIRECTORY ${GENERATE_CPP_OUTPUT_DIRECTORY})
-# loop over all samples and eras and generate code for each one of them
-foreach (ERA IN LISTS ERAS)
-    foreach (SAMPLE IN LISTS SAMPLES)
-        execute_process(
-            COMMAND ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/generate.py --template ${GENERATE_CPP_INPUT_TEMPLATE} --subset-template ${GENERATE_CPP_SUBSET_TEMPLATE} --output ${GENERATE_CPP_OUTPUT_DIRECTORY} --analysis ${ANALYSIS} --config ${CONFIG} --scopes ${SCOPES} --shifts ${SHIFTS} --sample ${SAMPLE} --era ${ERA} --threads ${THREADS} --debug ${DEBUG_PARSED} --friends ${FRIENDS} --quantities-map ${QUANTITIESMAP} RESULT_VARIABLE ret)
-        if(ret EQUAL "1")
-            message( FATAL_ERROR "Code Generation Failed - Exiting !")
-        endif()
-    endforeach()
-endforeach()
-
-
-set(GENERATE_CPP_OUTPUT_FILELIST "${GENERATE_CPP_OUTPUT_DIRECTORY}/files.txt")
-if(NOT EXISTS ${GENERATE_CPP_OUTPUT_FILELIST})
-    message(FATAL_ERROR "List of generated C++ files in ${GENERATE_CPP_OUTPUT_FILELIST} does not exist.")
+# crownlib setup
+include(ConfigureCrownlib)
+if (BUILD_CROWNLIB_ONLY)
+  # exit if only crownlib is being built
+  return()
 endif()
+# run the code generation
+include(CodeGeneration)
 
 # build a shared lib from all CROWN functions
 include_directories(${CMAKE_SOURCE_DIR}/src)
@@ -350,7 +263,9 @@ foreach(FILENAME ${FILELIST})
     install(CODE "execute_process(COMMAND ${CMAKE_SOURCE_DIR}/checks/get-diff.sh ${CMAKE_SOURCE_DIR} ${ANALYSIS} ${INSTALLDIR}/diff )")
 
 endforeach()
+# run the build
+include(Build)
 
-# Include tests
+# tests Include tests
 enable_testing()
 add_subdirectory(tests)

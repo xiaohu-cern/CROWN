@@ -179,23 +179,24 @@ ROOT::RDF::RNode charge(ROOT::RDF::RNode df, const std::string &outputname,
         },
         {pairname, chargecolumn});
 }
-/// Function to calculate the scalar sum of pts for given lorentz vectors and add it to the
-/// dataframe
+/// Function to calculate the scalar sum of pts for given lorentz vectors and
+/// add it to the dataframe
 ///
 /// \param df the dataframe to add the quantity to
 /// \param outputname name of the new column containing the pt value
-/// \param inputvector name of the column containing the lorentz vector
-///
+/// \param pt_1 name of the column containing the first lorentz vector
+/// \param pt_2 name of the column containing the second lorentz vector
+/// \param pt_3 name of the column containing the third lorentz vector
 /// \returns a dataframe with the new column
 
 ROOT::RDF::RNode scalarPtSum(ROOT::RDF::RNode df, const std::string &outputname,
-                       const std::string &pt_1, const std::string &pt_2, const std::string &pt_3) {
+                             const std::string &pt_1, const std::string &pt_2,
+                             const std::string &pt_3) {
     // build scalar sum of pts of 3 objects
     return df.Define(
         outputname,
-        [](const float &pt_1,
-           const float &pt_2, const float &pt_3) {
-            if (pt_3 < 0.0 || pt_3 < 0.0 || pt_3 < 0.0)
+        [](const float &pt_1, const float &pt_2, const float &pt_3) {
+            if (pt_1 < 0.0 || pt_2 < 0.0 || pt_3 < 0.0)
                 return default_float;
             auto const triple_lepton_pt = pt_1 + pt_2 + pt_3;
             return (float)triple_lepton_pt;
@@ -203,7 +204,7 @@ ROOT::RDF::RNode scalarPtSum(ROOT::RDF::RNode df, const std::string &outputname,
         {pt_1, pt_2, pt_3});
 }
 /**
- * @brief function used to calculate the deltaPhi between two lorentz vectors. $\phi_1$ is from the first lorentz vector and $\phi_2$ is from the second lorentz vector.
+ * @brief function used to calculate the deltaPhi between two lorentz vectors.
  *
  * @param df name of the dataframe
  * @param outputname name of the new column containing the deltaR value
@@ -212,15 +213,17 @@ ROOT::RDF::RNode scalarPtSum(ROOT::RDF::RNode df, const std::string &outputname,
  * @return a new dataframe with the new column
  */
 ROOT::RDF::RNode deltaPhi(ROOT::RDF::RNode df, const std::string &outputname,
-                        const std::string &p_1_p4, const std::string &p_2_p4) {
+                          const std::string &p_1_p4,
+                          const std::string &p_2_p4) {
     auto calculate_deltaPhi = [](ROOT::Math::PtEtaPhiMVector &p_1_p4,
-                               ROOT::Math::PtEtaPhiMVector &p_2_p4) {
+                                 ROOT::Math::PtEtaPhiMVector &p_2_p4) {
         return ROOT::Math::VectorUtil::DeltaPhi(p_1_p4, p_2_p4);
     };
     return df.Define(outputname, calculate_deltaPhi, {p_1_p4, p_2_p4});
 }
 /**
- * @brief function used to calculate the deltaPhi between the lepton from a W and the visible Higgs decay products. $\phi_1$ is from the first lorentz vector and $\phi_2$ is from the second lorentz vector and \phi_3$ is from the third lorentz vector.
+ * @brief function used to calculate the deltaPhi between the lepton from a W
+ * and the visible Higgs decay products.
  *
  * @param df name of the dataframe
  * @param outputname name of the new column containing the deltaR value
@@ -230,9 +233,12 @@ ROOT::RDF::RNode deltaPhi(ROOT::RDF::RNode df, const std::string &outputname,
  * @return a new dataframe with the new column
  */
 ROOT::RDF::RNode deltaPhi_WH(ROOT::RDF::RNode df, const std::string &outputname,
-                        const std::string &p_1_p4, const std::string &p_2_p4, const std::string &p_3_p4) {
+                             const std::string &p_1_p4,
+                             const std::string &p_2_p4,
+                             const std::string &p_3_p4) {
     auto calculate_deltaPhi = [](ROOT::Math::PtEtaPhiMVector &p_1_p4,
-                               ROOT::Math::PtEtaPhiMVector &p_2_p4, ROOT::Math::PtEtaPhiMVector &p_3_p4) {
+                                 ROOT::Math::PtEtaPhiMVector &p_2_p4,
+                                 ROOT::Math::PtEtaPhiMVector &p_3_p4) {
         auto const dileptonsystem = p_2_p4 + p_3_p4;
         return ROOT::Math::VectorUtil::DeltaPhi(p_1_p4, dileptonsystem);
     };
@@ -304,6 +310,7 @@ p4_fastmtt(ROOT::RDF::RNode df, const std::string &outputname,
            const std::string &met_cov_xx, const std::string &met_cov_xy,
            const std::string &met_cov_yy, const std::string &decay_mode_1,
            const std::string &decay_mode_2, const std::string &finalstate) {
+    // initialize the FastMTT algorithm
     auto calculate_fast_mtt =
         [finalstate](const float &pt_1, const float &pt_2, const float &eta_1,
                      const float &eta_2, const float &phi_1, const float &phi_2,
@@ -352,12 +359,12 @@ p4_fastmtt(ROOT::RDF::RNode df, const std::string &outputname,
             measuredTauLeptons.push_back(fastmtt::MeasuredTauLepton(
                 decay_obj_2, pt_2, eta_2, phi_2, mass_2, dm_2));
             FastMTT FastMTTAlgo;
-            FastMTTAlgo.run(measuredTauLeptons, met.X(), met.Y(), covMET);
-            LorentzVector result = FastMTTAlgo.getBestP4();
+            ROOT::Math::PtEtaPhiMVector result =
+                FastMTTAlgo.run(measuredTauLeptons, met.X(), met.Y(), covMET);
             // ROOT::Math::PtEtaPhiMVector result(_result.Pt(), _result.Eta(),
             //                                    _result.Phi(), _result.M());
             Logger::get("FastMTT")->debug("FastMTT result: {}", result.M());
-            return (ROOT::Math::PtEtaPhiMVector)result;
+            return result;
         };
     return df.Define(outputname, calculate_fast_mtt,
                      {pt_1, pt_2, eta_1, eta_2, phi_1, phi_2, mass_1, mass_2,
@@ -389,7 +396,8 @@ ROOT::RDF::RNode pt_vis(ROOT::RDF::RNode df, const std::string &outputname,
         },
         inputvectors);
 }
-/// Function to calculate the pt of the W from a the visible lepton fourvector, the met four vector and the neutrino four vector from the Higgs system and
+/// Function to calculate the pt of the W from a the visible lepton fourvector,
+/// the met four vector and the neutrino four vector from the Higgs system and
 /// add it to the dataframe.
 ///
 /// \param df the dataframe to add the quantity to
@@ -400,7 +408,7 @@ ROOT::RDF::RNode pt_vis(ROOT::RDF::RNode df, const std::string &outputname,
 /// \returns a dataframe with the new column
 
 ROOT::RDF::RNode pt_W(ROOT::RDF::RNode df, const std::string &outputname,
-                        const std::vector<std::string> &inputvectors) {
+                      const std::vector<std::string> &inputvectors) {
     // build visible pt from the two particles
     return df.Define(
         outputname,
@@ -496,8 +504,9 @@ ROOT::RDF::RNode mTdileptonMET(ROOT::RDF::RNode df,
 
 /**
  * @brief function used to calculate the deltaR between two lorentz vectors. It
- is defined as \f[ \Delta R = \sqrt{(\eta_1 - \eta_2)^2 + (\phi_1 - \phi_2)^2}
- \f$ where $\eta_1$ and $\phi_1$ are from the first lorentz vector and $\eta_2$
+ is defined as
+ $\f[ \Delta R = \sqrt{(\eta_1 - \eta_2)^2 + (\phi_1 - \phi_2)^2} \f$
+ where $\eta_1$ and $\phi_1$ are from the first lorentz vector and $\eta_2$
  and $\phi_2$ are from the second lorentz vector.
  *
  * @param df name of the dataframe
@@ -510,6 +519,8 @@ ROOT::RDF::RNode deltaR(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &p_1_p4, const std::string &p_2_p4) {
     auto calculate_deltaR = [](ROOT::Math::PtEtaPhiMVector &p_1_p4,
                                ROOT::Math::PtEtaPhiMVector &p_2_p4) {
+        if (p_1_p4.pt() < 0.0 || p_2_p4.pt() < 0.0)
+            return default_float;
         return (float)ROOT::Math::VectorUtil::DeltaR(p_1_p4, p_2_p4);
     };
     return df.Define(outputname, calculate_deltaR, {p_1_p4, p_2_p4});
@@ -593,7 +604,7 @@ ROOT::RDF::RNode pt_ttjj(ROOT::RDF::RNode df, const std::string &outputname,
 
 /**
  * @brief function used to calculate the pt two leading jets
- If the number of jets is less than 2, the quantity is set to 10
+ If the number of jets is less than 2, the quantity is set to -10
  * instead.
  *
  * @param df name of the dataframe
@@ -953,15 +964,14 @@ ROOT::RDF::RNode is_global(ROOT::RDF::RNode df, const std::string &outputname,
  * @param outputname the name of the new quantity
  * @param position position of the muon in the pair vector
  * @param pairname name of the column containing the pair vector
- * @param trackerflagcolumn name of the column containing the muon is global flag
+ * @param trackerflagcolumn name of the column containing the muon is global
+ * flag
  * @return a dataframe with the new column
  */
 ROOT::RDF::RNode is_tracker(ROOT::RDF::RNode df, const std::string &outputname,
-                           const int &position, const std::string &pairname,
-                           const std::string &trackerflagcolumn) {
-    Logger::get("muonIsTrackerflag")
-                ->debug(
-                    "is tracker pos {}", position);
+                            const int &position, const std::string &pairname,
+                            const std::string &trackerflagcolumn) {
+    Logger::get("muonIsTrackerflag")->debug("is tracker pos {}", position);
     return df.Define(outputname,
                      [position](const ROOT::RVec<int> &pair,
                                 const ROOT::RVec<bool> &trackerflag) {
@@ -985,9 +995,7 @@ namespace electron {
 ROOT::RDF::RNode id(ROOT::RDF::RNode df, const std::string &outputname,
                     const int &position, const std::string &pairname,
                     const std::string &idcolumn) {
-    Logger::get("electronIDflag")
-                ->debug(
-                    "ele ID position {}", position);
+    Logger::get("electronIDflag")->debug("ele ID position {}", position);
     return df.Define(
         outputname,
         [position](const ROOT::RVec<int> &pair, const ROOT::RVec<bool> &id) {

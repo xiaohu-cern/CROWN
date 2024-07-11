@@ -5,7 +5,6 @@ from typing import Any, Dict, List, Union, Tuple
 import os
 import filecmp
 import subprocess
-
 from code_generation.producer import SafeDict, Producer, ProducerGroup
 
 from code_generation.configuration import Configuration
@@ -107,7 +106,9 @@ class CodeSubset(object):
         log.debug("folder: {}, file_name: {}".format(self.folder, self.file_name))
         # write the header file if it does not exist or is different
         with open(self.headerfile + ".new", "w") as f:
-            f.write(f"ROOT::RDF::RNode {self.name}(ROOT::RDF::RNode df);")
+            f.write(
+                f"ROOT::RDF::RNode {self.name}(ROOT::RDF::RNode df, OnnxSessionManager &onnxSessionManager, correctionManager::CorrectionManager &correctionManager);"
+            )
         if os.path.isfile(self.headerfile):
             if filecmp.cmp(self.headerfile + ".new", self.headerfile):
                 log.debug("--> Identical header file, skipping")
@@ -144,7 +145,7 @@ class CodeSubset(object):
         Returns:
             str: the call to the code subset
         """
-        call = f"    auto {outputscope} = {self.name}({inputscope}); \n"
+        call = f"    auto {outputscope} = {self.name}({inputscope}, onnxSessionManager, correctionManager); \n"
         return call
 
     def include(self) -> str:
@@ -193,6 +194,7 @@ class CodeGenerator(object):
         self.subset_template = self.load_template(sub_template_path)
         self.configuration = configuration
         self.scopes = self.configuration.scopes
+
         self.outputs = self.configuration.outputs
         self.global_scope = self.configuration.global_scope
         self.executable_name = executable_name
@@ -213,6 +215,8 @@ class CodeGenerator(object):
         self.main_counter: Dict[str, int] = {}
         self.number_of_defines = 0
         self.number_of_outputs = 0
+        # sort the scopes alphabetically, keeping the global scope at the beginning
+        self.sort_scopes()
         for scope in self.scopes:
             self.main_counter[scope] = 0
             self.subset_calls[scope] = []
@@ -224,6 +228,16 @@ class CodeGenerator(object):
         self.analysis_is_clean = "false"
         self.get_git_status()
         log.info("Code generator initialized")
+
+    def sort_scopes(self) -> None:
+        """
+        Sort the scopes alphabetically, keeping the global scope at the beginning
+        """
+        self.scopes = sorted(
+            scope for scope in self.scopes if scope != self.global_scope
+        )
+        if self.global_scope is not None:
+            self.scopes = [self.global_scope] + self.scopes
 
     def get_git_status(self) -> None:
         """
@@ -648,6 +662,7 @@ class CodeGenerator(object):
         )
         printout += "       timer.Continue();\n"
         printout += '       Logger::get("main")->info("Starting Evaluation");\n'
+        printout += "       correctionManager.report();\n"
 
         return printout
 
@@ -798,7 +813,7 @@ class CodeGenerator(object):
                     global_commands = []
                 outputset = list(set(self.output_commands[scope] + global_commands))
                 # now split by __ and get a set of all the shifts per variable
-                for i, output in enumerate(outputset):
+                for output in outputset:
                     try:
                         quantity, shift = output.split("__")
                     except ValueError:

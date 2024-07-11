@@ -2,6 +2,7 @@
 #define GUARD_REWEIGHTING_H
 
 #include "../include/basefunctions.hxx"
+#include "../include/utility/CorrectionManager.hxx"
 #include "../include/utility/Logger.hxx"
 #include "../include/utility/RooFunctorThreadsafe.hxx"
 #include "ROOT/RDataFrame.hxx"
@@ -54,7 +55,8 @@ ROOT::RDF::RNode puweights(ROOT::RDF::RNode df, const std::string &weightname,
 
 /**
  * @brief Function used to read out pileup weights from JSON files
- *
+ * WARNING: This function is deprecated. Please use the one with the
+ * CorrectionManager object instead.
  * @param df The input dataframe
  * @param weightname name of the derived weight
  * @param truePU name of the column containing the true PU of simulated
@@ -68,8 +70,39 @@ ROOT::RDF::RNode puweights(ROOT::RDF::RNode df, const std::string &weightname,
                            const std::string &filename,
                            const std::string &eraname,
                            const std::string &variation) {
+    Logger::get("puweights")
+        ->warn("You are using the deprecated puweights function. Please use "
+               "the one with the CorrectionManager object instead.");
     auto evaluator =
         correction::CorrectionSet::from_file(filename)->at(eraname);
+    auto df1 =
+        df.Define(weightname,
+                  [evaluator, variation](const float &pu) {
+                      double weight = evaluator->evaluate({pu, variation});
+                      return weight;
+                  },
+                  {truePU});
+    return df1;
+}
+/**
+ * @brief Function used to read out pileup weights from JSON files
+ *
+ * @param df The input dataframe
+ * @param correctionManager The CorrectionManager object
+ * @param weightname name of the derived weight
+ * @param truePU name of the column containing the true PU of simulated
+ * events
+ * @param filename path to the JSON file
+ * @param eraname name of the era specified in the JSON file
+ * @param variation systematic variations: nominal, up, down
+ */
+ROOT::RDF::RNode
+puweights(ROOT::RDF::RNode df,
+          correctionManager::CorrectionManager &correctionManager,
+          const std::string &weightname, const std::string &truePU,
+          const std::string &filename, const std::string &eraname,
+          const std::string &variation) {
+    auto evaluator = correctionManager.loadCorrection(filename, eraname);
     auto df1 =
         df.Define(weightname,
                   [evaluator, variation](const float &pu) {
@@ -110,20 +143,20 @@ ROOT::RDF::RNode topptreweighting(ROOT::RDF::RNode df,
             std::cout << top_pts.size();
             Logger::get("topptreweighting")
                 ->error("TTbar reweighting applied to event with not exactly "
-                        "two top quarks. Probably due to wrong sample type.");
+                        "two top quarks. Probably due to wrong sample type. "
+                        "n_top: {}",
+                        top_pts.size());
             throw std::runtime_error("Bad number of top quarks.");
         }
-        if (top_pts[0] > 472.0)
-            top_pts[0] = 472.0;
-        if (top_pts[1] > 472.0)
-            top_pts[1] = 472.0;
-        const float parameter_a = 0.088;
-        const float parameter_b = -0.00087;
-        const float parameter_c = 0.00000092;
-        return sqrt(exp(parameter_a + parameter_b * top_pts[0] +
-                        parameter_c * top_pts[0] * top_pts[0]) *
-                    exp(parameter_a + parameter_b * top_pts[1] +
-                        parameter_c * top_pts[1] * top_pts[1]));
+
+        if (top_pts[0] > 500.0)
+            top_pts[0] = 500.0;
+        if (top_pts[1] > 500.0)
+            top_pts[1] = 500.0;
+        const float parameter_a = 0.0615;
+        const float parameter_b = -0.0005;
+        return sqrt(exp(parameter_a + parameter_b * top_pts[0]) *
+                    exp(parameter_a + parameter_b * top_pts[1]));
     };
     auto df1 = df.Define(weightname, ttbarreweightlambda,
                          {gen_pdgids, gen_status, gen_pt});

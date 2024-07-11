@@ -169,6 +169,13 @@ ROOT::RDF::RNode GetPrescaleValues(ROOT::RDF::RNode df,
                                    const std::string &lumiblock_columnname,
                                    const std::string &prescale_json_file);
 
+ROOT::RDF::RNode GetPrescaleValues(
+    ROOT::RDF::RNode df,
+    correctionManager::CorrectionManager &correctionManager,
+    const std::string &prescale_columnname, const std::string &hlt_columnname,
+    const std::string &run_columnname, const std::string &lumiblock_columnname,
+    const std::string &prescale_json_file);
+
 namespace tagandprobe {
 
 bool matchParticle(const ROOT::Math::PtEtaPhiMVector &particle,
@@ -181,6 +188,15 @@ bool matchParticle(const ROOT::Math::PtEtaPhiMVector &particle,
                    const unsigned short &trigger_particle_id_cut,
                    const int &triggerbit_cut,
                    const float &trigger_particle_pt_cut);
+
+ROOT::RDF::RNode MatchSingleTriggerObject(
+    ROOT::RDF::RNode df, const std::string &triggerflag_name,
+    const std::string &particle_p4, const std::string &triggerobject_bits,
+    const std::string &triggerobject_id, const std::string &triggerobject_pt,
+    const std::string &triggerobject_eta, const std::string &triggerobject_phi,
+    const float &pt_cut, const float &eta_cut,
+    const int &trigger_particle_id_cut, const int &triggerbit_cut,
+    const float &DeltaR_threshold, const float &trigger_particle_pt_cut);
 
 ROOT::RDF::RNode GenerateSingleTriggerFlag(
     ROOT::RDF::RNode df, const std::string &triggerflag_name,
