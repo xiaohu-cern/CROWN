@@ -4,10 +4,10 @@ from typing import List
 
 from code_generation.configuration import Configuration
 from code_generation.systematics import SystematicShift
-from .producers import jets as jets
+from .producers import fatjets as fatjets
 from .producers import scalefactors as scalefactors
 
-def add_jetVariations(
+def add_fatjetVariations(
     configuration: Configuration, available_sample_types: List[str], era: str
 ):
     #########################
@@ -15,11 +15,11 @@ def add_jetVariations(
     #########################
     configuration.add_shift(
         SystematicShift(
-            name="jerUncUp",
+            name="fatjerUncUp",
             shift_config={
-                "global": {"jet_jer_shift": '"up"'},
+                "global": {"fatjet_jer_shift": '"up"'},
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -29,11 +29,11 @@ def add_jetVariations(
     )
     configuration.add_shift(
         SystematicShift(
-            name="jerUncDown",
+            name="fatjerUncDown",
             shift_config={
-                "global": {"jet_jer_shift": '"down"'},
+                "global": {"fatjet_jer_shift": '"down"'},
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -47,11 +47,11 @@ def add_jetVariations(
     JEC_sources = '{"Total"}'
     configuration.add_shift(
         SystematicShift(
-            name="jesUncTotalUp",
+            name="fatjesUncTotalUp",
             shift_config={
                 "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
                  "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -59,7 +59,7 @@ def add_jetVariations(
             },
             producers={
                 "global": {
-                    jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
                  "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -74,11 +74,11 @@ def add_jetVariations(
     )
     configuration.add_shift(
         SystematicShift(
-            name="jesUncTotalDown",
+            name="fatjesUncTotalDown",
             shift_config={
                 "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
                  "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -86,7 +86,7 @@ def add_jetVariations(
             },
             producers={
                 "global": {
-                    jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
                  "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -106,14 +106,14 @@ def add_jetVariations(
         JEC_sources = '{"HEMIssue"}'
         configuration.add_shift(
             SystematicShift(
-                name="jesUncHEMIssueUp",
+                name="fatjesUncHEMIssueUp",
                 shift_config={
                     "global": {
-                        "jet_jes_shift": 1,
-                        "jet_jes_sources": JEC_sources,
+                        "fatjet_jes_shift": 1,
+                        "fatjet_jes_sources": JEC_sources,
                     }
                 },
-                producers={"global": jets.JetEnergyCorrection},
+                producers={"global": fatjets.FatJetEnergyCorrection},
             ),
             samples=[
                 sample
@@ -123,14 +123,14 @@ def add_jetVariations(
         )
         configuration.add_shift(
             SystematicShift(
-                name="jesUncHEMIssueDown",
+                name="fatjesUncHEMIssueDown",
                 shift_config={
                     "global": {
-                        "jet_jes_shift": -1,
-                        "jet_jes_sources": JEC_sources,
+                        "fatjet_jes_shift": -1,
+                        "fatjet_jes_sources": JEC_sources,
                     }
                 },
-                producers={"global": jets.JetEnergyCorrection},
+                producers={"global": fatjets.FatJetEnergyCorrection},
             ),
             samples=[
                 sample
@@ -144,14 +144,14 @@ def add_jetVariations(
     JEC_sources = '{"SinglePionECAL", "SinglePionHCAL", "AbsoluteMPFBias", "AbsoluteScale", "Fragmentation", "PileUpDataMC", "RelativeFSR", "PileUpPtRef"}'
     configuration.add_shift(
         SystematicShift(
-            name="jesUncAbsoluteUp",
+            name="fatjesUncAbsoluteUp",
             shift_config={
                 "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -161,14 +161,14 @@ def add_jetVariations(
     )
     configuration.add_shift(
         SystematicShift(
-            name="jesUncAbsoluteDown",
+            name="fatjesUncAbsoluteDown",
             shift_config={
                 "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -180,14 +180,14 @@ def add_jetVariations(
     JEC_sources = '{"AbsoluteStat", "TimePtEta", "RelativeStatFSR"}'
     configuration.add_shift(
         SystematicShift(
-            name="jesUncAbsoluteYearUp",
+            name="fatjesUncAbsoluteYearUp",
             shift_config={
                 "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -197,14 +197,14 @@ def add_jetVariations(
     )
     configuration.add_shift(
         SystematicShift(
-            name="jesUncAbsoluteYearDown",
+            name="fatjesUncAbsoluteYearDown",
             shift_config={
                 "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -216,14 +216,14 @@ def add_jetVariations(
     JEC_sources = '{"FlavorQCD"}'
     configuration.add_shift(
         SystematicShift(
-            name="jesUncFlavorQCDUp",
+            name="fatjesUncFlavorQCDUp",
             shift_config={
                 "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -233,14 +233,14 @@ def add_jetVariations(
     )
     configuration.add_shift(
         SystematicShift(
-            name="jesUncFlavorQCDDown",
+            name="fatjesUncFlavorQCDDown",
             shift_config={
                 "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -252,14 +252,14 @@ def add_jetVariations(
     JEC_sources = '{"PileUpPtEC1", "PileUpPtBB", "RelativePtBB"}'
     configuration.add_shift(
         SystematicShift(
-            name="jesUncBBEC1Up",
+            name="fatjesUncBBEC1Up",
             shift_config={
                 "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -269,14 +269,14 @@ def add_jetVariations(
     )
     configuration.add_shift(
         SystematicShift(
-            name="jesUncBBEC1Down",
+            name="fatjesUncBBEC1Down",
             shift_config={
                 "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -288,14 +288,14 @@ def add_jetVariations(
     JEC_sources = '{"RelativeJEREC1", "RelativePtEC1", "RelativeStatEC"}'
     configuration.add_shift(
         SystematicShift(
-            name="jesUncBBEC1YearUp",
+            name="fatjesUncBBEC1YearUp",
             shift_config={
                 "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -305,14 +305,14 @@ def add_jetVariations(
     )
     configuration.add_shift(
         SystematicShift(
-            name="jesUncBBEC1YearDown",
+            name="fatjesUncBBEC1YearDown",
             shift_config={
                 "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -324,14 +324,14 @@ def add_jetVariations(
     JEC_sources = '{"RelativePtHF", "PileUpPtHF", "RelativeJERHF"}'
     configuration.add_shift(
         SystematicShift(
-            name="jesUncHFUp",
+            name="fatjesUncHFUp",
             shift_config={
                 "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -341,14 +341,14 @@ def add_jetVariations(
     )
     configuration.add_shift(
         SystematicShift(
-            name="jesUncHFDown",
+            name="fatjesUncHFDown",
             shift_config={
                 "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -360,14 +360,14 @@ def add_jetVariations(
     JEC_sources = '{"RelativeStatHF"}'
     configuration.add_shift(
         SystematicShift(
-            name="jesUncHFYearUp",
+            name="fatjesUncHFYearUp",
             shift_config={
                 "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -377,14 +377,14 @@ def add_jetVariations(
     )
     configuration.add_shift(
         SystematicShift(
-            name="jesUncHFYearDown",
+            name="fatjesUncHFYearDown",
             shift_config={
                 "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -396,14 +396,14 @@ def add_jetVariations(
     JEC_sources = '{"PileUpPtEC2"}'
     configuration.add_shift(
         SystematicShift(
-            name="jesUncEC2Up",
+            name="fatjesUncEC2Up",
             shift_config={
                 "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -413,14 +413,14 @@ def add_jetVariations(
     )
     configuration.add_shift(
         SystematicShift(
-            name="jesUncEC2Down",
+            name="fatjesUncEC2Down",
             shift_config={
                 "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -432,14 +432,14 @@ def add_jetVariations(
     JEC_sources = '{"RelativeJEREC2", "RelativePtEC2"}'
     configuration.add_shift(
         SystematicShift(
-            name="jesUncEC2YearUp",
+            name="fatjesUncEC2YearUp",
             shift_config={
                 "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -449,14 +449,14 @@ def add_jetVariations(
     )
     configuration.add_shift(
         SystematicShift(
-            name="jesUncEC2YearDown",
+            name="fatjesUncEC2YearDown",
             shift_config={
                 "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -468,14 +468,14 @@ def add_jetVariations(
     JEC_sources = '{"RelativeBal"}'
     configuration.add_shift(
         SystematicShift(
-            name="jesUncRelativeBalUp",
+            name="fatjesUncRelativeBalUp",
             shift_config={
                 "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -485,14 +485,14 @@ def add_jetVariations(
     )
     configuration.add_shift(
         SystematicShift(
-            name="jesUncRelativeBalDown",
+            name="fatjesUncRelativeBalDown",
             shift_config={
                 "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
@@ -504,36 +504,36 @@ def add_jetVariations(
     JEC_sources = '{"RelativeSample"}'
     configuration.add_shift(
         SystematicShift(
-            name="jesUncRelativeSampleYearUp",
+            name="fatjesUncRelativeSampleYearUp",
             shift_config={
                 "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
             for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
+            if sample not in ["data"]
         ],
     )
     configuration.add_shift(
         SystematicShift(
-            name="jesUncRelativeSampleYearDown",
+            name="fatjesUncRelativeSampleYearDown",
             shift_config={
                 "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 }
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={"global": fatjets.FatJetEnergyCorrection},
         ),
         samples=[
             sample
             for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
+            if sample not in ["data"]
         ],
     )
     

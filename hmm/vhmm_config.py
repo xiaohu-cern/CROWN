@@ -20,6 +20,8 @@ from .quantities import nanoAOD as nanoAOD
 from .quantities import output as q
 # shift
 from .jet_variations import add_jetVariations
+from .fatjet_variations import add_fatjetVariations
+from .btag_variations import add_btagVariations
 
 from code_generation.configuration import Configuration
 from code_generation.modifiers import EraModifier
@@ -612,8 +614,8 @@ def build_config(
             "min_bjet_pt": 25, # vh
             "max_bjet_eta": EraModifier( # vh
                 {
-                    "2016preVFP": 2.4,
-                    "2016postVFP": 2.4,
+                    "2016preVFP": 2.5,
+                    "2016postVFP": 2.5,
                     "2017": 2.5,
                     "2018": 2.5,
                     "2022preEE": 2.5,
@@ -2846,42 +2848,67 @@ def build_config(
             },
         )
     )
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonIDISO_tagIso",
+            shift_config={
+                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
+                    "muon_sf_varation": "tagIso",
+                }
+            },
+            producers={
+                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): [
+                     scalefactors.MuonIDIso_SF
+                ]
+            },
+        )
+    )
     
     ###########################
     #### Electron ID shift ####
     ###########################
     configuration.add_shift(
-            SystematicShift(
-                name="EleIDUp",
-                shift_config={
-                    ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): {
-                        "ele_sf_varation": "sfup",
-                    }
-                },
-                producers={("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): [
-                    scalefactors.EleID_SF,
-                ]},
-            )
+        SystematicShift(
+            name="EleIDUp",
+            shift_config={
+                ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): {
+                    "ele_sf_varation": "sfup",
+                }
+            },
+            producers={("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): [
+                scalefactors.EleID_SF,
+            ]},
         )
+    )
     configuration.add_shift(
-            SystematicShift(
-                name="EleIDDown",
-                shift_config={
-                    ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): {
-                        "ele_sf_varation": "sfdown",
-                    }
-                },
-                producers={("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): [
-                    scalefactors.EleID_SF,
-                ]},
-            )
+        SystematicShift(
+            name="EleIDDown",
+            shift_config={
+                ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): {
+                    "ele_sf_varation": "sfdown",
+                }
+            },
+            producers={("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): [
+                scalefactors.EleID_SF,
+            ]},
         )
+    )
     
     #########################
     # Jet energy resolution and jet energy scale
     #########################
-    # add_jetVariations(configuration, available_sample_types, era)
+    add_jetVariations(configuration, available_sample_types, era)
+    add_fatjetVariations(configuration, available_sample_types, era)
     
+    #########################
+    # btagging scale factor shape variation
+    #########################
+    add_btagVariations(configuration, available_sample_types)
+        
     #########################
     # Finalize and validate the configuration
     #########################

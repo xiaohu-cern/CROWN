@@ -132,21 +132,21 @@ GoodElectron_mvaTTH_Cut = Producer(
     call="physicsobject::CutVarMin({df}, {input}, {output}, {min_goodelectron_mvaTTH})",
     input=[nanoAOD.Electron_mvaTTH],
     output=[],
-    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global"],
 )
 GoodElectronIDCut = Producer(
     name="GoodElectronIDCut",
     call='physicsobject::electron::CutID({df}, {output}, "{good_ele_id}")', # notice here "{good_ele_id}"
     input=[],
     output=[],
-    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global"],
 )
 GoodElectrons = ProducerGroup(
     name="GoodElectrons",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[q.base_electrons_mask],
     output=[q.good_electrons_mask], # vh these are the final selection muons' mask
-    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global"],
     subproducers=[
         GoodElectron_mvaTTH_Cut,
         GoodElectronIDCut,
@@ -157,21 +157,21 @@ NumberOfBaseElectrons = Producer(
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
     input=[q.base_electrons_v2_mask],
     output=[q.nbaseelectrons],
-    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global"],
 )
 NumberOfGoodElectrons = Producer(
     name="NumberOfGoodElectrons",
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
     input=[q.good_electrons_mask],
     output=[q.nelectrons],
-    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global"],
 )
 GoodEle_Veto = Producer(
     name="GoodEle_Veto",
     call="physicsobject::Ele_Veto({df}, {output}, {input})",
     input=[q.good_electrons_mask],
     output=[q.Flag_GoodEle_Veto],
-    scopes=["global","m2m","mmmm","nnmm","fjmm","fjmm_cr","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    scopes=["m2m","mmmm","nnmm","fjmm","fjmm_cr","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### Electron collection and their properties
 ElectronCollection = Producer(
@@ -179,7 +179,7 @@ ElectronCollection = Producer(
     call="jet::OrderJetsByPt({df}, {output}, {input})",
     input=[nanoAOD.Electron_pt, q.good_electrons_mask],
     output=[q.good_electron_collection],  # eles after ordered by pt
-    scopes=["global","e2m","m2m","eemm","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["global"],
 )
 ### Base Electron collection and their properties
 BaseElectronCollection = Producer(
@@ -187,7 +187,7 @@ BaseElectronCollection = Producer(
     call="jet::OrderJetsByPt({df}, {output}, {input})",
     input=[nanoAOD.Electron_pt, q.base_electrons_v2_mask],
     output=[q.base_electron_collection],  # eles after ordered by pt
-    scopes=["global","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["global"],
 )
 LVEle1 = Producer(
     name="LVEle1",

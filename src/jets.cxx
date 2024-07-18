@@ -462,6 +462,7 @@ JetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                     ->debug("No gen jet found. Applying stochastic smearing.");
                 double shift = randm.Gaus(0, reso) *
                                std::sqrt(std::max(resoSF * resoSF - 1., 0.0));
+                // if need, turn off the random for shift
                 pt_values_corrected.at(i) *= std::max(0.0, 1.0 + shift);
             }
             Logger::get("JetEnergyResolution")
@@ -672,6 +673,7 @@ JetPtCorrection_run2(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                     ->debug("No gen jet found. Applying stochastic smearing.");
                 double shift = randm.Gaus(0, reso) *
                                std::sqrt(std::max(resoSF * resoSF - 1., 0.0));
+                // if need, turn off the random for shift
                 pt_values_corrected.at(i) *= std::max(0.0, 1.0 + shift);
             }
             Logger::get("JetEnergyResolution")

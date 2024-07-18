@@ -154,7 +154,7 @@ VetottHLooseB = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {vetottH_max_nbjets_loose}, "<=", "Veto ttH <= 1 bjet loose")',
     input=[q.nbjets_loose],
     output=None,
-    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
             "nnmm_dycontrol","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -164,7 +164,7 @@ VetottHMediumB = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {vetottH_max_nbjets_medium}, "<=", "Veto ttH <= 0 bjet medium")',
     input=[q.nbjets_medium],
     output=None,
-    scopes=["global","e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
             "nnmm_dycontrol","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -214,7 +214,7 @@ DimuonMinMassCut = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {min_dimuon_mass}, ">=", "No m(mm) < 12 GeV")',
     input=[q.smallest_dimuon_mass],
     output=None,
-    scopes=["global","m2m","e2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+    scopes=["m2m","e2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
             "nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -223,7 +223,7 @@ DielectronMinMassCut = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {min_dielectron_mass}, ">=", "No m(ee) < 12 GeV")',
     input=[q.smallest_dielectron_mass],
     output=None,
-    scopes=["global","eemm"],
+    scopes=["eemm"],
 )
 #
 Flag_DiMuonFromHiggs = Producer(
@@ -231,7 +231,7 @@ Flag_DiMuonFromHiggs = Producer(
     call='physicsobject::DiMuonFromHiggs({df}, {output}, {input})',
     input=[q.dimuon_HiggsCand_collection],
     output=[q.Flag_DiMuonFromHiggs],
-    scopes=["global","e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 ### need a collection that di_ele after cut
 Flag_DiEleFromZ = Producer(
@@ -239,7 +239,7 @@ Flag_DiEleFromZ = Producer(
     call='physicsobject::DiEleFromZ({df}, {output}, {input})',
     input=[q.dielectron_ZCand_collection], # in eemm, dielectron_ZCand_collection need to be 2
     output=[q.Flag_DiEleFromZ],
-    scopes=["global","eemm"],
+    scopes=["eemm"],
 )
 ###
 HiggsToDiMuonPair_p4 = Producer(
@@ -251,7 +251,7 @@ HiggsToDiMuonPair_p4 = Producer(
            nanoAOD.Muon_mass,
            q.dimuon_HiggsCand_collection],
     output=[q.dimuon_p4_Higgs],
-    scopes=["global","e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 HiggsToDiMuonPair_p4_4m = Producer(
     name="HiggsToDiMuonPair_p4_4m",
@@ -284,7 +284,7 @@ ZToDiElectronPair_p4 = Producer(
            nanoAOD.Electron_mass,
            q.dielectron_ZCand_collection],
     output=[q.dilepton_p4_Z],
-    scopes=["global","e2m","m2m","eemm","mmmm"],
+    scopes=["e2m","m2m","eemm","mmmm"],
 )
 DiMuonMassFromZVeto = Producer(
     name="DiMuonMassFromZVeto",
@@ -296,7 +296,7 @@ DiMuonMassFromZVeto = Producer(
            nanoAOD.Muon_charge,
            q.good_muon_collection],
     output=[q.Flag_dimuon_Zmass_veto], # 1 stands for noZmass, 0 stands for has dimuon from Zmass
-    scopes=["global","m2m","eemm","mmmm"],
+    scopes=["m2m","eemm","mmmm"],
 )
 BaseDiMuonMassFromZVeto = Producer(
     name="BaseDiMuonMassFromZVeto",
@@ -310,18 +310,18 @@ BaseDiMuonMassFromZVeto = Producer(
     output=[q.Flag_dimuon_Zmass_veto], # 1 stands for noZmass, 0 stands for has dimuon from Zmass
     scopes=["m2m_dyfakeingmu_regionc"],
 )
-Mask_BaseDiMuonPair = Producer(
-    name="Mask_BaseDiMuonPair",
-    call='physicsobject::HiggsCandDiMuonPairCollection({df}, {output}, {input})',
-    input=[nanoAOD.Muon_pt,
-           nanoAOD.Muon_eta, 
-           nanoAOD.Muon_phi, 
-           nanoAOD.Muon_mass,
-           nanoAOD.Muon_charge,
-           q.base_muon_collection],
-    output=[q.dimuon_HiggsCand_collection], # index about the two selected muons may from Higgs
-    scopes=["global","e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
-)
+# Mask_BaseDiMuonPair = Producer(
+#     name="Mask_BaseDiMuonPair",
+#     call='physicsobject::HiggsCandDiMuonPairCollection({df}, {output}, {input})',
+#     input=[nanoAOD.Muon_pt,
+#            nanoAOD.Muon_eta, 
+#            nanoAOD.Muon_phi, 
+#            nanoAOD.Muon_mass,
+#            nanoAOD.Muon_charge,
+#            q.base_muon_collection],
+#     output=[q.dimuon_HiggsCand_collection], # index about the two selected muons may from Higgs
+#     scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc"],
+# )
 Mask_DiMuonPair = Producer(
     name="Mask_DiMuonPair",
     call='physicsobject::HiggsCandDiMuonPairCollection({df}, {output}, {input})',
@@ -332,7 +332,7 @@ Mask_DiMuonPair = Producer(
            nanoAOD.Muon_charge,
            q.good_muon_collection],
     output=[q.dimuon_HiggsCand_collection], # index about the two selected muons may from Higgs
-    scopes=["global","e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 Mask_DiElectronPair = Producer(
     name="Mask_DiElectronPair",
