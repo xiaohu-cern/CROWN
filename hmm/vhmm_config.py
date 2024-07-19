@@ -2677,15 +2677,15 @@ def build_config(
                 samples=["data"],
             ),
         )
-        # configuration.add_modification_rule(
-        #     scopes,
-        #     RemoveProducer(
-        #         producers=[
-        #             genparticles.BosonDecayMode_run2,
-        #         ],
-        #         samples=["data"],
-        #     ),
-        # )
+        configuration.add_modification_rule(
+            scopes,
+            RemoveProducer(
+                producers=[
+                    scalefactors.btaggingloose_SF_run2,
+                ],
+                samples=["data"],
+            ),
+        )
     if era == "2022preEE" or era == "2022postEE":
         configuration.add_modification_rule(
             "global",
@@ -2699,6 +2699,7 @@ def build_config(
             RemoveProducer(
                 producers=[
                     genparticles.BosonDecayMode,
+                    scalefactors.btaggingloose_SF,
                 ],
                 samples=["data"],
             ),

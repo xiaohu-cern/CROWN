@@ -7,17 +7,34 @@ pathadd() {
 }
 # get the directory of the script
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
-if uname -a | grep -E 'el7' -q
-then
-    # source /cvmfs/sft.cern.ch/lcg/views/LCG_99/x86_64-centos7-clang10-opt/setup.sh
-    # source /cvmfs/sft-nightlies.cern.ch/lcg/views/dev3/latest/x86_64-centos7-gcc11-opt/setup.sh
-    # source /cvmfs/sft-nightlies.cern.ch/lcg/views/dev3/latest/x86_64-centos7-clang12-opt/setup.sh
-    # source /cvmfs/sft-nightlies.cern.ch/lcg/views/dev3/latest/x86_64-centos7-gcc11-dbg/setup.sh
-    ### Use a more permanent LCG stack, for now LCG 102
-    source /cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/setup.sh
+
+# if uname -a | grep -E 'el7' -q
+# then
+#     # source /cvmfs/sft.cern.ch/lcg/views/LCG_99/x86_64-centos7-clang10-opt/setup.sh
+#     # source /cvmfs/sft-nightlies.cern.ch/lcg/views/dev3/latest/x86_64-centos7-gcc11-opt/setup.sh
+#     # source /cvmfs/sft-nightlies.cern.ch/lcg/views/dev3/latest/x86_64-centos7-clang12-opt/setup.sh
+#     # source /cvmfs/sft-nightlies.cern.ch/lcg/views/dev3/latest/x86_64-centos7-gcc11-dbg/setup.sh
+#     ### Use a more permanent LCG stack, for now LCG 102
+#     source /cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/setup.sh
+# else
+#     echo "You are not running on CentOS7, things will propably break..."
+# fi
+
+PRETTY_NAME=$(grep "^PRETTY_NAME" /etc/os-release | cut -d= -f2 | tr -d '"')
+
+if [[ "$PRETTY_NAME" == *"Linux 9"* ]]; then
+    echo "This system is running Linux 9"
+    source /cvmfs/sft.cern.ch/lcg/views/LCG_104/x86_64-el9-gcc11-opt/setup.sh
+
+elif [[ "$PRETTY_NAME" == *"Linux 7"* ]]; then
+    echo "This is CentOS Linux 7"
+    source /cvmfs/sft.cern.ch/lcg/views/LCG_104/x86_64-centos7-gcc11-opt/setup.sh
+    # Add commands specific to CentOS Linux 7 here
 else
-    echo "You are not running on CentOS7, things will propably break..."
+    echo "Unsupported OS: $PRETTY_NAME"
+    # Add commands for unsupported OS or default actions here
 fi
+
 # add ~/.local/bin to path if it is not already there
 pathadd "${HOME}/.local/bin/"
 # set the cmake generator to Ninja
