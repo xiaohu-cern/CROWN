@@ -606,7 +606,7 @@ btaggingloose_SF = Producer(
 )
 btaggingloose_SF_run2 = Producer(
     name="btaggingloose_SF_run2",
-    call='scalefactor::jet::btagSF({df}, {input}, "{btag_sf_variation}", {output}, "{btag_sf_file}", "{btag_corr_algo}")',
+    call='scalefactor::jet::btagSF_run2({df}, {input}, "{btag_sf_variation}", {output}, "{btag_sf_file}", "{btag_corr_algo}")',
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,

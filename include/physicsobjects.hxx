@@ -3,6 +3,9 @@
 
 namespace physicsobject {
 /// write by botao
+ROOT::RDF::RNode flagNumObject(ROOT::RDF::RNode df, const std::string &flagname,
+                               const std::string &object_number,
+                               const int flag_threshold, const std::string relation);
 ROOT::RDF::RNode M_dileptonMass(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &particle_pts,
                                  const std::string &particle_etas,

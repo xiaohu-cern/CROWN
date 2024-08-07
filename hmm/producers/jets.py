@@ -1,6 +1,6 @@
 from ..quantities import output as q
 from ..quantities import nanoAOD as nanoAOD
-from code_generation.producer import Producer, ProducerGroup
+from code_generation.producer import Producer, ProducerGroup, Filter
 
 ####################
 # Set of producers used for selection possible good jets
@@ -374,6 +374,47 @@ NumberOfMediumB = Producer(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
+ttHLooseBFlag = Producer(
+    name="ttHLooseBFlag",
+    call='physicsobject::flagNumObject({df}, {output}, {input}, {vetottH_max_nbjets_loose}, "<=")',
+    input=[q.nbjets_loose],
+    output=[],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+VetottHLooseB = Filter(
+    name="VetottHLooseB",
+    call='basefunctions::FilterFlagsAny({df}, "Veto ttH <= 1 bjet loose", {input})',
+    input=[],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    subproducers=[ttHLooseBFlag]
+)
+ttHMediumBFlag = Producer(
+    name="ttHMediumBFlag",
+    call='physicsobject::flagNumObject({df}, {output}, {input}, {vetottH_max_nbjets_medium}, "<=")',
+    input=[q.nbjets_medium],
+    output=[],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+VetottHMediumB = Filter(
+    name="VetottHMediumB",
+    call='basefunctions::FilterFlagsAny({df}, "Veto ttH <= 0 bjet medium", {input})',
+    input=[],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    subproducers=[ttHMediumBFlag]
+)
+
 # define MHT from good_jet_collection
 Calc_MHT = Producer(
     name="Calc_MHT",

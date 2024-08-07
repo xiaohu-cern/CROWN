@@ -149,26 +149,26 @@ PUweights = Producer(
     scopes=["global"],
 )
 
-VetottHLooseB = Producer(
-    name="VetottHLooseB",
-    call='basefunctions::FilterThreshold({df}, {input}, {vetottH_max_nbjets_loose}, "<=", "Veto ttH <= 1 bjet loose")',
-    input=[q.nbjets_loose],
-    output=None,
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
-            "nnmm_dycontrol","nnmm_topcontrol",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-)
-VetottHMediumB = Producer(
-    name="VetottHMediumB",
-    call='basefunctions::FilterThreshold({df}, {input}, {vetottH_max_nbjets_medium}, "<=", "Veto ttH <= 0 bjet medium")',
-    input=[q.nbjets_medium],
-    output=None,
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
-            "nnmm_dycontrol","nnmm_topcontrol",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-)
+# VetottHLooseB = Producer(
+#     name="VetottHLooseB",
+#     call='basefunctions::FilterThreshold({df}, {input}, {vetottH_max_nbjets_loose}, "<=", "Veto ttH <= 1 bjet loose")',
+#     input=[q.nbjets_loose],
+#     output=None,
+#     scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+#             "nnmm_dycontrol","nnmm_topcontrol",
+#             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+#             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+# )
+# VetottHMediumB = Producer(
+#     name="VetottHMediumB",
+#     call='basefunctions::FilterThreshold({df}, {input}, {vetottH_max_nbjets_medium}, "<=", "Veto ttH <= 0 bjet medium")',
+#     input=[q.nbjets_medium],
+#     output=None,
+#     scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+#             "nnmm_dycontrol","nnmm_topcontrol",
+#             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+#             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+# )
 
 FilterNGoodMuons = Producer(
     name="FilterGoodNMuons",
@@ -202,13 +202,13 @@ FilterNBaseElectrons = Producer(
     output=None,
     scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
-FilterNFatjets_fjmm = Producer(
-    name="FilterNFatjets_fjmm",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nfatjets}, ">=", "Number of fatjets >= 1")',
-    input=[q.nfatjets],
-    output=None,
-    scopes=["fjmm","fjmm_cr"],
-)
+# FilterNFatjets_fjmm = Producer(
+#     name="FilterNFatjets_fjmm",
+#     call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nfatjets}, ">=", "Number of fatjets >= 1")',
+#     input=[q.nfatjets],
+#     output=None,
+#     scopes=["fjmm","fjmm_cr"],
+# )
 DimuonMinMassCut = Producer(
     name="DimuonMinMassCut",
     call='basefunctions::FilterThreshold({df}, {input}, {min_dimuon_mass}, ">=", "No m(mm) < 12 GeV")',

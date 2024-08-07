@@ -28,8 +28,10 @@ if [[ "$PRETTY_NAME" == *"Linux 9"* ]]; then
 
 elif [[ "$PRETTY_NAME" == *"Linux 7"* ]]; then
     echo "This is CentOS Linux 7"
-    source /cvmfs/sft.cern.ch/lcg/views/LCG_104/x86_64-centos7-gcc11-opt/setup.sh
+    # source /cvmfs/sft.cern.ch/lcg/views/LCG_104/x86_64-centos7-gcc11-opt/setup.sh
     # Add commands specific to CentOS Linux 7 here
+    # LCG105 centos7 gcc12 can run successfully
+    source /cvmfs/sft.cern.ch/lcg/views/LCG_105/x86_64-centos7-gcc12-opt/setup.sh
 else
     echo "Unsupported OS: $PRETTY_NAME"
     # Add commands for unsupported OS or default actions here

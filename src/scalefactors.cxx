@@ -1009,6 +1009,99 @@ btagSF(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
                           variation](const ROOT::RVec<float> &pt_values,
                                      const ROOT::RVec<float> &eta_values,
                                      const ROOT::RVec<float> &btag_values,
+                                     const ROOT::RVec<unsigned char> &flavors,
+                                     const ROOT::RVec<int> &jet_mask,
+                                     const ROOT::RVec<int> &bjet_mask,
+                                     const ROOT::RVec<int> &jet_veto_mask) {
+        Logger::get("btagSF")->debug("Vatiation - Name {}", variation);
+        float sf = 1.;
+        for (int i = 0; i < pt_values.size(); i++) {
+            Logger::get("btagSF")->debug(
+                "jet masks - jet {}, bjet {}, jet veto {}", jet_mask.at(i),
+                bjet_mask.at(i), jet_veto_mask.at(i));
+            // considering only good jets/bjets, this is needed since jets and
+            // bjets might have different cuts depending on the analysis
+            if ((jet_mask.at(i) || bjet_mask.at(i)) && jet_veto_mask.at(i)) {
+                Logger::get("btagSF")->debug(
+                    "SF - pt {}, eta {}, btag value {}, flavor {}",
+                    pt_values.at(i), eta_values.at(i), btag_values.at(i),
+                    flavors.at(i));
+                float jet_sf = 1.;
+                // considering only phase space where the scale factors are
+                // defined
+                float btag_tmp_values = btag_values.at(i);
+                if (btag_values.at(i) < 0){
+                    btag_tmp_values = 0;
+                }
+                Logger::get("btagSF")->debug("btag_tmp_values {}", btag_tmp_values);
+                if (pt_values.at(i) >= 20.0 && pt_values.at(i) < 10000.0 &&
+                    std::abs(eta_values.at(i)) < 2.5) {
+                    // for c jet related uncertainties only scale factors of
+                    // c-jets are varied, the rest is nominal/central
+                    if (variation.find("cferr") != std::string::npos) {
+                        // flavor=4 means c-flavor
+                        if (flavors.at(i) == 4) {
+                            jet_sf = evaluator->evaluate(
+                                {variation, flavors.at(i),
+                                 std::abs(eta_values.at(i)), pt_values.at(i),
+                                 btag_tmp_values});
+                        } else if (flavors.at(i) == 0 || flavors.at(i) == 5) {
+                            // above line change else with else if (flavors.at(i) == 0 || flavors.at(i) == 5)
+                            jet_sf = evaluator->evaluate(
+                                {"central", flavors.at(i),
+                                 std::abs(eta_values.at(i)), pt_values.at(i),
+                                 btag_tmp_values});
+                        }
+                    }
+                    // for nominal/central and all other uncertainties c-jets
+                    // have a scale factor of 1 (only for central defined in
+                    // json file from BTV)
+                    else {
+                        // change flavors.at(i) != 4 with flavors.at(i) == 0 || flavors.at(i) == 5
+                        if (flavors.at(i) == 0 || flavors.at(i) == 5) {
+                            jet_sf = evaluator->evaluate(
+                                {variation, flavors.at(i),
+                                 std::abs(eta_values.at(i)), pt_values.at(i),
+                                 btag_tmp_values});
+                        } else if (flavors.at(i) == 4) {
+                            // above line change else with else if (flavors.at(i) == 4)
+                            jet_sf = evaluator->evaluate(
+                                {"central", flavors.at(i),
+                                 std::abs(eta_values.at(i)), pt_values.at(i),
+                                 btag_tmp_values});
+                        }
+                    }
+                }
+                Logger::get("btagSF")->debug("Jet Scale Factor {}", jet_sf);
+                sf *= jet_sf;
+            }
+        };
+        Logger::get("btagSF")->debug("Event Scale Factor {}", sf);
+        return sf;
+    };
+    auto df1 = df.Define(
+        sf_output, btagSF_lambda,
+        {pt, eta, btag_discr, flavor, jet_mask, bjet_mask, jet_veto_mask});
+    return df1;
+}
+ROOT::RDF::RNode
+btagSF_run2(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
+       const std::string &btag_discr, const std::string &flavor,
+       const std::string &jet_mask, const std::string &bjet_mask,
+       const std::string &jet_veto_mask, const std::string &variation,
+       const std::string &sf_output, const std::string &sf_file,
+       const std::string &corr_algorithm) {
+    Logger::get("btagSF")->debug(
+        "Setting up functions for b-tag sf with correctionlib");
+    Logger::get("btagSF")->debug("Correction algorithm - Name {}",
+                                 corr_algorithm);
+    auto evaluator =
+        correction::CorrectionSet::from_file(sf_file)->at(corr_algorithm);
+
+    auto btagSF_lambda = [evaluator,
+                          variation](const ROOT::RVec<float> &pt_values,
+                                     const ROOT::RVec<float> &eta_values,
+                                     const ROOT::RVec<float> &btag_values,
                                      const ROOT::RVec<int> &flavors,
                                      const ROOT::RVec<int> &jet_mask,
                                      const ROOT::RVec<int> &bjet_mask,

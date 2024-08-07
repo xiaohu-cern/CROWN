@@ -451,8 +451,10 @@ def build_config(
                     "2016postVFP": '"data/jsonpog-integration/POG/JME/2016postVFP_UL/jet_jerc.json.gz"',
                     "2017": '"data/jsonpog-integration/POG/JME/2017_UL/jet_jerc.json.gz"',
                     "2018": '"data/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz"',
-                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/jet_jerc.json.gz"',
-                    "2022postEE": '"data/jsonpog-integration-beforeCorr/POG/JME/2022_Summer22EE-zhiyuan/jet_jerc.json.gz"',
+                    # "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/jet_jerc.json.gz"',
+                    # "2022postEE": '"data/jsonpog-integration-beforeCorr/POG/JME/2022_Summer22EE-zhiyuan/jet_jerc.json.gz"',
+                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Summer22/jet_jerc.json.gz"',
+                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/jet_jerc.json.gz"',
                 }
             ),
             "jet_jer_tag": EraModifier(
@@ -461,8 +463,8 @@ def build_config(
                     "2016postVFP": '"Summer20UL16_JRV3_MC"',
                     "2017": '"Summer19UL17_JRV2_MC"',
                     "2018": '"Summer19UL18_JRV2_MC"',
-                    "2022preEE": '"JR_Winter22Run3_V1_MC"', # just for testing (TBD)
-                    "2022postEE": '"Summer22EEPrompt22_JRV1_MC"', # just for testing (TBD)
+                    "2022preEE": '"Summer22_22Sep2023_JRV1_MC"', # just for testing (TBD) 2022_Prompt: JR_Winter22Run3_V1_MC
+                    "2022postEE": '"Summer22EE_22Sep2023_JRV1_MC"', # just for testing (TBD) beforeCorr: Summer22EEPrompt22_JRV1_MC
                 }
             ),
             "jet_jes_tag_data": '""',
@@ -472,8 +474,8 @@ def build_config(
                     "2016postVFP": '"Summer19UL16_V7_MC"',
                     "2017": '"Summer19UL17_V5_MC"',
                     "2018": '"Summer19UL18_V5_MC"',
-                    "2022preEE": '"Winter22Run3_V2_MC"', # just for testing (TBD)
-                    "2022postEE": '"Summer22EEPrompt22_V1_MC"', # just for testing (TBD)
+                    "2022preEE": '"Summer22_22Sep2023_V2_MC"', # just for testing (TBD) 2022_Prompt:  Winter22Run3_V2_MC
+                    "2022postEE": '"Summer22EE_22Sep2023_V2_MC"', # just for testing (TBD) beforeCorr: Summer22EEPrompt22_V1_MC
                 }
             ),
             # "jet_jec_algo": '"AK4PFPuppi"', # AK4PFchs for run2?
@@ -537,8 +539,10 @@ def build_config(
                     "2016postVFP": '"data/jsonpog-integration/POG/JME/2016postVFP_UL/fatJet_jerc.json.gz"',
                     "2017": '"data/jsonpog-integration/POG/JME/2017_UL/fatJet_jerc.json.gz"',
                     "2018": '"data/jsonpog-integration/POG/JME/2018_UL/fatJet_jerc.json.gz"',
-                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/fatJet_jerc.json.gz"',
-                    "2022postEE": '"data/jsonpog-integration-beforeCorr/POG/JME/2022_Summer22EE-zhiyuan/fatJet_jerc.json.gz"',
+                    # "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/fatJet_jerc.json.gz"',
+                    # "2022postEE": '"data/jsonpog-integration-beforeCorr/POG/JME/2022_Summer22EE-zhiyuan/fatJet_jerc.json.gz"',
+                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Summer22/fatJet_jerc.json.gz"',
+                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/fatJet_jerc.json.gz"',
                 }
             ),
             "fatjet_jer_tag": EraModifier(
@@ -547,8 +551,8 @@ def build_config(
                     "2016postVFP": '"Summer20UL16_JRV3_MC"',
                     "2017": '"Summer19UL17_JRV2_MC"',
                     "2018": '"Summer19UL18_JRV2_MC"',
-                    "2022preEE": '"JR_Winter22Run3_V1_MC"', # just for testing (TBD)
-                    "2022postEE": '"Summer22EEPrompt22_JRV1_MC"', # just for testing (TBD)
+                    "2022preEE": '"Summer22_22Sep2023_JRV1_MC"', # just for testing (TBD)
+                    "2022postEE": '"Summer22EE_22Sep2023_JRV1_MC"', # just for testing (TBD)
                 }
             ),
             "fatjet_jes_tag_data": '""',
@@ -558,8 +562,8 @@ def build_config(
                     "2016postVFP": '"Summer19UL16_V7_MC"',
                     "2017": '"Summer19UL17_V5_MC"',
                     "2018": '"Summer19UL18_V5_MC"',
-                    "2022preEE": '"Winter22Run3_V2_MC"', # just for testing (TBD)
-                    "2022postEE": '"Summer22EEPrompt22_V1_MC"', # just for testing (TBD)
+                    "2022preEE": '"Summer22_22Sep2023_V2_MC"', # just for testing (TBD)
+                    "2022postEE": '"Summer22EE_22Sep2023_V2_MC"', # just for testing (TBD)
                 }
             ),
             "fatjet_jec_algo": '"AK8PFPuppi"',
@@ -877,8 +881,8 @@ def build_config(
             jets.GoodBJetsMedium_PNet, 
             jets.NumberOfLooseB, # vh count loose bjets for ttH veto
             jets.NumberOfMediumB, # vh count medium bjets for ttH veto
-            event.VetottHLooseB, # vh veto ttH no more than 1 loose bjet
-            event.VetottHMediumB, # vh veto ttH no more than 1 medium bjet   
+            jets.VetottHLooseB, # vh veto ttH no more than 1 loose bjet
+            jets.VetottHMediumB, # vh veto ttH no more than 1 medium bjet   
             scalefactors.btaggingloose_SF,
         ]
     )
@@ -888,6 +892,7 @@ def build_config(
             fatjets.GoodFatJets,
             fatjets.NumberOfGoodFatJets,
             fatjets.FatJetCollection,
+            fatjets.FilterNFatjets_fjmm, # vh fjmm >=1 fatjet
             fatjets.LVFatJet1,
         ]
     )
@@ -1842,7 +1847,7 @@ def build_config(
         "fjmm",
         [
             event.FilterNGoodMuons, # vh fjmm ==2 muons
-            event.FilterNFatjets_fjmm,
+            # event.FilterNFatjets_fjmm, # vh fjmm >=1 fatjet
             event.Flag_MaxMetCut,
             event.FilterFlagMaxMetCut, # MET <= 150
             # write by botao
@@ -1932,7 +1937,7 @@ def build_config(
         "fjmm_cr",
         [
             event.FilterNGoodMuons, # vh fjmm ==2 muons
-            event.FilterNFatjets_fjmm,
+            # event.FilterNFatjets_fjmm, # vh fjmm >=1 fatjet
             event.Flag_MaxMetCut,
             event.FilterFlagMaxMetCut, # MET <= 150
             lepton.CalcSmallestDiMuonMass,  # SFOS, m2m only has m

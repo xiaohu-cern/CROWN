@@ -1,6 +1,6 @@
 from ..quantities import output as q
 from ..quantities import nanoAOD as nanoAOD
-from code_generation.producer import Producer, ProducerGroup
+from code_generation.producer import Producer, ProducerGroup, Filter
 
 ####################
 # Set of producers used for selection possible good fatjets
@@ -170,6 +170,22 @@ NumberOfGoodFatJets = Producer(
     output=[q.nfatjets],
     scopes=["fjmm","fjmm_cr"],
 )
+NFatjetFlag = Producer(
+    name="NFatjetFlag",
+    call='physicsobject::flagNumObject({df}, {output}, {input}, {vh_good_nfatjets}, ">=")',
+    input=[q.nfatjets],
+    output=[],
+    scopes=["fjmm","fjmm_cr"],
+)
+# call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nfatjets}, ">=", "Number of fatjets >= 1")',
+FilterNFatjets_fjmm = Filter(
+    name="FilterNFatjets_fjmm",
+    call='basefunctions::FilterFlagsAny({df}, "Number of fatjets >= 1", {input})',
+    input=[],
+    scopes=["fjmm","fjmm_cr"],
+    subproducers=[NFatjetFlag]
+)
+
 # fatjet collection
 FatJetCollection = Producer(
     name="FatJetCollection",

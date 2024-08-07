@@ -30,7 +30,7 @@ namespace jet {
 ROOT::RDF::RNode
 VetoOverlappingJets(ROOT::RDF::RNode df, const std::string &output_col,
                     const std::string &jet_eta, const std::string &jet_phi,
-                    const std::string &muon_eta, const std::string &muon_phi, const std::string &muon_mask,
+                    const std::string &muon_eta, const std::string &muon_phi, const std::string &muon_coll,
                     const float &deltaRmin) {
     auto df1 = df.Define(
         output_col,
@@ -38,7 +38,7 @@ VetoOverlappingJets(ROOT::RDF::RNode df, const std::string &output_col,
                     const ROOT::RVec<float> &jet_phi,
                     const ROOT::RVec<float> &muon_eta,
                     const ROOT::RVec<float> &muon_phi,
-                    const ROOT::RVec<int> &muon_mask) {
+                    const ROOT::RVec<int> &muon_coll) {
             Logger::get("VetoOverlappingJets (N particles)")
                 ->debug("Checking jets");
             ROOT::RVec<int> mask(jet_eta.size(), 1);
@@ -48,11 +48,11 @@ VetoOverlappingJets(ROOT::RDF::RNode df, const std::string &output_col,
                 Logger::get("VetoOverlappingJets (N particles)")
                     ->debug("Jet {}:  Eta: {} Phi: {} ", idx, jet.Eta(), jet.Phi());
                 int _mdx = 0;
-                for(std::size_t mdx = 0; mdx < muon_mask.size(); ++mdx){
+                for(std::size_t mdx = 0; mdx < muon_coll.size(); ++mdx){
                     // input collection, not mask, so they are index, no need to judge mask 0 or 1
+                    // need to notice that the muon index is muon_coll[mdx]
                     // if( muon_mask[mdx] == 0 ) continue; // only check with the selected muons
-                    // if( muon_mask[mdx] ) continue; // only check with the selected muons
-                    ROOT::Math::RhoEtaPhiVectorF muon(0, muon_eta.at(mdx), muon_phi.at(mdx));
+                    ROOT::Math::RhoEtaPhiVectorF muon(0, muon_eta.at(muon_coll[mdx]), muon_phi.at(muon_coll[mdx]));
                     Logger::get("VetoOverlappingJets (N particles)")
                         ->debug("Lepton {}:  Eta: {} Phi: {} ", _mdx, muon.Eta(), muon.Phi());
                     auto deltaR = ROOT::Math::VectorUtil::DeltaR(jet, muon);
@@ -66,7 +66,7 @@ VetoOverlappingJets(ROOT::RDF::RNode df, const std::string &output_col,
                 ->debug("vetomask due to overlap: {}", mask);
             return mask;
         },
-        {jet_eta, jet_phi, muon_eta, muon_phi, muon_mask});
+        {jet_eta, jet_phi, muon_eta, muon_phi, muon_coll});
     return df1;
 }
 

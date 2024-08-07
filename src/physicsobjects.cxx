@@ -34,6 +34,16 @@
 namespace physicsobject {
 
 /// write by botao
+/// 
+ROOT::RDF::RNode flagNumObject(ROOT::RDF::RNode df, const std::string &flagname,
+                               const std::string &object_number,
+                               const int flag_threshold, const std::string relation) {
+    // std::cout << "Check point" << std::endl;
+    auto df1 = 
+        df.Define( flagname, object_number + " " + relation + " " + std::to_string(flag_threshold) );
+    return df1;
+}
+
 /// function to select the smallest mass of dilepton pair
 ROOT::RDF::RNode M_dileptonMass(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &particle_pts,
