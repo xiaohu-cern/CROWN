@@ -40,6 +40,11 @@ ROOT::RDF::RNode CutPUID(ROOT::RDF::RNode df, const std::string &maskname,
                          const std::string &nameID, const std::string &jet_pt,
                          const int &idxID, const float &jet_pt_cut);
 ROOT::RDF::RNode
+JetVetoMap(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
+                const std::string &jet_pt, const std::string &jet_eta,
+                const std::string &jet_phi,
+                const std::string &jet_veto_map, const std::string &jet_veto_tag);
+ROOT::RDF::RNode
 JetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                 const std::string &jet_pt, const std::string &jet_eta,
                 const std::string &jet_phi, const std::string &jet_area,
@@ -50,7 +55,8 @@ JetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                 const std::vector<std::string> &jes_shift_sources,
                 const int &jes_shift, const std::string &jer_shift,
                 const std::string &jec_file, const std::string &jer_tag,
-                const std::string &jes_tag, const std::string &jec_algo);
+                const std::string &jes_tag, const std::string &jec_algo,
+                const std::string &jet_veto_map, const std::string &jet_veto_tag);
 ROOT::RDF::RNode
 JetPtCorrection_run2(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                 const std::string &jet_pt, const std::string &jet_eta,
@@ -62,7 +68,8 @@ JetPtCorrection_run2(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                 const std::vector<std::string> &jes_shift_sources,
                 const int &jes_shift, const std::string &jer_shift,
                 const std::string &jec_file, const std::string &jer_tag,
-                const std::string &jes_tag, const std::string &jec_algo);
+                const std::string &jes_tag, const std::string &jec_algo,
+                const std::string &jet_veto_map, const std::string &jet_veto_tag);
 ROOT::RDF::RNode
 JetPtCorrection_data(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                      const std::string &jet_pt, const std::string &jet_eta,

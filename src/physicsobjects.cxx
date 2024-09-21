@@ -34,6 +34,23 @@
 namespace physicsobject {
 
 /// write by botao
+/// function to set events that jet_pt=-999 -> flag=0
+ROOT::RDF::RNode PassJetVetoFlag(ROOT::RDF::RNode df, const std::string &jet_pts, const std::string &outputname) {
+    auto PassJetVetoFlag = [](const ROOT::RVec<float> &jet_pts) {
+        /// loop the jet pt to find if any == -999
+        for (unsigned int j = 0; j < (int)jet_pts.size(); ++j ) {
+            if (jet_pts.at(j) == -999.0) {
+                return 0;
+            }
+        }
+        return 1;
+    };
+    auto df1 = 
+        df.Define(outputname, PassJetVetoFlag, {jet_pts});
+    return df1;
+}
+///
+
 /// 
 ROOT::RDF::RNode flagNumObject(ROOT::RDF::RNode df, const std::string &flagname,
                                const std::string &object_number,

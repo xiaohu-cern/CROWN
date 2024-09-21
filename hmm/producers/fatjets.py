@@ -11,7 +11,7 @@ from code_generation.producer import Producer, ProducerGroup, Filter
 # TODO check if L1FastJet L2L3 and residual corrections are consistent with hmm
 FatJetPtCorrection = Producer(
     name="FatJetPtCorrection",
-    call="physicsobject::jet::JetPtCorrection({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jes_sources}, {fatjet_jes_shift}, {fatjet_jer_shift}, {fatjet_jec_file}, {fatjet_jer_tag}, {fatjet_jes_tag}, {fatjet_jec_algo})",
+    call="physicsobject::jet::JetPtCorrection({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jes_sources}, {fatjet_jes_shift}, {fatjet_jer_shift}, {fatjet_jec_file}, {fatjet_jer_tag}, {fatjet_jes_tag}, {fatjet_jec_algo}, {fatjet_veto_map}, {fatjet_veto_tag})",
     input=[
         nanoAOD.FatJet_pt,
         nanoAOD.FatJet_eta,
@@ -29,7 +29,7 @@ FatJetPtCorrection = Producer(
 )
 FatJetPtCorrection_run2 = Producer(
     name="FatJetPtCorrection_run2",
-    call="physicsobject::jet::JetPtCorrection_run2({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jes_sources}, {fatjet_jes_shift}, {fatjet_jer_shift}, {fatjet_jec_file}, {fatjet_jer_tag}, {fatjet_jes_tag}, {fatjet_jec_algo})",
+    call="physicsobject::jet::JetPtCorrection_run2({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jes_sources}, {fatjet_jes_shift}, {fatjet_jer_shift}, {fatjet_jec_file}, {fatjet_jer_tag}, {fatjet_jes_tag}, {fatjet_jec_algo}, {fatjet_veto_map}, {fatjet_veto_tag})",
     input=[
         nanoAOD.FatJet_pt,
         nanoAOD.FatJet_eta,
@@ -73,10 +73,21 @@ FatJetEnergyCorrection_run2 = ProducerGroup(
     subproducers=[FatJetPtCorrection_run2, FatJetMassCorrection],
 )
 # in data and embdedded sample, we simply rename the nanoAOD jets to the jet_pt_corrected column
+# RenameFatJetPt = Producer(
+#     name="RenameFatJetPt",
+#     call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
+#     input=[nanoAOD.FatJet_pt],
+#     output=[q.FatJet_pt_corrected],
+#     scopes=["global"],
+# )
 RenameFatJetPt = Producer(
     name="RenameFatJetPt",
-    call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
-    input=[nanoAOD.FatJet_pt],
+    call="physicsobject::jet::JetVetoMap({df}, {output}, {input}, {fatjet_veto_map}, {fatjet_veto_tag})",
+    input=[
+        nanoAOD.FatJet_pt,
+        nanoAOD.FatJet_eta,
+        nanoAOD.FatJet_phi,
+    ],
     output=[q.FatJet_pt_corrected],
     scopes=["global"],
 )
@@ -102,6 +113,14 @@ RenameFatJetsData = ProducerGroup(
     output=None,
     scopes=["global"],
     subproducers=[RenameFatJetPt, RenameFatJetMass],
+)
+### discard the event if any Jet_pt_corrected == -999
+FlagFatJetVetoMap = Producer(
+    name="FlagFatJetVetoMap",
+    call='physicsobject::PassJetVetoFlag({df}, {input}, {output})',
+    input=[q.FatJet_pt_corrected],
+    output=[q.FatJetFlag_pass_veto_map],
+    scopes=["global"],
 )
 FatJetPtCut = Producer(
     name="FatJetPtCut",

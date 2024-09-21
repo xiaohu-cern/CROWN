@@ -500,3 +500,6 @@ fatjet_mu2_fromZCR_dR = Quantity("fatjet_mu2_fromZCR_dR")
 
 # btag sf weight
 btag_weight = Quantity("btag_weight")
+# jet veto map
+JetFlag_pass_veto_map = Quantity("JetFlag_pass_veto_map")
+FatJetFlag_pass_veto_map = Quantity("FatJetFlag_pass_veto_map")

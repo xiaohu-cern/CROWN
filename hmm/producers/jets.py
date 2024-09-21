@@ -11,7 +11,7 @@ from code_generation.producer import Producer, ProducerGroup, Filter
 # TODO check if L1FastJet L2L3 and residual corrections are consistent with hmm
 JetPtCorrection = Producer(
     name="JetPtCorrection",
-    call="physicsobject::jet::JetPtCorrection({df}, {output}, {input}, {jet_reapplyJES}, {jet_jes_sources}, {jet_jes_shift}, {jet_jer_shift}, {jet_jec_file}, {jet_jer_tag}, {jet_jes_tag}, {jet_jec_algo})",
+    call="physicsobject::jet::JetPtCorrection({df}, {output}, {input}, {jet_reapplyJES}, {jet_jes_sources}, {jet_jes_shift}, {jet_jer_shift}, {jet_jec_file}, {jet_jer_tag}, {jet_jes_tag}, {jet_jec_algo}, {jet_veto_map}, {jet_veto_tag})",
     input=[
         nanoAOD.Jet_pt,
         nanoAOD.Jet_eta,
@@ -29,7 +29,7 @@ JetPtCorrection = Producer(
 )
 JetPtCorrection_run2 = Producer(
     name="JetPtCorrection_run2",
-    call="physicsobject::jet::JetPtCorrection_run2({df}, {output}, {input}, {jet_reapplyJES}, {jet_jes_sources}, {jet_jes_shift}, {jet_jer_shift}, {jet_jec_file}, {jet_jer_tag}, {jet_jes_tag}, {jet_jec_algo})",
+    call="physicsobject::jet::JetPtCorrection_run2({df}, {output}, {input}, {jet_reapplyJES}, {jet_jes_sources}, {jet_jes_shift}, {jet_jer_shift}, {jet_jec_file}, {jet_jer_tag}, {jet_jes_tag}, {jet_jec_algo}, {jet_veto_map}, {jet_veto_tag})",
     input=[
         nanoAOD.Jet_pt,
         nanoAOD.Jet_eta,
@@ -73,10 +73,21 @@ JetEnergyCorrection_run2 = ProducerGroup(
     subproducers=[JetPtCorrection_run2, JetMassCorrection],
 )
 # in data and embdedded sample, we simply rename the nanoAOD jets to the jet_pt_corrected column
+# RenameJetPt = Producer(
+#     name="RenameJetPt",
+#     call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
+#     input=[nanoAOD.Jet_pt],
+#     output=[q.Jet_pt_corrected],
+#     scopes=["global"],
+# )
 RenameJetPt = Producer(
     name="RenameJetPt",
-    call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
-    input=[nanoAOD.Jet_pt],
+    call="physicsobject::jet::JetVetoMap({df}, {output}, {input}, {jet_veto_map}, {jet_veto_tag})",
+    input=[
+        nanoAOD.Jet_pt,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+    ],
     output=[q.Jet_pt_corrected],
     scopes=["global"],
 )
@@ -95,8 +106,16 @@ RenameJetsData = ProducerGroup(
     scopes=["global"],
     subproducers=[RenameJetPt, RenameJetMass],
 )
-### selecting jets
+### discard the event if any Jet_pt_corrected == -999
+FlagVetoMap = Producer(
+    name="VetoMap",
+    call='physicsobject::PassJetVetoFlag({df}, {input}, {output})',
+    input=[q.Jet_pt_corrected],
+    output=[q.JetFlag_pass_veto_map],
+    scopes=["global"],
+)
 
+### selecting jets
 JetPtCut = Producer(
     name="JetPtCut",
     call="physicsobject::CutPt({df}, {input}, {output}, {min_jet_pt})",
