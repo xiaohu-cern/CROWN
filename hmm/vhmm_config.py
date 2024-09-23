@@ -445,18 +445,6 @@ def build_config(
             "jet_jes_sources": '{""}',
             "jet_jes_shift": 0,
             "jet_jer_shift": '"nom"',  # or '"up"', '"down"'
-            "jet_jec_file": EraModifier(
-                {
-                    "2016preVFP": '"data/jsonpog-integration/POG/JME/2016preVFP_UL/jet_jerc.json.gz"',
-                    "2016postVFP": '"data/jsonpog-integration/POG/JME/2016postVFP_UL/jet_jerc.json.gz"',
-                    "2017": '"data/jsonpog-integration/POG/JME/2017_UL/jet_jerc.json.gz"',
-                    "2018": '"data/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz"',
-                    # "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/jet_jerc.json.gz"',
-                    # "2022postEE": '"data/jsonpog-integration-beforeCorr/POG/JME/2022_Summer22EE-zhiyuan/jet_jerc.json.gz"',
-                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Summer22/jet_jerc.json.gz"',
-                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/jet_jerc.json.gz"',
-                }
-            ),
             "jet_veto_map": EraModifier(
                 {
                     "2016preVFP" : '"data/jsonpog-integration/POG/JME/2016preVFP_UL/jetvetomaps.json.gz"',
@@ -477,12 +465,26 @@ def build_config(
                     "2022postEE": '"Summer22EE_23Sep2023_RunEFG_V1"',
                 }
             ),
+            "jet_jec_file": EraModifier(
+                {
+                    "2016preVFP": '"data/jsonpog-integration/POG/JME/2016preVFP_UL/jet_jerc.json.gz"',
+                    "2016postVFP": '"data/jsonpog-integration/POG/JME/2016postVFP_UL/jet_jerc.json.gz"',
+                    "2017": '"data/jsonpog-integration/POG/JME/2017_UL/jet_jerc.json.gz"',
+                    "2018": '"data/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz"',
+                    # "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/jet_jerc.json.gz"',
+                    # "2022postEE": '"data/jsonpog-integration-beforeCorr/POG/JME/2022_Summer22EE-zhiyuan/jet_jerc.json.gz"',
+                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Summer22/jet_jerc.json.gz"',
+                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/jet_jerc.json.gz"',
+                }
+            ),
             "jet_jer_tag": EraModifier(
                 {
                     "2016preVFP": '"Summer20UL16APV_JRV3_MC"',
                     "2016postVFP": '"Summer20UL16_JRV3_MC"',
                     "2017": '"Summer19UL17_JRV2_MC"',
                     "2018": '"Summer19UL18_JRV2_MC"',
+                    # "2022preEE": '"JR_Winter22Run3_V1_MC"',
+                    # "2022postEE": '"Summer22EEPrompt22_JRV1_MC"',
                     "2022preEE": '"Summer22_22Sep2023_JRV1_MC"', # just for testing (TBD) 2022_Prompt: JR_Winter22Run3_V1_MC
                     "2022postEE": '"Summer22EE_22Sep2023_JRV1_MC"', # just for testing (TBD) beforeCorr: Summer22EEPrompt22_JRV1_MC
                 }
@@ -494,6 +496,8 @@ def build_config(
                     "2016postVFP": '"Summer19UL16_V7_MC"',
                     "2017": '"Summer19UL17_V5_MC"',
                     "2018": '"Summer19UL18_V5_MC"',
+                    # "2022preEE": '"Winter22Run3_V2_MC"',
+                    # "2022postEE": '"Summer22EEPrompt22_V1_MC"',
                     "2022preEE": '"Summer22_22Sep2023_V2_MC"', # just for testing (TBD) 2022_Prompt:  Winter22Run3_V2_MC
                     "2022postEE": '"Summer22EE_22Sep2023_V2_MC"', # just for testing (TBD) beforeCorr: Summer22EEPrompt22_V1_MC
                 }
@@ -553,18 +557,6 @@ def build_config(
             "fatjet_jes_sources": '{""}',
             "fatjet_jes_shift": 0,
             "fatjet_jer_shift": '"nom"',  # or '"up"', '"down"'
-            "fatjet_jec_file": EraModifier(
-                {
-                    "2016preVFP": '"data/jsonpog-integration/POG/JME/2016preVFP_UL/fatJet_jerc.json.gz"',
-                    "2016postVFP": '"data/jsonpog-integration/POG/JME/2016postVFP_UL/fatJet_jerc.json.gz"',
-                    "2017": '"data/jsonpog-integration/POG/JME/2017_UL/fatJet_jerc.json.gz"',
-                    "2018": '"data/jsonpog-integration/POG/JME/2018_UL/fatJet_jerc.json.gz"',
-                    # "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/fatJet_jerc.json.gz"',
-                    # "2022postEE": '"data/jsonpog-integration-beforeCorr/POG/JME/2022_Summer22EE-zhiyuan/fatJet_jerc.json.gz"',
-                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Summer22/fatJet_jerc.json.gz"',
-                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/fatJet_jerc.json.gz"',
-                }
-            ),
             "fatjet_veto_map": EraModifier(
                 {
                     "2016preVFP" : '"data/jsonpog-integration/POG/JME/2016preVFP_UL/jetvetomaps.json.gz"',
@@ -585,12 +577,26 @@ def build_config(
                     "2022postEE": '"Summer22EE_23Sep2023_RunEFG_V1"',
                 }
             ),
+            "fatjet_jec_file": EraModifier(
+                {
+                    "2016preVFP": '"data/jsonpog-integration/POG/JME/2016preVFP_UL/fatJet_jerc.json.gz"',
+                    "2016postVFP": '"data/jsonpog-integration/POG/JME/2016postVFP_UL/fatJet_jerc.json.gz"',
+                    "2017": '"data/jsonpog-integration/POG/JME/2017_UL/fatJet_jerc.json.gz"',
+                    "2018": '"data/jsonpog-integration/POG/JME/2018_UL/fatJet_jerc.json.gz"',
+                    # "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/fatJet_jerc.json.gz"',
+                    # "2022postEE": '"data/jsonpog-integration-beforeCorr/POG/JME/2022_Summer22EE-zhiyuan/fatJet_jerc.json.gz"',
+                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Summer22/fatJet_jerc.json.gz"',
+                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/fatJet_jerc.json.gz"',
+                }
+            ),
             "fatjet_jer_tag": EraModifier(
                 {
                     "2016preVFP": '"Summer20UL16APV_JRV3_MC"', # TODO JER tag
                     "2016postVFP": '"Summer20UL16_JRV3_MC"',
                     "2017": '"Summer19UL17_JRV2_MC"',
                     "2018": '"Summer19UL18_JRV2_MC"',
+                    # "2022preEE": '"JR_Winter22Run3_V1_MC"', # just for testing (TBD)
+                    # "2022postEE": '"Summer22EEPrompt22_JRV1_MC"', # just for testing (TBD)
                     "2022preEE": '"Summer22_22Sep2023_JRV1_MC"', # just for testing (TBD)
                     "2022postEE": '"Summer22EE_22Sep2023_JRV1_MC"', # just for testing (TBD)
                 }
@@ -602,6 +608,8 @@ def build_config(
                     "2016postVFP": '"Summer19UL16_V7_MC"',
                     "2017": '"Summer19UL17_V5_MC"',
                     "2018": '"Summer19UL18_V5_MC"',
+                    # "2022preEE": '"Winter22Run3_V2_MC"', # just for testing (TBD)
+                    # "2022postEE": '"Summer22EEPrompt22_V1_MC"', # just for testing (TBD)
                     "2022preEE": '"Summer22_22Sep2023_V2_MC"', # just for testing (TBD)
                     "2022postEE": '"Summer22EE_22Sep2023_V2_MC"', # just for testing (TBD)
                 }
@@ -888,7 +896,7 @@ def build_config(
                 jets.JetEnergyCorrection_run2, # vh include pt corr and mass corr
                 fatjets.FatJetEnergyCorrection_run2,
                 jets.FlagVetoMap,
-                fatjets.FlagFatJetVetoMap,
+                # fatjets.FlagFatJetVetoMap,
             ]
         )
         configuration.add_producers(

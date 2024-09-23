@@ -304,9 +304,16 @@ JetVetoMap(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
     auto jet_veto_SF =
         [jet_veto_map_evaluator](const float eta, const float phi) {
             auto tmp_phi  = phi;
-            if (phi > TMath::Pi()) tmp_phi = phi - (TMath::Pi() * 2);
-            if (phi < -TMath::Pi()) tmp_phi = phi + (TMath::Pi() * 2);
-            return jet_veto_map_evaluator->evaluate({ "jetvetomap", eta,  tmp_phi});
+            if (phi > 3.141592653589793) tmp_phi = phi - (3.141592653589793 * 2);
+            if (phi < -3.141592653589793) tmp_phi = phi + (3.141592653589793 * 2);
+            if (std::abs(eta) <= 5.191) { // 5.191 is the bin dege of the veto map
+                // Non-zero value for (eta, phi) indicates that the region is vetoed.
+                // link: https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
+                return jet_veto_map_evaluator->evaluate({ "jetvetomap", eta,  tmp_phi});
+            } else {
+                // if the jet eta out of the bin edge, no need to do the veto
+                return 0.0;
+            }
     };
 
     // lambda run with dataframe
@@ -418,7 +425,11 @@ JetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
             jes_tag + "_L1L2L3Res_" + jec_algo);
     auto JetEnergyScaleSF = [JES_evaluator](const float area, const float eta,
                                             const float pt, const float rho) {
-        return JES_evaluator->evaluate({area, eta, pt, rho});
+        if (std::abs(eta) < 4.7) {
+            return JES_evaluator->evaluate({area, eta, pt, rho});
+        } else {
+            return 1.0;
+        }
     };
     // loading relative pT resolution evaluation function
     auto JER_resolution_evaluator =
@@ -427,7 +438,11 @@ JetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
     auto JetEnergyResolution = [JER_resolution_evaluator](const float eta,
                                                           const float pt,
                                                           const float rho) {
-        return JER_resolution_evaluator->evaluate({eta, pt, rho});
+        if (std::abs(eta) < 4.7) {
+            return JER_resolution_evaluator->evaluate({eta, pt, rho});
+        } else {
+            return 1.0;
+        }
     };
     // loading JER scale factor evaluation function
     auto JER_SF_evaluator = correction::CorrectionSet::from_file(jec_file)->at(
@@ -436,10 +451,18 @@ JetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
         [JER_SF_evaluator](const float eta, float pt, const std::string jer_shift) {
             try{ 
                 // annoyingly the 2022 EE has 3 inputs?
-                return JER_SF_evaluator->evaluate({eta, jer_shift});    
+                if (std::abs(eta) < 4.7) {
+                    return JER_SF_evaluator->evaluate({eta, jer_shift});
+                } else {
+                    return 1.0;
+                }
             }
             catch (const std::exception&) {
-            return JER_SF_evaluator->evaluate({eta, pt, jer_shift});
+            if (std::abs(eta) < 4.7) {
+                return JER_SF_evaluator->evaluate({eta, pt, jer_shift});
+            } else {
+                return 1.0;
+            }
         }
     };
     // loading jet veto maps
@@ -448,9 +471,16 @@ JetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
     auto jet_veto_SF =
         [jet_veto_map_evaluator](const float eta, const float phi) {
             auto tmp_phi  = phi;
-            if (phi > TMath::Pi()) tmp_phi = phi - (TMath::Pi() * 2);
-            if (phi < -TMath::Pi()) tmp_phi = phi + (TMath::Pi() * 2);
-            return jet_veto_map_evaluator->evaluate({ "jetvetomap", eta,  tmp_phi});
+            if (phi > 3.141592653589793) tmp_phi = phi - (3.141592653589793 * 2);
+            if (phi < -3.141592653589793) tmp_phi = phi + (3.141592653589793 * 2);
+            if (std::abs(eta) <= 5.191) { // 5.191 is the bin dege of the veto map
+                // Non-zero value for (eta, phi) indicates that the region is vetoed.
+                // link: https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
+                return jet_veto_map_evaluator->evaluate({ "jetvetomap", eta,  tmp_phi});
+            } else {
+                // if the jet eta out of the bin edge, no need to do the veto
+                return 0.0;
+            }
     };
 
     // lambda run with dataframe
@@ -641,6 +671,7 @@ JetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                           jet_ID, gen_jet_pt, gen_jet_eta, gen_jet_phi, rho});
     return df1;
 }
+
 ROOT::RDF::RNode
 JetPtCorrection_run2(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                 const std::string &jet_pt, const std::string &jet_eta,
@@ -677,7 +708,11 @@ JetPtCorrection_run2(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
             jes_tag + "_L1L2L3Res_" + jec_algo);
     auto JetEnergyScaleSF = [JES_evaluator](const float area, const float eta,
                                             const float pt, const float rho) {
-        return JES_evaluator->evaluate({area, eta, pt, rho});
+        if (std::abs(eta) < 4.7) {
+            return JES_evaluator->evaluate({area, eta, pt, rho});
+        } else {
+            return 1.0;
+        }
     };
     // loading relative pT resolution evaluation function
     auto JER_resolution_evaluator =
@@ -686,14 +721,22 @@ JetPtCorrection_run2(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
     auto JetEnergyResolution = [JER_resolution_evaluator](const float eta,
                                                           const float pt,
                                                           const float rho) {
-        return JER_resolution_evaluator->evaluate({eta, pt, rho});
+        if (std::abs(eta) < 4.7) {
+            return JER_resolution_evaluator->evaluate({eta, pt, rho});
+        } else {
+            return 1.0;
+        }
     };
     // loading JER scale factor evaluation function
     auto JER_SF_evaluator = correction::CorrectionSet::from_file(jec_file)->at(
         jer_tag + "_ScaleFactor_" + jec_algo);
     auto JetEnergyResolutionSF =
         [JER_SF_evaluator](const float eta, const std::string jer_shift) {
-            return JER_SF_evaluator->evaluate({eta, jer_shift});
+            if (std::abs(eta) < 4.7) {
+                return JER_SF_evaluator->evaluate({eta, jer_shift});
+            } else {
+                return 1.0;
+            }
     };
     // loading jet veto maps
     auto jet_veto_map_evaluator = correction::CorrectionSet::from_file(jet_veto_map)->at(
@@ -701,9 +744,16 @@ JetPtCorrection_run2(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
     auto jet_veto_SF =
         [jet_veto_map_evaluator](const float eta, const float phi) {
             auto tmp_phi  = phi;
-            if (phi > TMath::Pi()) tmp_phi = phi - (TMath::Pi() * 2);
-            if (phi < -TMath::Pi()) tmp_phi = phi + (TMath::Pi() * 2);
-            return jet_veto_map_evaluator->evaluate({ "jetvetomap", eta,  tmp_phi});
+            if (phi > 3.141592653589793) tmp_phi = phi - (3.141592653589793 * 2);
+            if (phi < -3.141592653589793) tmp_phi = phi + (3.141592653589793 * 2);
+            if (std::abs(eta) <= 5.191) { // 5.191 is the bin dege of the veto map
+                // Non-zero value for (eta, phi) indicates that the region is vetoed.
+                // link: https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
+                return jet_veto_map_evaluator->evaluate({ "jetvetomap", eta,  tmp_phi});
+            } else {
+                // if the jet eta out of the bin edge, no need to do the veto
+                return 0.0;
+            }
     };
 
     // lambda run with dataframe
