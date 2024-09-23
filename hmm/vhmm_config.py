@@ -896,7 +896,7 @@ def build_config(
                 jets.JetEnergyCorrection_run2, # vh include pt corr and mass corr
                 fatjets.FatJetEnergyCorrection_run2,
                 jets.FlagVetoMap,
-                # fatjets.FlagFatJetVetoMap,
+                fatjets.FlagFatJetVetoMap,
             ]
         )
         configuration.add_producers(
