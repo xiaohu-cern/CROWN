@@ -26,7 +26,7 @@ from .btag_variations import add_btagVariations
 from code_generation.configuration import Configuration
 from code_generation.modifiers import EraModifier
 from code_generation.rules import RemoveProducer, AppendProducer
-from code_generation.systematics import SystematicShift
+from code_generation.systematics import SystematicShift, SystematicShiftByQuantity
 
 
 def build_config(
@@ -278,6 +278,105 @@ def build_config(
                     ],
                 }
             ),
+        },
+    )
+    
+    # add muon trigger scalefactors
+    # 
+    configuration.add_config_parameters(
+        scopes,
+        {
+            # muon hlt trigger sfs for 2022
+            # https://gitlab.cern.ch/cms-muonPOG/muonefficiencies/-/blob/master/Run3/2022/2022_Z/HLT/json/ScaleFactors_Muon_Z_HLT_2022_abseta_pt_schemaV2.json
+            "mc_muon_sf_file": EraModifier(
+                {
+                    "2016preVFP": "data/embedding/muon_2016preVFPUL.json.gz",
+                    "2016postVFP": "data/embedding/muon_2016postVFPUL.json.gz",
+                    "2017": "data/embedding/muon_2017UL.json.gz",
+                    "2018": "data/embedding/muon_2018UL.json.gz",
+                    "2022preEE": "data/muon_corrections/HLT/2022preEE/ScaleFactors_Muon_Z_HLT_2022_abseta_pt_schemaV2.json.gz",
+                    "2022postEE": "data/muon_corrections/HLT/2022postEE/ScaleFactors_Muon_Z_HLT_2022_EE_abseta_pt_schemaV2.json.gz",
+                }
+            ),
+            "singlemuon_trigger_sf_mc": EraModifier(
+                {   
+                    "2022preEE": [
+                        {
+                            "flagname": "trg_wgt_single_mu24",
+                            "mc_trigger_sf": "NUM_IsoMu24_DEN_CutBasedIdMedium_and_PFIsoMedium",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        },
+                    ],
+                    "2022postEE": [
+                        {   
+                            "flagname": "trg_wgt_single_mu24",
+                            "mc_trigger_sf": "NUM_IsoMu24_DEN_CutBasedIdMedium_and_PFIsoMedium",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        },
+                    ],
+                    "2018": [
+                        {
+                            "flagname": "trg_wgt_single_mu24",
+                            "mc_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        },
+                        {
+                            "flagname": "trg_wgt_single_mu27",
+                            "mc_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        },
+                        {
+                            "flagname": "trg_wgt_single_mu24ormu27",
+                            "mc_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        },
+                    ],
+                    "2017": [
+                        {
+                            "flagname": "trg_wgt_single_mu24",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        },
+                        {
+                            "flagname": "trg_wgt_single_mu27",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        },
+                        {
+                            "flagname": "trg_wgt_single_mu24ormu27",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        },
+                    ],
+                    "2016postVFP": [
+                        {
+                            "flagname": "trg_wgt_single_mu24",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_trigger_sf": "Trg_pt_eta_bins",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        },
+                    ],
+                    "2016preVFP": [
+                        {
+                            "flagname": "trg_wgt_single_mu24",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_trigger_sf": "Trg_pt_eta_bins",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        },
+                    ],
+                }
+            )
+            
+            # "mc_muon_id_extrapolation": 1.0,  # for nominal case
+            # "mc_muon_iso_extrapolation": 1.0,  # for nominal case
         },
     )
 
@@ -1049,6 +1148,7 @@ def build_config(
             p4.genmet_phi,
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
         ],
     )
     configuration.add_producers(
@@ -2164,6 +2264,7 @@ def build_config(
             q.H_phi,
             q.H_mass,
             q.BosonDecayMode,
+            scalefactors.GenerateSingleMuonTriggerSF_MC.output_group,
         ],
     )
     configuration.add_outputs(
@@ -2865,6 +2966,40 @@ def build_config(
         ],
     )
     
+    #########################
+    # MET Shifts
+    #########################
+    configuration.add_shift(
+        SystematicShiftByQuantity(
+            name="metUnclusteredEnUp",
+            quantity_change={
+                nanoAOD.MET_pt: "PuppiMET_ptUnclusteredUp",
+                nanoAOD.MET_phi: "PuppiMET_phiUnclusteredUp",
+            },
+            scopes=["global"],
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShiftByQuantity(
+            name="metUnclusteredEnDown",
+            quantity_change={
+                nanoAOD.MET_pt: "PuppiMET_ptUnclusteredDown",
+                nanoAOD.MET_phi: "PuppiMET_phiUnclusteredDown",
+            },
+            scopes=["global"],
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data"]
+        ],
+    )
+    
     ##########################
     #### Muon IDIso shift ####
     ##########################
@@ -2908,25 +3043,25 @@ def build_config(
             },
         )
     )
-    configuration.add_shift(
-        SystematicShift(
-            name="MuonIDISO_tagIso",
-            shift_config={
-                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
-                    "muon_sf_varation": "tagIso",
-                }
-            },
-            producers={
-                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): [
-                     scalefactors.MuonIDIso_SF
-                ]
-            },
-        )
-    )
+    # configuration.add_shift(
+    #     SystematicShift(
+    #         name="MuonIDISO_tagIso",
+    #         shift_config={
+    #             ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #              "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+    #              "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
+    #                 "muon_sf_varation": "tagIso",
+    #             }
+    #         },
+    #         producers={
+    #             ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #              "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+    #              "eemm","mmmm","nnmm","fjmm","fjmm_cr"): [
+    #                  scalefactors.MuonIDIso_SF
+    #             ]
+    #         },
+    #     )
+    # )
     
     ###########################
     #### Electron ID shift ####
@@ -2956,6 +3091,177 @@ def build_config(
                 scalefactors.EleID_SF,
             ]},
         )
+    )
+    
+    #########################
+    ### Muon Trigger Shift ##
+    #########################
+    configuration.add_shift(
+        SystematicShift(
+            name="singleMuonTriggerSFUp",
+            shift_config={
+                ("e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"): {
+                    "singlemuon_trigger_sf_mc": EraModifier(
+                        {   "2022preEE": [
+                                {
+                                    # adjust the correction type from nominal to systup or down
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "NUM_IsoMu24_DEN_CutBasedIdMedium_and_PFIsoMedium",
+                                    "mc_muon_sf_correctiontype": "systup",
+                                    "mc_muon_trg_extrapolation": 1.0,
+                                },
+
+                            ],
+                             "2022postEE": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "NUM_IsoMu24_DEN_CutBasedIdMedium_and_PFIsoMedium",
+                                    "mc_muon_sf_correctiontype": "systup",
+                                    "mc_muon_trg_extrapolation": 1.0,
+                                },
+                            ],
+                            "2018": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 1.02,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu27",
+                                    "mc_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 1.02,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu24ormu27",
+                                    "mc_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 1.02,
+                                },
+                            ],
+                            "2017": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 1.02,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu27",
+                                    "mc_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 1.02,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu24ormu27",
+                                    "mc_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 1.02,
+                                },
+                            ],
+                            "2016postVFP": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "Trg_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 1.02,
+                                },
+                            ],
+                            "2016preVFP": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "Trg_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 1.02,
+                                },
+                            ],
+                        }
+                    )
+                }
+            },
+            producers={("e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"): scalefactors.GenerateSingleMuonTriggerSF_MC},
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="singleMuonTriggerSFDown",
+            shift_config={
+                ("e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"): {
+                    "singlemuon_trigger_sf_mc": EraModifier(
+                        {   
+                            "2022preEE": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "NUM_IsoMu24_DEN_CutBasedIdMedium_and_PFIsoMedium",
+                                    "mc_muon_sf_correctiontype": "systdown",
+                                    "mc_muon_trg_extrapolation": 1.0,
+                                },
+                            ],
+                            "2022postEE": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "NUM_IsoMu24_DEN_CutBasedIdMedium_and_PFIsoMedium",
+                                    "mc_muon_sf_correctiontype": "systdown",
+                                    "mc_muon_trg_extrapolation": 1.0,
+                                },
+                            ],
+                            "2018": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 0.98,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu27",
+                                    "mc_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 0.98,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu24ormu27",
+                                    "mc_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 0.98,
+                                },
+                            ],
+                            "2017": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 0.98,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu27",
+                                    "mc_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 0.98,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu24ormu27",
+                                    "mc_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 0.98,
+                                },
+                            ],
+                            "2016postVFP": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "Trg_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 0.98,
+                                },
+                            ],
+                            "2016preVFP": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "Trg_pt_eta_bins",
+                                    "mc_muon_trg_extrapolation": 0.98,
+                                },
+                            ],
+                        }
+                    )
+                }
+            },
+            producers={("e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"): scalefactors.GenerateSingleMuonTriggerSF_MC},
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data"]
+        ],
     )
     
     #########################

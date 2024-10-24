@@ -19,7 +19,7 @@ def run(args):
         "wjets",
         "diboson",
     ]
-    available_eras = ["2016preVFP","2016postVFP","2017","2018","2022preEE","2022postEE"]
+    available_eras = ["2016preVFP","2016postVFP","2017","2018","2022preEE","2022postEE","2023preBPix","2023postBPix"]
     available_scopes = ["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol",
                         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
                         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",

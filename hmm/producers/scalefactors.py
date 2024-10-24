@@ -621,3 +621,18 @@ btaggingloose_SF_run2 = Producer(
             "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "eemm","mmmm","nnmm","fjmm","fjmm_cr"],
 )
+
+#######################
+##### trigger SFs #####
+#######################
+
+GenerateSingleMuonTriggerSF_MC = ExtendedVectorProducer(
+    name="GenerateSingleMuonTriggerSF_MC",
+    call='scalefactor::muon::muon_sf_vhmm({df}, {input}, {output}, "{mc_muon_sf_file}", "{mc_muon_sf_correctiontype}", "{mc_trigger_sf}", {mc_muon_trg_extrapolation})',
+    input=[q.muon_leadingp4_H],
+    output="flagname",
+    scope=["e2m","e2m_dyfakeinge_regionc",
+            "m2m","m2m_dyfakeingmu_regionc",
+            "eemm","mmmm","nnmm","fjmm"],
+    vec_config="singlemuon_trigger_sf_mc",
+)

@@ -35,6 +35,12 @@ ROOT::RDF::RNode iso_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                      const std::string &variation,
                      const std::string &iso_output, const std::string &sf_file,
                      const std::string &idAlgorithm);
+ROOT::RDF::RNode muon_sf_vhmm(ROOT::RDF::RNode df, const std::string &p4,
+                         const std::string &output,
+                         const std::string &sf_file,
+                         const std::string correctiontype,
+                         const std::string &idAlgorithm,
+                         const float &extrapolation_factor = 1.0);
 } // namespace muon
 namespace tau {
 

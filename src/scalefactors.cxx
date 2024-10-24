@@ -268,6 +268,55 @@ ROOT::RDF::RNode iso_vhmm(ROOT::RDF::RNode df, const std::string &p4,
     return df1;
 }
 ///
+/**
+ * @brief Function used to readout SFs from the muon scale factor measurements
+ *
+ * @param df the input dataframe
+ * @param pt the pt of the muon
+ * @param eta the eta of the muon
+ * @param output the name of the output column
+ * @param sf_file the path to the correctionlib file containing the scale factor
+ * @param correctiontype the type of the correction. Use `emb` for embedding and
+ * `mc` for monte carlo
+ * @param idAlgorithm the name of the scale factor in the correctionlib
+ * file
+ * @param extrapolation_factor The extrapolation factor to be used for the scale
+ * factor, defaults to 1.
+ * @return ROOT::RDF::RNode
+ */
+ROOT::RDF::RNode muon_sf_vhmm(ROOT::RDF::RNode df, const std::string &p4,
+                         const std::string &output,
+                         const std::string &sf_file,
+                         const std::string correctiontype,
+                         const std::string &idAlgorithm,
+                         const float &extrapolation_factor = 1.0) {
+
+    Logger::get("MuonTriggerSF")->debug("Correction - Name {}", idAlgorithm);
+    auto evaluator =
+        correction::CorrectionSet::from_file(sf_file)->at(idAlgorithm);
+    auto df1 = df.Define(
+        output,
+        [evaluator, correctiontype, extrapolation_factor](ROOT::Math::PtEtaPhiMVector &p4) {
+            const float &pt = p4.Pt();
+            const float &eta = p4.Eta();
+            Logger::get("MuonTriggerSF")
+                ->debug(" pt {}, eta {}, correctiontype {}, extrapolation "
+                        "factor {}",
+                        pt, eta, correctiontype, extrapolation_factor);
+            double sf = 1.;
+            auto pt_tmp = pt;
+            if (pt < 26.0 ) pt_tmp = 26.0;
+            sf = extrapolation_factor *
+                 evaluator->evaluate({std::abs(eta), pt_tmp, correctiontype});
+            Logger::get("MuonTriggerSF")->debug("sf {}", sf);
+            return sf;
+        },
+        {p4});
+    return df1;
+}
+/**
+
+///
 } // namespace muon
 namespace tau {
 /**
