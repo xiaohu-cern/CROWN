@@ -442,8 +442,10 @@ def build_config(
                     "2016postVFP": "data/jsonpog-integration/POG/MUO/2016postVFP_UL/muon_Z.json.gz",
                     "2017": "data/jsonpog-integration/POG/MUO/2017_UL/muon_Z.json.gz",
                     "2018": "data/jsonpog-integration/POG/MUO/2018_UL/muon_Z.json.gz",
-                    "2022preEE": "data/jsonpog-integration/POG/MUO/2022_27Jun2023/muon_Z.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
-                    "2022postEE": "data/jsonpog-integration/POG/MUO/2022EE_27Jun2023/muon_Z.json.gz",
+                    # "2022preEE": "data/jsonpog-integration/POG/MUO/2022_27Jun2023/muon_Z.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
+                    # "2022postEE": "data/jsonpog-integration/POG/MUO/2022EE_27Jun2023/muon_Z.json.gz",
+                    "2022preEE": "data/jsonpog-integration/POG/MUO/2022_Summer22/muon_Z.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
+                    "2022postEE": "data/jsonpog-integration/POG/MUO/2022_Summer22EE/muon_Z.json.gz",
                 }
             ),
             "muon_sf_file_JPsi": EraModifier(
@@ -452,8 +454,10 @@ def build_config(
                     "2016postVFP": "data/jsonpog-integration/POG/MUO/2016postVFP_UL/muon_JPsi.json.gz",
                     "2017": "data/jsonpog-integration/POG/MUO/2017_UL/muon_JPsi.json.gz",
                     "2018": "data/jsonpog-integration/POG/MUO/2018_UL/muon_JPsi.json.gz",
-                    "2022preEE": "data/jsonpog-integration/POG/MUO/2022_27Jun2023/muon_JPsi.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
-                    "2022postEE": "data/jsonpog-integration/POG/MUO/2022EE_27Jun2023/muon_JPsi.json.gz",
+                    # "2022preEE": "data/jsonpog-integration/POG/MUO/2022_27Jun2023/muon_JPsi.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
+                    # "2022postEE": "data/jsonpog-integration/POG/MUO/2022EE_27Jun2023/muon_JPsi.json.gz",
+                    "2022preEE": "data/jsonpog-integration/POG/MUO/2022_Summer22/muon_JPsi.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
+                    "2022postEE": "data/jsonpog-integration/POG/MUO/2022_Summer22EE/muon_JPsi.json.gz",
                 }
             ),
             "muon_id_sf_name": "NUM_MediumID_DEN_TrackerMuons",
@@ -842,6 +846,13 @@ def build_config(
             "flag_LeptonChargeSumVeto" : 2, # 2 stands 0
         }
     )
+    # cut the flag dimuonfromZ in 3L
+    configuration.add_config_parameters(
+        ["m2m","m2m_dyfakeingmu_regionc",],
+        {
+            "Flag_dimuon_Zmass_veto" : 1, # 1 stands no dimuon mass fromZ in 3l
+        }
+    )
     configuration.add_config_parameters(
         ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
          "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
@@ -1067,6 +1078,7 @@ def build_config(
             event.FilterFlagDiMuFromH,
             event.FilterFlagLepChargeSum,
             event.FilterFlagGoodEleVeto,
+            event.FilterFlagDiMuonZVeto,
             ###
             muons.Mu1_H, # vh
             muons.Mu2_H, # vh
@@ -1173,7 +1185,6 @@ def build_config(
             cr.dimuonCR_eta,
             cr.dimuonCR_phi,
             cr.dimuonCR_mass,
-            # event.DiMuonMassFromZVeto,  # has dimuon from Z return mask equal to 0, otherwise return 1
             ###
             lepton.Mu1_W_m2m_index_regionb,
             lepton.Mu1_W_m2m,
@@ -1232,6 +1243,7 @@ def build_config(
             p4.extra_lep_phi,
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
         ],
     )
     configuration.add_producers(
@@ -1252,6 +1264,7 @@ def build_config(
             # flag cut
             event.FilterFlagLepChargeSum,
             event.FilterFlagGoodEleVeto,
+            event.FilterFlagDiMuonZVeto,
             ###
             event.Mask_DiMuonPair, # select the dimuon index in [110,150]
             # event.Mask_BaseDiMuonPair, # select the dimuon index in [110,150]
@@ -1334,6 +1347,7 @@ def build_config(
             p4.genmet_phi,
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
         ]
     )
     # Region D: fail 3 medium muons (actually 2 muons) and fail m(mm) in [110,150], actually in [70,110]
@@ -1417,6 +1431,7 @@ def build_config(
             p4.extra_lep_phi,
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
         ]
     )
     configuration.add_producers(
@@ -1513,6 +1528,7 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.EleID_SF,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
         ],
     )
     # Region B: pass 2 medium muons, 1 ele and fail m(mm) in [110,150], actually in [70,110]
@@ -1590,6 +1606,7 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.EleID_SF,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
         ]
     )
     configuration.add_producers(
@@ -1684,6 +1701,7 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.EleID_SF,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
         ]
     )
     configuration.add_producers(
@@ -1764,6 +1782,7 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.EleID_SF,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
         ]
     )
     configuration.add_producers(
@@ -1841,6 +1860,7 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.EleID_SF,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
         ],
     )
     configuration.add_producers(
@@ -1917,6 +1937,7 @@ def build_config(
             p4.genmet_phi,            
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
         ],
     )
     configuration.add_producers(
@@ -1933,7 +1954,6 @@ def build_config(
             event.Flag_DiMuonFromHiggs,
             event.HiggsToDiMuonPair_p4, # select the dimuon pairs in [110,150] and order by pt
             ###
-            # event.DiMuonMassFromZVeto,  # has dimuon from Z return mask equal to 0, otherwise return 1
             lepton.LeptonChargeSumVeto,
             ###
             electrons.GoodEle_Veto,
@@ -1993,6 +2013,7 @@ def build_config(
             p4.genmu2_fromH_mass,
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
         ],
     )
     configuration.add_producers(
@@ -2010,7 +2031,6 @@ def build_config(
             event.Flag_DiMuonFromHiggs,
             event.HiggsToDiMuonPair_p4, # select the dimuon pairs in [110,150] and order by pt
             ###
-            # event.DiMuonMassFromZVeto,  # has dimuon from Z return mask equal to 0, otherwise return 1
             lepton.LeptonChargeSumVeto,
             ###
             electrons.GoodEle_Veto,
@@ -2083,6 +2103,7 @@ def build_config(
             event.fatjet_PNet_withMass_ZvsQCD,
             event.fatjet_PNet_withMass_TvsQCD,
             scalefactors.MuonIDIso_SF,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
         ],
     )
     configuration.add_producers(
@@ -2156,6 +2177,7 @@ def build_config(
             genparticles.BosonDecayMode,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             scalefactors.MuonIDIso_SF,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
         ],
     )    
     configuration.add_producers(
@@ -2246,6 +2268,7 @@ def build_config(
             q.met_phi,
             q.genmet_pt,
             q.genmet_phi,
+            scalefactors.GenerateSingleMuonTriggerSF_MC.output_group,
         ],
     )
     configuration.add_outputs(
@@ -2264,7 +2287,6 @@ def build_config(
             q.H_phi,
             q.H_mass,
             q.BosonDecayMode,
-            scalefactors.GenerateSingleMuonTriggerSF_MC.output_group,
         ],
     )
     configuration.add_outputs(
@@ -3100,7 +3122,9 @@ def build_config(
         SystematicShift(
             name="singleMuonTriggerSFUp",
             shift_config={
-                ("e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"): {
+                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
                     "singlemuon_trigger_sf_mc": EraModifier(
                         {   "2022preEE": [
                                 {
@@ -3172,7 +3196,9 @@ def build_config(
                     )
                 }
             },
-            producers={("e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"): scalefactors.GenerateSingleMuonTriggerSF_MC},
+            producers={("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                        "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                        "eemm","mmmm","nnmm","fjmm","fjmm_cr"): scalefactors.GenerateSingleMuonTriggerSF_MC},
         ),
         samples=[
             sample
@@ -3184,7 +3210,9 @@ def build_config(
         SystematicShift(
             name="singleMuonTriggerSFDown",
             shift_config={
-                ("e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"): {
+                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
                     "singlemuon_trigger_sf_mc": EraModifier(
                         {   
                             "2022preEE": [
@@ -3255,7 +3283,9 @@ def build_config(
                     )
                 }
             },
-            producers={("e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"): scalefactors.GenerateSingleMuonTriggerSF_MC},
+            producers={("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                        "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                        "eemm","mmmm","nnmm","fjmm","fjmm_cr"): scalefactors.GenerateSingleMuonTriggerSF_MC},
         ),
         samples=[
             sample

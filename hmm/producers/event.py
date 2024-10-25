@@ -296,7 +296,7 @@ DiMuonMassFromZVeto = Producer(
            nanoAOD.Muon_charge,
            q.good_muon_collection],
     output=[q.Flag_dimuon_Zmass_veto], # 1 stands for noZmass, 0 stands for has dimuon from Zmass
-    scopes=["m2m","eemm","mmmm"],
+    scopes=["m2m"],
 )
 BaseDiMuonMassFromZVeto = Producer(
     name="BaseDiMuonMassFromZVeto",
@@ -310,6 +310,15 @@ BaseDiMuonMassFromZVeto = Producer(
     output=[q.Flag_dimuon_Zmass_veto], # 1 stands for noZmass, 0 stands for has dimuon from Zmass
     scopes=["m2m_dyfakeingmu_regionc"],
 )
+# cut the event that Flag_dimuon_Zmass_veto == 0
+FilterFlagDiMuonZVeto = Producer(
+    name="FilterFlagDiMuonZVeto",
+    call='basefunctions::FilterThreshold({df}, {input}, {Flag_dimuon_Zmass_veto}, "==", "dimuon from Z veto")',
+    input=[q.Flag_dimuon_Zmass_veto],
+    output=None,
+    scopes=["m2m","m2m_dyfakeingmu_regionc"],
+)
+
 # Mask_BaseDiMuonPair = Producer(
 #     name="Mask_BaseDiMuonPair",
 #     call='physicsobject::HiggsCandDiMuonPairCollection({df}, {output}, {input})',
