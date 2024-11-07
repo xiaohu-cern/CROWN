@@ -146,7 +146,7 @@ ROOT::RDF::RNode id_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                 Logger::get("muon SF file:")->debug("{}", sf_file);
                 // apply sf for muon pt > 15 using Z file
                 if (pt > 15.0 && std::abs(eta) >= 0.0) {
-                    if (year_id.find("2022") < year_id.length()) {
+                    if (year_id.find("202") < year_id.length()) {
                         sf = evaluator->evaluate(
                             {std::abs(eta), pt, variation});    
                     } else {
@@ -247,7 +247,7 @@ ROOT::RDF::RNode iso_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                 Logger::get("muon SF file:")->debug("{}", sf_file);
                 // apply sf for muon pt > 15 using Z file
                 if (pt > 15.0 && std::abs(eta) >= 0.0) {
-                    if (year_id.find("2022") < year_id.length()) {
+                    if (year_id.find("202") < year_id.length()) {
                         sf = evaluator->evaluate(
                             {std::abs(eta), pt, variation});    
                     } else {
@@ -996,12 +996,17 @@ ROOT::RDF::RNode id_e_vhmm(ROOT::RDF::RNode df,
         [evaluator, year_id, idAlgorithm, wp, variation](ROOT::Math::PtEtaPhiMVector &p4) {
             const float &pt = p4.Pt();
             const float &eta = p4.Eta();
+            const float &phi = p4.Phi();
             Logger::get("electronIDSF")
                 ->debug("Year {}, Name {}, WP {}", year_id, idAlgorithm, wp);
-            Logger::get("electronIDSF")->debug("ID - pt {}, eta {}", pt, eta);
+            Logger::get("electronIDSF")->debug("ID - pt {}, eta {}, phi {}", pt, eta, phi);
             double sf = 1.;
             if (pt >= 10.0) {
-                sf = evaluator->evaluate({year_id, variation, wp, eta, pt});
+                if (year_id.find("2023") < year_id.length()) {
+                    sf = evaluator->evaluate({year_id, variation, wp, eta, pt, phi});
+                } else {
+                    sf = evaluator->evaluate({year_id, variation, wp, eta, pt});
+                }
             } else if (pt < 10) {
                 sf = 1.;
             }

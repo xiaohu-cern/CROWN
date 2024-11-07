@@ -12,7 +12,7 @@ TTH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22NanoAODv12-130X:
   nfiles: 28
   nick: TTH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22NanoAODv12-130X
   sample_type: vhmm # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHWG136TeVxsec_extrap
-  xsec: 0.00012426 # 0.57*2.18*10^{-4} = 0.00012426
+  xsec: 0.0001243 # 0.57*2.18*10^{-4} = 0.00012426
 WplusH_Hto2Mu_WtoAll_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22NanoAODv12-130X:
   dbs: /WplusH_Hto2Mu_WtoAll_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22NanoAODv12-130X_mcRun3_2022_realistic_v5-v3/NANOAODSIM
   era: 2022preEE
@@ -21,7 +21,7 @@ WplusH_Hto2Mu_WtoAll_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22NanoAODv12
   nfiles: 26
   nick: WplusH_Hto2Mu_WtoAll_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22NanoAODv12-130X
   sample_type: vhmm # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHWG136TeVxsec_extrap
-  xsec: 0.00019378 # 0.8889*2.18*10^{-4} = 0.00019378
+  xsec: 0.0001938 # 0.8889*2.18*10^{-4} = 0.00019378
 WminusH_Hto2Mu_WtoAll_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22NanoAODv12-130X:
   dbs: /WminusH_Hto2Mu_WtoAll_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22NanoAODv12-130X_mcRun3_2022_realistic_v5-v3/NANOAODSIM
   era: 2022preEE
@@ -30,7 +30,7 @@ WminusH_Hto2Mu_WtoAll_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22NanoAODv1
   nfiles: 5
   nick: WminusH_Hto2Mu_WtoAll_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22NanoAODv12-130X
   sample_type: vhmm # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHWG136TeVxsec_extrap
-  xsec: 0.0001237586 # 0.5677*2.18*10^{-4} = 0.0001237586
+  xsec: 0.0001238 # 0.5677*2.18*10^{-4} = 0.0001237586
 ZH_Hto2Mu_ZtoAll_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22NanoAODv12-130X:
   dbs: /ZH_Hto2Mu_ZtoAll_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22NanoAODv12-130X_mcRun3_2022_realistic_v5-v3/NANOAODSIM
   era: 2022preEE
@@ -39,7 +39,7 @@ ZH_Hto2Mu_ZtoAll_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22NanoAODv12-130
   nfiles: 35
   nick: ZH_Hto2Mu_ZtoAll_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22NanoAODv12-130X
   sample_type: vhmm # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHWG136TeVxsec_extrap
-  xsec: 0.0002057702 # 0.9439* 2.18*10^{-4} = 0.0002057702
+  xsec: 0.0002058 # 0.9439* 2.18*10^{-4} = 0.0002057702
 WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22NanoAODv12-130X:
   dbs: /WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22NanoAODv12-130X_mcRun3_2022_realistic_v5-v2/NANOAODSIM
   era: 2022preEE
