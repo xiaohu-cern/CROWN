@@ -1,5 +1,6 @@
 dbs: /WplusH_Hto2Mu_WtoAll_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/Run3Summer23NanoAODv12-130X_mcRun3_2023_realistic_v15-v2/NANOAODSIM
 era: 2023preBPix
+filelist:
 - root://xrootd-cms.infn.it//store/mc/Run3Summer23NanoAODv12/WplusH_Hto2Mu_WtoAll_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/NANOAODSIM/130X_mcRun3_2023_realistic_v15-v2/2820000/1ec26e14-7a02-442e-8869-e8b1af75b8fa.root
 - root://xrootd-cms.infn.it//store/mc/Run3Summer23NanoAODv12/WplusH_Hto2Mu_WtoAll_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/NANOAODSIM/130X_mcRun3_2023_realistic_v15-v2/2820000/776987a0-bc9b-4525-94cd-a8e9ac1d777a.root
 - root://xrootd-cms.infn.it//store/mc/Run3Summer23NanoAODv12/WplusH_Hto2Mu_WtoAll_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/NANOAODSIM/130X_mcRun3_2023_realistic_v15-v2/2820000/d6d6ef06-0ca4-44d0-b360-54a2ed5fe8fd.root
