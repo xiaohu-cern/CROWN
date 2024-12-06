@@ -35,15 +35,15 @@ mu1_fromH_phi = Producer(
     output=[q.mu1_fromH_phi],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
-# mu1_fromH_mass = Producer(
-#     name="mu1_fromH_mass",
-#     call='quantities::mass({df}, {output}, {input})',
-#     input=[
-#       q.muon_leadingp4_H,
-#     ],
-#     output=[q.mu1_fromH_mass],
-#     scopes=["e2m","m2m","eemm","mmmm","nnmm"],
-# )
+mu1_fromH_mass = Producer(
+    name="mu1_fromH_mass",
+    call='quantities::mass({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_H,
+    ],
+    output=[q.mu1_fromH_mass],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
 
 ##### for mu2 from Higgs
 #####
@@ -74,15 +74,15 @@ mu2_fromH_phi = Producer(
     output=[q.mu2_fromH_phi],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
-# mu2_fromH_mass = Producer(
-#     name="mu2_fromH_mass",
-#     call='quantities::mass({df}, {output}, {input})',
-#     input=[
-#       q.muon_subleadingp4_H,
-#     ],
-#     output=[q.mu2_fromH_mass],
-#     scopes=["e2m","m2m","eemm","mmmm","nnmm"],
-# )
+mu2_fromH_mass = Producer(
+    name="mu2_fromH_mass",
+    call='quantities::mass({df}, {output}, {input})',
+    input=[
+      q.muon_subleadingp4_H,
+    ],
+    output=[q.mu2_fromH_mass],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
 
 ##### Higgs 
 #####
@@ -206,15 +206,15 @@ extra_lep_phi = Producer(
     output=[q.extra_lep_phi],
     scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
-# extra_lep_mass = Producer(
-#     name="extra_lep_mass",
-#     call='quantities::mass({df}, {output}, {input})',
-#     input=[
-#       q.extra_lep_p4,
-#     ],
-#     output=[q.extra_lep_mass],
-#     scopes=["e2m","m2m"],
-# )
+extra_lep_mass = Producer(
+    name="extra_lep_mass",
+    call='quantities::mass({df}, {output}, {input})',
+    input=[
+      q.extra_lep_p4,
+    ],
+    output=[q.extra_lep_mass],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+)
 
 ##### for muOS from Higgs
 #####
@@ -323,15 +323,15 @@ lep1_fromZ_phi = Producer(
     output=[q.lep1_fromZ_phi],
     scopes=["eemm","mmmm"],
 )
-# lep1_fromZ_mass = Producer(
-#     name="lep1_fromZ_mass",
-#     call='quantities::mass({df}, {output}, {input})',
-#     input=[
-#       q.lepton_leadingp4_Z,
-#     ],
-#     output=[q.lep1_fromZ_mass],
-#     scopes=["eemm","mmmm"],
-# )
+lep1_fromZ_mass = Producer(
+    name="lep1_fromZ_mass",
+    call='quantities::mass({df}, {output}, {input})',
+    input=[
+      q.lepton_leadingp4_Z,
+    ],
+    output=[q.lep1_fromZ_mass],
+    scopes=["eemm","mmmm"],
+)
 
 ##### for lep2 from Z
 #####
@@ -362,15 +362,15 @@ lep2_fromZ_phi = Producer(
     output=[q.lep2_fromZ_phi],
     scopes=["eemm","mmmm"],
 )
-# lep2fromZ_mass = Producer(
-#     name="lep2fromZ_mass",
-#     call='quantities::mass({df}, {output}, {input})',
-#     input=[
-#       q.lepton_subleadingp4_Z,
-#     ],
-#     output=[q.lep2fromZ_mass],
-#     scopes=["eemm","mmmm"],
-# )
+lep2_fromZ_mass = Producer(
+    name="lep2_fromZ_mass",
+    call='quantities::mass({df}, {output}, {input})',
+    input=[
+      q.lepton_subleadingp4_Z,
+    ],
+    output=[q.lep2_fromZ_mass],
+    scopes=["eemm","mmmm"],
+)
 
 ##### for Z in 4l category
 #####
@@ -588,4 +588,102 @@ mu2_fromZCR_phi = Producer(
     scopes=["fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+
+jet1_pt = Producer(
+    name="jet1_pt",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.jet_p4_1,
+    ],
+    output=[q.jet1_pt],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+jet1_eta = Producer(
+    name="jet1_eta",
+    call='quantities::eta({df}, {output}, {input})',
+    input=[
+      q.jet_p4_1,
+    ],
+    output=[q.jet1_eta],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+jet1_phi = Producer(
+    name="jet1_phi",
+    call='quantities::phi({df}, {output}, {input})',
+    input=[
+      q.jet_p4_1,
+    ],
+    output=[q.jet1_phi],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+jet1_mass = Producer(
+    name="jet1_mass",
+    call='quantities::mass({df}, {output}, {input})',
+    input=[
+      q.jet_p4_1,
+    ],
+    output=[q.jet1_mass],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+
+jet2_pt = Producer(
+    name="jet2_pt",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.jet_p4_2,
+    ],
+    output=[q.jet2_pt],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+jet2_eta = Producer(
+    name="jet2_eta",
+    call='quantities::eta({df}, {output}, {input})',
+    input=[
+      q.jet_p4_2,
+    ],
+    output=[q.jet2_eta],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+jet2_phi = Producer(
+    name="jet2_phi",
+    call='quantities::phi({df}, {output}, {input})',
+    input=[
+      q.jet_p4_2,
+    ],
+    output=[q.jet2_phi],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+jet2_mass = Producer(
+    name="jet2_mass",
+    call='quantities::mass({df}, {output}, {input})',
+    input=[
+      q.jet_p4_2,
+    ],
+    output=[q.jet2_mass],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
