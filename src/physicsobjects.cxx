@@ -34,6 +34,53 @@
 namespace physicsobject {
 
 /// write by botao
+///
+/// function to pick dimuon pair from Higgs
+ROOT::RDF::RNode Muon_var(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &muon_vars,
+                                 const std::string &dimuons_index,
+                                 const int ranking) {
+    auto muon_var = [ranking](const ROOT::RVec<float> &muon_vars,
+                                 const ROOT::RVec<int> &dimuons_index) {
+                                 if ( dimuons_index.at(ranking) == -1 ) {
+                                    return default_float;
+                                 } else {
+                                    // ranking should be 0 or 1, stands for leading and sub-leading muon
+                                    return (float)muon_vars.at(dimuons_index[ranking]);
+                                 }
+                             };
+    auto df1 = 
+        df.Define(outputname, muon_var, {muon_vars, dimuons_index});
+    return df1;
+}
+///
+/// funciton to calc pt_W using extra_lep_p4 and met_p4
+ROOT::RDF::RNode pt_W(ROOT::RDF::RNode df, const std::string &outputname,
+                    const std::string &particle_p4, const std::string &met) {
+    auto pt_w = [](ROOT::Math::PtEtaPhiMVector &particle_p4,
+                           ROOT::Math::PtEtaPhiMVector &met) {
+        if ( particle_p4.Pt() < 0 || met.Pt() < 0 )
+            return default_float;
+        auto const W_system = particle_p4 + met;
+        return (float)W_system.Pt();
+    };
+    return df.Define(outputname, pt_w, {particle_p4, met});
+}
+///
+/// funciton to calc phi_W using extra_lep_p4 and met_p4
+ROOT::RDF::RNode phi_W(ROOT::RDF::RNode df, const std::string &outputname,
+                    const std::string &particle_p4, const std::string &met) {
+    auto phi_w = [](ROOT::Math::PtEtaPhiMVector &particle_p4,
+                           ROOT::Math::PtEtaPhiMVector &met) {
+        if ( particle_p4.Pt() < 0 || met.Pt() < 0 )
+            return default_float;
+        auto const W_system = particle_p4 + met;
+        return (float)W_system.Phi();
+    };
+    return df.Define(outputname, phi_w, {particle_p4, met});
+}
+///
+
 /// function to set events that jet_pt=-999 -> flag=0
 ROOT::RDF::RNode PassJetVetoFlag(ROOT::RDF::RNode df, const std::string &jet_pts, const std::string &outputname) {
     auto PassJetVetoFlag = [](const ROOT::RVec<float> &jet_pts) {

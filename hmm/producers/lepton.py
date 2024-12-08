@@ -147,7 +147,7 @@ Mu1_W_m2m = Producer(
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
-        q.extra_muon_index,
+        q.extra_muon_index, # already the muon index, using index[0]
     ],
     output=[q.extra_lep_p4],
     scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
@@ -203,5 +203,83 @@ RenameZlepID_mmmm = Producer(
     call="physicsobject::RedirectZlepID({df}, 1, {output})", # ifMu == 1, return 13
     input=[],
     output=[q.Zlep_ID],
+    scopes=["mmmm"],
+)
+##### extra_lep mvaTTH
+### mu using extra_muon_index[0]
+extra_muon_mvaTTH = Producer(
+    name="extra_muon_mvaTTH",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 0)", # 0 stands the extra_muon_index[0]
+    input=[
+        nanoAOD.Muon_mvaTTH,
+        q.extra_muon_index,
+    ],
+    output=[q.extra_lep_mvaTTH],
+    scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+)
+
+### good ele using good_electron_collection[0]
+extra_goodele_mvaTTH = Producer(
+    name="extra_goodele_mvaTTH",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 0)", # 0 stands the good_electron_collection[0]
+    input=[
+        nanoAOD.Electron_mvaTTH,
+        q.good_electron_collection,
+    ],
+    output=[q.extra_lep_mvaTTH],
+    scopes=["e2m","e2m_dyfakeinge_regionb"],
+)
+### base ele using base_electron_collection[0]
+extra_baseele_mvaTTH = Producer(
+    name="extra_baseele_mvaTTH",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 0)", # 0 stands the base_electron_collection[0]
+    input=[
+        nanoAOD.Electron_mvaTTH,
+        q.base_electron_collection,
+    ],
+    output=[q.extra_lep_mvaTTH],
+    scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+
+### eemm good_electron_collection, collection[0],[1]
+lep1_mvaTTH_eemm = Producer(
+    name="lep1_mvaTTH_eemm",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 0)", # 0 stands the good_electron_collection[0]
+    input=[
+        nanoAOD.Electron_mvaTTH,
+        q.good_electron_collection,
+    ],
+    output=[q.lep1_mvaTTH],
+    scopes=["eemm"],
+)
+lep2_mvaTTH_eemm = Producer(
+    name="lep2_mvaTTH_eemm",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 1)", # 0 stands the good_electron_collection[1]
+    input=[
+        nanoAOD.Electron_mvaTTH,
+        q.good_electron_collection,
+    ],
+    output=[q.lep2_mvaTTH],
+    scopes=["eemm"],
+)
+### mmmm quadmuon_HiggsZCand_collection, collection[2], collection[3]
+lep1_mvaTTH_mmmm = Producer(
+    name="lep1_mvaTTH_mmmm",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 2)", # 2 stands the quadmuon_HiggsZCand_collection[2]
+    input=[
+        nanoAOD.Muon_mvaTTH,
+        q.quadmuon_HiggsZCand_collection,
+    ],
+    output=[q.lep1_mvaTTH],
+    scopes=["mmmm"],
+)
+lep2_mvaTTH_mmmm = Producer(
+    name="lep2_mvaTTH_mmmm",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 3)", # 3 stands the quadmuon_HiggsZCand_collection[3]
+    input=[
+        nanoAOD.Muon_mvaTTH,
+        q.quadmuon_HiggsZCand_collection,
+    ],
+    output=[q.lep2_mvaTTH],
     scopes=["mmmm"],
 )

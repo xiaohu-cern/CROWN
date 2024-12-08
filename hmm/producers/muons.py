@@ -435,3 +435,133 @@ Mu2_Z_CR = Producer(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
 )
+##### dimuon_ZControl_collection 0,1  -> scopes=["fjmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+##### mu1_ptErr = Quantity("mu1_ptErr")
+##### mu2_ptErr = Quantity("mu2_ptErr")
+mu1_ZCR_mvaTTH = Producer(
+    name="mu1_ZCR_mvaTTH",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 0)", # 0 stands the dimuon_ZControl_collection[0]
+    input=[
+        nanoAOD.Muon_mvaTTH,
+        q.dimuon_ZControl_collection,
+    ],
+    output=[q.mu1_mvaTTH],
+    scopes=["fjmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+mu2_ZCR_mvaTTH = Producer(
+    name="mu2_ZCR_mvaTTH",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 1)", # 1 stands the dimuon_ZControl_collection[1]
+    input=[
+        nanoAOD.Muon_mvaTTH,
+        q.dimuon_ZControl_collection,
+    ],
+    output=[q.mu2_mvaTTH],
+    scopes=["fjmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+##### dimuon_HiggsCand_collection 0,1 -> scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+mu1_Higgs_mvaTTH = Producer(
+    name="mu1_Higgs_mvaTTH",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 0)", # 0 stands the dimuon_HiggsCand_collection[0]
+    input=[
+        nanoAOD.Muon_mvaTTH,
+        q.dimuon_HiggsCand_collection,
+    ],
+    output=[q.mu1_mvaTTH],
+    scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+mu2_Higgs_mvaTTH = Producer(
+    name="mu2_Higgs_mvaTTH",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 1)", # 1 stands the dimuon_HiggsCand_collection[1]
+    input=[
+        nanoAOD.Muon_mvaTTH,
+        q.dimuon_HiggsCand_collection,
+    ],
+    output=[q.mu2_mvaTTH],
+    scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+##### q.quadmuon_HiggsZCand_collection 0, 1 -> scopes=["mmmm"]
+mu1_Higgs_mvaTTH_mmmm = Producer(
+    name="mu1_Higgs_mvaTTH_mmmm",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 0)", # 0 stands the quadmuon_HiggsZCand_collection[0]
+    input=[
+        nanoAOD.Muon_mvaTTH,
+        q.quadmuon_HiggsZCand_collection,
+    ],
+    output=[q.mu1_mvaTTH],
+    scopes=["mmmm"]
+)
+mu2_Higgs_mvaTTH_mmmm = Producer(
+    name="mu2_Higgs_mvaTTH_mmmm",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 1)", # 1 stands the quadmuon_HiggsZCand_collection[1]
+    input=[
+        nanoAOD.Muon_mvaTTH,
+        q.quadmuon_HiggsZCand_collection,
+    ],
+    output=[q.mu2_mvaTTH],
+    scopes=["mmmm"]
+)
+#############
+#############
+#############
+mu1_ZCR_ptErr = Producer(
+    name="mu1_ZCR_ptErr",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 0)", # 0 stands the dimuon_ZControl_collection[0]
+    input=[
+        nanoAOD.Muon_ptErr,
+        q.dimuon_ZControl_collection,
+    ],
+    output=[q.mu1_ptErr],
+    scopes=["fjmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+mu2_ZCR_ptErr = Producer(
+    name="mu2_ZCR_ptErr",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 1)", # 1 stands the dimuon_ZControl_collection[1]
+    input=[
+        nanoAOD.Muon_ptErr,
+        q.dimuon_ZControl_collection,
+    ],
+    output=[q.mu2_ptErr],
+    scopes=["fjmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+##### dimuon_HiggsCand_collection 0,1 -> scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+mu1_Higgs_ptErr = Producer(
+    name="mu1_Higgs_ptErr",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 0)", # 0 stands the dimuon_HiggsCand_collection[0]
+    input=[
+        nanoAOD.Muon_ptErr,
+        q.dimuon_HiggsCand_collection,
+    ],
+    output=[q.mu1_ptErr],
+    scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+mu2_Higgs_ptErr = Producer(
+    name="mu2_Higgs_ptErr",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 1)", # 1 stands the dimuon_HiggsCand_collection[1]
+    input=[
+        nanoAOD.Muon_ptErr,
+        q.dimuon_HiggsCand_collection,
+    ],
+    output=[q.mu2_ptErr],
+    scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+##### q.quadmuon_HiggsZCand_collection 0, 1 -> scopes=["mmmm"]
+mu1_Higgs_ptErr_mmmm = Producer(
+    name="mu1_Higgs_ptErr_mmmm",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 0)", # 0 stands the quadmuon_HiggsZCand_collection[0]
+    input=[
+        nanoAOD.Muon_ptErr,
+        q.quadmuon_HiggsZCand_collection,
+    ],
+    output=[q.mu1_ptErr],
+    scopes=["mmmm"]
+)
+mu2_Higgs_ptErr_mmmm = Producer(
+    name="mu2_Higgs_ptErr_mmmm",
+    call="physicsobject::Muon_var({df}, {output}, {input}, 1)", # 1 stands the quadmuon_HiggsZCand_collection[1]
+    input=[
+        nanoAOD.Muon_ptErr,
+        q.quadmuon_HiggsZCand_collection,
+    ],
+    output=[q.mu2_ptErr],
+    scopes=["mmmm"]
+)

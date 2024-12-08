@@ -145,47 +145,46 @@ def build_config(
                         "Flag_eeBadScFilter",
                         "Flag_ecalBadCalibFilter",
                     ],
+                    # https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#Run_3_2022_and_2023_data_and_MC
                     "2022preEE": [
                         "Flag_goodVertices",
                         "Flag_globalSuperTightHalo2016Filter",
-                        "Flag_HBHENoiseFilter",
-                        "Flag_HBHENoiseIsoFilter",
+                        # "Flag_HBHENoiseFilter",
+                        # "Flag_HBHENoiseIsoFilter", # HBHE and HBHEiso noise filters are no longer needed.
                         "Flag_EcalDeadCellTriggerPrimitiveFilter",
                         "Flag_BadPFMuonFilter",
-                        # "Flag_BadPFMuonDzFilter", # only since nanoAODv9 available
+                        "Flag_BadPFMuonDzFilter", # only since nanoAODv9 available
+                        "Flag_hfNoisyHitsFilter",
                         "Flag_eeBadScFilter",
                         "Flag_ecalBadCalibFilter",
                     ],
                     "2022postEE": [
                         "Flag_goodVertices",
                         "Flag_globalSuperTightHalo2016Filter",
-                        "Flag_HBHENoiseFilter",
-                        "Flag_HBHENoiseIsoFilter",
                         "Flag_EcalDeadCellTriggerPrimitiveFilter",
                         "Flag_BadPFMuonFilter",
-                        # "Flag_BadPFMuonDzFilter", # only since nanoAODv9 available
+                        "Flag_BadPFMuonDzFilter", # only since nanoAODv9 available
+                        "Flag_hfNoisyHitsFilter",
                         "Flag_eeBadScFilter",
                         "Flag_ecalBadCalibFilter",
                     ],
                     "2023preBPix": [
                         "Flag_goodVertices",
                         "Flag_globalSuperTightHalo2016Filter",
-                        "Flag_HBHENoiseFilter",
-                        "Flag_HBHENoiseIsoFilter",
                         "Flag_EcalDeadCellTriggerPrimitiveFilter",
                         "Flag_BadPFMuonFilter",
-                        # "Flag_BadPFMuonDzFilter", # only since nanoAODv9 available
+                        "Flag_BadPFMuonDzFilter", # only since nanoAODv9 available
+                        "Flag_hfNoisyHitsFilter",
                         "Flag_eeBadScFilter",
                         "Flag_ecalBadCalibFilter",
                     ],
                     "2023postBPix": [
                         "Flag_goodVertices",
                         "Flag_globalSuperTightHalo2016Filter",
-                        "Flag_HBHENoiseFilter",
-                        "Flag_HBHENoiseIsoFilter",
                         "Flag_EcalDeadCellTriggerPrimitiveFilter",
                         "Flag_BadPFMuonFilter",
-                        # "Flag_BadPFMuonDzFilter", # only since nanoAODv9 available
+                        "Flag_BadPFMuonDzFilter", # only since nanoAODv9 available
+                        "Flag_hfNoisyHitsFilter",
                         "Flag_eeBadScFilter",
                         "Flag_ecalBadCalibFilter",
                     ],
@@ -1186,16 +1185,14 @@ def build_config(
             jets.VetottHLooseB, # vh veto ttH no more than 1 loose bjet
             jets.VetottHMediumB, # vh veto ttH no more than 1 medium bjet   
             scalefactors.btaggingloose_SF,
-            jets.LVJet1,
-            jets.LVJet2,
-            p4.jet1_pt,
-            p4.jet1_eta,
-            p4.jet1_phi,
-            p4.jet1_mass,
-            p4.jet2_pt,
-            p4.jet2_eta,
-            p4.jet2_phi,
-            p4.jet2_mass,
+            p4.MHT_pt,
+            p4.MHT_eta,
+            p4.MHT_phi,
+            p4.MHT_mass,
+            p4.MHTALL_pt,
+            p4.MHTALL_eta,
+            p4.MHTALL_phi,
+            p4.MHTALL_mass,
         ]
     )
     configuration.add_producers(
@@ -1526,7 +1523,6 @@ def build_config(
             event.FilterFlagGoodEleVeto,
             # m(mm) in [70,110]
             cr.DY_DiMuonPair_CR,
-            # cr.DY_BaseDiMuonPair_CR,
             cr.Flag_DiMuonFromCR,
             cr.FilterFlag_DiMuonFromCR,
             cr.DiMuonPairCR_p4,
@@ -1884,7 +1880,6 @@ def build_config(
             ###
             # m(mm) in [70,110]
             cr.DY_DiMuonPair_CR,
-            # cr.DY_BaseDiMuonPair_CR,
             cr.Flag_DiMuonFromCR,
             cr.FilterFlag_DiMuonFromCR,
             cr.DiMuonPairCR_p4,
@@ -1949,6 +1944,35 @@ def build_config(
             scalefactors.MuonIDIso_SF,
             scalefactors.EleID_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+        ]
+    )
+    configuration.add_producers(
+        ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+        [
+            # extra mu
+            lepton.extra_muon_mvaTTH,
+        ]
+    )
+    configuration.add_producers(
+        ["e2m","e2m_dyfakeinge_regionb"],
+        [
+            # extra good ele
+            lepton.extra_goodele_mvaTTH,
+        ]
+    )
+    configuration.add_producers(
+        ["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        [
+            # extra base ele
+            lepton.extra_baseele_mvaTTH,
+        ]
+    )
+    configuration.add_producers(
+        ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+         "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        [
+            p4.W_pt,
+            p4.W_phi,
         ]
     )
     configuration.add_producers(
@@ -2020,6 +2044,8 @@ def build_config(
             p4.lep2_fromZ_eta,
             p4.lep2_fromZ_phi,
             p4.lep2_fromZ_mass,
+            lepton.lep1_mvaTTH_eemm,
+            lepton.lep2_mvaTTH_eemm,
             p4.Z_pt,
             p4.Z_eta,
             p4.Z_phi,
@@ -2102,6 +2128,8 @@ def build_config(
             p4.lep2_fromZ_eta,
             p4.lep2_fromZ_phi,
             p4.lep2_fromZ_mass,
+            lepton.lep1_mvaTTH_mmmm,
+            lepton.lep2_mvaTTH_mmmm,
             p4.Z_pt,
             p4.Z_eta,
             p4.Z_phi,
@@ -2414,6 +2442,36 @@ def build_config(
             cr.elemuCR_mass,
         ],
     )
+    configuration.add_producers(
+        ["fjmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+        [
+            # ZCR mu1,mu2
+            muons.mu1_ZCR_mvaTTH,
+            muons.mu2_ZCR_mvaTTH,
+            muons.mu1_ZCR_ptErr,
+            muons.mu2_ZCR_ptErr,
+        ]
+    )
+    configuration.add_producers(
+        ["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+        [
+            # Higgs mu1,mu2
+            muons.mu1_Higgs_mvaTTH,
+            muons.mu2_Higgs_mvaTTH,
+            muons.mu1_Higgs_ptErr,
+            muons.mu2_Higgs_ptErr,
+        ]
+    )
+    configuration.add_producers(
+        ["mmmm"],
+        [
+            # Higgs mu1,mu2
+            muons.mu1_Higgs_mvaTTH_mmmm,
+            muons.mu2_Higgs_mvaTTH_mmmm,
+            muons.mu1_Higgs_ptErr_mmmm,
+            muons.mu2_Higgs_ptErr_mmmm,
+        ]
+    )
     configuration.add_outputs(
         scopes,
         [
@@ -2441,14 +2499,14 @@ def build_config(
             q.nbjets_loose,
             q.nbjets_medium,
             q.btag_weight,
-            q.jet1_pt,
-            q.jet1_eta,
-            q.jet1_phi,
-            q.jet1_mass,
-            q.jet2_pt,
-            q.jet2_eta,
-            q.jet2_phi,
-            q.jet2_mass,
+            q.MHT_pt,
+            q.MHT_eta,
+            q.MHT_phi,
+            q.MHT_mass,
+            q.MHTALL_pt,
+            q.MHTALL_eta,
+            q.MHTALL_phi,
+            q.MHTALL_mass,
 
             q.met_pt,
             q.met_phi,
@@ -2482,6 +2540,10 @@ def build_config(
          "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
          "eemm","mmmm","nnmm","fjmm","fjmm_cr"],
         [
+            q.mu1_mvaTTH,
+            q.mu2_mvaTTH,
+            q.mu1_ptErr,
+            q.mu2_ptErr,
             q.id_wgt_mu_1,
             q.id_wgt_mu_2,
             q.iso_wgt_mu_1,
@@ -2527,6 +2589,8 @@ def build_config(
     configuration.add_outputs(
         ["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
         [
+            q.W_pt,
+            q.W_phi,
             q.lep_MHT_dphi,
             q.mt_W,
             q.mt_muSSAndMHT,
@@ -2542,6 +2606,7 @@ def build_config(
             q.extra_lep_eta,
             q.extra_lep_phi,
             q.extra_lep_mass,
+            q.extra_lep_mvaTTH,
             q.lep_muOS_cosThStar,
             q.lep_muSS_cosThStar,
             q.lep_muSS_dR,
@@ -2654,6 +2719,8 @@ def build_config(
     configuration.add_outputs(
         ["eemm","mmmm"],
         [
+            q.lep1_mvaTTH,
+            q.lep2_mvaTTH,
             q.mumuH_dR,
             q.mumuH_dphi,
             q.mumuH_deta,

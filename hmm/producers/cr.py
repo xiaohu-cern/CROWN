@@ -16,22 +16,10 @@ DY_DiMuonPair_CR = Producer(
            nanoAOD.Muon_mass,
            nanoAOD.Muon_charge,
            q.good_muon_collection],
-    output=[q.dimuon_ZControl_collection], # index about the two selected muons may from Higgs
+    output=[q.dimuon_ZControl_collection], # index about the two selected muons may from Z boson
     scopes=["nnmm_dycontrol","fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
-)
-DY_BaseDiMuonPair_CR = Producer(
-    name="DY_BaseDiMuonPair_CR",
-    call='physicsobject::DY_DiMuonPair_CR({df}, {output}, {input})',
-    input=[nanoAOD.Muon_pt,
-           nanoAOD.Muon_eta, 
-           nanoAOD.Muon_phi, 
-           nanoAOD.Muon_mass,
-           nanoAOD.Muon_charge,
-           q.base_muon_collection],
-    output=[q.dimuon_ZControl_collection], # index about the two selected muons may from Higgs
-    scopes=["m2m_dyfakeingmu_regiond"],
 )
 Flag_DiMuonFromCR = Producer(
     name="Flag_DiMuonFromCR",

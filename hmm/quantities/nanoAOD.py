@@ -174,3 +174,4 @@ FatJet_particleNetWithMass_ZvsQCD = NanoAODQuantity("FatJet_particleNetWithMass_
 FatJet_particleNetWithMass_TvsQCD = NanoAODQuantity("FatJet_particleNetWithMass_TvsQCD") # ParticleNet tagger (w/ mass) top vs QCD discriminator
 
 Electron_cutBased = NanoAODQuantity("Electron_cutBased")
+Muon_ptErr = NanoAODQuantity("Muon_ptErr")

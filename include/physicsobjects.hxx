@@ -3,6 +3,14 @@
 
 namespace physicsobject {
 /// write by botao
+ROOT::RDF::RNode Muon_var(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &muon_vars,
+                                 const std::string &dimuons_index,
+                                 const int ranking);
+ROOT::RDF::RNode pt_W(ROOT::RDF::RNode df, const std::string &outputname,
+                    const std::string &particle_p4, const std::string &met);
+ROOT::RDF::RNode phi_W(ROOT::RDF::RNode df, const std::string &outputname,
+                    const std::string &particle_p4, const std::string &met);                    
 ROOT::RDF::RNode PassJetVetoFlag(ROOT::RDF::RNode df, const std::string &jet_pts, const std::string &outputname);
 ROOT::RDF::RNode flagNumObject(ROOT::RDF::RNode df, const std::string &flagname,
                                const std::string &object_number,
