@@ -1017,6 +1017,61 @@ ROOT::RDF::RNode id_e_vhmm(ROOT::RDF::RNode df,
     return df1;
 }
 
+ROOT::RDF::RNode reco_e_vhmm(ROOT::RDF::RNode df,
+                    const std::string &p4, const std::string &year_id,
+                    const std::string &variation,
+                    const std::string &id_output, const std::string &sf_file,
+                    const std::string &idAlgorithm) {
+
+    Logger::get("electronRecoSF")
+        ->debug("Setting up functions for electron reco sf with correctionlib");
+    Logger::get("electronRecoSF")->debug("Reco - Name {}", idAlgorithm);
+    auto evaluator =
+        correction::CorrectionSet::from_file(sf_file)->at(idAlgorithm);
+    auto df1 = df.Define(
+        id_output,
+        [evaluator, year_id, idAlgorithm, variation](ROOT::Math::PtEtaPhiMVector &p4) {
+            const float &pt = p4.Pt();
+            const float &eta = p4.Eta();
+            const float &phi = p4.Phi();
+            Logger::get("electronRecoSF")
+                ->debug("Year {}, Name {}", year_id, idAlgorithm);
+            // wp -> RecoBelow20, Reco20to75, RecoAbove75
+            double sf = 1.;
+            if (pt >= 10.0 && pt < 20) {
+                if (year_id.find("2023") < year_id.length()) {
+                    Logger::get("electronRecoSF")->debug("RecoBelow20 - pt {}, eta {}, phi {}", pt, eta, phi);
+                    sf = evaluator->evaluate({year_id, variation, "RecoBelow20", eta, pt, phi});
+                } else {
+                    Logger::get("electronRecoSF")->debug("RecoBelow20 - pt {}, eta {}", pt, eta);
+                    sf = evaluator->evaluate({year_id, variation, "RecoBelow20", eta, pt});
+                }
+            } else if (pt >= 20 && pt < 75) {
+                if (year_id.find("2023") < year_id.length()) {
+                    Logger::get("electronRecoSF")->debug("Reco20to75 - pt {}, eta {}, phi {}", pt, eta, phi);
+                    sf = evaluator->evaluate({year_id, variation, "Reco20to75", eta, pt, phi});
+                } else {
+                    Logger::get("electronRecoSF")->debug("Reco20to75 - pt {}, eta {}", pt, eta);
+                    sf = evaluator->evaluate({year_id, variation, "Reco20to75", eta, pt});
+                }
+            } else if (pt >= 75) {
+                if (year_id.find("2023") < year_id.length()) {
+                    Logger::get("electronRecoSF")->debug("RecoAbove75 - pt {}, eta {}, phi {}", pt, eta, phi);
+                    sf = evaluator->evaluate({year_id, variation, "RecoAbove75", eta, pt, phi});
+                } else {
+                    Logger::get("electronRecoSF")->debug("RecoAbove75 - pt {}, eta {}", pt, eta);
+                    sf = evaluator->evaluate({year_id, variation, "RecoAbove75", eta, pt});
+                }
+            } else if (pt < 10) {
+                sf = 1.;
+            }
+            Logger::get("electronRecoSF")->debug("Scale Factor {}", sf);
+            return sf;
+        },
+        {p4});
+    return df1;
+}
+
 } // namespace electron
 namespace jet {
 /**

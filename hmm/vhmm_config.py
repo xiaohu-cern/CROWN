@@ -1685,6 +1685,7 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.EleID_SF,
+            scalefactors.EleReco_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
         ],
     )
@@ -1764,6 +1765,7 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.EleID_SF,
+            scalefactors.EleReco_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
         ]
     )
@@ -1862,6 +1864,7 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.EleID_SF,
+            scalefactors.EleReco_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
         ]
     )
@@ -1943,6 +1946,7 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.EleID_SF,
+            scalefactors.EleReco_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
         ]
     )
@@ -2056,6 +2060,7 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.EleID_SF,
+            scalefactors.EleReco_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
         ],
     )
@@ -2577,6 +2582,7 @@ def build_config(
         [
             q.id_wgt_ele_loose_1,
             q.id_wgt_ele_wp90Iso_1,
+            q.reco_wgt_ele_1,
         ],
     )
     configuration.add_outputs(
@@ -2584,6 +2590,7 @@ def build_config(
         [
             q.id_wgt_ele_loose_2,
             q.id_wgt_ele_wp90Iso_2,
+            q.reco_wgt_ele_2,
         ],
     )
     configuration.add_outputs(
@@ -3156,6 +3163,7 @@ def build_config(
         RemoveProducer(
             producers=[
                 scalefactors.EleID_SF,
+                scalefactors.EleReco_SF,
             ],
             samples=["data"],
         ),
@@ -3338,6 +3346,36 @@ def build_config(
             },
             producers={("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): [
                 scalefactors.EleID_SF,
+            ]},
+        )
+    )
+    
+    ###########################
+    #### Electron Reco shift ####
+    ###########################
+    configuration.add_shift(
+        SystematicShift(
+            name="EleRecoUp",
+            shift_config={
+                ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): {
+                    "ele_sf_varation": "sfup",
+                }
+            },
+            producers={("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): [
+                scalefactors.EleReco_SF,
+            ]},
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="EleRecoDown",
+            shift_config={
+                ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): {
+                    "ele_sf_varation": "sfdown",
+                }
+            },
+            producers={("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): [
+                scalefactors.EleReco_SF,
             ]},
         )
     )

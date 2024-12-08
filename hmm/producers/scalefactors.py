@@ -584,6 +584,59 @@ EleID_SF = ProducerGroup(
     },
 )
 
+################
+## for 1 eles ##
+################
+Ele_1_Reco_SF_e2m = Producer(
+    name="Ele_1_Reco_SF_e2m",
+    call='scalefactor::electron::reco_e_vhmm({df}, {input}, "{ele_sf_year_id}", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    input=[q.extra_lep_p4],
+    output=[q.reco_wgt_ele_1],
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+################
+## for 2 eles ##
+################
+Ele_1_Reco_SF_eemm = Producer(
+    name="Ele_1_Reco_SF_eemm",
+    call='scalefactor::electron::reco_e_vhmm({df}, {input}, "{ele_sf_year_id}", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    input=[q.lepton_leadingp4_Z],
+    output=[q.reco_wgt_ele_1],
+    scopes=["eemm"],
+)
+Ele_2_Reco_SF_eemm = Producer(
+    name="Ele_2_Reco_SF_eemm",
+    call='scalefactor::electron::reco_e_vhmm({df}, {input}, "{ele_sf_year_id}", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    input=[q.lepton_subleadingp4_Z],
+    output=[q.reco_wgt_ele_2],
+    scopes=["eemm"],
+)
+EleReco_SF = ProducerGroup(
+    name="EleReco_SF",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"],
+    subproducers={
+        "e2m": [
+            Ele_1_Reco_SF_e2m,
+        ],
+        "e2m_dyfakeinge_regionb": [
+            Ele_1_Reco_SF_e2m,
+        ],
+        "e2m_dyfakeinge_regionc": [
+            Ele_1_Reco_SF_e2m,
+        ],
+        "e2m_dyfakeinge_regiond": [
+            Ele_1_Reco_SF_e2m,
+        ],
+        "eemm": [
+            Ele_1_Reco_SF_eemm,
+            Ele_2_Reco_SF_eemm,
+        ],
+    },
+)
+
 #########################
 # b-tagging SF
 #########################

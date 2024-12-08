@@ -111,6 +111,11 @@ ROOT::RDF::RNode id_e_vhmm(ROOT::RDF::RNode df,
                     const std::string &wp, const std::string &variation,
                     const std::string &id_output, const std::string &sf_file,
                     const std::string &idAlgorithm);
+ROOT::RDF::RNode reco_e_vhmm(ROOT::RDF::RNode df,
+                    const std::string &p4, const std::string &year_id,
+                    const std::string &variation,
+                    const std::string &id_output, const std::string &sf_file,
+                    const std::string &idAlgorithm);
 } // namespace electron
 
 namespace jet {
