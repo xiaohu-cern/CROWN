@@ -2997,6 +2997,24 @@ DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23NanoAODv12-
 ####
 #### data
 ####
+Muon0_Run2023B-22Sep2023-v1:
+  dbs: /Muon0/Run2023B-22Sep2023-v1/NANOAOD
+  era: 2023preBPix
+  generator_weight: 1.0
+  nevents: 17453684
+  nfiles: 23
+  nick: Muon0_Run2023B-22Sep2023-v1
+  sample_type: data
+  xsec: 1.0
+Muon1_Run2023B-22Sep2023-v1:
+  dbs: /Muon1/Run2023B-22Sep2023-v1/NANOAOD
+  era: 2023preBPix
+  generator_weight: 1.0
+  nevents: 17438819
+  nfiles: 30
+  nick: Muon1_Run2023B-22Sep2023-v1
+  sample_type: data
+  xsec: 1.0
 Muon0_Run2023C-22Sep2023_v1-v1:
   dbs: /Muon0/Run2023C-22Sep2023_v1-v1/NANOAOD
   era: 2023preBPix
