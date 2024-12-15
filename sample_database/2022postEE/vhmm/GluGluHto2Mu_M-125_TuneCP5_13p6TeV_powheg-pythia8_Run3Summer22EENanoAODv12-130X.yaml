@@ -1,0 +1,10 @@
+dbs: /GluGluHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EENanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/NANOAODSIM
+era: 2022postEE
+filelist:
+- root://xrootd-cms.infn.it//store/mc/Run3Summer22EENanoAODv12/GluGluHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v1/2550000/e9c1ef60-2c46-4933-a1b8-a082cb28074c.root
+generator_weight: 1.0
+nevents: 691000
+nfiles: 1
+nick: GluGluHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer22EENanoAODv12-130X
+sample_type: vhmm # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHWG136TeVxsec_extrap
+xsec: 0.01138614

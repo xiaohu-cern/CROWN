@@ -1,6 +1,24 @@
 ####################
 ### 2023 postBPix ###
 ####################
+GluGluHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  dbs: /GluGluHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 300000
+  nfiles: 21
+  nick: GluGluHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  sample_type: vhmm # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHWG136TeVxsec_extrap
+  xsec: 0.01138614 # 52.23*2.18*10^{-4} = 0.01138614
+VBFHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  dbs: /VBFHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 600000
+  nfiles: 27
+  nick: VBFHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  sample_type: vhmm # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHWG136TeVxsec_extrap
+  xsec: 0.000889004 # 4.078*2.18*10^{-4} = 0.000889004
 TTH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
   dbs: /TTH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
   era: 2023postBPix
