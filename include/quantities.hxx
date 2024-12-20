@@ -7,6 +7,8 @@
 #include "vectoroperations.hxx"
 #include <Math/Vector4D.h>
 namespace quantities {
+ROOT::RDF::RNode calculateNeutrinoPz(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &lep_p4, const std::string &met_p4);    
 ROOT::RDF::RNode calculate_kT(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &p1, const std::string &p2);
 ROOT::RDF::RNode calculate_antikT(ROOT::RDF::RNode df, const std::string &outputname,

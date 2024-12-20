@@ -16,6 +16,43 @@
 /// are needed for every event
 namespace quantities {
 ///
+/// function to calculate the pz_nu
+ROOT::RDF::RNode calculateNeutrinoPz(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &lep_p4, const std::string &met_p4) {
+    auto calc_pz_nu = [](ROOT::Math::PtEtaPhiMVector &lep_p4,
+                               ROOT::Math::PtEtaPhiMVector &met_p4) {
+        const float mW = 80.379;
+        float nu_px = met_p4.pt() * cos(met_p4.phi());
+        float nu_py = met_p4.pt() * sin(met_p4.phi());
+        //
+        float a = (mW * mW) / 2 + lep_p4.Px() * nu_px + lep_p4.Py() * nu_py;
+        float A = lep_p4.E() * lep_p4.E() - lep_p4.Pz() * lep_p4.Pz();
+        float B = -2 * a * lep_p4.Pz();
+        float C = lep_p4.E() * lep_p4.E() * (nu_px * nu_px + nu_py * nu_py) - a * a;
+        // 
+        float discriminant = B * B - 4 * A * C;
+        float neutrino_pz1 = 0, neutrino_pz2 = 0;
+        // 
+        if (discriminant < 0) {
+            // Complex solution: take real part
+            neutrino_pz1 = -B / (2 * A);
+            neutrino_pz2 = neutrino_pz1; // Identical since discriminant = 0
+        } else {
+            // Real solutions
+            neutrino_pz1 = (-B + sqrt(discriminant)) / (2 * A);
+            neutrino_pz2 = (-B - sqrt(discriminant)) / (2 * A);
+        }
+        if (abs(neutrino_pz1) < abs(neutrino_pz2)) {
+            return neutrino_pz1;
+        } else {
+            return neutrino_pz2;
+        }
+
+    };
+    return df.Define(outputname, calc_pz_nu, {lep_p4, met_p4});
+}
+///
+///
 ROOT::RDF::RNode calculate_kT(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &p1, const std::string &p2) {
     auto calculate_kT = [](ROOT::Math::PtEtaPhiMVector &p1,
