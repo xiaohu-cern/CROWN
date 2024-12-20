@@ -965,6 +965,22 @@ mu1_mu2_dphi = Producer(
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
+
+nu_H_dR = Producer(
+    name="nu_H_dR",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.dimuon_p4_Higgs,
+      q.nu_p4,
+    ],
+    output=[q.nu_H_dR],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+
+
+
+
 ThreeLepQuantities = ProducerGroup(
     name="ThreeLepQuantities",
     call=None,
