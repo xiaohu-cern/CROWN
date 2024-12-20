@@ -965,7 +965,6 @@ mu1_mu2_dphi = Producer(
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
-<<<<<<< HEAD
 ptH_ov_massH = Producer(
     name = "ptH_ov_massH",
     call = "quantities::calc_ratio({df}, {output}, {input})",
@@ -1020,7 +1019,6 @@ ptmu2_ov_massH = Producer(
      output = [q.ptmu2_ov_massH],
      scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
-=======
 
 
 
@@ -1065,7 +1063,6 @@ nu_H_dphi = Producer(
 
 
 
->>>>>>> 72e982a59632f6e1d8feb80fda40679838e3bda9
 
 ThreeLepQuantities = ProducerGroup(
     name="ThreeLepQuantities",
@@ -1092,5 +1089,9 @@ ThreeLepQuantities = ProducerGroup(
       ptmu2_ov_massH,
       calc_nu_p4,
       HT_met,
+      nu_H_deta,
+      nu_H_dphi,
+      nu_H_dR,
+
     ],
 )
