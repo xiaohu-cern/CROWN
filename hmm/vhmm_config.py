@@ -2538,11 +2538,14 @@ def build_config(
         [
             q.pz_nu,
             q.mu1_H_dR,
+<<<<<<< HEAD
             q.mu1_H_deta,
             q.mu1_H_dphi,
             q.mu2_H_dR,
             q.mu2_H_deta,
             q.mu2_H_dphi,
+=======
+>>>>>>> bd65d7ceef7bb84d5099a95ed490ce2e7ba2bdcc
 	        q.mu1_mu2_dR,
 	        q.mu1_mu2_deta,
 	        q.mu1_mu2_dphi,
