@@ -535,7 +535,9 @@ reco_wgt_ele_2 = Quantity("reco_wgt_ele_2")
 # hackthon Mingxuan
 mu1_H_dR = Quantity("mu1_H_dR")
 
-HT=Quantity("HT") ### add by Leyan 2024/12/20
+HT=Quantity("HT")       ### add by Leyan 2024/12/20
+HT_met=Quantity("HT_met") ### add by Leyan 2024/12/20
+
 mu1_H_deta = Quantity("mu1_H_deta")
 mu1_H_dphi = Quantity("mu1_H_dphi")
 mu2_H_dR = Quantity("mu2_H_dR")
@@ -554,3 +556,4 @@ ptmu1_ov_ptH = Quantity("ptmu1_ov_ptH")
 ptmu2_ov_ptH = Quantity("ptmu2_ov_ptH")
 ptmu1_ov_massH = Quantity("ptmu1_ov_massH")
 ptmu2_ov_massH = Quantity("ptmu2_ov_massH")
+nu_p4 = Quantity("nu_p4")

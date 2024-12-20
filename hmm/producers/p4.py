@@ -822,6 +822,17 @@ calc_pz_nu = Producer(
     scopes=["e2m","m2m"],
 )
 
+calc_nu_p4 = Producer(
+    name="calc_nu_p4",
+    call='quantities::build_nup4({df}, {output}, {input})',
+    input=[
+      q.met_p4,
+      q.pz_nu,
+    ],
+    output=[q.nu_p4],
+    scopes=["e2m","m2m"],
+)
+
 ### mu1_H_dR
 
 mu1_H_dR = Producer(
@@ -836,6 +847,8 @@ mu1_H_dR = Producer(
 )
 
 
+
+### add by Leyan 2024/12/20
 HT = Producer(
     name="HT",
     call='quantities::scalarPtSum({df}, {output}, {input})',
@@ -847,6 +860,22 @@ HT = Producer(
     output=[q.HT],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
+
+### add by Leyan 2024/12/20
+HT_met = Producer(
+    name="HT_met",
+    call='quantities::scalarPtSum_met({df}, {output}, {input})',
+    input=[
+      q.extra_lep_pt,
+      q.mu1_fromH_pt,
+      q.mu2_fromH_pt,
+      q.met_pt
+    ],
+    output=[q.HT_met],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+
 
 
 mu1_H_deta = Producer(
@@ -1014,5 +1043,7 @@ ThreeLepQuantities = ProducerGroup(
       ptmu2_ov_ptH,
       ptmu1_ov_massH,
       ptmu2_ov_massH,
+      calc_nu_p4,
+      HT_met,
     ],
 )
