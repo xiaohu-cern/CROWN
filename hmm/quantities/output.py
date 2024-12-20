@@ -551,4 +551,12 @@ mu1_mu2_dR = Quantity("mu1_mu2_dR")
 mu1_mu2_deta = Quantity("mu1_mu2_deta")
 mu1_mu2_dphi = Quantity("mu1_mu2_dphi")
 pz_nu = Quantity("pz_nu")
+
+
+# mingxuan's ratio
+ptH_ov_massH = Quantity("ptH_ov_massH")
+ptmu1_ov_ptH = Quantity("ptmu1_ov_ptH")
+ptmu2_ov_ptH = Quantity("ptmu2_ov_ptH")
+ptmu1_ov_massH = Quantity("ptmu1_ov_massH")
+ptmu2_ov_massH = Quantity("ptmu2_ov_massH")
 nu_p4 = Quantity("nu_p4")
