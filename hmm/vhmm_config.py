@@ -1313,8 +1313,9 @@ def build_config(
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             
             ### hack
-            p4.calc_pz_nu,
-            p4.mu1_H_dR,
+            p4.ThreeLepQuantities,
+            # p4.calc_pz_nu,
+            # p4.mu1_H_dR,
         ],
     )
     configuration.add_producers(
@@ -1693,8 +1694,9 @@ def build_config(
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             
             # hack
-            p4.calc_pz_nu,
-            p4.mu1_H_dR,
+            p4.ThreeLepQuantities,
+            # p4.calc_pz_nu,
+            # p4.mu1_H_dR,
         ],
     )
     # Region B: pass 2 medium muons, 1 ele and fail m(mm) in [110,150], actually in [70,110]
