@@ -1188,7 +1188,6 @@ ThreeLepQuantities = ProducerGroup(
       ptmu1_ov_massH,
       ptmu2_ov_massH,
       calc_nu_p4,
-      HT_met,
       mu1_nu_dR,
       mu1_nu_deta,
       mu1_nu_dphi,
