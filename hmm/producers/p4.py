@@ -973,5 +973,6 @@ ThreeLepQuantities = ProducerGroup(
       mu1_mu2_dphi,
       mu1_H_dR,
       HT,
+      HT_met,
     ],
 )
