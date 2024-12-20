@@ -822,6 +822,17 @@ calc_pz_nu = Producer(
     scopes=["e2m","m2m"],
 )
 
+calc_nu_p4 = Producer(
+    name="calc_nu_p4",
+    call='quantities::build_nup4({df}, {output}, {input})',
+    input=[
+      q.met_p4,
+      q.pz_nu,
+    ],
+    output=[q.nu_p4],
+    scopes=["e2m","m2m"],
+)
+
 ### mu1_H_dR
 
 mu1_H_dR = Producer(
@@ -953,5 +964,6 @@ ThreeLepQuantities = ProducerGroup(
       mu1_mu2_deta,
       mu1_mu2_dphi,
       HT,
+      calc_nu_p4,
     ],
 )
