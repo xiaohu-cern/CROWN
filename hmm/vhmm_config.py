@@ -1314,6 +1314,11 @@ def build_config(
             
             ### hack
             p4.ThreeLepQuantities,
+<<<<<<< HEAD
+=======
+            # p4.calc_pz_nu,
+            # p4.mu1_H_dR,
+>>>>>>> 692c03cb037f9f7cc049ec3fb003b271706c4ffe
         ],
     )
     configuration.add_producers(
@@ -1693,6 +1698,11 @@ def build_config(
             
             # hack
             p4.ThreeLepQuantities,
+<<<<<<< HEAD
+=======
+            # p4.calc_pz_nu,
+            # p4.mu1_H_dR,
+>>>>>>> 692c03cb037f9f7cc049ec3fb003b271706c4ffe
         ],
     )
     # Region B: pass 2 medium muons, 1 ele and fail m(mm) in [110,150], actually in [70,110]
@@ -2529,12 +2539,16 @@ def build_config(
     configuration.add_outputs(
         ["e2m","m2m"],
         [
+            q.pz_nu,
             q.mu1_H_dR,
             q.mu1_H_deta,
             q.mu1_H_dphi,
             q.mu2_H_dR,
             q.mu2_H_deta,
             q.mu2_H_dphi,
+	        q.mu1_mu2_dR,
+	        q.mu1_mu2_deta,
+	        q.mu1_mu2_dphi,
         ]
     )
     configuration.add_outputs(

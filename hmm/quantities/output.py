@@ -540,3 +540,7 @@ mu2_H_dR = Quantity("mu2_H_dR")
 mu2_H_deta = Quantity("mu2_H_deta")
 mu2_H_dphi = Quantity("mu2_H_dphi")
 
+mu1_mu2_dR = Quantity("mu1_mu2_dR")
+mu1_mu2_deta = Quantity("mu1_mu2_deta")
+mu1_mu2_dphi = Quantity("mu1_mu2_dphi")
+pz_nu = Quantity("pz_nu")
