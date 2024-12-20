@@ -1313,7 +1313,7 @@ def build_config(
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             
             ### hack
-            p4.mu1_H_dR,
+            p4.ThreeLepQuantities,
         ],
     )
     configuration.add_producers(
@@ -1692,7 +1692,7 @@ def build_config(
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             
             # hack
-            p4.mu1_H_dR,
+            p4.ThreeLepQuantities,
         ],
     )
     # Region B: pass 2 medium muons, 1 ele and fail m(mm) in [110,150], actually in [70,110]
@@ -2530,6 +2530,11 @@ def build_config(
         ["e2m","m2m"],
         [
             q.mu1_H_dR,
+            q.mu1_H_deta,
+            q.mu1_H_dphi,
+            q.mu2_H_dR,
+            q.mu2_H_deta,
+            q.mu2_H_dphi,
         ]
     )
     configuration.add_outputs(
