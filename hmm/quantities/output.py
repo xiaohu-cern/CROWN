@@ -558,3 +558,11 @@ ptmu2_ov_ptH = Quantity("ptmu2_ov_ptH")
 ptmu1_ov_massH = Quantity("ptmu1_ov_massH")
 ptmu2_ov_massH = Quantity("ptmu2_ov_massH")
 nu_p4 = Quantity("nu_p4")
+
+##mingxuan's muon-nu
+mu1_nu_deta = Quantity("mu1_nu_deta")
+mu1_nu_dphi = Quantity("mu1_nu_dphi")
+mu1_nu_dR = Quantity("mu1_nu_dR")
+mu2_nu_deta = Quantity("mu2_nu_deta")
+mu2_nu_dphi = Quantity("mu2_nu_dphi")
+mu2_nu_dR = Quantity("mu2_nu_dR")

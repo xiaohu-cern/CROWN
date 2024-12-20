@@ -2552,8 +2552,12 @@ def build_config(
             q.ptmu2_ov_ptH,
             q.ptmu1_ov_massH,
             q.ptmu2_ov_massH,
-
-
+            q.mu1_nu_dR,
+            q.mu1_nu_deta,
+            q.mu1_nu_dphi,
+            q.mu2_nu_dR,
+            q.mu2_nu_deta,
+            q.mu2_nu_dphi,
         ]
     )
     configuration.add_outputs(
