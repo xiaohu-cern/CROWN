@@ -1266,7 +1266,7 @@ def build_config(
             event.mu1_MHTALL_dphi,
             event.mu2_MHTALL_dphi,
 
-            event.mu1_mu2_dphi,
+            # event.mu1_mu2_dphi,
             event.lep_mu1_dphi,
             event.lep_mu2_dphi,
             event.lep_H_dphi,
@@ -1652,7 +1652,7 @@ def build_config(
             event.mu1_MHTALL_dphi,
             event.mu2_MHTALL_dphi,
             
-            event.mu1_mu2_dphi,
+            # event.mu1_mu2_dphi,
             event.lep_mu1_dphi,
             event.lep_mu2_dphi,
             event.lep_H_dphi,
@@ -1698,11 +1698,8 @@ def build_config(
             
             # hack
             p4.ThreeLepQuantities,
-<<<<<<< HEAD
-=======
             # p4.calc_pz_nu,
             # p4.mu1_H_dR,
->>>>>>> 692c03cb037f9f7cc049ec3fb003b271706c4ffe
         ],
     )
     # Region B: pass 2 medium muons, 1 ele and fail m(mm) in [110,150], actually in [70,110]
