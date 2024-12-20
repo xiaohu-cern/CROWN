@@ -966,9 +966,12 @@ mu1_mu2_dphi = Producer(
 )
 
 
+
+
+### add by Leyan 2024/12/20
 nu_H_dR = Producer(
     name="nu_H_dR",
-    call='quantities::deltaPhi({df}, {output}, {input})',
+    call='quantities::deltaR({df}, {output}, {input})',
     input=[
       q.dimuon_p4_Higgs,
       q.nu_p4,
@@ -976,6 +979,32 @@ nu_H_dR = Producer(
     output=[q.nu_H_dR],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
+
+
+### add by Leyan 2024/12/20
+nu_H_deta =  Producer(
+    name="nu_H_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.dimuon_p4_Higgs,
+      q.nu_p4,
+    ],
+    output=[q.nu_H_deta],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+### add by Leyan 2024/12/20
+nu_H_dphi = Producer(
+    name="nu_H_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.dimuon_p4_Higgs,
+      q.nu_p4,
+    ],
+    output=[q.nu_H_dphi],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
 
 
 
