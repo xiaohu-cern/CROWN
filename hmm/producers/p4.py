@@ -921,6 +921,7 @@ mu2_H_dphi = Producer(
   output = [q.mu2_H_dphi],
   scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
+
 mu1_mu2_dR = Producer(
     name="mu1_mu2_dR",
     call='quantities::deltaR({df}, {output}, {input})',
@@ -970,6 +971,7 @@ ThreeLepQuantities = ProducerGroup(
       mu1_mu2_dR,
       mu1_mu2_deta,
       mu1_mu2_dphi,
+      mu1_H_dR,
       HT,
     ],
 )

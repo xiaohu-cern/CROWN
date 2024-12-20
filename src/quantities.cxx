@@ -275,6 +275,22 @@ ROOT::RDF::RNode scalarPtSum(ROOT::RDF::RNode df, const std::string &outputname,
         },
         {pt_1, pt_2, pt_3});
 }
+
+ROOT::RDF::RNode scalarPtSum_met(ROOT::RDF::RNode df, const std::string &outputname,
+                       const std::string &pt_1, const std::string &pt_2, const std::string &pt_3 ,const std::string &pt_4 ) {
+    // build scalar sum of pts of 3 objects
+    return df.Define(
+        outputname,
+        [](const float &pt_1,
+           const float &pt_2, const float &pt_3 , const float &pt_4) {
+            if (pt_3 < 0.0 || pt_3 < 0.0 || pt_3 < 0.0 || pt_4 < 0.0)
+                return default_float;
+            auto const triple_lepton_pt_met = pt_1 + pt_2 + pt_3 + pt_4 ;
+            return (float)triple_lepton_pt_met;
+        },
+        {pt_1, pt_2, pt_3, pt_4});
+}
+
 /**
  * @brief function used to calculate the deltaPhi between two lorentz vectors. $\phi_1$ is from the first lorentz vector and $\phi_2$ is from the second lorentz vector.
  *
