@@ -2530,6 +2530,7 @@ def build_config(
         ["e2m","m2m"],
         [
             q.mu1_H_dR,
+            q.HT,   #add by Leyan 2024/12/20
         ]
     )
     configuration.add_outputs(
