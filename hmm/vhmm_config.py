@@ -1314,11 +1314,8 @@ def build_config(
             
             ### hack
             p4.ThreeLepQuantities,
-<<<<<<< HEAD
-=======
             # p4.calc_pz_nu,
             # p4.mu1_H_dR,
->>>>>>> 692c03cb037f9f7cc049ec3fb003b271706c4ffe
         ],
     )
     configuration.add_producers(
@@ -2538,14 +2535,11 @@ def build_config(
         [
             q.pz_nu,
             q.mu1_H_dR,
-<<<<<<< HEAD
             q.mu1_H_deta,
             q.mu1_H_dphi,
             q.mu2_H_dR,
             q.mu2_H_deta,
             q.mu2_H_dphi,
-=======
->>>>>>> bd65d7ceef7bb84d5099a95ed490ce2e7ba2bdcc
 	        q.mu1_mu2_dR,
 	        q.mu1_mu2_deta,
 	        q.mu1_mu2_dphi,
