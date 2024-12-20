@@ -2530,6 +2530,9 @@ def build_config(
         ["e2m","m2m"],
         [
             q.mu1_H_dR,
+	    q.mu1_mu2_dR,
+	    q.mu1_mu2_deta,
+	    q.mu1_mu2_dphi,
         ]
     )
     configuration.add_outputs(

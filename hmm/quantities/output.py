@@ -534,3 +534,6 @@ reco_wgt_ele_2 = Quantity("reco_wgt_ele_2")
 
 # hack
 mu1_H_dR = Quantity("mu1_H_dR")
+mu1_mu2_dR = Quantity("mu1_mu2_dR")
+mu1_mu2_deta = Quantity("mu1_mu2_deta")
+mu1_mu2_dphi = Quantity("mu1_mu2_dphi")
