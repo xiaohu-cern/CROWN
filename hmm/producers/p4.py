@@ -874,7 +874,6 @@ ThreeLepQuantities = ProducerGroup(
     output=None,
     scopes=["e2m", "m2m"],
     subproducers=[
-      mu1_H_dR,
       calc_pz_nu,
       mu1_mu2_dR,
       mu1_mu2_deta,
