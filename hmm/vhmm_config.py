@@ -2535,10 +2535,7 @@ def build_config(
         [
             q.pz_nu,
             q.mu1_H_dR,
-<<<<<<< HEAD
-=======
             q.HT,   #add by Leyan 2024/12/20
->>>>>>> 24199a865be2743687b47602e2cd88c8b6da0d7f
             q.mu1_H_deta,
             q.mu1_H_dphi,
             q.mu2_H_dR,
@@ -2547,6 +2544,11 @@ def build_config(
 	        q.mu1_mu2_dR,
 	        q.mu1_mu2_deta,
 	        q.mu1_mu2_dphi,
+            q.ptH_ov_massH,
+            q.ptmu1_ov_ptH,
+            q.ptmu2_ov_ptH,
+            q.ptmu1_ov_massH,
+            q.ptmu2_ov_massH,
         ]
     )
     configuration.add_outputs(

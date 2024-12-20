@@ -936,6 +936,61 @@ mu1_mu2_dphi = Producer(
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
+ptH_ov_massH = Producer(
+    name = "ptH_ov_massH",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.H_pt,
+      q.H_mass,
+    ],
+    output = [q.ptH_ov_massH],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+ptmu1_ov_ptH = Producer(
+     name = "ptmu1_ov_ptH",
+     call = "quantities::calc_ratio({df}, {output}, {input})",
+     input = [
+       q.mu1_fromH_pt,
+       q.H_pt,
+     ],
+     output = [q.ptmu1_ov_ptH],
+     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+ptmu2_ov_ptH = Producer(
+     name = "ptmu2_ov_ptH",
+     call = "quantities::calc_ratio({df}, {output}, {input})",
+     input = [
+       q.mu2_fromH_pt,
+       q.H_pt,
+     ],
+     output = [q.ptmu2_ov_ptH],
+     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+ptmu1_ov_massH = Producer(
+     name = "ptmu1_ov_massH",
+     call = "quantities::calc_ratio({df}, {output}, {input})",
+     input = [
+       q.mu1_fromH_pt,
+       q.H_mass,
+     ],
+     output = [q.ptmu1_ov_massH],
+     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+ptmu2_ov_massH = Producer(
+     name = "ptmu2_ov_massH",
+     call = "quantities::calc_ratio({df}, {output}, {input})",
+     input = [
+       q.mu2_fromH_pt,
+       q.H_mass,
+     ],
+     output = [q.ptmu2_ov_massH],
+     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
 ThreeLepQuantities = ProducerGroup(
     name="ThreeLepQuantities",
     call=None,
@@ -953,7 +1008,11 @@ ThreeLepQuantities = ProducerGroup(
       mu1_mu2_dR,
       mu1_mu2_deta,
       mu1_mu2_dphi,
-      mu1_H_dR,
       HT,
+      ptH_ov_massH,
+      ptmu1_ov_ptH,
+      ptmu2_ov_ptH,
+      ptmu1_ov_massH,
+      ptmu2_ov_massH,
     ],
 )

@@ -15,7 +15,18 @@
 /// The namespace that is used to hold the functions for basic quantities that
 /// are needed for every event
 namespace quantities {
-///
+///mingxuan add A/B
+ROOT::RDF::RNode calc_ratio(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &A, const std::string &B) {
+    auto calculate_ratio = [](float A, float B) {
+        if( B==0 ){
+            return -10.0f;
+        }else{
+            return A/B;
+        }
+    };
+    return df.Define(outputname, calculate_ratio, {A,B});
+}
 /// function to calculate the pz_nu
 ROOT::RDF::RNode calculateNeutrinoPz(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &lep_p4, const std::string &met_p4) {
