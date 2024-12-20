@@ -836,6 +836,8 @@ mu1_H_dR = Producer(
 )
 
 
+
+### add by Leyan 2024/12/20
 HT = Producer(
     name="HT",
     call='quantities::scalarPtSum({df}, {output}, {input})',
@@ -847,6 +849,22 @@ HT = Producer(
     output=[q.HT],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
+
+### add by Leyan 2024/12/20
+HT_met = Producer(
+    name="HT_met",
+    call='quantities::scalarPtSum_met({df}, {output}, {input})',
+    input=[
+      q.extra_lep_pt,
+      q.mu1_fromH_pt,
+      q.mu2_fromH_pt,
+      q.met_pt
+    ],
+    output=[q.HT_met],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+
 
 
 mu1_H_deta = Producer(
