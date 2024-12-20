@@ -835,6 +835,20 @@ mu1_H_dR = Producer(
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
+
+HT = Producer(
+    name="HT",
+    call='quantities::scalarPtSum({df}, {output}, {input})',
+    input=[
+      q.extra_lep_pt,
+      q.mu1_fromH_pt,
+      q.mu2_fromH_pt,
+    ],
+    output=[q.HT],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+
 mu1_H_deta = Producer(
   name = "mu1_H_deta",
   call = "quantities::deltaEta({df}, {output}, {input})",
@@ -888,6 +902,7 @@ mu2_H_dphi = Producer(
   ],
   output = [q.mu2_H_dphi],
   scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
 mu1_mu2_dR = Producer(
     name="mu1_mu2_dR",
     call='quantities::deltaR({df}, {output}, {input})',
@@ -927,6 +942,7 @@ ThreeLepQuantities = ProducerGroup(
     output=None,
     scopes=["e2m", "m2m"],
     subproducers=[
+      mu1_H_dR,
       mu1_H_deta,
       mu1_H_dphi,
       mu2_H_dR,
@@ -936,6 +952,6 @@ ThreeLepQuantities = ProducerGroup(
       mu1_mu2_dR,
       mu1_mu2_deta,
       mu1_mu2_dphi,
-      mu1_H_dR,
+      HT,
     ],
 )

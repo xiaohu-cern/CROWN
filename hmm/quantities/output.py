@@ -534,6 +534,8 @@ reco_wgt_ele_2 = Quantity("reco_wgt_ele_2")
 
 # hackthon Mingxuan
 mu1_H_dR = Quantity("mu1_H_dR")
+
+HT=Quantity("HT") ### add by Leyan 2024/12/20
 mu1_H_deta = Quantity("mu1_H_deta")
 mu1_H_dphi = Quantity("mu1_H_dphi")
 mu2_H_dR = Quantity("mu2_H_dR")
