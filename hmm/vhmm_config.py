@@ -1313,6 +1313,7 @@ def build_config(
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             
             ### hack
+            p4.calc_pz_nu,
             p4.mu1_H_dR,
         ],
     )
@@ -1692,6 +1693,7 @@ def build_config(
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             
             # hack
+            p4.calc_pz_nu,
             p4.mu1_H_dR,
         ],
     )
@@ -2529,6 +2531,7 @@ def build_config(
     configuration.add_outputs(
         ["e2m","m2m"],
         [
+            q.pz_nu,
             q.mu1_H_dR,
         ]
     )

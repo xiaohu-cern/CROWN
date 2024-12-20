@@ -810,6 +810,18 @@ W_phi = Producer(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
+
+calc_pz_nu = Producer(
+    name="calc_pz_nu",
+    call='quantities::calculateNeutrinoPz({df}, {output}, {input})',
+    input=[
+      q.extra_lep_p4,
+      q.met_p4,
+    ],
+    output=[q.pz_nu],
+    scopes=["e2m","m2m"],
+)
+
 ### mu1_H_dR
 
 mu1_H_dR = Producer(
@@ -830,6 +842,6 @@ ThreeLepQuantities = ProducerGroup(
     output=None,
     scopes=["e2m", "m2m"],
     subproducers=[
-      mu1_H_dR,
+      mu1_H_dR
     ],
 )
