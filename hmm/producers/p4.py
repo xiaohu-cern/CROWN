@@ -1061,6 +1061,44 @@ nu_H_dphi = Producer(
 
 
 
+### add by Leyan 2024/12/20
+lep_nu_dR = Producer(
+    name="lep_nu_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.extra_lep_p4,
+      q.nu_p4,
+    ],
+    output=[q.lep_nu_dR],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+lep_nu_deta = Producer(
+    name="lep_nu_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.extra_lep_p4,
+      q.nu_p4,
+    ],
+    output=[q.lep_nu_deta],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+
+lep_nu_dphi = Producer(
+    name="lep_nu_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.extra_lep_p4,
+      q.nu_p4,
+    ],
+    output=[q.lep_nu_dphi],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+
+
+
 
 
 
@@ -1081,17 +1119,21 @@ ThreeLepQuantities = ProducerGroup(
       mu1_mu2_dR,
       mu1_mu2_deta,
       mu1_mu2_dphi,
-      HT,
+      HT,          ### add by Leyan 2024/12/20
       ptH_ov_massH,
       ptmu1_ov_ptH,
       ptmu2_ov_ptH,
       ptmu1_ov_massH,
       ptmu2_ov_massH,
       calc_nu_p4,
-      HT_met,
-      nu_H_deta,
-      nu_H_dphi,
-      nu_H_dR,
+      HT_met,    ### add by Leyan 2024/12/20
+      nu_H_deta,  ### add by Leyan 2024/12/20
+      nu_H_dphi,  ### add by Leyan 2024/12/20
+      nu_H_dR,   ### add by Leyan 2024/12/20
+      lep_nu_dR,  ### add by Leyan 2024/12/20
+      lep_nu_dphi, ### add by Leyan 2024/12/20
+      lep_nu_deta, ### add by Leyan 2024/12/20
+
 
     ],
 )

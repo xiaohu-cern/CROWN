@@ -2536,11 +2536,17 @@ def build_config(
             q.pz_nu,
             q.mu1_H_dR,
             q.HT,   #add by Leyan 2024/12/20
-            q.HT,         #add by Leyan 2024/12/20
             q.HT_met,      #add by Leyan 2024/12/20
             q.nu_H_dR,    # add by Leyan 2024/12/20
             q.nu_H_deta,  # add by Leyan 2024/12/20
             q.nu_H_dphi,  # add by Leyan 2024/12/20
+            q.lep_nu_dR,  # add by Leyan 2024/12/20
+            q.lep_nu_deta,  # add by Leyan 2024/12/20
+            q.lep_nu_dphi,  # add by Leyan 2024/12/20
+
+
+
+
             q.mu1_H_deta,
             q.mu1_H_dphi,
             q.mu2_H_dR,
