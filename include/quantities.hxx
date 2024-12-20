@@ -7,6 +7,10 @@
 #include "vectoroperations.hxx"
 #include <Math/Vector4D.h>
 namespace quantities {
+ROOT::RDF::RNode calculate_kT(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &p1, const std::string &p2);
+ROOT::RDF::RNode calculate_antikT(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &p1, const std::string &p2);
 ROOT::RDF::RNode mT_MHT(ROOT::RDF::RNode df, const std::string &outputname,
                     const std::string &particle_p4, const std::string &met);
 ROOT::RDF::RNode deltaPhi(ROOT::RDF::RNode df, const std::string &outputname,

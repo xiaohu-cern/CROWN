@@ -16,6 +16,42 @@
 /// are needed for every event
 namespace quantities {
 ///
+ROOT::RDF::RNode calculate_kT(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &p1, const std::string &p2) {
+    auto calculate_kT = [](ROOT::Math::PtEtaPhiMVector &p1,
+                               ROOT::Math::PtEtaPhiMVector &p2) {
+        if (p1.pt() < 0.0 || p2.pt() < 0.0)
+            return default_float;          
+    float pt_1 = p1.pt();
+    float pt_2 = p2.pt();
+    float result =std::min(pt_1, pt_2) * ROOT::Math::VectorUtil::DeltaR(p1, p2);
+    if ( !std::isnan(result) && !std::isinf(result) ) {
+        return result;
+    } else {
+        return -10.0f;
+    }
+    };
+    return df.Define(outputname, calculate_kT, {p1, p2});
+}
+ROOT::RDF::RNode calculate_antikT(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &p1, const std::string &p2) {
+    auto calculate_antikT = [](ROOT::Math::PtEtaPhiMVector &p1,
+                               ROOT::Math::PtEtaPhiMVector &p2) {
+        if (p1.pt() < 0.0 || p2.pt() < 0.0)
+            return default_float;          
+    float pt_1 = p1.pt();
+    float pt_2 = p2.pt();
+    float result =std::min(1/pt_1, 1/pt_2) * ROOT::Math::VectorUtil::DeltaR(p1, p2);
+    if ( !std::isnan(result) && !std::isinf(result) ) {
+        return result;
+    } else {
+        return -10.0f;
+    }
+    };
+    return df.Define(outputname, calculate_antikT, {p1, p2});
+}
+
+///
 /// funciton to calc mT contains MHT
 ROOT::RDF::RNode mT_MHT(ROOT::RDF::RNode df, const std::string &outputname,
                     const std::string &particle_p4, const std::string &met) {
