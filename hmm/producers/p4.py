@@ -810,3 +810,26 @@ W_phi = Producer(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
+### mu1_H_dR
+
+mu1_H_dR = Producer(
+    name="mu1_H_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_H,
+      q.dimuon_p4_Higgs,
+    ],
+    output=[q.mu1_H_dR],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+ThreeLepQuantities = ProducerGroup(
+    name="ThreeLepQuantities",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["e2m", "m2m"],
+    subproducers=[
+      mu1_H_dR,
+    ],
+)

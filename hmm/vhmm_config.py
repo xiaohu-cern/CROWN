@@ -1311,6 +1311,9 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+            
+            ### hack
+            p4.mu1_H_dR,
         ],
     )
     configuration.add_producers(
@@ -1687,6 +1690,9 @@ def build_config(
             scalefactors.EleID_SF,
             scalefactors.EleReco_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+            
+            # hack
+            p4.mu1_H_dR,
         ],
     )
     # Region B: pass 2 medium muons, 1 ele and fail m(mm) in [110,150], actually in [70,110]
@@ -2519,6 +2525,12 @@ def build_config(
             q.genmet_phi,
             scalefactors.GenerateSingleMuonTriggerSF_MC.output_group,
         ],
+    )
+    configuration.add_outputs(
+        ["e2m","m2m"],
+        [
+            q.mu1_H_dR,
+        ]
     )
     configuration.add_outputs(
         ["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],

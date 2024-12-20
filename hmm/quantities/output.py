@@ -531,3 +531,6 @@ mu1_ptErr = Quantity("mu1_ptErr")
 mu2_ptErr = Quantity("mu2_ptErr")
 reco_wgt_ele_1 = Quantity("reco_wgt_ele_1")
 reco_wgt_ele_2 = Quantity("reco_wgt_ele_2")
+
+# hack
+mu1_H_dR = Quantity("mu1_H_dR")
