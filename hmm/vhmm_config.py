@@ -2535,6 +2535,9 @@ def build_config(
         [
             q.pz_nu,
             q.mu1_H_dR,
+	    q.mu1_mu2_dR,
+	    q.mu1_mu2_deta,
+	    q.mu1_mu2_dphi,
         ]
     )
     configuration.add_outputs(

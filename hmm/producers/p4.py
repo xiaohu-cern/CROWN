@@ -835,6 +835,38 @@ mu1_H_dR = Producer(
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
+mu1_mu2_dR = Producer(
+    name="mu1_mu2_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_H,
+      q.muon_subleadingp4_H,
+    ],
+    output=[q.mu1_mu2_dR],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+mu1_mu2_deta = Producer(
+    name="mu1_mu2_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_H,
+      q.muon_subleadingp4_H,
+    ],
+    output=[q.mu1_mu2_deta],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+mu1_mu2_dphi = Producer(
+    name="mu1_mu2_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_H,
+      q.muon_subleadingp4_H,
+    ],
+    output=[q.mu1_mu2_dphi],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
 ThreeLepQuantities = ProducerGroup(
     name="ThreeLepQuantities",
     call=None,
@@ -843,6 +875,10 @@ ThreeLepQuantities = ProducerGroup(
     scopes=["e2m", "m2m"],
     subproducers=[
       mu1_H_dR,
-      calc_pz_nu
+      calc_pz_nu,
+      mu1_mu2_dR,
+      mu1_mu2_deta,
+      mu1_mu2_dphi,
+      mu1_H_dR,
     ],
 )
