@@ -1020,9 +1020,12 @@ ptmu2_ov_massH = Producer(
      scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
+
+
+### add by Leyan 2024/12/20
 nu_H_dR = Producer(
     name="nu_H_dR",
-    call='quantities::deltaPhi({df}, {output}, {input})',
+    call='quantities::deltaR({df}, {output}, {input})',
     input=[
       q.dimuon_p4_Higgs,
       q.nu_p4,
@@ -1074,6 +1077,70 @@ mu2_nu_dR = Producer(
     output = [q.mu2_nu_dR],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
+### add by Leyan 2024/12/20
+nu_H_deta =  Producer(
+    name="nu_H_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.dimuon_p4_Higgs,
+      q.nu_p4,
+    ],
+    output=[q.nu_H_deta],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+### add by Leyan 2024/12/20
+nu_H_dphi = Producer(
+    name="nu_H_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.dimuon_p4_Higgs,
+      q.nu_p4,
+    ],
+    output=[q.nu_H_dphi],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+
+
+### add by Leyan 2024/12/20
+lep_nu_dR = Producer(
+    name="lep_nu_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.extra_lep_p4,
+      q.nu_p4,
+    ],
+    output=[q.lep_nu_dR],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+lep_nu_deta = Producer(
+    name="lep_nu_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.extra_lep_p4,
+      q.nu_p4,
+    ],
+    output=[q.lep_nu_deta],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+
+lep_nu_dphi = Producer(
+    name="lep_nu_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.extra_lep_p4,
+      q.nu_p4,
+    ],
+    output=[q.lep_nu_dphi],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+
+
+
 
 mu2_nu_deta = Producer(
     name = "mu2_nu_deta",
@@ -1114,7 +1181,7 @@ ThreeLepQuantities = ProducerGroup(
       mu1_mu2_dR,
       mu1_mu2_deta,
       mu1_mu2_dphi,
-      HT,
+      HT,          ### add by Leyan 2024/12/20
       ptH_ov_massH,
       ptmu1_ov_ptH,
       ptmu2_ov_ptH,
@@ -1128,5 +1195,14 @@ ThreeLepQuantities = ProducerGroup(
       mu2_nu_dR,
       mu2_nu_deta,
       mu2_nu_dphi,
+      HT_met,    ### add by Leyan 2024/12/20
+      nu_H_deta,  ### add by Leyan 2024/12/20
+      nu_H_dphi,  ### add by Leyan 2024/12/20
+      nu_H_dR,   ### add by Leyan 2024/12/20
+      lep_nu_dR,  ### add by Leyan 2024/12/20
+      lep_nu_dphi, ### add by Leyan 2024/12/20
+      lep_nu_deta, ### add by Leyan 2024/12/20
+
+
     ],
 )
