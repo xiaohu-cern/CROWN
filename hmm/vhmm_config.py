@@ -1266,7 +1266,7 @@ def build_config(
             event.mu1_MHTALL_dphi,
             event.mu2_MHTALL_dphi,
 
-            event.mu1_mu2_dphi,
+            # event.mu1_mu2_dphi,
             event.lep_mu1_dphi,
             event.lep_mu2_dphi,
             event.lep_H_dphi,
@@ -1313,7 +1313,9 @@ def build_config(
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             
             ### hack
-            p4.mu1_H_dR,
+            p4.ThreeLepQuantities,
+            # p4.calc_pz_nu,
+            # p4.mu1_H_dR,
         ],
     )
     configuration.add_producers(
@@ -1647,7 +1649,7 @@ def build_config(
             event.mu1_MHTALL_dphi,
             event.mu2_MHTALL_dphi,
             
-            event.mu1_mu2_dphi,
+            # event.mu1_mu2_dphi,
             event.lep_mu1_dphi,
             event.lep_mu2_dphi,
             event.lep_H_dphi,
@@ -1692,7 +1694,9 @@ def build_config(
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             
             # hack
-            p4.mu1_H_dR,
+            p4.ThreeLepQuantities,
+            # p4.calc_pz_nu,
+            # p4.mu1_H_dR,
         ],
     )
     # Region B: pass 2 medium muons, 1 ele and fail m(mm) in [110,150], actually in [70,110]
@@ -2529,8 +2533,12 @@ def build_config(
     configuration.add_outputs(
         ["e2m","m2m"],
         [
+            q.pz_nu,
             q.mu1_H_dR,
             q.HT,   #add by Leyan 2024/12/20
+	        q.mu1_mu2_dR,
+	        q.mu1_mu2_deta,
+	        q.mu1_mu2_dphi,
         ]
     )
     configuration.add_outputs(

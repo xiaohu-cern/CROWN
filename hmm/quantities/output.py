@@ -536,3 +536,7 @@ reco_wgt_ele_2 = Quantity("reco_wgt_ele_2")
 mu1_H_dR = Quantity("mu1_H_dR")
 
 HT=Quantity("HT") ### add by Leyan 2024/12/20
+mu1_mu2_dR = Quantity("mu1_mu2_dR")
+mu1_mu2_deta = Quantity("mu1_mu2_deta")
+mu1_mu2_dphi = Quantity("mu1_mu2_dphi")
+pz_nu = Quantity("pz_nu")
