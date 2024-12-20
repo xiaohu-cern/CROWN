@@ -927,22 +927,15 @@ ThreeLepQuantities = ProducerGroup(
     output=None,
     scopes=["e2m", "m2m"],
     subproducers=[
-<<<<<<< HEAD
-      mu1_H_dR,
-<<<<<<< HEAD
       mu1_H_deta,
       mu1_H_dphi,
       mu2_H_dR,
       mu2_H_deta,
       mu2_H_dphi,
-=======
-=======
->>>>>>> 4652ce1a929e8e0d039d79f6cb20a87de512f102
       calc_pz_nu,
       mu1_mu2_dR,
       mu1_mu2_deta,
       mu1_mu2_dphi,
       mu1_H_dR,
->>>>>>> 692c03cb037f9f7cc049ec3fb003b271706c4ffe
     ],
 )
