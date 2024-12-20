@@ -2535,6 +2535,10 @@ def build_config(
         [
             q.pz_nu,
             q.mu1_H_dR,
+<<<<<<< HEAD
+=======
+            q.HT,   #add by Leyan 2024/12/20
+>>>>>>> 24199a865be2743687b47602e2cd88c8b6da0d7f
             q.mu1_H_deta,
             q.mu1_H_dphi,
             q.mu2_H_dR,
