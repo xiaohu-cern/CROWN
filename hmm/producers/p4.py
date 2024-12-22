@@ -824,7 +824,7 @@ calc_pz_nu = Producer(
 
 calc_nu_p4 = Producer(
     name="calc_nu_p4",
-    call='quantities::build_nup4({df}, {output}, {input})',
+    call='physicsobject::build_nup4({df}, {output}, {input})',
     input=[
       q.met_p4,
       q.pz_nu,
@@ -1036,7 +1036,7 @@ nu_H_dR = Producer(
 
 mu1_nu_dR = Producer(
     name = "mu1_nu_dR",
-    call = "quantitties::deltaR({df}, {output}, {input})",
+    call = "quantities::deltaR({df}, {output}, {input})",
     input = [
       q.muon_leadingp4_H,
       q.nu_p4,
@@ -1047,7 +1047,7 @@ mu1_nu_dR = Producer(
 
 mu1_nu_deta = Producer(
     name = "mu1_nu_deta",
-    call = "quantitties::deltaEta({df}, {output}, {input})",
+    call = "quantities::deltaEta({df}, {output}, {input})",
     input = [
       q.muon_leadingp4_H,
       q.nu_p4,
@@ -1069,7 +1069,7 @@ mu1_nu_dphi = Producer(
 
 mu2_nu_dR = Producer(
     name = "mu2_nu_dR",
-    call = "quantitties::deltaR({df}, {output}, {input})",
+    call = "quantities::deltaR({df}, {output}, {input})",
     input = [
       q.muon_subleadingp4_H,
       q.nu_p4,
@@ -1144,7 +1144,7 @@ lep_nu_dphi = Producer(
 
 mu2_nu_deta = Producer(
     name = "mu2_nu_deta",
-    call = "quantitties::deltaEta({df}, {output}, {input})",
+    call = "quantities::deltaEta({df}, {output}, {input})",
     input = [
       q.muon_subleadingp4_H,
       q.nu_p4,

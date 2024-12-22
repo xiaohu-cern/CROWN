@@ -3,6 +3,8 @@
 
 namespace physicsobject {
 /// write by botao
+ROOT::RDF::RNode build_nup4(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &met_p4, const std::string &pz_nu);
 ROOT::RDF::RNode Muon_var(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &muon_vars,
                                  const std::string &dimuons_index,

@@ -11,6 +11,15 @@
 #include "ROOT/RVec.hxx"
 #include <Math/Vector4D.h>
 #include <Math/VectorUtil.h>
+#include <iostream>
+#include <string>
+#include <type_traits>
+#include <vector>
+#include "TVector3.h"
+#include "TLorentzVector.h"
+#include "TLorentzRotation.h"
+#include <Math/Boost.h>
+
 
 /// The namespace that is used to hold the functions for basic quantities that
 /// are needed for every event
@@ -64,21 +73,6 @@ ROOT::RDF::RNode calculateNeutrinoPz(ROOT::RDF::RNode df, const std::string &out
 }
 ///
 /// function to pick dimuon pair from Higgs
-ROOT::RDF::RNode build_nup4(ROOT::RDF::RNode df, const std::string &outputname,
-                                 const std::string &met_p4, const std::string &pz_nu) {
-    auto calc_nup4 = []() {
-        TLorentzVector nu_p4;
-        float nu_px = met_p4.pt() * cos(met_p4.phi());
-        float nu_py = met_p4.pt() * cos(met_p4.phi());
-        float nu_e = sqrt(nu_px * nu_px + nu_py * nu_py + pz_nu * pz_nu);
-        nu_p4.SetPxPyPzE(nu_px, nu_py, pz_nu, nu_e);
-        return nu_p4;
-    };
-    auto df1 = 
-        df.Define(outputname, calc_nup4, {met_p4, pz_nu});
-    return df1;
-}
-
 ///
 ///
 ROOT::RDF::RNode calculate_kT(ROOT::RDF::RNode df, const std::string &outputname,

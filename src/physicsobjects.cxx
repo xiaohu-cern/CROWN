@@ -35,6 +35,26 @@ namespace physicsobject {
 
 /// write by botao
 ///
+ROOT::RDF::RNode build_nup4(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &met_p4, const std::string &pz_nu) {
+    auto calc_nup4 = [](ROOT::Math::PtEtaPhiMVector &met_p4, const float &pz_nu) {
+        TLorentzVector nu_tmp_p4;
+        ROOT::Math::PtEtaPhiMVector nu_p4;
+        // ROOT::Math::PxPyPzEVector nu_p4;
+        float nu_px = met_p4.pt() * cos(met_p4.phi());
+        float nu_py = met_p4.pt() * cos(met_p4.phi());
+        float nu_e = sqrt(nu_px * nu_px + nu_py * nu_py + pz_nu * pz_nu);
+        nu_tmp_p4.SetPxPyPzE(nu_px, nu_py, pz_nu, nu_e);
+        nu_p4 = ROOT::Math::PtEtaPhiMVector(nu_tmp_p4.Pt(), nu_tmp_p4.Eta(), nu_tmp_p4.Phi(), nu_tmp_p4.M());
+        // nu_p4 = ROOT::Math::PxPyPzEVector(nu_px, nu_py, pz_nu, nu_e);
+
+        return nu_p4;
+    };
+    auto df1 = 
+        df.Define(outputname, calc_nup4, {met_p4, pz_nu});
+    return df1;
+}
+///
 /// function to pick dimuon pair from Higgs
 ROOT::RDF::RNode Muon_var(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &muon_vars,

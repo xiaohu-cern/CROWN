@@ -6,9 +6,19 @@
 #include "utility/Logger.hxx"
 #include "vectoroperations.hxx"
 #include <Math/Vector4D.h>
+#include <Math/VectorUtil.h>
+#include <iostream>
+#include <string>
+#include <type_traits>
+#include <vector>
+#include "TVector3.h"
+#include "TLorentzVector.h"
+#include "TLorentzRotation.h"
+#include <Math/Boost.h>
+
 namespace quantities {
-ROOT::RDF::RNode build_nup4(ROOT::RDF::RNode df, const std::string &outputname,
-                                 const std::string &met_p4, const std::string &pz_nu);
+ROOT::RDF::RNode calc_ratio(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &A, const std::string &B);
 ROOT::RDF::RNode calculateNeutrinoPz(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &lep_p4, const std::string &met_p4);    
 ROOT::RDF::RNode calculate_kT(ROOT::RDF::RNode df, const std::string &outputname,
@@ -40,6 +50,8 @@ ROOT::RDF::RNode charge(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &chargecolumn);
 ROOT::RDF::RNode scalarPtSum(ROOT::RDF::RNode df, const std::string &outputname,
                        const std::string &pt_1, const std::string &pt_2, const std::string &pt_3);
+ROOT::RDF::RNode scalarPtSum_met(ROOT::RDF::RNode df, const std::string &outputname,
+                       const std::string &pt_1, const std::string &pt_2, const std::string &pt_3 ,const std::string &pt_4 );
 ROOT::RDF::RNode m_vis(ROOT::RDF::RNode df, const std::string &outputname,
                        const std::vector<std::string> &inputvectors);
 ROOT::RDF::RNode pt_W(ROOT::RDF::RNode df, const std::string &outputname,
