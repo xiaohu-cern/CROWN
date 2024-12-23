@@ -833,6 +833,27 @@ calc_nu_p4 = Producer(
     scopes=["e2m","m2m"],
 )
 
+calc_W_p4 = Producer(
+    name="calc_W_p4",
+    call='physicsobject::build_Wp4({df}, {output}, {input})',
+    input=[
+      q.extra_lep_p4,
+      q.nu_p4,
+    ],
+    output=[q.W_p4],
+    scopes=["e2m","m2m"],
+)
+
+W_eta = Producer(
+    name="W_eta",
+    call='quantities::eta({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+    ],
+    output=[q.W_eta],
+    scopes=["e2m","m2m"],
+)
+
 ### mu1_H_dR
 
 mu1_H_dR = Producer(
@@ -1201,7 +1222,8 @@ ThreeLepQuantities = ProducerGroup(
       lep_nu_dR,  ### add by Leyan 2024/12/20
       lep_nu_dphi, ### add by Leyan 2024/12/20
       lep_nu_deta, ### add by Leyan 2024/12/20
-
-
+      
+      calc_W_p4,
+      W_eta, # W_pt, W_phi already finished
     ],
 )

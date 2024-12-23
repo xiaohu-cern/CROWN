@@ -2544,9 +2544,9 @@ def build_config(
             q.lep_nu_deta,  # add by Leyan 2024/12/20
             q.lep_nu_dphi,  # add by Leyan 2024/12/20
 
-
-
-
+            # q.W_p4,
+            q.W_eta,
+            
             q.mu1_H_deta,
             q.mu1_H_dphi,
             q.mu2_H_dR,

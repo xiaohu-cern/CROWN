@@ -35,6 +35,20 @@ namespace physicsobject {
 
 /// write by botao
 ///
+/// function to calculate the W p4
+ROOT::RDF::RNode build_Wp4(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &lep_p4, const std::string &nu_p4) {
+    auto calc_Wp4 = [](ROOT::Math::PtEtaPhiMVector &lep_p4, ROOT::Math::PtEtaPhiMVector &nu_p4) {
+        ROOT::Math::PtEtaPhiMVector W_p4;
+        W_p4 = lep_p4 + nu_p4;
+        return W_p4;
+    };
+    auto df1 = 
+        df.Define(outputname, calc_Wp4, {lep_p4, nu_p4});
+    return df1;
+}
+///
+/// function to calculate the nu p4
 ROOT::RDF::RNode build_nup4(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &met_p4, const std::string &pz_nu) {
     auto calc_nup4 = [](ROOT::Math::PtEtaPhiMVector &met_p4, const float &pz_nu) {
