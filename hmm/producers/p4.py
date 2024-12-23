@@ -1219,6 +1219,72 @@ mu2_nu_dphi = Producer(
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
+W_mu1_dR = Producer(
+    name="W_mu1_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.muon_leadingp4_H,
+    ],
+    output=[q.W_mu1_dR],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+W_mu1_deta = Producer(
+    name="W_mu1_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.muon_leadingp4_H,
+    ],
+    output=[q.W_mu1_deta],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+W_mu1_dphi = Producer(
+    name="W_mu1_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.muon_leadingp4_H,
+    ],
+    output=[q.W_mu1_dphi],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+W_mu2_dR = Producer(
+    name="W_mu2_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.muon_leadingp4_H,
+    ],
+    output=[q.W_mu2_dR],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+W_mu2_deta = Producer(
+    name="W_mu2_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.muon_leadingp4_H,
+    ],
+    output=[q.W_mu2_deta],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+W_mu2_dphi = Producer(
+    name="W_mu2_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.muon_leadingp4_H,
+    ],
+    output=[q.W_mu2_dphi],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
 ThreeLepQuantities = ProducerGroup(
     name="ThreeLepQuantities",
     call=None,
@@ -1262,5 +1328,11 @@ ThreeLepQuantities = ProducerGroup(
       W_H_dR,
       W_H_deta,
       W_H_dphi,
+      W_mu1_dR,
+      W_mu1_deta,
+      W_mu1_dphi,
+      W_mu2_dR,
+      W_mu2_deta,
+      W_mu2_dphi,
     ],
 )

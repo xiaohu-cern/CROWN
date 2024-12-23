@@ -2568,6 +2568,12 @@ def build_config(
             q.W_H_dR,
             q.W_H_deta,
             q.W_H_dphi,
+            q.W_mu1_dR,
+            q.W_mu1_deta,
+            q.W_mu1_dphi,
+            q.W_mu2_dR,
+            q.W_mu2_deta,
+            q.W_mu2_dphi,
         ]
     )
     configuration.add_outputs(
