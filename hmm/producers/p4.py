@@ -854,6 +854,40 @@ W_eta = Producer(
     scopes=["e2m","m2m"],
 )
 
+W_H_dR = Producer(
+    name="W_H_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.dimuon_p4_Higgs,
+    ],
+    output=[q.W_H_dR],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+W_H_deta = Producer(
+    name="W_H_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.dimuon_p4_Higgs,
+    ],
+    output=[q.W_H_deta],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+
+W_H_dphi = Producer(
+    name="W_H_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.dimuon_p4_Higgs,
+    ],
+    output=[q.W_H_dphi],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
 ### mu1_H_dR
 
 mu1_H_dR = Producer(
@@ -1225,5 +1259,8 @@ ThreeLepQuantities = ProducerGroup(
       
       calc_W_p4,
       W_eta, # W_pt, W_phi already finished
+      W_H_dR,
+      W_H_deta,
+      W_H_dphi,
     ],
 )

@@ -577,3 +577,6 @@ mu2_nu_dphi = Quantity("mu2_nu_dphi")
 mu2_nu_dR = Quantity("mu2_nu_dR")
 
 W_eta = Quantity("W_eta")
+W_H_dR = Quantity("W_H_dR")
+W_H_deta = Quantity("W_H_deta")
+W_H_dphi = Quantity("W_H_dphi")
