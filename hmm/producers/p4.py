@@ -1285,6 +1285,105 @@ W_mu2_dphi = Producer(
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
+W_lep_dR = Producer(
+    name="W_lep_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.extra_lep_p4,
+    ],
+    output=[q.W_lep_dR],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+W_lep_deta = Producer(
+    name="W_lep_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.extra_lep_p4,
+    ],
+    output=[q.W_lep_deta],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+W_lep_dphi = Producer(
+    name="W_lep_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.extra_lep_p4,
+    ],
+    output=[q.W_lep_dphi],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+W_nu_dR = Producer(
+    name="W_nu_dR",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.nu_p4,
+    ],
+    output=[q.W_nu_dR],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+W_nu_deta = Producer(
+    name="W_nu_deta",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.nu_p4,
+    ],
+    output=[q.W_nu_deta],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+W_nu_dphi = Producer(
+    name="W_nu_dphi",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.W_p4,
+      q.nu_p4,
+    ],
+    output=[q.W_nu_dphi],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+ptW_ov_ptH = Producer(
+    name = "ptW_ov_ptH",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.W_pt,
+      q.H_pt,
+    ],
+    output = [q.ptW_ov_ptH],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+met_ov_ptW = Producer(
+    name = "met_ov_ptW",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.met_pt,
+      q.W_pt,
+    ],
+    output = [q.met_ov_ptW],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+ptl_ov_ptW = Producer(
+    name = "ptl_ov_ptW",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.extra_lep_pt,
+      q.W_pt,
+    ],
+    output = [q.ptl_ov_ptW],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
 ThreeLepQuantities = ProducerGroup(
     name="ThreeLepQuantities",
     call=None,
@@ -1334,5 +1433,14 @@ ThreeLepQuantities = ProducerGroup(
       W_mu2_dR,
       W_mu2_deta,
       W_mu2_dphi,
+      W_lep_dR,
+      W_lep_deta,
+      W_lep_dphi,
+      W_nu_dR,
+      W_nu_deta,
+      W_nu_dphi,
+      ptW_ov_ptH,
+      met_ov_ptW,
+      ptl_ov_ptW,
     ],
 )

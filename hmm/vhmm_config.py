@@ -2574,6 +2574,15 @@ def build_config(
             q.W_mu2_dR,
             q.W_mu2_deta,
             q.W_mu2_dphi,
+            q.W_lep_dR,
+            q.W_lep_deta,
+            q.W_lep_dphi,
+            q.W_nu_dR,
+            q.W_nu_deta,
+            q.W_nu_dphi,
+            q.ptW_ov_ptH,
+            q.met_ov_ptW,
+            q.ptl_ov_ptW,
         ]
     )
     configuration.add_outputs(
