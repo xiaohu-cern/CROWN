@@ -1384,6 +1384,61 @@ ptl_ov_ptW = Producer(
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
+Calc_CosThStar_lep_W = Producer(
+    name="Calc_CosThStar_lep_W",
+    call="physicsobject::Calc_CosThetaStar({df}, {output}, {input})",
+    input=[
+      q.extra_lep_p4,
+      q.nu_p4,
+    ],
+    output=[q.lep_W_cosThStar],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+)
+
+Calc_CosThStar_mu1_H = Producer(
+    name="Calc_CosThStar_mu1_H",
+    call="physicsobject::Calc_CosThetaStar({df}, {output}, {input})",
+    input=[
+      q.muon_leadingp4_H,
+      q.muon_subleadingp4_H,
+    ],
+    output=[q.mu1_H_cosThStar],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+)
+
+Calc_CosThStar_H_WH = Producer(
+    name="Calc_CosThStar_H_WH",
+    call="physicsobject::Calc_CosThetaStar({df}, {output}, {input})",
+    input=[
+      q.dimuon_p4_Higgs,
+      q.W_p4,
+    ],
+    output=[q.H_WH_cosThStar],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+)
+
+mu1_mu2_kT = Producer(
+    name = "mu1_mu2_kT",
+    call = "quantities::calculate_kT({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H,
+      q.muon_subleadingp4_H,
+    ],
+    output = [q.mu1_mu2_kT],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+mu1_mu2_antikT = Producer(
+    name = "mu1_mu2_antikT",
+    call = "quantities::calculate_antikT({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H,
+      q.muon_subleadingp4_H,
+    ],
+    output = [q.mu1_mu2_antikT],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
 ThreeLepQuantities = ProducerGroup(
     name="ThreeLepQuantities",
     call=None,
@@ -1442,5 +1497,10 @@ ThreeLepQuantities = ProducerGroup(
       ptW_ov_ptH,
       met_ov_ptW,
       ptl_ov_ptW,
+      Calc_CosThStar_lep_W,
+      Calc_CosThStar_mu1_H,
+      Calc_CosThStar_H_WH,
+      mu1_mu2_kT,
+      mu1_mu2_antikT,
     ],
 )

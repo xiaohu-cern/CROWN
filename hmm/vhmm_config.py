@@ -2583,6 +2583,12 @@ def build_config(
             q.ptW_ov_ptH,
             q.met_ov_ptW,
             q.ptl_ov_ptW,
+            
+            q.lep_W_cosThStar,
+            q.mu1_H_cosThStar,
+            q.H_WH_cosThStar,
+            q.mu1_mu2_kT,
+            q.mu1_mu2_antikT,
         ]
     )
     configuration.add_outputs(
