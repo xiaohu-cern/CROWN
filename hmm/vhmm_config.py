@@ -2072,6 +2072,7 @@ def build_config(
             scalefactors.EleID_SF,
             scalefactors.EleReco_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+            p4.FourLepQuantities, # hackathon
         ],
     )
     configuration.add_producers(
@@ -2155,6 +2156,7 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+            p4.FourLepQuantities, # hackathon
         ],
     )
     configuration.add_producers(
@@ -2233,6 +2235,7 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+            p4.METMuMuQuantities, # hackathon
         ],
     )
     configuration.add_producers(
@@ -2325,6 +2328,7 @@ def build_config(
             event.fatjet_PNet_withMass_TvsQCD,
             scalefactors.MuonIDIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+            p4.FatJetMuMuQuantities, # hackathon
         ],
     )
     configuration.add_producers(
@@ -2591,6 +2595,28 @@ def build_config(
             q.mu1_mu2_antikT,
         ]
     )
+    # hackathon
+    configuration.add_outputs(
+        ["eemm","mmmm"],
+        [
+            q.ptH_ov_massH,
+        ]
+    )
+    # hackathon
+    configuration.add_outputs(
+        ["nnmm"],
+        [
+            q.ptH_ov_massH,
+        ]
+    )
+    # hackathon
+    configuration.add_outputs(
+        ["fjmm"],
+        [
+            q.ptH_ov_massH,
+        ]
+    )
+
     configuration.add_outputs(
         ["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
         [

@@ -1504,3 +1504,36 @@ ThreeLepQuantities = ProducerGroup(
       mu1_mu2_antikT,
     ],
 )
+
+FourLepQuantities = ProducerGroup(
+    name="FourLepQuantities",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["eemm", "mmmm"],
+    subproducers=[
+      ptH_ov_massH,
+    ],
+)
+
+FatJetMuMuQuantities = ProducerGroup(
+    name="FatJetMuMuQuantities",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["fjmm"],
+    subproducers=[
+      ptH_ov_massH,
+    ],
+)
+
+METMuMuQuantities = ProducerGroup(
+    name="METMuMuQuantities",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["nnmm"],
+    subproducers=[
+      ptH_ov_massH,
+    ],
+)
