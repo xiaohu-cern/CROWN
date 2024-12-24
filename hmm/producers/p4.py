@@ -1403,7 +1403,7 @@ Calc_CosThStar_mu1_H = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu1_H_cosThStar],
-    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    scopes=["e2m","m2m","eemm","mmmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 
 Calc_CosThStar_H_WH = Producer(
@@ -1437,6 +1437,161 @@ mu1_mu2_antikT = Producer(
     ],
     output = [q.mu1_mu2_antikT],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+
+##4l new variables added by Mingxuan 2024/12/24
+Z_H_dR = Producer(
+    name = "Z_H_dR",
+    call = "quantities::deltaR({df}, {output}, {input})",
+    input = [
+      q.dilepton_p4_Z,
+      q.dimuon_p4_Higgs,
+    ],
+    output = [q.Z_H_dR],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep1_lep2_cosThStar = Producer(
+    name = "lep1_lep2_cosThStar",
+    call = "quantities::Calc_CosThetaStar({df}, {output}, {input})",
+    input = [
+      q.lepton_leadingp4_Z,
+      q.lepton_subleadingp4_Z,
+    ],
+    output = [q.lep1_lep2_cosThStar],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep1_mu1_dR = Producer(
+    name = "lep1_mu1_dR",
+    call = "quantities::deltaR({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H,
+      q.lepton_leadingp4_Z,
+    ],
+    output = [q.lep1_mu1_dR],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep1_mu1_deta = Producer(
+    name = "lep1_mu1_deta",
+    call = "quantities::deltaEta({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H,
+      q.lepton_leadingp4_Z,
+    ],
+    output = [q.lep1_mu1_deta],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep1_mu1_dphi = Producer(
+    name = "lep1_mu1_dphi",
+    call = "quantities::deltaPhi({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H,
+      q.lepton_leadingp4_Z,
+    ],
+    output = [q.lep1_mu1_dphi],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep1_mu2_dR = Producer(
+    name = "lep1_mu2_dR",
+    call = "quantities::deltaR({df}, {output}, {input})",
+    input = [
+      q.muon_subleadingp4_H,
+      q.lepton_leadingp4_Z,
+    ],
+    output = [q.lep1_mu2_dR],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep1_mu2_deta = Producer(
+    name = "lep1_mu2_deta",
+    call = "quantities::deltaEta({df}, {output}, {input})",
+    input = [
+      q.muon_subleadingp4_H,
+      q.lepton_leadingp4_Z,
+    ],
+    output = [q.lep1_mu2_deta],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep1_mu2_dphi = Producer(
+    name = "lep1_mu2_dphi",
+    call = "quantities::deltaPhi({df}, {output}, {input})",
+    input = [
+      q.muon_subleadingp4_H,
+      q.lepton_leadingp4_Z,
+    ],
+    output = [q.lep1_mu2_dphi],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep2_mu1_dR = Producer(
+    name = "lep2_mu1_dR",
+    call = "quantities::deltaR({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H,
+      q.lepton_subleadingp4_Z,
+    ],
+    output = [q.lep2_mu1_dR],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep2_mu1_deta = Producer(
+    name = "lep2_mu1_deta",
+    call = "quantities::deltaEta({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H,
+      q.lepton_subleadingp4_Z,
+    ],
+    output = [q.lep2_mu1_deta],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep2_mu1_dphi = Producer(
+    name = "lep2_mu1_dphi",
+    call = "quantities::deltaPhi({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H,
+      q.lepton_subleadingp4_Z,
+    ],
+    output = [q.lep2_mu1_dphi],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep2_mu2_dR = Producer(
+    name = "lep2_mu2_dR",
+    call = "quantities::deltaR({df}, {output}, {input})",
+    input = [
+      q.muon_subleadingp4_H,
+      q.lepton_subleadingp4_Z,
+    ],
+    output = [q.lep2_mu2_dR],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep2_mu2_deta = Producer(
+    name = "lep2_mu2_deta",
+    call = "quantities::deltaEta({df}, {output}, {input})",
+    input = [
+      q.muon_subleadingp4_H,
+      q.lepton_subleadingp4_Z,
+    ],
+    output = [q.lep2_mu2_deta],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep2_mu2_dphi = Producer(
+    name = "lep2_mu2_dphi",
+    call = "quantities::deltaPhi({df}, {output}, {input})",
+    input = [
+      q.muon_subleadingp4_H,
+      q.lepton_subleadingp4_Z,
+    ],
+    output = [q.lep2_mu2_dphi],
+    scopes = ["eemm", "mmmm"],
 )
 
 ThreeLepQuantities = ProducerGroup(
@@ -1513,6 +1668,23 @@ FourLepQuantities = ProducerGroup(
     scopes=["eemm", "mmmm"],
     subproducers=[
       ptH_ov_massH,
+      Z_H_dR, ##mingxuan add 2024/12/24
+      lep1_lep2_cosThStar,
+      Calc_CosThStar_mu1_H,
+
+      lep1_mu1_dR,
+      lep1_mu1_deta,
+      lep1_mu1_dphi,
+      lep1_mu2_dR,
+      lep1_mu2_deta,
+      lep1_mu2_dphi,
+
+      lep2_mu1_dR,
+      lep2_mu1_deta,
+      lep2_mu1_dphi,
+      lep2_mu2_dR,
+      lep2_mu2_deta,
+      lep2_mu2_dphi,
     ],
 )
 

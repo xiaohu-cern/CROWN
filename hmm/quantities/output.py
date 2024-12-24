@@ -600,3 +600,21 @@ mu1_H_cosThStar = Quantity("mu1_H_cosThStar")
 H_WH_cosThStar = Quantity("H_WH_cosThStar")
 mu1_mu2_kT = Quantity("mu1_mu2_kT")
 mu1_mu2_antikT = Quantity("mu1_mu2_antikT")
+
+##4l new variables added by Mingxuan 2024/12/24 lepton_leadingp4_Z
+Z_H_dR = Quantity("Z_H_dR")
+lep1_lep2_cosThStar = Quantity("lep1_lep2_cosThStar")
+
+lep1_mu1_dR = Quantity("lep1_mu1_dR")
+lep1_mu1_deta = Quantity("lep1_mu1_deta")
+lep1_mu1_dphi = Quantity("lep1_mu1_dphi")
+lep1_mu2_dR = Quantity("lep1_mu2_dR")
+lep1_mu2_deta = Quantity("lep1_mu2_deta")
+lep1_mu2_dphi = Quantity("lep1_mu2_dphi")
+
+lep2_mu1_dR = Quantity("lep2_mu1_dR")
+lep2_mu1_deta = Quantity("lep2_mu1_deta")
+lep2_mu1_dphi = Quantity("lep2_mu1_dphi")
+lep2_mu2_dR = Quantity("lep2_mu2_dR")
+lep2_mu2_deta = Quantity("lep2_mu2_deta")
+lep2_mu2_dphi = Quantity("lep2_mu2_dphi")
