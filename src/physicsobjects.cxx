@@ -56,7 +56,7 @@ ROOT::RDF::RNode build_nup4(ROOT::RDF::RNode df, const std::string &outputname,
         ROOT::Math::PtEtaPhiMVector nu_p4;
         // ROOT::Math::PxPyPzEVector nu_p4;
         float nu_px = met_p4.pt() * cos(met_p4.phi());
-        float nu_py = met_p4.pt() * cos(met_p4.phi());
+        float nu_py = met_p4.pt() * sin(met_p4.phi());
         float nu_e = sqrt(nu_px * nu_px + nu_py * nu_py + pz_nu * pz_nu);
         nu_tmp_p4.SetPxPyPzE(nu_px, nu_py, pz_nu, nu_e);
         nu_p4 = ROOT::Math::PtEtaPhiMVector(nu_tmp_p4.Pt(), nu_tmp_p4.Eta(), nu_tmp_p4.Phi(), nu_tmp_p4.M());
