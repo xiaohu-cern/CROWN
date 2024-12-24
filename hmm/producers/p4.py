@@ -1594,6 +1594,39 @@ lep2_mu2_dphi = Producer(
     scopes = ["eemm", "mmmm"],
 )
 
+lep1_lep2_dR = Producer(
+    name = "lep1_lep2_dR",
+    call = "quantities::deltaR({df}, {output}, {input})",
+    input = [
+      q.lepton_leadingp4_Z,
+      q.lepton_subleadingp4_Z,
+    ],
+    output = [q.lep1_lep2_dR],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep1_lep2_deta = Producer(
+    name = "lep1_lep2_deta",
+    call = "quantities::deltaEta({df}, {output}, {input})",
+    input = [
+      q.lepton_leadingp4_Z,
+      q.lepton_subleadingp4_Z,
+    ],
+    output = [q.lep1_lep2_deta],
+    scopes = ["eemm", "mmmm"],
+)
+
+lep1_lep2_dphi = Producer(
+    name = "lep1_lep2_dphi",
+    call = "quantities::deltaPhi({df}, {output}, {input})",
+    input = [
+      q.lepton_leadingp4_Z,
+      q.lepton_subleadingp4_Z,
+    ],
+    output = [q.lep1_lep2_dphi],
+    scopes = ["eemm", "mmmm"],
+)
+
 ThreeLepQuantities = ProducerGroup(
     name="ThreeLepQuantities",
     call=None,
@@ -1685,6 +1718,10 @@ FourLepQuantities = ProducerGroup(
       lep2_mu2_dR,
       lep2_mu2_deta,
       lep2_mu2_dphi,
+
+      lep1_lep2_dR,
+      lep1_lep2_deta,
+      lep1_lep2_dphi,
     ],
 )
 

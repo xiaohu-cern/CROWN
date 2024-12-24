@@ -2600,7 +2600,7 @@ def build_config(
         ["eemm","mmmm"],
         [
             q.ptH_ov_massH,
-            q.Z_H_dR,
+            q.Z_H_dR, ## mingxuan add 2024/12/24
             q.lep1_lep2_cosThStar,
             q.mu1_H_cosThStar,
             
@@ -2617,6 +2617,10 @@ def build_config(
             q.lep2_mu2_dR,
             q.lep2_mu2_deta,
             q.lep2_mu2_dphi,
+
+            q.lep1_lep2_dR,
+            q.lep1_lep2_deta,
+            q.lep1_lep2_dphi,
         ]
     )
     # hackathon

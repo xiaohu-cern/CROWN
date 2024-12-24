@@ -618,3 +618,7 @@ lep2_mu1_dphi = Quantity("lep2_mu1_dphi")
 lep2_mu2_dR = Quantity("lep2_mu2_dR")
 lep2_mu2_deta = Quantity("lep2_mu2_deta")
 lep2_mu2_dphi = Quantity("lep2_mu2_dphi")
+
+lep1_lep2_dR = Quantity("lep1_lep2_dR")
+lep1_lep2_deta = Quantity("lep1_lep2_deta")
+lep1_lep2_dphi = Quantity("lep1_lep2_dphi")
