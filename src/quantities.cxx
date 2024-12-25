@@ -326,7 +326,7 @@ ROOT::RDF::RNode deltaPhi(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &p_1_p4, const std::string &p_2_p4) {
     auto calculate_deltaPhi = [](ROOT::Math::PtEtaPhiMVector &p_1_p4,
                                ROOT::Math::PtEtaPhiMVector &p_2_p4) {
-        return ROOT::Math::VectorUtil::DeltaPhi(p_1_p4, p_2_p4);
+        return abs(ROOT::Math::VectorUtil::DeltaPhi(p_1_p4, p_2_p4));
     };
     return df.Define(outputname, calculate_deltaPhi, {p_1_p4, p_2_p4});
 }
