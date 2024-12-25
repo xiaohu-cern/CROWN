@@ -2621,6 +2621,17 @@ def build_config(
             q.lep1_lep2_dR,
             q.lep1_lep2_deta,
             q.lep1_lep2_dphi,
+
+            q.ptmu1_ov_ptH, ##mingxuan add 2024/12/25
+            q.ptmu2_ov_ptH,
+            q.ptmu1_ov_massH,
+            q.ptmu2_ov_massH,
+
+            q.ptZ_ov_massZ,
+            q.ptlep1_ov_massZ,
+            q.ptlep1_ov_ptZ,
+            q.ptlep2_ov_massZ,
+            q.ptlep2_ov_ptZ,
         ]
     )
     # hackathon
@@ -2628,6 +2639,17 @@ def build_config(
         ["nnmm"],
         [
             q.ptH_ov_massH,
+            q.ptmu1_ov_massH,
+            q.ptmu1_ov_ptH,
+            q.ptmu2_ov_massH,
+            q.ptmu2_ov_ptH,
+
+            q.mu1_H_cosThStar,
+
+            q.met_ov_massH,
+            q.met_ov_ptH,
+            q.met_mu1_dphi,
+            q.met_mu2_dphi,
         ]
     )
     # hackathon
@@ -2635,6 +2657,15 @@ def build_config(
         ["fjmm"],
         [
             q.ptH_ov_massH,
+            q.ptmu1_ov_massH,
+            q.ptmu1_ov_ptH,
+            q.ptmu2_ov_massH,
+            q.ptmu2_ov_ptH,
+
+            q.mu1_H_cosThStar,
+
+            q.ptfj_ov_ptH,
+            q.mfj_ov_massH,
         ]
     )
 

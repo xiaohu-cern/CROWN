@@ -622,3 +622,21 @@ lep2_mu2_dphi = Quantity("lep2_mu2_dphi")
 lep1_lep2_dR = Quantity("lep1_lep2_dR")
 lep1_lep2_deta = Quantity("lep1_lep2_deta")
 lep1_lep2_dphi = Quantity("lep1_lep2_dphi")
+
+ptZ_ov_massZ = Quantity("ptZ_ov_massZ")
+ptlep1_ov_ptZ = Quantity("ptlep1_ov_ptZ")
+ptlep2_ov_ptZ = Quantity("ptlep2_ov_ptZ")
+ptlep1_ov_massZ = Quantity("ptlep1_ov_massZ")
+ptlep2_ov_massZ = Quantity("ptlep2_ov_massZ")
+
+ptfj_ov_ptH = Quantity("ptfj_ov_ptH") ## fatjet 2024/12/25
+mfj_ov_massH = Quantity("mfj_ov_massH")
+
+met_ov_ptH = Quantity("met_ov_ptH")
+met_ov_massH = Quantity("met_ov_massH")
+met_mu1_dphi = Quantity("met_mu1_dphi")
+met_mu2_dphi = Quantity("met_mu2_dphi")
+
+
+
+

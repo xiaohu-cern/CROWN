@@ -1403,7 +1403,7 @@ Calc_CosThStar_mu1_H = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu1_H_cosThStar],
-    scopes=["e2m","m2m","eemm","mmmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    scopes=["e2m","m2m","eemm","mmmm","fjmm","nnmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 
 Calc_CosThStar_H_WH = Producer(
@@ -1627,6 +1627,127 @@ lep1_lep2_dphi = Producer(
     scopes = ["eemm", "mmmm"],
 )
 
+ptZ_ov_massZ = Producer(
+    name = "ptZ_ov_massZ",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.Z_pt,
+      q.Z_mass,
+    ],
+    output = [q.ptZ_ov_massZ],
+    scopes = ["eemm", "mmmm"],
+)
+
+ptlep1_ov_ptZ = Producer(
+    name = "ptlep1_ov_ptZ",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.lep1_fromZ_pt,
+      q.Z_pt,
+    ],
+    output = [q.ptlep1_ov_ptZ],
+    scopes = ["eemm", "mmmm"],
+)
+
+ptlep2_ov_ptZ = Producer(
+    name = "ptlep2_ov_ptZ",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.lep2_fromZ_pt,
+      q.Z_pt,
+    ],
+    output = [q.ptlep2_ov_ptZ],
+    scopes = ["eemm", "mmmm"],
+)
+
+ptlep1_ov_massZ = Producer(
+    name = "ptlep1_ov_massZ",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.lep1_fromZ_pt,
+      q.Z_mass,
+    ],
+    output = [q.ptlep1_ov_massZ],
+    scopes = ["eemm", "mmmm"],
+)
+
+ptlep2_ov_massZ = Producer(
+    name = "ptlep2_ov_massZ",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.lep2_fromZ_pt,
+      q.Z_mass,
+    ],
+    output = [q.ptlep2_ov_massZ],
+    scopes = ["eemm", "mmmm"],
+)
+
+ptfj_ov_ptH = Producer(
+    name = "ptfj_ov_ptH",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.fatjet_pt,
+      q.H_pt,
+    ],
+    output = [q.ptfj_ov_ptH],
+    scopes = ["fjmm"],
+)
+
+mfj_ov_massH = Producer(
+    name = "mfj_ov_massH",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.fatjet_mass,
+      q.H_mass,
+    ],
+    output = [q.mfj_ov_massH],
+    scopes = ["fjmm"],
+)
+
+met_ov_ptH = Producer(
+    name = "met_ov_ptH",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.met_pt,
+      q.H_pt,
+    ],
+    output = [q.met_ov_ptH],
+    scopes = ["nnmm"],
+)
+
+met_ov_massH = Producer(
+    name = "met_ov_massH",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.met_pt,
+      q.H_mass,
+    ],
+    output = [q.met_ov_massH],
+    scopes = ["nnmm"],
+)
+
+met_mu1_dphi = Producer(
+    name = "met_mu1_dphi",
+    call = "quantities::deltaPhi({df}, {output}, {input})",
+    input = [
+      q.met_p4,
+      q.muon_leadingp4_H
+    ],
+    output = [q.met_mu1_dphi],
+    scopes = ["nnmm"],
+)
+
+met_mu2_dphi = Producer(
+    name = "met_mu2_dphi",
+    call = "quantities::deltaPhi({df}, {output}, {input})",
+    input = [
+      q.met_p4,
+      q.muon_subleadingp4_H
+    ],
+    output = [q.met_mu2_dphi],
+    scopes = ["nnmm"],
+)
+
 ThreeLepQuantities = ProducerGroup(
     name="ThreeLepQuantities",
     call=None,
@@ -1722,6 +1843,17 @@ FourLepQuantities = ProducerGroup(
       lep1_lep2_dR,
       lep1_lep2_deta,
       lep1_lep2_dphi,
+
+      ptmu1_ov_ptH, ##mingxuan add 2024/12/25
+      ptmu2_ov_ptH,
+      ptmu1_ov_massH,
+      ptmu2_ov_massH,
+
+      ptZ_ov_massZ,
+      ptlep1_ov_massZ,
+      ptlep1_ov_ptZ,
+      ptlep2_ov_massZ,
+      ptlep2_ov_ptZ,
     ],
 )
 
@@ -1733,6 +1865,15 @@ FatJetMuMuQuantities = ProducerGroup(
     scopes=["fjmm"],
     subproducers=[
       ptH_ov_massH,
+      ptmu1_ov_ptH, ##mingxuan add 2024/12/25
+      ptmu2_ov_ptH,
+      ptmu1_ov_massH,
+      ptmu2_ov_massH,
+
+      Calc_CosThStar_mu1_H,
+
+      ptfj_ov_ptH,
+      mfj_ov_massH,
     ],
 )
 
@@ -1744,5 +1885,16 @@ METMuMuQuantities = ProducerGroup(
     scopes=["nnmm"],
     subproducers=[
       ptH_ov_massH,
+      ptmu1_ov_massH,
+      ptmu1_ov_ptH,
+      ptmu2_ov_massH,
+      ptmu2_ov_ptH,
+
+      Calc_CosThStar_mu1_H,
+
+      met_ov_massH,
+      met_ov_ptH,
+      met_mu1_dphi,
+      met_mu2_dphi,
     ],
 )
