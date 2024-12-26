@@ -1453,7 +1453,7 @@ Z_H_dR = Producer(
 
 lep1_lep2_cosThStar = Producer(
     name = "lep1_lep2_cosThStar",
-    call = "quantities::Calc_CosThetaStar({df}, {output}, {input})",
+    call = "physicsobject::Calc_CosThetaStar({df}, {output}, {input})",
     input = [
       q.lepton_leadingp4_Z,
       q.lepton_subleadingp4_Z,
