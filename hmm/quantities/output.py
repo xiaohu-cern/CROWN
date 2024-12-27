@@ -637,6 +637,21 @@ met_ov_massH = Quantity("met_ov_massH")
 met_mu1_dphi = Quantity("met_mu1_dphi")
 met_mu2_dphi = Quantity("met_mu2_dphi")
 
+##new var from HZZ with _hzz mingxuan 2024/12/27
+##for 4l
+cosThStar_4l_hzz = Quantity("cosThStar_4l_hzz")
+cosphi_4l_hzz = Quantity("cosphi_4l_hzz")
+cosphi1_4l_hzz = Quantity("cosphi1_4l_hzz")
+cosTh1_4l_hzz = Quantity("cosTh1_4l_hzz")
+
+##for met
+Mct = Quantity("Mct")
+
+##for fatjet
+cosThStar_fj_hzz = Quantity("cosThStar_fj_hzz")
+cosTh1_fj_hzz = Quantity("cosTh1_fj_hzz")
+cosphi1_fj_hzz = Quantity("cosphi1_fj_hzz")
+
 
 
 

@@ -24,6 +24,27 @@
 /// The namespace that is used to hold the functions for basic quantities that
 /// are needed for every event
 namespace quantities {
+///mingxuan calc met Mct
+ROOT::RDF::RNode calc_Mct(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &mu1_p4, const std::string &mu2_p4) {
+    auto calc_met_Mct = [](ROOT::Math::PtEtaPhiMVector &mu1_p4,
+                           ROOT::Math::PtEtaPhiMVector &mu2_p4) {
+        float px1, px2, py1, py2, Et1, Et2;
+        float Mct;
+        px1 = mu1_p4.Px(), px2 = mu2_p4.Px(), py1 = mu1_p4.Py(), py2 = mu2_p4.Py();
+        float muon_mass = 0.1056583755;
+        Et1 = sqrt(px1*px1 + py1*py1 + muon_mass*muon_mass);
+        Et2 = sqrt(px2*px2 + py2*py2 + muon_mass*muon_mass);
+        Mct = sqrt((Et1+Et1)*(Et1+Et1) - ((px1-px2)*(px1-px2) + (py1-py2)*(py1-py2)));
+
+        if ( !std::isnan(Mct) && !std::isinf(Mct) ) {
+            return Mct;
+        } else {
+            return -10.0f;
+        }
+    };
+    return df.Define(outputname, calc_met_Mct, {mu1_p4, mu2_p4});
+}
 ///mingxuan add A/B
 ROOT::RDF::RNode calc_ratio(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &A, const std::string &B) {

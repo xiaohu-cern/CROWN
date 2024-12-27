@@ -1453,7 +1453,7 @@ Z_H_dR = Producer(
 
 lep1_lep2_cosThStar = Producer(
     name = "lep1_lep2_cosThStar",
-    call = "quantities::Calc_CosThetaStar({df}, {output}, {input})",
+    call = "physicsobject::Calc_CosThetaStar({df}, {output}, {input})",
     input = [
       q.lepton_leadingp4_Z,
       q.lepton_subleadingp4_Z,
@@ -1748,6 +1748,100 @@ met_mu2_dphi = Producer(
     scopes = ["nnmm"],
 )
 
+##mingxuan add new var from hzz
+cosThStar_4l_hzz = Producer(
+    name = "cosThStar_4l_hzz",
+    call = "physicsobject::calc_4l_cosThStar_hzz({df}, {output}, {input})",
+    input = [
+      q.dilepton_p4_Z,
+      q.dimuon_p4_Higgs,
+      q.muon_leadingp4_H,
+    ],
+    output = [q.cosThStar_4l_hzz],
+    scopes = ['eemm', 'mmmm'],
+)
+
+cosTh1_4l_hzz = Producer(
+    name = "cosTh1_4l_hzz",
+    call = "physicsobject::calc_4l_cosTh1_hzz({df}, {output}, {input})",
+    input = [
+      q.dilepton_p4_Z,
+      q.dimuon_p4_Higgs,
+    ],
+    output = [q.cosTh1_4l_hzz],
+    scopes = ['eemm', 'mmmm'],
+)
+
+cosphi_4l_hzz = Producer(
+    name = "cosThStar_4l_hzz",
+    call = "physicsobject::calc_4l_cosphi_hzz({df}, {output}, {input})",
+    input = [
+      q.lepton_leadingp4_Z,
+      q.dilepton_p4_Z,
+      q.dimuon_p4_Higgs,
+    ],
+    output = [q.cosphi_4l_hzz],
+    scopes = ['eemm', 'mmmm'],
+)
+
+cosphi1_4l_hzz = Producer(
+    name  = "cosphi1_4l_hzz",
+    call = "physicsobject::calc_4l_cosphi1_hzz({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H,
+      q.dimuon_p4_Higgs,
+      q.dilepton_p4_Z,
+    ],
+    output = [q.cosphi1_4l_hzz],
+    scopes = ['eemm', 'mmmm'],
+)
+
+Mct = Producer(
+    name = "Mct",
+    call = "quantities::calc_Mct({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H,
+      q.muon_subleadingp4_H,
+    ],
+    output = [q.Mct],
+    scopes = ["nnmm"],
+)
+
+cosThStar_fj_hzz = Producer(
+    name = "cosThStar_fj_hzz",
+    call = "physicsobject::calc_4l_cosThStar_hzz({df}, {output}, {input})",
+    input = [
+      q.fatjet_p4_1,
+      q.dimuon_p4_Higgs,
+      q.muon_leadingp4_H,
+    ],
+    output = [q.cosThStar_fj_hzz],
+    scopes = ["fjmm"],
+)
+
+cosTh1_fj_hzz = Producer(
+    name = "cosTh1_fj_hzz",
+    call = "physicsobject::calc_4l_cosTh1_hzz({df}, {output}, {input})",
+    input = [
+      q.fatjet_p4_1,
+      q.dimuon_p4_Higgs,
+    ],
+    output = [q.cosTh1_fj_hzz],
+    scopes = ["fjmm"],
+)
+
+cosphi1_fj_hzz = Producer(
+    name = "cosphi1_fj_hzz",
+    call = "physicsobject::calc_4l_cosphi1_hzz({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H,
+      q.dimuon_p4_Higgs,
+      q.fatjet_p4_1,
+    ],
+    output = [q.cosphi1_fj_hzz],
+    scopes = ["fjmm"],
+)
+
 ThreeLepQuantities = ProducerGroup(
     name="ThreeLepQuantities",
     call=None,
@@ -1854,6 +1948,11 @@ FourLepQuantities = ProducerGroup(
       ptlep1_ov_ptZ,
       ptlep2_ov_massZ,
       ptlep2_ov_ptZ,
+
+      cosThStar_4l_hzz, ##mingxian add 2024/12/27
+      cosTh1_4l_hzz,
+      cosphi1_4l_hzz,
+      cosphi_4l_hzz,
     ],
 )
 
@@ -1874,6 +1973,10 @@ FatJetMuMuQuantities = ProducerGroup(
 
       ptfj_ov_ptH,
       mfj_ov_massH,
+
+      cosphi1_fj_hzz, ##mingxuan add 2024/12/28
+      cosTh1_fj_hzz,
+      cosThStar_fj_hzz,
     ],
 )
 
@@ -1896,5 +1999,7 @@ METMuMuQuantities = ProducerGroup(
       met_ov_ptH,
       met_mu1_dphi,
       met_mu2_dphi,
+
+      Mct,
     ],
 )

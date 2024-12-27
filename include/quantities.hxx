@@ -17,6 +17,9 @@
 #include <Math/Boost.h>
 
 namespace quantities {
+//mingxuan add
+ROOT::RDF::RNode calc_Mct(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &mu1_p4, const std::string &mu2_p4);
 ROOT::RDF::RNode calc_ratio(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &A, const std::string &B);
 ROOT::RDF::RNode calculateNeutrinoPz(ROOT::RDF::RNode df, const std::string &outputname,

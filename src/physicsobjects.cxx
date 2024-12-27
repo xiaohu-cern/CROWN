@@ -32,6 +32,125 @@
 /// multiple cuts can be combined by multiplying masks using
 /// physicsobject::CombineMasks.
 namespace physicsobject {
+///mingxuan calc 4l cosThStar from HZZ
+ROOT::RDF::RNode calc_4l_cosThStar_hzz(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &v_p4_, const std::string &h_p4_, const std::string &mu_p4_) {
+    auto calc_cosThStar = [](ROOT::Math::PtEtaPhiMVector &v_p4_,
+                             ROOT::Math::PtEtaPhiMVector &h_p4_,
+                             ROOT::Math::PtEtaPhiMVector &mu_p4_) {
+        TLorentzVector h_p4;
+        TLorentzVector v_p4;
+        TLorentzVector mu_p4;
+        h_p4.SetPtEtaPhiM(h_p4_.Pt(), h_p4_.Eta(), h_p4_.Phi(), h_p4_.M());
+        v_p4.SetPtEtaPhiM(v_p4_.Pt(), v_p4_.Eta(), v_p4_.Phi(), v_p4_.M());
+        mu_p4.SetPtEtaPhiM(mu_p4_.Pt(), mu_p4_.Eta(), mu_p4_.Phi(), mu_p4_.M());
+
+        TLorentzVector mom_v_p4;
+        mom_v_p4 = v_p4 + h_p4;
+        TVector3 boost_vec;
+        boost_vec = h_p4.BoostVector();
+        boost_vec = -boost_vec;
+        mu_p4.Boost(boost_vec);
+        TVector3 mu_vec = mu_p4.Vect();
+        TVector3 mom_v_vec = mom_v_p4.Vect();
+        float cosThStar_4l_hzz = cos(mu_vec.Angle(mom_v_vec));
+
+        if ( !std::isnan(cosThStar_4l_hzz) && !std::isinf(cosThStar_4l_hzz) ) {
+            return cosThStar_4l_hzz;
+        } else {
+            return -10.0f;
+        }
+    };
+    return df.Define(outputname, calc_cosThStar, {v_p4_, h_p4_, mu_p4_});
+}
+///mingxuan calc 4l costheta1 from hzz
+ROOT::RDF::RNode calc_4l_cosTh1_hzz(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &v_p4_, const std::string &h_p4_) {
+    auto calc_cosTh1 = [](ROOT::Math::PtEtaPhiMVector &v_p4_,
+                          ROOT::Math::PtEtaPhiMVector &h_p4_) {
+        TLorentzVector h_p4;
+        TLorentzVector v_p4;
+        h_p4.SetPtEtaPhiM(h_p4_.Pt(), h_p4_.Eta(), h_p4_.Phi(), h_p4_.M());
+        v_p4.SetPtEtaPhiM(v_p4_.Pt(), v_p4_.Eta(), v_p4_.Phi(), v_p4_.M());
+        
+        TLorentzVector mom_v_p4;
+        mom_v_p4 = v_p4 + h_p4;
+        TVector3 quark(0, 0, 1);
+        TVector3 mom_v_vec = mom_v_p4.Vect();
+        float cosTh1_hzz = cos(quark.Angle(mom_v_vec));
+
+        if ( !std::isnan(cosTh1_hzz) && !std::isinf(cosTh1_hzz) ) {
+            return cosTh1_hzz;
+        } else {
+            return -10.0f;
+        }
+    };
+    return df.Define(outputname, calc_cosTh1, {v_p4_, h_p4_});
+}
+///mingxuan calc 4l cosphi from hzz
+ROOT::RDF::RNode calc_4l_cosphi_hzz(ROOT::RDF::RNode df, const std::string &outputname,
+                                    const std::string &lep_v4_, const std::string &v_p4_, const std::string &h_p4_) {
+    auto calc_cosphi = [](ROOT::Math::PtEtaPhiMVector &lep_p4_,
+                          ROOT::Math::PtEtaPhiMVector &v_p4_,
+                          ROOT::Math::PtEtaPhiMVector &h_p4_){
+        TLorentzVector h_p4;
+        TLorentzVector v_p4;
+        TLorentzVector lep_p4;
+        h_p4.SetPtEtaPhiM(h_p4_.Pt(), h_p4_.Eta(), h_p4_.Phi(), h_p4_.M());
+        v_p4.SetPtEtaPhiM(v_p4_.Pt(), v_p4_.Eta(), v_p4_.Phi(), v_p4_.M());
+        lep_p4.SetPtEtaPhiM(lep_p4_.Pt(), lep_p4_.Eta(), lep_p4_.Phi(), lep_p4_.M());
+        
+        TLorentzVector mom_v_p4;
+        mom_v_p4 = v_p4 + h_p4;
+        TVector3 boost_vec;
+        boost_vec = v_p4.BoostVector();
+        lep_p4.Boost(-boost_vec);
+        TVector3 flat1;
+        TVector3 flat2;
+        TVector3 quark(0, 0, 1);
+        flat1 = (lep_p4.Vect()).Cross(v_p4.Vect()), flat2 = (mom_v_p4.Vect()).Cross(quark);
+        float cosphi = cos(flat1.Angle(flat2));
+
+        if ( !std::isnan(cosphi) && !std::isinf(cosphi) ) {
+            return cosphi;
+        } else {
+            return -10.0f;
+        }
+    };
+    return df.Define(outputname, calc_cosphi, {lep_v4_, v_p4_, h_p4_});
+}
+///mingxuan calc 4l cosphi1 from hzz
+ROOT::RDF::RNode calc_4l_cosphi1_hzz(ROOT::RDF::RNode df, const std::string &outputname,
+                                     const std::string &mu_p4_, const std::string &h_p4_, const std::string &v_p4_) {
+    auto calc_cosphi1 = [](ROOT::Math::PtEtaPhiMVector &mu_p4_, 
+                           ROOT::Math::PtEtaPhiMVector &h_p4_,
+                           ROOT::Math::PtEtaPhiMVector &v_p4_) {
+        TLorentzVector h_p4;
+        TLorentzVector v_p4;
+        TLorentzVector mu_p4;
+        h_p4.SetPtEtaPhiM(h_p4_.Pt(), h_p4_.Eta(), h_p4_.Phi(), h_p4_.M());
+        v_p4.SetPtEtaPhiM(v_p4_.Pt(), v_p4_.Eta(), v_p4_.Phi(), v_p4_.M());
+        mu_p4.SetPtEtaPhiM(mu_p4_.Pt(), mu_p4_.Eta(), mu_p4_.Phi(), mu_p4_.M());
+        
+        TLorentzVector mom_v_p4;
+        mom_v_p4 = v_p4 + h_p4;
+        TVector3 boost_vec;
+        boost_vec = h_p4.BoostVector();
+        mu_p4.Boost(-boost_vec);
+        TVector3 flat1;
+        TVector3 flat2;
+        TVector3 quark(0, 0, 1);
+        flat1 = (mu_p4.Vect()).Cross(mom_v_p4.Vect()), flat2 = (mom_v_p4.Vect()).Cross(quark);
+        float cosphi1 = cos(flat1.Angle(flat2));
+
+        if ( !std::isnan(cosphi1) && !std::isinf(cosphi1) ) {
+            return cosphi1;
+        } else {
+            return -10.0f;
+        }
+    };
+    return df.Define(outputname, calc_cosphi1, {mu_p4_, h_p4_, v_p4_});
+}
 
 /// write by botao
 ///

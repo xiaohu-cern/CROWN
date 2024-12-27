@@ -2,6 +2,15 @@
 #define GUARD_PHYSICSOBJECTS_H
 
 namespace physicsobject {
+///mingxuan add
+ROOT::RDF::RNode calc_4l_cosThStar_hzz(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &v_p4_, const std::string &h_p4_, const std::string &mu_p4_);
+ROOT::RDF::RNode calc_4l_cosTh1_hzz(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &v_p4_, const std::string &h_p4_);
+ROOT::RDF::RNode calc_4l_cosphi_hzz(ROOT::RDF::RNode df, const std::string &outputname,
+                                    const std::string &lep_v4_, const std::string &v_p4_, const std::string &h_p4_);
+ROOT::RDF::RNode calc_4l_cosphi1_hzz(ROOT::RDF::RNode df, const std::string &outputname,
+                                     const std::string &mu_p4_, const std::string &h_p4_, const std::string &v_p4_);
 /// write by botao
 ROOT::RDF::RNode build_Wp4(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &lep_p4, const std::string &nu_p4);

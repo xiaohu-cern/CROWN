@@ -2632,6 +2632,11 @@ def build_config(
             q.ptlep1_ov_ptZ,
             q.ptlep2_ov_massZ,
             q.ptlep2_ov_ptZ,
+
+            q.cosThStar_4l_hzz, ##mingxuan add 2024/12/27
+            q.cosTh1_4l_hzz,
+            q.cosphi_4l_hzz,
+            q.cosphi1_4l_hzz,
         ]
     )
     # hackathon
@@ -2650,6 +2655,8 @@ def build_config(
             q.met_ov_ptH,
             q.met_mu1_dphi,
             q.met_mu2_dphi,
+
+            q.Mct ##mingxuan add 2024/12/28
         ]
     )
     # hackathon
@@ -2666,6 +2673,10 @@ def build_config(
 
             q.ptfj_ov_ptH,
             q.mfj_ov_massH,
+
+            q.cosphi1_fj_hzz, ##mingxuan add 2024/12/28
+            q.cosTh1_fj_hzz,
+            q.cosThStar_fj_hzz,
         ]
     )
 
