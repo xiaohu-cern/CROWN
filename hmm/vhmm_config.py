@@ -2656,7 +2656,9 @@ def build_config(
             q.met_mu1_dphi,
             q.met_mu2_dphi,
 
-            q.Mct ##mingxuan add 2024/12/28
+            q.Mct, ##mingxuan add 2024/12/28
+
+            q.MT2, ##mingxuan add 2025/1/1
         ]
     )
     # hackathon

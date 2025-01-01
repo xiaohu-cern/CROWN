@@ -15,8 +15,12 @@
 #include "TLorentzVector.h"
 #include "TLorentzRotation.h"
 #include <Math/Boost.h>
+#include "../include/MT2/lester_mt2.hxx"
 
 namespace quantities {
+//mingxuan MT2
+ROOT::RDF::RNode calc_MT2(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &mu1_p4, const std::string &mu2_p4, const std::string &met_p4);
 //mingxuan add
 ROOT::RDF::RNode calc_Mct(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &mu1_p4, const std::string &mu2_p4);

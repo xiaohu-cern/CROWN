@@ -1841,6 +1841,18 @@ cosphi1_fj_hzz = Producer(
     output = [q.cosphi1_fj_hzz],
     scopes = ["fjmm"],
 )
+##mingxuan add MT2
+MT2 = Producer(
+    name = "MT2",
+    call = "quantities::calc_MT2({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H,
+      q.muon_subleadingp4_H,
+      q.met_p4,
+    ],
+    output = [q.MT2],
+    scopes = ["nnmm"],
+)
 
 ThreeLepQuantities = ProducerGroup(
     name="ThreeLepQuantities",
@@ -2001,5 +2013,7 @@ METMuMuQuantities = ProducerGroup(
       met_mu2_dphi,
 
       Mct,
+
+      MT2,
     ],
 )

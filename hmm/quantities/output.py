@@ -652,6 +652,8 @@ cosThStar_fj_hzz = Quantity("cosThStar_fj_hzz")
 cosTh1_fj_hzz = Quantity("cosTh1_fj_hzz")
 cosphi1_fj_hzz = Quantity("cosphi1_fj_hzz")
 
+##mingxuan add MT2 2025/1/1
+MT2 = Quantity("MT2")
 
 
 

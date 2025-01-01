@@ -19,11 +19,45 @@
 #include "TLorentzVector.h"
 #include "TLorentzRotation.h"
 #include <Math/Boost.h>
+#include "../include/MT2/lester_mt2.hxx"
 
 
 /// The namespace that is used to hold the functions for basic quantities that
 /// are needed for every event
 namespace quantities {
+///mingxuan calc met MT2
+ROOT::RDF::RNode calc_MT2(ROOT::RDF::RNode df, const std::string &outputname,
+                        const std::string &mu1_p4, const std::string &mu2_p4, const std::string &met_p4) {
+    auto calc_MT2 = [](ROOT::Math::PtEtaPhiMVector &mu1_p4,
+                       ROOT::Math::PtEtaPhiMVector &mu2_p4,
+                       ROOT::Math::PtEtaPhiMVector &met_p4) {
+        float mVisA = mu1_p4.M();
+        float pxA = mu1_p4.Px();
+        float pyA = mu1_p4.Py();
+
+        float mVisB = mu2_p4.M();
+        float pxB = mu2_p4.Px();
+        float pyB = mu2_p4.Py();
+
+        float pxmiss = met_p4.Px();
+        float pymiss = met_p4.Py();
+
+        float chiA = 0;
+        float chiB = 0;
+
+        float desiredPrecisionOnMt2 = 0;
+
+        asymm_mt2_lester_bisect::disableCopyrightMessage();
+
+        float MT2 = asymm_mt2_lester_bisect::get_mT2(mVisA, pxA, pyA, mVisB, pxB, pyB, pxmiss, pymiss, chiA, chiB, desiredPrecisionOnMt2);
+        if ( !std::isnan(MT2) && !std::isinf(MT2) ) {
+            return MT2;
+        } else {
+            return -10.0f;
+        }
+    };
+    return df.Define(outputname, calc_MT2, {mu1_p4, mu2_p4, met_p4});
+}
 ///mingxuan calc met Mct
 ROOT::RDF::RNode calc_Mct(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &mu1_p4, const std::string &mu2_p4) {
