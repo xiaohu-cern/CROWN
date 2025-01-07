@@ -2539,7 +2539,7 @@ def build_config(
         ],
     )
     configuration.add_outputs(
-        ["e2m","m2m"],
+        ["e2m","m2m","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
         [
             q.pz_nu,
             q.mu1_H_dR,
