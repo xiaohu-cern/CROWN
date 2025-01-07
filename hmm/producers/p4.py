@@ -819,7 +819,7 @@ calc_pz_nu = Producer(
       q.met_p4,
     ],
     output=[q.pz_nu],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 calc_nu_p4 = Producer(
@@ -830,7 +830,7 @@ calc_nu_p4 = Producer(
       q.pz_nu,
     ],
     output=[q.nu_p4],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 calc_W_p4 = Producer(
@@ -841,7 +841,7 @@ calc_W_p4 = Producer(
       q.nu_p4,
     ],
     output=[q.W_p4],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_eta = Producer(
@@ -851,7 +851,7 @@ W_eta = Producer(
       q.W_p4,
     ],
     output=[q.W_eta],
-    scopes=["e2m","m2m"],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_H_dR = Producer(

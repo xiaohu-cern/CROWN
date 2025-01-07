@@ -1469,7 +1469,7 @@ def build_config(
             event.mu1_MHTALL_dphi,
             event.mu2_MHTALL_dphi,
             
-            event.mu1_mu2_dphi,
+            # event.mu1_mu2_dphi,
             event.lep_mu1_dphi,
             event.lep_mu2_dphi,
             event.lep_H_dphi,
@@ -1835,7 +1835,7 @@ def build_config(
             event.mu1_MHTALL_dphi,
             event.mu2_MHTALL_dphi,
             
-            event.mu1_mu2_dphi,
+            # event.mu1_mu2_dphi,
             event.lep_mu1_dphi,
             event.lep_mu2_dphi,
             event.lep_H_dphi,
