@@ -1507,6 +1507,8 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonIDIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+            
+            p4.ThreeLepQuantities,
         ]
     )
     # Region D: fail 3 medium muons (actually 2 muons) and fail m(mm) in [110,150], actually in [70,110]
@@ -1876,6 +1878,8 @@ def build_config(
             scalefactors.EleID_SF,
             scalefactors.EleReco_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+            
+            p4.ThreeLepQuantities,
         ]
     )
     configuration.add_producers(
