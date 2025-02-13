@@ -67,6 +67,11 @@ Jet_flavor = NanoAODQuantity("Jet_hadronFlavour")
 Jet_rawFactor = NanoAODQuantity("Jet_rawFactor")
 Jet_ID = NanoAODQuantity("Jet_jetId")
 Jet_PUID = NanoAODQuantity("Jet_puId")
+# 
+Jet_chEmEF = NanoAODQuantity("Jet_chEmEF") # charged Electromagnetic Energy Fraction
+Jet_neEmEF = NanoAODQuantity("Jet_neEmEF") # neutral Electromagnetic Energy Fraction
+Jet_neHEF = NanoAODQuantity("Jet_neHEF") # neutral Hadron Energy Fraction
+
 Jet_associatedGenJet = NanoAODQuantity("Jet_genJetIdx")
 # BJet_discriminator = NanoAODQuantity("Jet_btagDeepFlavB") # DeepFlavour
 BJet_discriminator = NanoAODQuantity("Jet_btagDeepB") # vh DeepCSV it seems previous work using Jet_btagDeepB

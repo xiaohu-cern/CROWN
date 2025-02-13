@@ -11,7 +11,7 @@ from code_generation.producer import Producer, ProducerGroup, Filter
 # TODO check if L1FastJet L2L3 and residual corrections are consistent with hmm
 FatJetPtCorrection = Producer(
     name="FatJetPtCorrection",
-    call="physicsobject::jet::JetPtCorrection({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jes_sources}, {fatjet_jes_shift}, {fatjet_jer_shift}, {fatjet_jec_file}, {fatjet_jer_tag}, {fatjet_jes_tag}, {fatjet_jec_algo}, {fatjet_veto_map}, {fatjet_veto_tag})",
+    call="physicsobject::jet::FatJetPtCorrection({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jes_sources}, {fatjet_jes_shift}, {fatjet_jer_shift}, {fatjet_jec_file}, {fatjet_jer_tag}, {fatjet_jes_tag}, {fatjet_jec_algo}, {fatjet_veto_map}, {fatjet_veto_tag})",
     input=[
         nanoAOD.FatJet_pt,
         nanoAOD.FatJet_eta,
@@ -82,7 +82,7 @@ FatJetEnergyCorrection_run2 = ProducerGroup(
 # )
 RenameFatJetPt = Producer(
     name="RenameFatJetPt",
-    call="physicsobject::jet::JetVetoMap({df}, {output}, {input}, {fatjet_veto_map}, {fatjet_veto_tag})",
+    call="physicsobject::jet::FatJetVetoMap({df}, {output}, {input}, {fatjet_veto_map}, {fatjet_veto_tag})",
     input=[
         nanoAOD.FatJet_pt,
         nanoAOD.FatJet_eta,
