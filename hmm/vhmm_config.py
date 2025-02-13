@@ -2333,6 +2333,7 @@ def build_config(
             scalefactors.MuonIDIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             p4.FatJetMuMuQuantities, # hackathon
+            event.FatJetQuantities, # tau1,2,3,4...
         ],
     )
     configuration.add_producers(
@@ -2407,6 +2408,7 @@ def build_config(
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             scalefactors.MuonIDIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+            event.FatJetQuantities, # tau1,2,3,4...
         ],
     )    
     configuration.add_producers(
@@ -2683,6 +2685,15 @@ def build_config(
             q.cosphi1_fj_hzz, ##mingxuan add 2024/12/28
             q.cosTh1_fj_hzz,
             q.cosThStar_fj_hzz,
+        ]
+    )
+    configuration.add_outputs(
+        ["fjmm","fjmm_cr"],
+        [
+            q.fatjet_tau1,
+            q.fatjet_tau2,
+            q.fatjet_tau3,
+            q.fatjet_tau4,
         ]
     )
 

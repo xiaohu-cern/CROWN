@@ -180,3 +180,8 @@ FatJet_particleNetWithMass_TvsQCD = NanoAODQuantity("FatJet_particleNetWithMass_
 
 Electron_cutBased = NanoAODQuantity("Electron_cutBased")
 Muon_ptErr = NanoAODQuantity("Muon_ptErr")
+
+FatJet_tau1 = NanoAODQuantity("FatJet_tau1")
+FatJet_tau2 = NanoAODQuantity("FatJet_tau2")
+FatJet_tau3 = NanoAODQuantity("FatJet_tau3")
+FatJet_tau4 = NanoAODQuantity("FatJet_tau4")

@@ -1463,6 +1463,59 @@ fatjet_PNet_withMass_TvsQCD = Producer(
     output=[q.fatjet_PNet_withMass_TvsQCD],
     scopes=["fjmm","fjmm_cr"],
 )
+
+### fatjet_tau1 and fatjet_tau2...
+fatjet_tau1 = Producer(
+    name="fatjet_tau1",
+    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_tau1,
+           q.good_fatjet_collection],
+    output=[q.fatjet_tau1],
+    scopes=["fjmm","fjmm_cr"],
+)
+fatjet_tau2 = Producer(
+    name="fatjet_tau2",
+    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_tau2,
+           q.good_fatjet_collection],
+    output=[q.fatjet_tau2],
+    scopes=["fjmm","fjmm_cr"],
+)
+fatjet_tau3 = Producer(
+    name="fatjet_tau3",
+    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_tau3,
+           q.good_fatjet_collection],
+    output=[q.fatjet_tau3],
+    scopes=["fjmm","fjmm_cr"],
+)
+fatjet_tau4 = Producer(
+    name="fatjet_tau4",
+    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+    input=[ 
+           nanoAOD.FatJet_tau4,
+           q.good_fatjet_collection],
+    output=[q.fatjet_tau4],
+    scopes=["fjmm","fjmm_cr"],
+)
+FatJetQuantities = ProducerGroup(
+    name="FatJetQuantities",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["fjmm","fjmm_cr"],
+    subproducers=[
+      fatjet_tau1,
+      fatjet_tau2,
+      fatjet_tau3,
+      fatjet_tau4,
+    ],
+)
+
+
 ### FatJet PNet in Nano v9
 fatjet_PNet_withMass_QCD_Nanov9 = Producer(
     name="fatjet_PNet_withMass_QCD_Nanov9",

@@ -655,5 +655,9 @@ cosphi1_fj_hzz = Quantity("cosphi1_fj_hzz")
 ##mingxuan add MT2 2025/1/1
 MT2 = Quantity("MT2")
 
-
+# fatjet tau1,2,3,4
+fatjet_tau1 = Quantity("fatjet_tau1")
+fatjet_tau2 = Quantity("fatjet_tau2")
+fatjet_tau3 = Quantity("fatjet_tau3")
+fatjet_tau4 = Quantity("fatjet_tau4")
 
