@@ -227,11 +227,13 @@ id_wgt_ele_medium_1 = Quantity("id_wgt_ele_medium_1")
 id_wgt_ele_medium_2 = Quantity("id_wgt_ele_medium_2")
 id_wgt_ele_loose_1 = Quantity("id_wgt_ele_loose_1")
 id_wgt_ele_loose_2 = Quantity("id_wgt_ele_loose_2")
+
 # Muon weights
 id_wgt_mu_1 = Quantity("id_wgt_mu_1")
 id_wgt_mu_2 = Quantity("id_wgt_mu_2")
 id_wgt_mu_3 = Quantity("id_wgt_mu_3")
 id_wgt_mu_4 = Quantity("id_wgt_mu_4")
+
 iso_wgt_mu_1 = Quantity("iso_wgt_mu_1")
 iso_wgt_mu_2 = Quantity("iso_wgt_mu_2")
 iso_wgt_mu_3 = Quantity("iso_wgt_mu_3")
@@ -241,10 +243,16 @@ id_wgt_mu_1_below15 = Quantity("id_wgt_mu_1_below15")
 id_wgt_mu_2_below15 = Quantity("id_wgt_mu_2_below15")
 id_wgt_mu_3_below15 = Quantity("id_wgt_mu_3_below15")
 id_wgt_mu_4_below15 = Quantity("id_wgt_mu_4_below15")
-iso_wgt_mu_1_below15 = Quantity("iso_wgt_mu_1_below15")
-iso_wgt_mu_2_below15 = Quantity("iso_wgt_mu_2_below15")
-iso_wgt_mu_3_below15 = Quantity("iso_wgt_mu_3_below15")
-iso_wgt_mu_4_below15 = Quantity("iso_wgt_mu_4_below15")
+
+id_wgt_mu_1_above200 = Quantity("id_wgt_mu_1_above200")
+id_wgt_mu_2_above200 = Quantity("id_wgt_mu_2_above200")
+id_wgt_mu_3_above200 = Quantity("id_wgt_mu_3_above200")
+id_wgt_mu_4_above200 = Quantity("id_wgt_mu_4_above200")
+
+iso_wgt_mu_1_above200 = Quantity("iso_wgt_mu_1_above200")
+iso_wgt_mu_2_above200 = Quantity("iso_wgt_mu_2_above200")
+iso_wgt_mu_3_above200 = Quantity("iso_wgt_mu_3_above200")
+iso_wgt_mu_4_above200 = Quantity("iso_wgt_mu_4_above200")
 
 # write by botao
 smallest_dimuon_mass = Quantity("smallest_dimuon_mass")

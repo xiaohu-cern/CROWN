@@ -24,7 +24,7 @@ from .fatjet_variations import add_fatjetVariations
 from .btag_variations import add_btagVariations
 
 from code_generation.configuration import Configuration
-from code_generation.modifiers import EraModifier
+from code_generation.modifiers import EraModifier, SampleModifier
 from code_generation.rules import RemoveProducer, AppendProducer
 from code_generation.systematics import SystematicShift, SystematicShiftByQuantity
 
@@ -551,6 +551,14 @@ def build_config(
                     "2023postBPix": "data/jsonpog-integration/POG/MUO/2023_Summer23BPix/muon_JPsi.json.gz",
                 }
             ),
+            "muon_sf_file_HighPt": EraModifier(
+                {
+                    "2022preEE": "data/jsonpog-integration/POG/MUO/2022_Summer22/muon_HighPt.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
+                    "2022postEE": "data/jsonpog-integration/POG/MUO/2022_Summer22EE/muon_HighPt.json.gz", # HighPt for 200+
+                    "2023preBPix": "data/jsonpog-integration/POG/MUO/2023_Summer23/muon_HighPt.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
+                    "2023postBPix": "data/jsonpog-integration/POG/MUO/2023_Summer23BPix/muon_HighPt.json.gz", # HighPt for 200+
+                }
+            ),
             "muon_id_sf_name": "NUM_MediumID_DEN_TrackerMuons",
             # "muon_iso_sf_name": "NUM_TightRelIso_DEN_MediumID", # for run2?
             "muon_iso_sf_name": EraModifier(
@@ -560,6 +568,7 @@ def build_config(
                     "2016postVFP": "NUM_TightRelIso_DEN_MediumID",
                     "2017": "NUM_TightRelIso_DEN_MediumID",
                     "2018": "NUM_TightRelIso_DEN_MediumID",
+                    
                     "2022preEE": "NUM_TightPFIso_DEN_MediumID",
                     "2022postEE": "NUM_TightPFIso_DEN_MediumID",
                     "2023preBPix": "NUM_TightPFIso_DEN_MediumID",
@@ -567,7 +576,19 @@ def build_config(
                 }
             ),
             # JPsi file only has id type, no Iso, add a id name and apply the JPsi SF's value = 1.
-            "muon_iso_sf_name_JPsi": "NUM_MediumID_DEN_TrackerMuons",
+            # now remove this Iso type at low pt, 2025-04-07
+            # "muon_iso_sf_name_JPsi": "NUM_MediumID_DEN_TrackerMuons",
+            
+            ######################
+            ##### for HighPt #####
+            ######################
+            "muon_id_sf_name_HighPt": "NUM_MediumID_DEN_GlobalMuonProbes",
+            "muon_iso_sf_name_HighPt": "NUM_probe_TightRelTkIso_DEN_MediumIDProbes",
+            "muon_reco_sf_name_HighPt": "NUM_GlobalMuons_DEN_TrackerMuonProbes",
+            "muon_sf_varation_HighPt": "nominal",
+            ######################
+            ##### for HighPt #####
+            ######################
             "muon_sf_year_id": EraModifier(
                 {
                     "2016preVFP": "2016preVFP_UL",
@@ -640,6 +661,22 @@ def build_config(
                 }
             ),
             "ele_sf_varation": "sf",  # "sf" is nominal, "sfup"/"sfdown" are up/down variations
+        },
+    )
+
+    ## all scopes MET selection
+    configuration.add_config_parameters(
+        scopes,
+        {
+            "propagateLeptons": SampleModifier(
+                {"data": False},
+                default=True,
+            ),
+            "propagateJets": SampleModifier(
+                {"data": False},
+                default=True,
+            ),
+            "min_jetpt_met_propagation": 15,
         },
     )
 
@@ -1193,6 +1230,7 @@ def build_config(
             p4.MHTALL_eta,
             p4.MHTALL_phi,
             p4.MHTALL_mass,
+            met.MetCorrections,
         ]
     )
     configuration.add_producers(
@@ -1227,11 +1265,20 @@ def build_config(
             event.FilterFlagGoodEleVeto,
             event.FilterFlagDiMuonZVeto,
             ###
+            muons.LVMu1,
+            muons.LVMu2,
+            muons.LVMu3,
             muons.Mu1_H, # vh
             muons.Mu2_H, # vh
             ### extra muon in m2m
             lepton.Mu1_W_m2m_index, # extra muon index
             lepton.Mu1_W_m2m, # extra muon p4 (From W)
+            
+            ##############################
+            # met.MetCorrections,
+            ##############################
+            ### bwlow start to calc vars
+            
             ###
             lepton.Calc_MT_W,
             event.lepton_H_dR,
@@ -1274,9 +1321,6 @@ def build_config(
             event.Calc_CosThStar_lep_muSS,
             #
             #muons.LVMu3, # vh 
-            muons.LVMu1,
-            muons.LVMu2,
-            muons.LVMu3,
             triggers.GenerateSingleMuonTriggerFlags, # vh check trigger matching TODO
             # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
             
@@ -1309,7 +1353,8 @@ def build_config(
             p4.genmet_pt,
             p4.genmet_phi,
             genparticles.BosonDecayMode,
-            scalefactors.MuonIDIso_SF,
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             
             ### hack
@@ -1341,6 +1386,14 @@ def build_config(
             cr.dimuonCR_phi,
             cr.dimuonCR_mass,
             ###
+            muons.LVMu1,
+            muons.LVMu2,
+            muons.LVMu3,
+            ##############################
+            # met.MetCorrections,
+            ##############################
+            ### bwlow start to calc vars #
+            ##############################
             lepton.Mu1_W_m2m_index_regionb,
             lepton.Mu1_W_m2m,
             lepton.Calc_MT_W,
@@ -1368,9 +1421,6 @@ def build_config(
             # flag cut
             # event.FilterFlagDiMuFromH,
             ###
-            muons.LVMu1,
-            muons.LVMu2,
-            muons.LVMu3,
             muons.Mu1_Z_CR,
             muons.Mu2_Z_CR,
             event.mumuZCR_dR,
@@ -1398,7 +1448,8 @@ def build_config(
             p4.extra_lep_phi,
             p4.extra_lep_mass,
             genparticles.BosonDecayMode,
-            scalefactors.MuonIDIso_SF,
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
         ],
     )
@@ -1436,6 +1487,13 @@ def build_config(
             muons.BaseLVMu1,
             muons.BaseLVMu2,
             muons.BaseLVMu3,
+            
+            ##############################
+            # met.MetCorrections,
+            ##############################
+            ### bwlow start to calc vars #
+            ##############################            
+            
             triggers.GenerateSingleMuonTriggerFlags,
             ###
             lepton.Calc_MT_W,
@@ -1505,7 +1563,8 @@ def build_config(
             p4.genmet_pt,
             p4.genmet_phi,
             genparticles.BosonDecayMode,
-            scalefactors.MuonIDIso_SF,
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             
             p4.ThreeLepQuantities,
@@ -1540,6 +1599,17 @@ def build_config(
             ###
             lepton.Mu1_W_m2m_index_regiond,
             lepton.Mu1_W_m2m,
+
+            muons.BaseLVMu1,
+            muons.BaseLVMu2,
+            muons.BaseLVMu3,
+
+            ##############################
+            # met.MetCorrections,
+            ##############################
+            ### bwlow start to calc vars #
+            ##############################
+            
             lepton.Calc_MT_W,
             event.lepton_Z_dR,
             event.lep_Z_dphi,
@@ -1562,9 +1632,6 @@ def build_config(
 
             event.Calc_CosThStar_lep_muOS,
             event.Calc_CosThStar_lep_muSS,
-            muons.BaseLVMu1,
-            muons.BaseLVMu2,
-            muons.BaseLVMu3,
             muons.Mu1_Z_CR,
             muons.Mu2_Z_CR,
             event.mumuZCR_dR,
@@ -1591,7 +1658,8 @@ def build_config(
             p4.extra_lep_phi,
             p4.extra_lep_mass,
             genparticles.BosonDecayMode,
-            scalefactors.MuonIDIso_SF,
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
         ]
     )
@@ -1618,7 +1686,17 @@ def build_config(
             ###
             muons.Mu1_H,
             muons.Mu2_H,
+
             lepton.Ele1_W_e2m, # output extra lep p4
+            muons.LVMu1,
+            muons.LVMu2,
+            
+            ##############################
+            # met.MetCorrections,
+            ##############################
+            ### bwlow start to calc vars #
+            ##############################
+
             lepton.Calc_MT_W,
             event.lepton_H_dR,
             event.mumuH_dR,
@@ -1658,8 +1736,6 @@ def build_config(
             event.Calc_CosThStar_lep_muOS,
             event.Calc_CosThStar_lep_muSS,
             #
-            muons.LVMu1,
-            muons.LVMu2,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
 
             p4.mu1_fromH_pt,
@@ -1690,7 +1766,8 @@ def build_config(
             p4.genmet_pt,
             p4.genmet_phi,            
             genparticles.BosonDecayMode,
-            scalefactors.MuonIDIso_SF,
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
             scalefactors.EleID_SF,
             scalefactors.EleReco_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
@@ -1723,6 +1800,15 @@ def build_config(
             cr.dimuonCR_mass,
             ###
             lepton.Ele1_W_e2m,
+            muons.LVMu1,
+            muons.LVMu2,
+            
+            ##############################
+            # met.MetCorrections,
+            ##############################
+            ### bwlow start to calc vars #
+            ##############################
+
             lepton.Calc_MT_W,
             event.lepton_Z_dR,
             event.lep_Z_dphi,
@@ -1747,8 +1833,6 @@ def build_config(
             event.Calc_CosThStar_lep_muSS,
 
             ###
-            muons.LVMu1,
-            muons.LVMu2,
             muons.Mu1_Z_CR,
             muons.Mu2_Z_CR,
             event.mumuZCR_dR,
@@ -1775,7 +1859,8 @@ def build_config(
             p4.extra_lep_phi,
             p4.extra_lep_mass,
             genparticles.BosonDecayMode,
-            scalefactors.MuonIDIso_SF,
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
             scalefactors.EleID_SF,
             scalefactors.EleReco_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
@@ -1804,6 +1889,15 @@ def build_config(
             muons.Mu2_H,
             ###
             lepton.Ele1_W_e2m_regioncd,
+            muons.LVMu1,
+            muons.LVMu2,
+            
+            ##############################
+            # met.MetCorrections,
+            ##############################
+            ### bwlow start to calc vars #
+            ##############################
+
             lepton.Calc_MT_W,
             event.lepton_H_dR,
             event.mumuH_dR,
@@ -1866,15 +1960,14 @@ def build_config(
             p4.muSS_phi,
 
             ###
-            muons.LVMu1,
-            muons.LVMu2,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             p4.met_pt,
             p4.met_phi,
             p4.genmet_pt,
             p4.genmet_phi,
             genparticles.BosonDecayMode,
-            scalefactors.MuonIDIso_SF,
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
             scalefactors.EleID_SF,
             scalefactors.EleReco_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
@@ -1906,6 +1999,15 @@ def build_config(
             cr.dimuonCR_mass,
             ###
             lepton.Ele1_W_e2m_regioncd,
+            muons.LVMu1,
+            muons.LVMu2,
+            
+            ##############################
+            # met.MetCorrections,
+            ##############################
+            ### bwlow start to calc vars #
+            ##############################
+            
             lepton.Calc_MT_W,
             event.lepton_Z_dR,
             event.lep_Z_dphi,
@@ -1930,8 +2032,6 @@ def build_config(
             event.Calc_CosThStar_lep_muSS,
             
             ###
-            muons.LVMu1,
-            muons.LVMu2,
             muons.Mu1_Z_CR,
             muons.Mu2_Z_CR,
             event.mumuZCR_dR,
@@ -1958,7 +2058,8 @@ def build_config(
             p4.extra_lep_phi,
             p4.extra_lep_mass,
             genparticles.BosonDecayMode,
-            scalefactors.MuonIDIso_SF,
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
             scalefactors.EleID_SF,
             scalefactors.EleReco_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
@@ -2072,7 +2173,8 @@ def build_config(
             p4.genmet_pt,
             p4.genmet_phi,
             genparticles.BosonDecayMode,
-            scalefactors.MuonIDIso_SF,
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
             scalefactors.EleID_SF,
             scalefactors.EleReco_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
@@ -2158,7 +2260,8 @@ def build_config(
             p4.genmet_pt,
             p4.genmet_phi,            
             genparticles.BosonDecayMode,
-            scalefactors.MuonIDIso_SF,
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             p4.FourLepQuantities, # hackathon
         ],
@@ -2187,6 +2290,15 @@ def build_config(
             ###
             muons.Mu1_H, # vh
             muons.Mu2_H, # vh
+            muons.LVMu1,
+            muons.LVMu2,
+
+            ##############################
+            # met.MetCorrections,
+            ##############################
+            ### bwlow start to calc vars #
+            ##############################
+
             ###
             event.mumuH_dR,
             event.mumuH_dphi,
@@ -2204,8 +2316,6 @@ def build_config(
             event.met_mmH_dphi,
             #
             #muons.LVMu3, # vh 
-            muons.LVMu1,
-            muons.LVMu2,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
             p4.mu1_fromH_pt,
@@ -2237,7 +2347,8 @@ def build_config(
             p4.genmu2_fromH_phi,
             p4.genmu2_fromH_mass,
             genparticles.BosonDecayMode,
-            scalefactors.MuonIDIso_SF,
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             p4.METMuMuQuantities, # hackathon
         ],
@@ -2267,6 +2378,15 @@ def build_config(
             ###
             muons.Mu1_H, # vh
             muons.Mu2_H, # vh
+            muons.LVMu1,
+            muons.LVMu2,
+
+            ##############################
+            # met.MetCorrections,
+            ##############################
+            ### bwlow start to calc vars #
+            ##############################
+
             # ###
             event.mumuH_dR,
             event.mumuH_dphi,
@@ -2284,8 +2404,6 @@ def build_config(
             event.met_mmH_dphi,
             # #
             # #muons.LVMu3, # vh 
-            muons.LVMu1,
-            muons.LVMu2,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             # # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
             p4.mu1_fromH_pt,
@@ -2330,7 +2448,8 @@ def build_config(
             event.fatjet_PNet_withMass_WvsQCD,
             event.fatjet_PNet_withMass_ZvsQCD,
             event.fatjet_PNet_withMass_TvsQCD,
-            scalefactors.MuonIDIso_SF,
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             p4.FatJetMuMuQuantities, # hackathon
             event.FatJetQuantities, # tau1,2,3,4...
@@ -2359,6 +2478,15 @@ def build_config(
             # flag cut
             event.FilterFlagLepChargeSum,
             event.FilterFlagGoodEleVeto,
+            muons.LVMu1,
+            muons.LVMu2,
+
+            ##############################
+            # met.MetCorrections,
+            ##############################
+            ### bwlow start to calc vars #
+            ##############################
+
             # ###
             event.mumuZCR_dR,
             event.mumuZCR_dphi,
@@ -2369,8 +2497,6 @@ def build_config(
             event.mu1_mu2_fromZCR_dphi,
             event.met_mm_fromZCR_dphi,
 
-            muons.LVMu1,
-            muons.LVMu2,
             muons.Mu1_Z_CR,
             muons.Mu2_Z_CR,
             p4.mu1_fromZCR_pt,
@@ -2406,7 +2532,8 @@ def build_config(
             event.fatjet_PNet_withMass_TvsQCD,
             genparticles.BosonDecayMode,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
-            scalefactors.MuonIDIso_SF,
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             event.FatJetQuantities, # tau1,2,3,4...
         ],
@@ -2535,6 +2662,10 @@ def build_config(
 
             q.met_pt,
             q.met_phi,
+            q.metSumEt,
+            q.met,
+            q.metphi,
+            
             q.genmet_pt,
             q.genmet_phi,
             scalefactors.GenerateSingleMuonTriggerSF_MC.output_group,
@@ -2726,14 +2857,22 @@ def build_config(
             q.mu2_mvaTTH,
             q.mu1_ptErr,
             q.mu2_ptErr,
+            
             q.id_wgt_mu_1,
             q.id_wgt_mu_2,
             q.iso_wgt_mu_1,
             q.iso_wgt_mu_2,
+            
             q.id_wgt_mu_1_below15,
             q.id_wgt_mu_2_below15,
-            q.iso_wgt_mu_1_below15,
-            q.iso_wgt_mu_2_below15,
+            
+            q.id_wgt_mu_1_above200,
+            q.id_wgt_mu_2_above200,
+            q.iso_wgt_mu_1_above200,
+            q.iso_wgt_mu_2_above200,
+
+            # q.iso_wgt_mu_1_below15,
+            # q.iso_wgt_mu_2_below15,
         ],
     )
     configuration.add_outputs(
@@ -2741,8 +2880,13 @@ def build_config(
         [
             q.id_wgt_mu_3,
             q.iso_wgt_mu_3,
+            
             q.id_wgt_mu_3_below15,
-            q.iso_wgt_mu_3_below15,
+            
+            q.id_wgt_mu_3_above200,
+            q.iso_wgt_mu_3_above200,
+            
+            # q.iso_wgt_mu_3_below15,
         ],
     )
     configuration.add_outputs(
@@ -2750,8 +2894,13 @@ def build_config(
         [
             q.id_wgt_mu_4,
             q.iso_wgt_mu_4,
+            
             q.id_wgt_mu_4_below15,
-            q.iso_wgt_mu_4_below15,
+            
+            q.id_wgt_mu_4_above200,
+            q.iso_wgt_mu_4_above200,
+
+            # q.iso_wgt_mu_4_below15,
         ],
     )
     configuration.add_outputs(
@@ -3351,7 +3500,8 @@ def build_config(
          "eemm","mmmm","nnmm","fjmm","fjmm_cr"],
         RemoveProducer(
             producers=[
-                scalefactors.MuonIDIso_SF,
+                scalefactors.MuonID_SF,
+                scalefactors.MuonIso_SF,
             ],
             samples=["data"],
         ),
@@ -3435,67 +3585,95 @@ def build_config(
     )
     
     ##########################
-    #### Muon IDIso shift ####
+    #### Muon ID shift ####
     ##########################
     configuration.add_shift(
         SystematicShift(
-            name="MuonIDIsoUp",
+            name="MuonIDUp",
             shift_config={
                 ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
                  "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
                  "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
                     "muon_sf_varation": "systup",
                     "muon_sf_varation_JPsi": "systup",
+                    "muon_sf_varation_HighPt": "systup",
                 }
             },
             producers={
                 ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
                  "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
                  "eemm","mmmm","nnmm","fjmm","fjmm_cr"): [
-                    scalefactors.MuonIDIso_SF,
+                    scalefactors.MuonID_SF,
                 ]
             },
         )
     )
     configuration.add_shift(
         SystematicShift(
-            name="MuonIDIsoDown",
+            name="MuonIDDown",
             shift_config={
                 ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
                  "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
                  "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
                     "muon_sf_varation": "systdown",
                     "muon_sf_varation_JPsi": "systdown",
+                    "muon_sf_varation_HighPt": "systdown",
                 }
             },
             producers={
                 ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
                  "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
                  "eemm","mmmm","nnmm","fjmm","fjmm_cr"): [
-                    scalefactors.MuonIDIso_SF,
+                    scalefactors.MuonID_SF,
                 ]
             },
         )
     )
-    # configuration.add_shift(
-    #     SystematicShift(
-    #         name="MuonIDISO_tagIso",
-    #         shift_config={
-    #             ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-    #              "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-    #              "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
-    #                 "muon_sf_varation": "tagIso",
-    #             }
-    #         },
-    #         producers={
-    #             ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-    #              "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-    #              "eemm","mmmm","nnmm","fjmm","fjmm_cr"): [
-    #                  scalefactors.MuonIDIso_SF
-    #             ]
-    #         },
-    #     )
-    # )
+    ##########################
+    #### Muon Iso shift ####
+    ##########################
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonIsoUp",
+            shift_config={
+                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
+                    "muon_sf_varation": "systup",
+                    "muon_sf_varation_JPsi": "systup",
+                    "muon_sf_varation_HighPt": "systup",
+                }
+            },
+            producers={
+                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): [
+                    scalefactors.MuonIso_SF,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonIsoDown",
+            shift_config={
+                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
+                    "muon_sf_varation": "systdown",
+                    "muon_sf_varation_JPsi": "systdown",
+                    "muon_sf_varation_HighPt": "systdown",
+                }
+            },
+            producers={
+                ("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                 "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+                 "eemm","mmmm","nnmm","fjmm","fjmm_cr"): [
+                    scalefactors.MuonIso_SF,
+                ]
+            },
+        )
+    )
     
     ###########################
     #### Electron ID shift ####

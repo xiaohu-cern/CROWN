@@ -33,6 +33,32 @@ BuildGenMetVector = Producer(
     output=[q.genmet_p4],
     scopes=["global"],
 )
+
+MetSumEt = Producer(
+    name="MetSumEt",
+    call="basefunctions::rename<float>({df}, {input}, {output})",
+    input=[
+        nanoAOD.MET_sumEt,
+    ],
+    output=[q.metSumEt],
+    scopes=["global"],
+)
+
+MetPt_uncorrected = Producer(
+    name="MetPt_uncorrected",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.met_p4],
+    output=[q.met_uncorrected],
+    scopes=["global"],
+)
+MetPhi_uncorrected = Producer(
+    name="MetPhi_uncorrected",
+    call="quantities::phi({df}, {output}, {input})",
+    input=[q.met_p4],
+    output=[q.metphi_uncorrected],
+    scopes=["global"],
+)
+
 MetBasics = ProducerGroup(
     name="MetBasics",
     call=None,
@@ -42,6 +68,184 @@ MetBasics = ProducerGroup(
     subproducers=[
         BuildPFMetVector,
         BuildMetVector,
+        MetPt_uncorrected,
+        MetPhi_uncorrected,
+        MetSumEt,
+
         # BuildGenMetVector,
     ],
+)
+
+### after apply the highPt muon's correction, need to change the corrected p4
+# PropagateLeptonsToMet = Producer(
+#     name="PropagateLeptonsToMet",
+#     call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
+#     input=[q.met_p4, q.muon_p4_1, q.muon_p4_2, q.extra_lep_p4, q.muon_p4_1, q.muon_p4_2, q.extra_lep_p4],
+#     output=[q.met_p4_leptoncorrected],
+#     scopes=["e2m","m2m",
+#             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+#             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+# )
+
+PropagateFourLeptonsToMet = Producer(
+    name="PropagateFourLeptonsToMet",
+    call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
+    input=[q.met_p4, 
+           q.muon_leadingp4_H, q.muon_subleadingp4_H, q.lepton_leadingp4_Z, q.lepton_subleadingp4_Z, 
+           q.muon_leadingp4_H, q.muon_subleadingp4_H, q.lepton_leadingp4_Z, q.lepton_subleadingp4_Z],
+    output=[q.met_p4_leptoncorrected],
+    scopes=["eemm","mmmm"],
+)
+PropagateThreeLeptonsToMet_e2m = Producer(
+    name="PropagateThreeLeptonsToMet",
+    call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
+    input=[q.met_p4, q.muon_p4_1, q.muon_p4_2, q.extra_lep_p4, q.muon_p4_1, q.muon_p4_2, q.extra_lep_p4],
+    output=[q.met_p4_leptoncorrected],
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+
+PropagateThreeLeptonsToMet_m2m = Producer(
+    name="PropagateThreeLeptonsToMet",
+    call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
+    input=[q.met_p4, q.muon_p4_1, q.muon_p4_2, q.muon_p4_3, q.muon_p4_1, q.muon_p4_2, q.muon_p4_3],
+    output=[q.met_p4_leptoncorrected],
+    scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+)
+
+PropagateTwoLeptonsToMet = Producer(
+    name="PropagateTwoLeptonsToMet",
+    call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
+    input=[q.met_p4, q.muon_p4_1, q.muon_p4_2, q.muon_p4_1, q.muon_p4_2],
+    output=[q.met_p4_leptoncorrected],
+    scopes=["nnmm","fjmm","fjmm_cr"],
+)
+
+PropagateJetsToMet = Producer(
+    name="PropagateJetsToMet",
+    call="met::propagateJetsToMet({df}, {input}, {output}, {propagateJets}, {min_jetpt_met_propagation})",
+    input=[
+        q.met_p4_leptoncorrected,
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        q.good_jets_mask,
+        q.Jet_mass_corrected,
+        nanoAOD.Jet_pt,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        nanoAOD.Jet_mass,
+    ],
+    output=[q.met_p4_jetcorrected],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+
+MetPt = Producer(
+    name="MetPt",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.met_p4_jetcorrected],
+    output=[q.met],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+MetPhi = Producer(
+    name="MetPhi",
+    call="quantities::phi({df}, {output}, {input})",
+    input=[q.met_p4_jetcorrected],
+    output=[q.metphi],
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+
+MetCorrections = ProducerGroup(
+    name="MetCorrections",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    subproducers={
+        "e2m": [
+            PropagateThreeLeptonsToMet_e2m,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
+        "e2m_dyfakeinge_regionb": [
+            PropagateThreeLeptonsToMet_e2m,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
+        "e2m_dyfakeinge_regionc": [
+            PropagateThreeLeptonsToMet_e2m,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
+        "e2m_dyfakeinge_regiond": [
+            PropagateThreeLeptonsToMet_e2m,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
+        "m2m": [
+            PropagateThreeLeptonsToMet_m2m,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
+        "m2m_dyfakeingmu_regionb": [
+            PropagateThreeLeptonsToMet_m2m,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
+        "m2m_dyfakeingmu_regionc": [
+            PropagateThreeLeptonsToMet_m2m,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
+        "m2m_dyfakeingmu_regiond": [
+            PropagateThreeLeptonsToMet_m2m,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
+        "eemm": [
+            PropagateFourLeptonsToMet,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
+        "mmmm": [
+            PropagateFourLeptonsToMet,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
+        "nnmm": [
+            PropagateTwoLeptonsToMet,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
+        "fjmm": [
+            PropagateTwoLeptonsToMet,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
+        "fjmm_cr": [
+            PropagateTwoLeptonsToMet,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
+    },
 )

@@ -402,7 +402,9 @@ propagateLeptonsToMet(ROOT::RDF::RNode df, const std::string &met,
                       const std::string &p4_1_uncorrected,
                       const std::string &p4_2_uncorrected,
                       const std::string &p4_3_uncorrected,
-                      const std::string &p4_1, const std::string &p4_2, const std::string &p4_3,
+                      const std::string &p4_4_uncorrected,
+                      const std::string &p4_1, const std::string &p4_2, 
+                      const std::string &p4_3, const std::string &p4_4,
                       const std::string &outputname, bool apply_propagation) {
     auto scaleMet = [](const ROOT::Math::PtEtaPhiMVector &met,
                        const ROOT::Math::PtEtaPhiMVector &uncorrected_object,
@@ -452,12 +454,121 @@ propagateLeptonsToMet(ROOT::RDF::RNode df, const std::string &met,
             ->debug("p4 uncorr. {}, p4 corr {}", p4_2_uncorrected,p4_2);
         auto df2 = df1.Define(outputname + "_intermediate2", scaleMet,
                              {outputname + "_intermediate1", p4_2_uncorrected, p4_2});
-        // after the third lepton correction, the correct output column is
-        // used
+        // second correct for the second lepton with the p4_1 corrected met as input, store the met in an
+        // intermediate3 column
         Logger::get("propagateLeptonsToMet")
             ->debug("Setting up correction for third lepton {}", p4_3);
         Logger::get("propagateLeptonsToMet")
             ->debug("p4 uncorr. {}, p4 corr {}", p4_3_uncorrected,p4_3);
+        auto df3 = df2.Define(outputname + "_intermediate3", scaleMet,
+                             {outputname + "_intermediate2", p4_3_uncorrected, p4_3});
+        // after the third lepton correction, the correct output column is
+        // used
+        Logger::get("propagateLeptonsToMet")
+            ->debug("Setting up correction for fourth lepton {}", p4_4);
+        Logger::get("propagateLeptonsToMet")
+            ->debug("p4 uncorr. {}, p4 corr {}", p4_4_uncorrected, p4_4);
+        return df3.Define(
+            outputname, scaleMet,
+            {outputname + "_intermediate3", p4_4_uncorrected, p4_4});
+    } else {
+        // if we do not apply the propagation, just rename the met column to
+        // the new outputname and dont change anything else
+        return basefunctions::rename<ROOT::Math::PtEtaPhiMVector>(df, met,
+                                                                  outputname);
+    }
+}
+
+
+/**
+ * @brief Function used to propagate lepton corrections to the met. If the
+ energy of a lepton is corrected (via some scale factor) or due to a shift,
+ this change in energy has to be propagated to the met vector, and the met
+ vector has to be adapted accordingly. The met is recalculated via
+ @code
+  Recalculate Met with corrected lepton energies :
+  MetX_corrected = MetX + Px - Px_corrected
+  MetY_corrected = MetY + Py - Py_corrected
+  Met_corrected = sqrt(MetX_corrected * MetX_corrected + MetY_corrected *
+ MetY_corrected)
+ @endcode
+ * @param df the input dataframe
+ * @param met the uncorrected met lorentz vector
+ * @param p4_1_uncorrected the uncorrected lorentz vector of the first
+ lepton
+ * @param p4_2_uncorrected the uncorrected lorentz vector of the second
+ lepton
+  * @param p4_3_uncorrected the uncorrected lorentz vector of the third
+ lepton
+ * @param p4_1 the corrected lorentz vector of the first lepton
+ * @param p4_2 the corrected lorentz vector of the second lepton
+ * @param p4_3 the corrected lorentz vector of the third lepton
+ * @param outputname name of the column containing the corrected met lorentz
+ * @param apply_propagation if bool is set, the propagation is applied, if
+ not, the outputcolumn contains the original met value vector
+ * @return a new df containing the corrected met lorentz vector
+ */
+ROOT::RDF::RNode
+propagateLeptonsToMet(ROOT::RDF::RNode df, const std::string &met,
+                      const std::string &p4_1_uncorrected,
+                      const std::string &p4_2_uncorrected,
+                      const std::string &p4_3_uncorrected,
+                      const std::string &p4_1, const std::string &p4_2, const std::string &p4_3,
+                      const std::string &outputname, bool apply_propagation) {
+    auto scaleMet = [](const ROOT::Math::PtEtaPhiMVector &met,
+                       const ROOT::Math::PtEtaPhiMVector &uncorrected_object,
+                       const ROOT::Math::PtEtaPhiMVector &corrected_object) {
+        // We propagate the lepton corrections to the Met by scaling the x
+        // and y component of the Met according to the correction of the
+        // lepton Recalculate Met with corrected lepton energies :
+        // MetX_corrected = MetX + Px - Px_corrected
+        // MetY_corrected = MetY + Py - Py_corrected
+        // Met_corrected = sqrt(MetX_corrected * MetX_corrected +
+        // MetY_corrected
+        // * MetY_corrected)
+        float corr_x = uncorrected_object.Px() - corrected_object.Px();
+        float corr_y = uncorrected_object.Py() - corrected_object.Py();
+        float MetX = met.Px() + corr_x;
+        float MetY = met.Py() + corr_y;
+        Logger::get("propagateLeptonsToMet")->debug("corr_x {}", corr_x);
+        Logger::get("propagateLeptonsToMet")->debug("corr_y {}", corr_y);
+        Logger::get("propagateLeptonsToMet")->debug("MetX {}", MetX);
+        Logger::get("propagateLeptonsToMet")->debug("MetY {}", MetY);
+        ROOT::Math::PtEtaPhiMVector corrected_met;
+        corrected_met.SetPxPyPzE(MetX, MetY, 0,
+                                 std::sqrt(MetX * MetX + MetY * MetY));
+        Logger::get("propagateLeptonsToMet")
+            ->debug("corrected_object pt - {}", corrected_object.Pt());
+        Logger::get("propagateLeptonsToMet")
+            ->debug("uncorrected_object pt - {}", uncorrected_object.Pt());
+        Logger::get("propagateLeptonsToMet")->debug("old met {}", met.Pt());
+        Logger::get("propagateLeptonsToMet")
+            ->debug("corrected met {}", corrected_met.Pt());
+        return corrected_met;
+    };
+    if (apply_propagation) {
+        // first correct for the first lepton, store the met in an
+        // intermediate1 column
+        Logger::get("propagateLeptonsToMet")
+            ->info("Setting up correction for first lepton {}", p4_1);
+        Logger::get("propagateLeptonsToMet")
+            ->info("p4 uncorr. {}, p4 corr {}", p4_1_uncorrected,p4_1);
+        auto df1 = df.Define(outputname + "_intermediate1", scaleMet,
+                             {met, p4_1_uncorrected, p4_1});
+        // second correct for the second lepton with the p4_1 corrected met as input, store the met in an
+        // intermediate2 column
+        Logger::get("propagateLeptonsToMet")
+            ->info("Setting up correction for second lepton {}", p4_2);
+        Logger::get("propagateLeptonsToMet")
+            ->info("p4 uncorr. {}, p4 corr {}", p4_2_uncorrected,p4_2);
+        auto df2 = df1.Define(outputname + "_intermediate2", scaleMet,
+                             {outputname + "_intermediate1", p4_2_uncorrected, p4_2});
+        // after the third lepton correction, the correct output column is
+        // used
+        Logger::get("propagateLeptonsToMet")
+            ->info("Setting up correction for third lepton {}", p4_3);
+        Logger::get("propagateLeptonsToMet")
+            ->info("p4 uncorr. {}, p4 corr {}", p4_3_uncorrected,p4_3);
         return df2.Define(
             outputname, scaleMet,
             {outputname + "_intermediate2", p4_3_uncorrected, p4_3});
@@ -659,7 +770,8 @@ ROOT::RDF::RNode propagateLeptonsToMet(ROOT::RDF::RNode df,
 ROOT::RDF::RNode propagateJetsToMet(
     ROOT::RDF::RNode df, const std::string &met,
     const std::string &jet_pt_corrected, const std::string &jet_eta_corrected,
-    const std::string &jet_phi_corrected, const std::string &jet_mass_corrected,
+    const std::string &jet_phi_corrected, const std::string &good_jets_mask,
+    const std::string &jet_mass_corrected,
     const std::string &jet_pt, const std::string &jet_eta,
     const std::string &jet_phi, const std::string &jet_mass,
     const std::string &outputname, bool apply_propagation, float min_jet_pt) {
@@ -669,6 +781,7 @@ ROOT::RDF::RNode propagateJetsToMet(
                                  const ROOT::RVec<float> &jet_pt_corrected,
                                  const ROOT::RVec<float> &jet_eta_corrected,
                                  const ROOT::RVec<float> &jet_phi_corrected,
+                                 const ROOT::RVec<int>   &good_jets_mask,
                                  const ROOT::RVec<float> &jet_mass_corrected,
                                  const ROOT::RVec<float> &jet_pt,
                                  const ROOT::RVec<float> &jet_eta,
@@ -679,21 +792,37 @@ ROOT::RDF::RNode propagateJetsToMet(
         ROOT::Math::PtEtaPhiMVector corrected_jet;
         float corr_x = 0.0;
         float corr_y = 0.0;
+        Logger::get("propagateJetsToMet")
+                    ->debug("Checking jet pt size  {} ", jet_pt.size());
+        Logger::get("propagateJetsToMet")
+                    ->debug("Checking jet corrected pt size  {} ", jet_pt_corrected.size());  
+
         // now loop through all jets in the event
         for (std::size_t index = 0; index < jet_pt.size(); ++index) {
+            Logger::get("propagateJetsToMet")
+                    ->debug("Checking jet index {}  ",index);
+            Logger::get("propagateJetsToMet")
+                    ->debug("Checking jet index {} pt {} ",index, jet_pt.at(index));
+            Logger::get("propagateJetsToMet")
+                    ->debug("Checking jet corrected index {} pt {} ", index, jet_pt_corrected.at(index));     
+            Logger::get("propagateJetsToMet")
+                    ->debug("Checking jet corrected index {} mask {} ", index, good_jets_mask.at(index));                    
+
             // only propagate jets above the given pt threshold
-            if (jet_pt_corrected.at(index) > min_jet_pt) {
-                // construct the uncorrected and the corrected lorentz
-                // vectors
-                uncorrected_jet = ROOT::Math::PtEtaPhiMVector(
-                    jet_pt_corrected.at(index), jet_eta_corrected.at(index),
-                    jet_phi_corrected.at(index), jet_mass_corrected.at(index));
-                corrected_jet = ROOT::Math::PtEtaPhiMVector(
-                    jet_pt.at(index), jet_eta.at(index), jet_phi.at(index),
-                    jet_mass.at(index));
-                // update the correction factors that are applied to the met
-                corr_x += uncorrected_jet.Px() - corrected_jet.Px();
-                corr_y += uncorrected_jet.Py() - corrected_jet.Py();
+            if (good_jets_mask.at(index) == 1) {
+                if (jet_pt_corrected.at(index) > min_jet_pt) {
+                    // construct the uncorrected and the corrected lorentz
+                    // vectors
+                    corrected_jet = ROOT::Math::PtEtaPhiMVector(
+                        jet_pt_corrected.at(index), jet_eta_corrected.at(index),
+                        jet_phi_corrected.at(index), jet_mass_corrected.at(index));
+                    uncorrected_jet = ROOT::Math::PtEtaPhiMVector(
+                        jet_pt.at(index), jet_eta.at(index), jet_phi.at(index),
+                        jet_mass.at(index));
+                    // update the correction factors that are applied to the met
+                    corr_x += uncorrected_jet.Px() - corrected_jet.Px();
+                    corr_y += uncorrected_jet.Py() - corrected_jet.Py();
+                }
             }
         }
         float MetX = met.Px() + corr_x;
@@ -712,7 +841,7 @@ ROOT::RDF::RNode propagateJetsToMet(
     if (apply_propagation) {
         return df.Define(outputname, scaleMet,
                          {met, jet_pt_corrected, jet_eta_corrected,
-                          jet_phi_corrected, jet_mass_corrected, jet_pt,
+                          jet_phi_corrected, good_jets_mask, jet_mass_corrected, jet_pt,
                           jet_eta, jet_phi, jet_mass});
     } else {
         // if we do not apply the propagation, just rename the met column to

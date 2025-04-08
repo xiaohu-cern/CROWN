@@ -46,6 +46,15 @@ propagateLeptonsToMet(ROOT::RDF::RNode df, const std::string &met,
                       const std::string &p4_3_uncorrected,
                       const std::string &p4_1, const std::string &p4_2, const std::string &p4_3,
                       const std::string &outputname, bool apply_propagation);
+ROOT::RDF::RNode
+propagateLeptonsToMet(ROOT::RDF::RNode df, const std::string &met,
+                      const std::string &p4_1_uncorrected,
+                      const std::string &p4_2_uncorrected,
+                      const std::string &p4_3_uncorrected,
+                      const std::string &p4_4_uncorrected,
+                      const std::string &p4_1, const std::string &p4_2, 
+                      const std::string &p4_3, const std::string &p4_4,
+                      const std::string &outputname, bool apply_propagation);
 ROOT::RDF::RNode propagateLeptonsToMet(ROOT::RDF::RNode df,
                                        const std::string &met,
                                        const std::string &p4_1_uncorrected,
@@ -55,7 +64,8 @@ ROOT::RDF::RNode propagateLeptonsToMet(ROOT::RDF::RNode df,
 ROOT::RDF::RNode propagateJetsToMet(
     ROOT::RDF::RNode df, const std::string &met,
     const std::string &jet_pt_corrected, const std::string &jet_eta_corrected,
-    const std::string &jet_phi_corrected, const std::string &jet_mass_corrected,
+    const std::string &jet_phi_corrected, const std::string &good_jets_mask,
+    const std::string &jet_mass_corrected,
     const std::string &jet_pt, const std::string &jet_eta,
     const std::string &jet_phi, const std::string &jet_mass,
     const std::string &outputname, bool apply_propagation, float min_jet_pt);

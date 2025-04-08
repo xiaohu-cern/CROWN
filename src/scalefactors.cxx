@@ -138,14 +138,13 @@ ROOT::RDF::RNode id_vhmm(ROOT::RDF::RNode df, const std::string &p4,
         [evaluator, year_id, variation, sf_file](ROOT::Math::PtEtaPhiMVector &p4) {
             const float &pt = p4.Pt();
             const float &eta = p4.Eta();
-            Logger::get("muonIdSF")->debug("ID - pt {}, eta {}", pt, eta);
             double sf = 1.;
             // preventing muons with default values due to tau energy correction
             // shifts below good tau pt selection
             if (sf_file.find("muon_Z") < sf_file.length()) {
                 Logger::get("muon SF file:")->debug("{}", sf_file);
                 // apply sf for muon pt > 15 using Z file
-                if (pt > 15.0 && std::abs(eta) >= 0.0) {
+                if (pt < 200.0 && pt > 15.0 && std::abs(eta) >= 0.0) {
                     if (year_id.find("202") < year_id.length()) {
                         sf = evaluator->evaluate(
                             {std::abs(eta), pt, variation});    
@@ -156,6 +155,8 @@ ROOT::RDF::RNode id_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                     }
                 } else if (pt >= 0.0 && pt <= 15.0 && std::abs(eta) >= 0.0) {
                     sf = 1.;
+                } else if (pt >= 200.0 && std::abs(eta) >= 0.0) {
+                    sf = 1.;
                 }
             } else if (sf_file.find("muon_JPsi") < sf_file.length()) {
                 Logger::get("muon SF file:")->debug("{}", sf_file);
@@ -165,6 +166,22 @@ ROOT::RDF::RNode id_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                     sf = evaluator->evaluate(
                         {std::abs(eta), pt, variation});    
                 } else if (pt > 15.0 && std::abs(eta) >= 0.0) {
+                    sf = 1.;
+                }
+            } else if (sf_file.find("muon_HighPt") < sf_file.length()) {
+                Logger::get("muon SF file:")->debug("{}", sf_file);
+                // apply sf for muon pt > 200 using HighPt file
+                if (pt >= 200.0 && std::abs(eta) >= 0.0) {
+                    // for High Pt (>200) muon
+                    const float &px = p4.Px();
+                    const float &py = p4.Py();
+                    const float &pz = p4.Pz();
+                    //
+                    float p = std::sqrt(px*px + py*py + pz*pz);
+                    Logger::get("muon High pt corr:")->info("pt: {}, p: {}", pt, p);
+                    sf = evaluator->evaluate(
+                        {std::abs(eta), p, variation});    
+                } else if (pt < 200.0 && std::abs(eta) >= 0.0) {
                     sf = 1.;
                 }
             }
