@@ -125,25 +125,25 @@ H_mass = Producer(
 
 ##### for met pt and phi
 #####
-met_pt = Producer(
-    name="met_pt",
+met_pt_uncorrected = Producer(
+    name="met_pt_uncorrected",
     call='quantities::pt({df}, {output}, {input})',
     input=[
-      q.met_p4,
+      q.met_p4_uncorrected,
     ],
-    output=[q.met_pt],
+    output=[q.met_pt_uncorrected],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
             "nnmm_dycontrol","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
-met_phi = Producer(
-    name="met_phi",
+met_phi_uncorrected = Producer(
+    name="met_phi_uncorrected",
     call='quantities::phi({df}, {output}, {input})',
     input=[
-      q.met_p4,
+      q.met_p4_uncorrected,
     ],
-    output=[q.met_phi],
+    output=[q.met_phi_uncorrected],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
             "nnmm_dycontrol","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -791,7 +791,7 @@ W_pt = Producer(
     call='physicsobject::pt_W({df}, {output}, {input})',
     input=[
       q.extra_lep_p4,
-      q.met_p4,
+      q.met_p4_uncorrected,
     ],
     output=[q.W_pt],
     scopes=["e2m","m2m",
@@ -803,7 +803,7 @@ W_phi = Producer(
     call='physicsobject::phi_W({df}, {output}, {input})',
     input=[
       q.extra_lep_p4,
-      q.met_p4,
+      q.met_p4_uncorrected,
     ],
     output=[q.W_phi],
     scopes=["e2m","m2m",
@@ -816,7 +816,7 @@ calc_pz_nu = Producer(
     call='quantities::calculateNeutrinoPz({df}, {output}, {input})',
     input=[
       q.extra_lep_p4,
-      q.met_p4,
+      q.met_p4_uncorrected,
     ],
     output=[q.pz_nu],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
@@ -826,7 +826,7 @@ calc_nu_p4 = Producer(
     name="calc_nu_p4",
     call='physicsobject::build_nup4({df}, {output}, {input})',
     input=[
-      q.met_p4,
+      q.met_p4_uncorrected,
       q.pz_nu,
     ],
     output=[q.nu_p4],
@@ -924,7 +924,7 @@ HT_met = Producer(
       q.extra_lep_pt,
       q.mu1_fromH_pt,
       q.mu2_fromH_pt,
-      q.met_pt
+      q.met_pt_uncorrected
     ],
     output=[q.HT_met],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
@@ -1366,7 +1366,7 @@ met_ov_ptW = Producer(
     name = "met_ov_ptW",
     call = "quantities::calc_ratio({df}, {output}, {input})",
     input = [
-      q.met_pt,
+      q.met_pt_uncorrected,
       q.W_pt,
     ],
     output = [q.met_ov_ptW],
@@ -1708,7 +1708,7 @@ met_ov_ptH = Producer(
     name = "met_ov_ptH",
     call = "quantities::calc_ratio({df}, {output}, {input})",
     input = [
-      q.met_pt,
+      q.met_pt_uncorrected,
       q.H_pt,
     ],
     output = [q.met_ov_ptH],
@@ -1719,7 +1719,7 @@ met_ov_massH = Producer(
     name = "met_ov_massH",
     call = "quantities::calc_ratio({df}, {output}, {input})",
     input = [
-      q.met_pt,
+      q.met_pt_uncorrected,
       q.H_mass,
     ],
     output = [q.met_ov_massH],
@@ -1730,7 +1730,7 @@ met_mu1_dphi = Producer(
     name = "met_mu1_dphi",
     call = "quantities::deltaPhi({df}, {output}, {input})",
     input = [
-      q.met_p4,
+      q.met_p4_uncorrected,
       q.muon_leadingp4_H
     ],
     output = [q.met_mu1_dphi],
@@ -1741,7 +1741,7 @@ met_mu2_dphi = Producer(
     name = "met_mu2_dphi",
     call = "quantities::deltaPhi({df}, {output}, {input})",
     input = [
-      q.met_p4,
+      q.met_p4_uncorrected,
       q.muon_subleadingp4_H
     ],
     output = [q.met_mu2_dphi],
@@ -1848,7 +1848,7 @@ MT2 = Producer(
     input = [
       q.muon_leadingp4_H,
       q.muon_subleadingp4_H,
-      q.met_p4,
+      q.met_p4_uncorrected,
     ],
     output = [q.MT2],
     scopes = ["nnmm"],

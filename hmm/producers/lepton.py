@@ -185,7 +185,7 @@ Calc_MT_W = Producer(
     call="quantities::mT_MHT({df}, {output}, {input})",
     input=[
         q.extra_lep_p4,
-        q.met_p4,
+        q.met_p4_uncorrected,
     ],
     output=[q.mt_W],
     scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],

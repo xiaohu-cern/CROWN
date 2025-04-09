@@ -10,7 +10,7 @@ BuildMetVector = Producer(
         nanoAOD.MET_pt,
         nanoAOD.MET_phi,
     ],
-    output=[q.met_p4],
+    output=[q.met_p4_uncorrected],
     scopes=["global"],
 )
 BuildPFMetVector = Producer(
@@ -47,14 +47,14 @@ MetSumEt = Producer(
 MetPt_uncorrected = Producer(
     name="MetPt_uncorrected",
     call="quantities::pt({df}, {output}, {input})",
-    input=[q.met_p4],
+    input=[q.met_p4_uncorrected],
     output=[q.met_uncorrected],
     scopes=["global"],
 )
 MetPhi_uncorrected = Producer(
     name="MetPhi_uncorrected",
     call="quantities::phi({df}, {output}, {input})",
-    input=[q.met_p4],
+    input=[q.met_p4_uncorrected],
     output=[q.metphi_uncorrected],
     scopes=["global"],
 )
@@ -68,8 +68,8 @@ MetBasics = ProducerGroup(
     subproducers=[
         BuildPFMetVector,
         BuildMetVector,
-        MetPt_uncorrected,
-        MetPhi_uncorrected,
+        # MetPt_uncorrected,
+        # MetPhi_uncorrected,
         MetSumEt,
 
         # BuildGenMetVector,
@@ -80,7 +80,7 @@ MetBasics = ProducerGroup(
 # PropagateLeptonsToMet = Producer(
 #     name="PropagateLeptonsToMet",
 #     call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
-#     input=[q.met_p4, q.muon_p4_1, q.muon_p4_2, q.extra_lep_p4, q.muon_p4_1, q.muon_p4_2, q.extra_lep_p4],
+#     input=[q.met_p4_uncorrected, q.muon_p4_1, q.muon_p4_2, q.extra_lep_p4, q.muon_p4_1, q.muon_p4_2, q.extra_lep_p4],
 #     output=[q.met_p4_leptoncorrected],
 #     scopes=["e2m","m2m",
 #             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -90,7 +90,7 @@ MetBasics = ProducerGroup(
 PropagateFourLeptonsToMet = Producer(
     name="PropagateFourLeptonsToMet",
     call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
-    input=[q.met_p4, 
+    input=[q.met_p4_uncorrected, 
            q.muon_leadingp4_H, q.muon_subleadingp4_H, q.lepton_leadingp4_Z, q.lepton_subleadingp4_Z, 
            q.muon_leadingp4_H, q.muon_subleadingp4_H, q.lepton_leadingp4_Z, q.lepton_subleadingp4_Z],
     output=[q.met_p4_leptoncorrected],
@@ -99,7 +99,7 @@ PropagateFourLeptonsToMet = Producer(
 PropagateThreeLeptonsToMet_e2m = Producer(
     name="PropagateThreeLeptonsToMet",
     call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
-    input=[q.met_p4, q.muon_p4_1, q.muon_p4_2, q.extra_lep_p4, q.muon_p4_1, q.muon_p4_2, q.extra_lep_p4],
+    input=[q.met_p4_uncorrected, q.muon_p4_1, q.muon_p4_2, q.extra_lep_p4, q.muon_p4_1, q.muon_p4_2, q.extra_lep_p4],
     output=[q.met_p4_leptoncorrected],
     scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -107,7 +107,7 @@ PropagateThreeLeptonsToMet_e2m = Producer(
 PropagateThreeLeptonsToMet_m2m = Producer(
     name="PropagateThreeLeptonsToMet",
     call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
-    input=[q.met_p4, q.muon_p4_1, q.muon_p4_2, q.muon_p4_3, q.muon_p4_1, q.muon_p4_2, q.muon_p4_3],
+    input=[q.met_p4_uncorrected, q.muon_p4_1, q.muon_p4_2, q.muon_p4_3, q.muon_p4_1, q.muon_p4_2, q.muon_p4_3],
     output=[q.met_p4_leptoncorrected],
     scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
@@ -115,7 +115,7 @@ PropagateThreeLeptonsToMet_m2m = Producer(
 PropagateTwoLeptonsToMet = Producer(
     name="PropagateTwoLeptonsToMet",
     call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
-    input=[q.met_p4, q.muon_p4_1, q.muon_p4_2, q.muon_p4_1, q.muon_p4_2],
+    input=[q.met_p4_uncorrected, q.muon_p4_1, q.muon_p4_2, q.muon_p4_1, q.muon_p4_2],
     output=[q.met_p4_leptoncorrected],
     scopes=["nnmm","fjmm","fjmm_cr"],
 )

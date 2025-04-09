@@ -160,7 +160,11 @@ THU_qqH_25 = Quantity("THU_qqH_25")
 THU_qqH_JET01 = Quantity("THU_qqH_JET01")
 
 ## MET quantities
-met_p4 = Quantity("met_p4")
+### uncorrected met
+met_p4_uncorrected = Quantity("met_p4_uncorrected")
+met_pt_uncorrected = Quantity("met_pt_uncorrected")
+met_phi_uncorrected = Quantity("met_phi_uncorrected")
+### uncorrected met
 recoil_genboson_p4_vec = Quantity("recoil_genboson_p4_vec")
 genbosonmass = Quantity("genbosonmass")
 npartons = Quantity("npartons")
@@ -361,8 +365,6 @@ H_eta = Quantity("H_eta")
 H_phi = Quantity("H_phi")
 H_mass = Quantity("H_mass")
 
-met_pt = Quantity("met_pt")
-met_phi = Quantity("met_phi")
 genmet_pt = Quantity("genmet_pt")
 genmet_phi = Quantity("genmet_phi")
 

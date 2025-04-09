@@ -731,7 +731,7 @@ met_mmH_dphi = Producer(
     name="met_mmH_dphi",
     call='quantities::deltaPhi({df}, {output}, {input})',
     input=[
-      q.met_p4,
+      q.met_p4_uncorrected,
       q.dimuon_p4_Higgs,
     ],
     output=[q.met_H_dphi],
@@ -741,7 +741,7 @@ met_mm_fromZCR_dphi = Producer(
     name="met_mm_fromZCR_dphi",
     call='quantities::deltaPhi({df}, {output}, {input})',
     input=[
-      q.met_p4,
+      q.met_p4_uncorrected,
       q.dimuon_p4_CR,
     ],
     output=[q.met_mm_fromZCR_dphi],
@@ -1134,7 +1134,7 @@ Flag_MetCut = Producer(
     name="Flag_MetCut",
     call="physicsobject::MetCut({df}, {output}, {input}, {min_met})",
     input=[
-      q.met_p4,
+      q.met_p4_uncorrected,
     ],
     output=[q.Flag_MetCut],
     scopes=["nnmm","nnmm_dycontrol","nnmm_topcontrol"],
@@ -1151,7 +1151,7 @@ Flag_MaxMetCut = Producer(
     name="Flag_MaxMetCut",
     call="physicsobject::MaxMetCut({df}, {output}, {input}, {max_met})",
     input=[
-      q.met_p4,
+      q.met_p4_uncorrected,
     ],
     output=[q.Flag_MaxMetCut],
     scopes=["fjmm","fjmm_cr"],
