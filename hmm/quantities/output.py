@@ -254,6 +254,10 @@ iso_wgt_mu_2_above200 = Quantity("iso_wgt_mu_2_above200")
 iso_wgt_mu_3_above200 = Quantity("iso_wgt_mu_3_above200")
 iso_wgt_mu_4_above200 = Quantity("iso_wgt_mu_4_above200")
 
+reco_wgt_mu_1_above200 = Quantity("reco_wgt_mu_1_above200")
+reco_wgt_mu_2_above200 = Quantity("reco_wgt_mu_2_above200")
+pnet_wqcd_wgt = Quantity("pnet_wqcd_wgt")
+
 # write by botao
 smallest_dimuon_mass = Quantity("smallest_dimuon_mass")
 smallest_dielectron_mass = Quantity("smallest_dielectron_mass")

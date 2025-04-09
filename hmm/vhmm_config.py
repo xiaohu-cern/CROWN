@@ -582,10 +582,13 @@ def build_config(
             ######################
             ##### for HighPt #####
             ######################
+            # only for fjmm, nnmm and fjmm_cr scope
             "muon_id_sf_name_HighPt": "NUM_MediumID_DEN_GlobalMuonProbes",
             "muon_iso_sf_name_HighPt": "NUM_probe_TightRelTkIso_DEN_MediumIDProbes",
-            "muon_reco_sf_name_HighPt": "NUM_GlobalMuons_DEN_TrackerMuonProbes",
             "muon_sf_varation_HighPt": "nominal",
+            "muon_reco_sf_name_HighPt": "NUM_GlobalMuons_DEN_TrackerMuonProbes",
+            # below HighPt Momentum Scale, only for fjmm and nnmm
+            "muon_momentum_scale": "HighPtMuon_Momentum_Scale",
             ######################
             ##### for HighPt #####
             ######################
@@ -911,6 +914,24 @@ def build_config(
             "deltaR_fatjet_veto": 0.8, # vh fatjet-muon dR<0.8 overlap removal
         },
     )
+    ##################################################################
+    #### below fjmm WvsQCD ###########################################
+    ##################################################################
+    configuration.add_config_parameters(
+        ["fjmm","fjmm_cr"],
+        {
+            "fjmm_WvsQCD_sf_file": EraModifier(
+                {
+                    "2022preEE": "data/muon_corrections/WvsQCD/PNet_LooseWP_2022preEE.json.gz",
+                    "2022postEE": "data/muon_corrections/WvsQCD/PNet_LooseWP_2022postEE.json.gz",
+                    "2023preBPix": "data/muon_corrections/WvsQCD/PNet_LooseWP_2023preBPix.json.gz",
+                    "2023postBPix": "data/muon_corrections/WvsQCD/PNet_LooseWP_2023postBPix.json.gz",
+                }
+            ),
+            "fatjet_sf_varation" : "nominal",
+            "fjmm_WvsQCD_sf_name": "PNet_LooseWP",
+        },
+    )    
     # bjet scale factors
     configuration.add_config_parameters(
         scopes,
@@ -2349,6 +2370,8 @@ def build_config(
             genparticles.BosonDecayMode,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
+            # add HighPtMuon RECO SF here
+            scalefactors.MuonRECO_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             p4.METMuMuQuantities, # hackathon
         ],
@@ -2450,6 +2473,10 @@ def build_config(
             event.fatjet_PNet_withMass_TvsQCD,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
+            # add HighPtMuon RECO SF here
+            scalefactors.MuonRECO_SF,
+            # add PNet WvsQCD SF here
+            scalefactors.PNetWvsQCD_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             p4.FatJetMuMuQuantities, # hackathon
             event.FatJetQuantities, # tau1,2,3,4...
@@ -2534,6 +2561,10 @@ def build_config(
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
+            # add HighPtMuon RECO SF here
+            scalefactors.MuonRECO_SF,
+            # add PNet WvsQCD SF here
+            scalefactors.PNetWvsQCD_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             event.FatJetQuantities, # tau1,2,3,4...
         ],
@@ -2825,9 +2856,18 @@ def build_config(
             q.fatjet_tau2,
             q.fatjet_tau3,
             q.fatjet_tau4,
+            q.pnet_wqcd_wgt,
         ]
     )
-
+    ### HighPtMuon RECO SF 
+    configuration.add_outputs(
+        ["nnmm","fjmm","fjmm_cr"],
+        [
+            q.reco_wgt_mu_1_above200,
+            q.reco_wgt_mu_2_above200,
+        ]
+    )
+    
     configuration.add_outputs(
         ["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
         [
@@ -3674,6 +3714,39 @@ def build_config(
             },
         )
     )
+    ###############################
+    #### HighPtMuon RECO shift ####
+    ###############################
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonRECOUp",
+            shift_config={
+                ("nnmm","fjmm","fjmm_cr"): {
+                    "muon_sf_varation_HighPt": "systup",
+                }
+            },
+            producers={
+                ("nnmm","fjmm","fjmm_cr"): [
+                    scalefactors.MuonRECO_SF,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonRECODown",
+            shift_config={
+                ("nnmm","fjmm","fjmm_cr"): {
+                    "muon_sf_varation_HighPt": "systdown",
+                }
+            },
+            producers={
+                ("nnmm","fjmm","fjmm_cr"): [
+                    scalefactors.MuonRECO_SF,
+                ]
+            },
+        )
+    )
     
     ###########################
     #### Electron ID shift ####
@@ -3731,6 +3804,36 @@ def build_config(
             },
             producers={("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"): [
                 scalefactors.EleReco_SF,
+            ]},
+        )
+    )
+
+    ###########################
+    #### PNet WvsQCD shift ####
+    ###########################
+    configuration.add_shift(
+        SystematicShift(
+            name="fatjet_PNetSF_Up",
+            shift_config={
+                ("fjmm","fjmm_cr"): {
+                    "fatjet_sf_varation": "systup",
+                }
+            },
+            producers={("fjmm","fjmm_cr"): [
+                scalefactors.PNetWvsQCD_SF,
+            ]},
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="fatjet_PNetSF_Down",
+            shift_config={
+                ("fjmm","fjmm_cr"): {
+                    "fatjet_sf_varation": "systdown",
+                }
+            },
+            producers={("fjmm","fjmm_cr"): [
+                scalefactors.PNetWvsQCD_SF,
             ]},
         )
     )

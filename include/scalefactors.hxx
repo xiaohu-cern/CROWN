@@ -41,6 +41,11 @@ ROOT::RDF::RNode muon_sf_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                          const std::string correctiontype,
                          const std::string &idAlgorithm,
                          const float &extrapolation_factor = 1.0);
+ROOT::RDF::RNode reco_mu_vhmm(ROOT::RDF::RNode df, const std::string &p4, 
+                    const std::string &year_id,
+                    const std::string &variation, const std::string &id_output,
+                    const std::string &sf_file,
+                    const std::string &idAlgorithm);
 } // namespace muon
 namespace tau {
 
@@ -134,6 +139,10 @@ btagSF_run2(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
        const std::string &jet_veto_mask, const std::string &variation,
        const std::string &sf_output, const std::string &sf_file,
        const std::string &corr_algorithm);
+ROOT::RDF::RNode pnet_wqcd_sf(ROOT::RDF::RNode df, const std::string &p4, 
+                    const std::string &variation, const std::string &id_output,
+                    const std::string &sf_file,
+                    const std::string &idAlgorithm);
 } // namespace jet
 namespace embedding {
 ROOT::RDF::RNode

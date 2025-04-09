@@ -139,8 +139,7 @@ ROOT::RDF::RNode id_vhmm(ROOT::RDF::RNode df, const std::string &p4,
             const float &pt = p4.Pt();
             const float &eta = p4.Eta();
             double sf = 1.;
-            // preventing muons with default values due to tau energy correction
-            // shifts below good tau pt selection
+            
             if (sf_file.find("muon_Z") < sf_file.length()) {
                 Logger::get("muon SF file:")->debug("{}", sf_file);
                 // apply sf for muon pt > 15 using Z file
@@ -178,7 +177,7 @@ ROOT::RDF::RNode id_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                     const float &pz = p4.Pz();
                     //
                     float p = std::sqrt(px*px + py*py + pz*pz);
-                    Logger::get("muon High pt corr:")->info("pt: {}, p: {}", pt, p);
+                    Logger::get("muon High pt corr:")->debug("pt: {}, p: {}", pt, p);
                     sf = evaluator->evaluate(
                         {std::abs(eta), p, variation});    
                 } else if (pt < 200.0 && std::abs(eta) >= 0.0) {
@@ -258,12 +257,11 @@ ROOT::RDF::RNode iso_vhmm(ROOT::RDF::RNode df, const std::string &p4,
             const float &eta = p4.Eta();
             Logger::get("muonIsoSF")->debug("ISO - pt {}, eta {}", pt, eta);
             double sf = 1.;
-            // preventing muons with default values due to tau energy correction
-            // shifts below good tau pt selection
+
             if (sf_file.find("muon_Z") < sf_file.length()) {
                 Logger::get("muon SF file:")->debug("{}", sf_file);
                 // apply sf for muon pt > 15 using Z file
-                if (pt > 15.0 && std::abs(eta) >= 0.0) {
+                if (pt < 200.0 && pt > 15.0 && std::abs(eta) >= 0.0) {
                     if (year_id.find("202") < year_id.length()) {
                         sf = evaluator->evaluate(
                             {std::abs(eta), pt, variation});    
@@ -273,11 +271,29 @@ ROOT::RDF::RNode iso_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                     }
                 } else if (pt >= 0.0 && pt <= 15.0 && std::abs(eta) >= 0.0) {
                     sf = 1.;
+                } else if (pt >= 200.0 && std::abs(eta) >= 0.0) {
+                    sf = 1.;
                 }
             } else if (sf_file.find("muon_JPsi") < sf_file.length()) {
                 // apply sf for muon pt < 15 using JPsi file
                 // Since muon_JPsi has no Iso type for SF
                 sf = 1.;
+            } else if (sf_file.find("muon_HighPt") < sf_file.length()) {
+                Logger::get("muon SF file:")->debug("{}", sf_file);
+                // apply sf for muon pt > 200 using HighPt file
+                if (pt >= 200.0 && std::abs(eta) >= 0.0) {
+                    // for High Pt (>200) muon
+                    const float &px = p4.Px();
+                    const float &py = p4.Py();
+                    const float &pz = p4.Pz();
+                    //
+                    float p = std::sqrt(px*px + py*py + pz*pz);
+                    Logger::get("muon High pt corr:")->debug("pt: {}, p: {}", pt, p);
+                    sf = evaluator->evaluate(
+                        {std::abs(eta), p, variation});    
+                } else if (pt < 200.0 && std::abs(eta) >= 0.0) {
+                    sf = 1.;
+                }
             }
             return sf;
         },
@@ -331,9 +347,48 @@ ROOT::RDF::RNode muon_sf_vhmm(ROOT::RDF::RNode df, const std::string &p4,
         {p4});
     return df1;
 }
-/**
+///////////
+/// below for reco vhmm High Pt
+ROOT::RDF::RNode reco_mu_vhmm(ROOT::RDF::RNode df, const std::string &p4, 
+                    const std::string &year_id,
+                    const std::string &variation, const std::string &id_output,
+                    const std::string &sf_file,
+                    const std::string &idAlgorithm) {
 
-///
+    Logger::get("HighPtMuon RECO SF")->debug("Setting up functions for muon reco sf");
+    Logger::get("HighPtMuon RECO SF")->debug("ID - Name {}", idAlgorithm);
+    auto evaluator =
+        correction::CorrectionSet::from_file(sf_file)->at(idAlgorithm);
+    auto df1 = df.Define(
+        id_output,
+        [evaluator, year_id, variation, sf_file](ROOT::Math::PtEtaPhiMVector &p4) {
+            const float &pt = p4.Pt();
+            const float &eta = p4.Eta();
+            double sf = 1.;
+            
+            if (sf_file.find("muon_HighPt") < sf_file.length()) {
+                Logger::get("muon SF file:")->debug("{}", sf_file);
+                // apply sf for muon pt > 200 using HighPt file
+                if (pt >= 200.0 && std::abs(eta) >= 0.0) {
+                    // for High Pt (>200) muon
+                    const float &px = p4.Px();
+                    const float &py = p4.Py();
+                    const float &pz = p4.Pz();
+                    //
+                    float p = std::sqrt(px*px + py*py + pz*pz);
+                    Logger::get("muon High pt corr:")->debug("pt: {}, p: {}", pt, p);
+                    sf = evaluator->evaluate(
+                        {std::abs(eta), p, variation});    
+                } else if (pt < 200.0 && std::abs(eta) >= 0.0) {
+                    sf = 1.;
+                }
+            }
+            return sf;
+        },
+        {p4});
+    return df1;
+}
+
 } // namespace muon
 namespace tau {
 /**
@@ -1303,6 +1358,39 @@ btagSF_run2(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
         {pt, eta, btag_discr, flavor, jet_mask, bjet_mask, jet_veto_mask});
     return df1;
 }
+/// for PNet WvsQCD SF
+ROOT::RDF::RNode pnet_wqcd_sf(ROOT::RDF::RNode df, const std::string &p4, 
+                    const std::string &variation, const std::string &id_output,
+                    const std::string &sf_file,
+                    const std::string &idAlgorithm) {
+
+    Logger::get("PNet WQCD SF")->debug("Setting up functions for pnet sf");
+    Logger::get("PNet WQCD SF")->debug("ID - Name {}", idAlgorithm);
+    auto evaluator =
+        correction::CorrectionSet::from_file(sf_file)->at(idAlgorithm);
+    auto df1 = df.Define(
+        id_output,
+        [evaluator, variation, sf_file](ROOT::Math::PtEtaPhiMVector &p4) {
+            double sf = 1.;
+            Logger::get("PNet SF file:")->debug("{}", sf_file);
+            // apply sf for fatjet channel    
+            const float &fatjet_pt = p4.Pt();
+            if (fatjet_pt < 200) {
+                // Logger::get("muon High pt corr:")->debug("pt: {}, p: {}", pt, p);
+                sf = 1.;
+            } else if (fatjet_pt >= 800) {
+                sf = 1.;
+            } else {
+                // for fatjet_pt from 200 to 800
+                sf = evaluator->evaluate(
+                    {fatjet_pt, variation});
+            }
+            return sf;
+        },
+        {p4});
+    return df1;
+}
+///
 } // namespace jet
 
 namespace embedding {

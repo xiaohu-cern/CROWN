@@ -690,73 +690,80 @@ MuonIso_SF = ProducerGroup(
     },
 )
 
-# MuonIso_SF = ProducerGroup(
-#     name="MuonIso_SF",
+###################################
+########## HighPt Muon RECO #######
+###################################
+Muon_1_RECO_SF_vhmm = Producer(
+    name="Muon_1_RECO_SF_vhmm",
+    call='scalefactor::muon::reco_mu_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_HighPt}", {output}, "{muon_sf_file_HighPt}", "{muon_reco_sf_name_HighPt}")',
+    input=[q.muon_leadingp4_H],
+    output=[q.reco_wgt_mu_1_above200],
+    scopes=["nnmm","fjmm"],
+)
+Muon_2_RECO_SF_vhmm = Producer(
+    name="Muon_2_RECO_SF_vhmm",
+    call='scalefactor::muon::reco_mu_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_HighPt}", {output}, "{muon_sf_file_HighPt}", "{muon_reco_sf_name_HighPt}")',
+    input=[q.muon_subleadingp4_H],
+    output=[q.reco_wgt_mu_2_above200],
+    scopes=["nnmm","fjmm"],
+)
+
+Muon_1_RECO_SF_vhmm_regionbd = Producer(
+    name="Muon_1_RECO_SF_vhmm_regionbd",
+    call='scalefactor::muon::reco_mu_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_HighPt}", {output}, "{muon_sf_file_HighPt}", "{muon_reco_sf_name_HighPt}")',
+    input=[q.muon_leadingp4_Z_CR],
+    output=[q.reco_wgt_mu_1_above200],
+    scopes=["fjmm_cr"],
+)
+Muon_2_RECO_SF_vhmm_regionbd = Producer(
+    name="Muon_2_RECO_SF_vhmm_regionbd",
+    call='scalefactor::muon::reco_mu_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_HighPt}", {output}, "{muon_sf_file_HighPt}", "{muon_reco_sf_name_HighPt}")',
+    input=[q.muon_subleadingp4_Z_CR],
+    output=[q.reco_wgt_mu_2_above200],
+    scopes=["fjmm_cr"],
+)
+
+MuonRECO_SF = ProducerGroup(
+    name="MuonRECO_SF",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["nnmm","fjmm","fjmm_cr"],
+    subproducers={
+        "nnmm": [
+            Muon_1_RECO_SF_vhmm,
+            Muon_2_RECO_SF_vhmm,
+        ],
+        "fjmm": [
+            Muon_1_RECO_SF_vhmm,
+            Muon_2_RECO_SF_vhmm,
+        ],
+        "fjmm_cr": [
+            Muon_1_RECO_SF_vhmm_regionbd,
+            Muon_2_RECO_SF_vhmm_regionbd,
+        ],
+    },
+)
+#########################
+### FatJet WvsQCD SF ###
+#########################
+PNetWvsQCD_SF = Producer(
+    name="PNetWvsQCD_SF",
+    call='scalefactor::jet::pnet_wqcd_sf({df}, {input}, "{fatjet_sf_varation}", {output}, "{fjmm_WvsQCD_sf_file}", "{fjmm_WvsQCD_sf_name}")',
+    input=[q.fatjet_p4_1],
+    output=[q.pnet_wqcd_wgt],
+    scopes=["fjmm","fjmm_cr"],
+)
+
+# PNetWvsQCD_SF = ProducerGroup(
+#     name="PNetWvsQCD_SF",
 #     call=None,
 #     input=None,
 #     output=None,
-#     scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-#             "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-#             "eemm","mmmm","nnmm","fjmm","fjmm_cr"],
+#     scopes=["fjmm","fjmm_cr"],
 #     subproducers={
-#         "e2m": [
-#             Muon_1_Iso_SF_vhmm,
-#             Muon_2_Iso_SF_vhmm,
-#         ],
-#         "e2m_dyfakeinge_regionb": [
-#             Muon_1_Iso_SF_vhmm_regionbd,
-#             Muon_2_Iso_SF_vhmm_regionbd,
-#         ],
-#         "e2m_dyfakeinge_regionc": [
-#             Muon_1_Iso_SF_vhmm,
-#             Muon_2_Iso_SF_vhmm,
-#         ],
-#         "e2m_dyfakeinge_regiond": [
-#             Muon_1_Iso_SF_vhmm_regionbd,
-#             Muon_2_Iso_SF_vhmm_regionbd,
-#         ],
-#         "m2m": [
-#             Muon_1_Iso_SF_vhmm,
-#             Muon_2_Iso_SF_vhmm,
-#             Muon_3_Iso_SF_vhmm_m2m,
-#         ],
-#         "m2m_dyfakeingmu_regionb": [
-#             Muon_1_Iso_SF_vhmm_regionbd,
-#             Muon_2_Iso_SF_vhmm_regionbd,
-#             Muon_3_Iso_SF_vhmm_m2m,
-#         ],
-#         "m2m_dyfakeingmu_regionc": [
-#             Muon_1_Iso_SF_vhmm,
-#             Muon_2_Iso_SF_vhmm,
-#             Muon_3_Iso_SF_vhmm_m2m,
-#         ],
-#         "m2m_dyfakeingmu_regiond": [
-#             Muon_1_Iso_SF_vhmm_regionbd,
-#             Muon_2_Iso_SF_vhmm_regionbd,
-#             Muon_3_Iso_SF_vhmm_m2m,
-#         ],
-#         "eemm": [
-#             Muon_1_Iso_SF_vhmm,
-#             Muon_2_Iso_SF_vhmm,
-#         ],
-#         "mmmm": [
-#             Muon_1_Iso_SF_vhmm,
-#             Muon_2_Iso_SF_vhmm,
-#             Muon_3_Iso_SF_vhmm_mmmm,
-#             Muon_4_Iso_SF_vhmm_mmmm,
-#         ],
-#         "nnmm": [
-#             Muon_1_Iso_SF_vhmm,
-#             Muon_2_Iso_SF_vhmm,
-#         ],
-#         "fjmm": [
-#             Muon_1_Iso_SF_vhmm,
-#             Muon_2_Iso_SF_vhmm,
-#         ],
-#         "fjmm_cr": [
-#             Muon_1_Iso_SF_vhmm_regionbd,
-#             Muon_2_Iso_SF_vhmm_regionbd,
-#         ],
+#         Muon_1_PNet_SF_vhmm,
+#         Muon_2_PNet_SF_vhmm,
 #     },
 # )
 
