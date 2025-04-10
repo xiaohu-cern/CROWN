@@ -554,3 +554,26 @@ Calc_MHT_all = Producer(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
+Calc_MHT_all_corrected = Producer(
+    name="Calc_MHT_all_corrected",
+    call="physicsobject::MHT_CalculationALL({df}, {output}, {input})",
+    input=[
+        q.Muon_pt_corrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+        q.good_muon_collection,
+        nanoAOD.Electron_pt,
+        nanoAOD.Electron_eta,
+        nanoAOD.Electron_phi,
+        nanoAOD.Electron_mass,
+        q.good_electron_collection,
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        q.Jet_mass_corrected,
+        q.good_jet_collection,
+    ],
+    output=[q.MHTALL_p4],
+    scopes=["nnmm","fjmm"],
+)

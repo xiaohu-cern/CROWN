@@ -26,7 +26,7 @@ from .btag_variations import add_btagVariations
 
 from code_generation.configuration import Configuration
 from code_generation.modifiers import EraModifier, SampleModifier
-from code_generation.rules import RemoveProducer, AppendProducer
+from code_generation.rules import RemoveProducer, AppendProducer, ReplaceProducer
 from code_generation.systematics import SystematicShift, SystematicShiftByQuantity
 
 
@@ -3505,8 +3505,41 @@ def build_config(
             producers=[
                 scalefactors.MuonID_SF,
                 scalefactors.MuonIso_SF,
+                scalefactors.GenerateSingleMuonTriggerSF_MC,
             ],
             samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm","fjmm","fjmm_cr"],
+        RemoveProducer(
+            producers=[
+                scalefactors.MuonRECO_SF,
+            ],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["fjmm","fjmm_cr"],
+        RemoveProducer(
+            producers=[
+                scalefactors.PNetWvsQCD_SF,
+            ],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm","fjmm"],
+        ReplaceProducer(
+            producers=[momentumscale.MuonPtCorrection,momentumscale.RenameMuonPt],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm","fjmm"],
+        ReplaceProducer(
+            producers=[jets.Calc_MHT_all,jets.Calc_MHT_all_corrected],
+            samples=sample,
         ),
     )
     

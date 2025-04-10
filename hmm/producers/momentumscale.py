@@ -16,6 +16,16 @@ MuonPtCorrection = Producer(
     scopes=["nnmm","fjmm"],
     # scopes=["global"],
 )
+RenameMuonPt = Producer(
+    name="RenameMuonPt",
+    call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
+    input=[
+        nanoAOD.Muon_pt,
+    ],
+    output=[q.Muon_pt_corrected],
+    scopes=["nnmm","fjmm"],
+    # scopes=["global"],
+)
 Mu1_H_corrected = Producer(
     name="Mu1_H_corrected",
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",

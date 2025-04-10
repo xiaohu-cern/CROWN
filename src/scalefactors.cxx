@@ -38,7 +38,7 @@ ROOT::RDF::RNode Muonmomentumscale(ROOT::RDF::RNode df, const std::string &pt_un
             for (int i = 0; i < pt_values.size(); i++) {
                 Logger::get("muon momentum scale file:")->debug("{}", sf_file);
                 // apply scale for muon pt > 200 using HighPt file
-                if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && pt_values.at(i) > 200) {
+                if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && pt_values.at(i) > 200 && eta_values.at(i) > -2.4 && eta_values.at(i) < 2.4) {
                     // q/pt_corr = q/pt + kappa(TeV^-1) 
                     float kappa = 0;
                     kappa = evaluator->evaluate(
