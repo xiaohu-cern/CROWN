@@ -261,6 +261,15 @@ ROOT::RDF::RNode flagNumObject(ROOT::RDF::RNode df, const std::string &flagname,
     return df1;
 }
 
+ROOT::RDF::RNode flagQuantity(ROOT::RDF::RNode df, const std::string &flagname,
+                               const std::string &object_quantity,
+                               const float quantity_threshold, const std::string relation) {
+    // std::cout << "Check point" << std::endl;
+    auto df1 = 
+        df.Define( flagname, object_quantity + " " + relation + " " + std::to_string(quantity_threshold) );
+    return df1;
+}
+
 /// function to select the smallest mass of dilepton pair
 ROOT::RDF::RNode M_dileptonMass(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &particle_pts,

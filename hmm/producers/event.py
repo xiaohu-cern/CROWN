@@ -1,6 +1,6 @@
 from ..quantities import output as q
 from ..quantities import nanoAOD as nanoAOD
-from code_generation.producer import BaseFilter, Producer, ProducerGroup, VectorProducer
+from code_generation.producer import BaseFilter, Producer, ProducerGroup, VectorProducer, Filter
 
 ####################
 # Set of general producers for event quantities
@@ -1148,6 +1148,20 @@ Calc_CosThStar_Z_H = Producer(
     scopes=["eemm","mmmm"],
 )
 # Cut met pt, return a flag to do filter
+VetoLowMetFlag = Producer(
+    name="VetoLowMetFlag",
+    call='physicsobject::flagQuantity({df}, {output}, {input}, {min_met}, ">=")',
+    input=[q.met_pt_corrected],
+    output=[],
+    scopes=["nnmm"]
+)
+LowMetCut = Filter(
+    name="LowMetCut",
+    call='basefunctions::FilterFlagsAny({df}, "Veto LowMet events (keep MET>=150)", {input})',
+    input=[],
+    scopes=["nnmm"],
+    subproducers=[VetoLowMetFlag]
+)
 Flag_MetCut = Producer(
     name="Flag_MetCut",
     call="physicsobject::MetCut({df}, {output}, {input}, {min_met})",
@@ -1165,6 +1179,22 @@ FilterFlagMetCut = Producer(
     scopes=["nnmm","nnmm_dycontrol","nnmm_topcontrol"],
 )
 # fatjet
+# keep MET < 150 events
+VetoHighMetFlag = Producer(
+    name="VetoHighMetFlag",
+    call='physicsobject::flagQuantity({df}, {output}, {input}, {max_met}, "<")',
+    input=[q.met_pt_corrected],
+    output=[],
+    scopes=["fjmm"]
+)
+HighMetCut = Filter(
+    name="HighMetCut",
+    call='basefunctions::FilterFlagsAny({df}, "Veto HighMet events (keep MET<150)", {input})',
+    input=[],
+    scopes=["fjmm"],
+    subproducers=[VetoHighMetFlag]
+)
+
 Flag_MaxMetCut = Producer(
     name="Flag_MaxMetCut",
     call="physicsobject::MaxMetCut({df}, {output}, {input}, {max_met})",

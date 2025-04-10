@@ -2250,8 +2250,9 @@ def build_config(
         "nnmm",
         [
             event.FilterNGoodMuons, # vh nnmm ==2 muons
-            event.Flag_MetCut,
-            event.FilterFlagMetCut, # MET >= 50
+            # event.Flag_MetCut,
+            # event.FilterFlagMetCut, # MET >= 50
+            event.LowMetCut, # FlagsAny MET >= 150
             # write by botao
             lepton.CalcSmallestDiMuonMass,  # SFOS, m2m only has m
             event.DimuonMinMassCut,
@@ -2343,8 +2344,11 @@ def build_config(
         [
             event.FilterNGoodMuons, # vh fjmm ==2 muons
             # event.FilterNFatjets_fjmm, # vh fjmm >=1 fatjet
-            event.Flag_MaxMetCut,
-            event.FilterFlagMaxMetCut, # MET <= 150
+            
+            event.HighMetCut, # keep MET < 150 events
+            # event.Flag_MaxMetCut,
+            # event.FilterFlagMaxMetCut, # MET <= 150
+            
             # write by botao
             lepton.CalcSmallestDiMuonMass,  # SFOS, m2m only has m
             event.DimuonMinMassCut,
@@ -3124,7 +3128,7 @@ def build_config(
             # q.MHTALL_p4,
             #
             q.smallest_dimuon_mass,
-            q.Flag_MetCut,
+            # q.Flag_MetCut,
             q.Flag_LeptonChargeSumVeto,
             q.Flag_GoodEle_Veto,
             q.Flag_DiMuonFromHiggs,
@@ -3155,7 +3159,7 @@ def build_config(
             q.met_H_dphi,
 
             q.smallest_dimuon_mass,
-            q.Flag_MaxMetCut,
+            # q.Flag_MaxMetCut,
             q.Flag_LeptonChargeSumVeto,
             q.Flag_GoodEle_Veto,
             q.Flag_DiMuonFromHiggs,
@@ -3739,6 +3743,40 @@ def build_config(
             producers={
                 ("nnmm","fjmm","fjmm_cr"): [
                     scalefactors.MuonRECO_SF,
+                ]
+            },
+        )
+    )
+
+    #########################################
+    #### HighPtMuon Momentum Scale shift ####
+    #########################################
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonMomentumScaleUp",
+            shift_config={
+                ("nnmm","fjmm"): {
+                    "muon_momentum_scale_variation": "systup",
+                }
+            },
+            producers={
+                ("nnmm","fjmm"): [
+                    momentumscale.MuonPtCorrection,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonMomentumScaleDown",
+            shift_config={
+                ("nnmm","fjmm"): {
+                    "muon_momentum_scale_variation": "systdown",
+                }
+            },
+            producers={
+                ("nnmm","fjmm"): [
+                    momentumscale.MuonPtCorrection,
                 ]
             },
         )
