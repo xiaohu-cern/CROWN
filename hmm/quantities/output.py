@@ -675,3 +675,15 @@ fatjet_tau2 = Quantity("fatjet_tau2")
 fatjet_tau3 = Quantity("fatjet_tau3")
 fatjet_tau4 = Quantity("fatjet_tau4")
 
+Muon_pt_corrected = Quantity("Muon_pt_corrected")
+
+muon_leadingp4_H_corrected = Quantity("muon_leadingp4_H_corrected")
+muon_subleadingp4_H_corrected = Quantity("muon_subleadingp4_H_corrected")
+mu1_fromH_pt_corrected = Quantity("mu1_fromH_pt_corrected")
+mu2_fromH_pt_corrected = Quantity("mu2_fromH_pt_corrected")
+
+dimuon_p4_Higgs_corrected = Quantity("dimuon_p4_Higgs_corrected")
+H_pt_corrected = Quantity("H_pt_corrected")
+
+met_pt_corrected = Quantity("met_pt_corrected")
+met_phi_corrected = Quantity("met_phi_corrected")

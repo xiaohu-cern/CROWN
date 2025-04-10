@@ -253,6 +253,18 @@ HiggsToDiMuonPair_p4 = Producer(
     output=[q.dimuon_p4_Higgs],
     scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
+HiggsToDiMuonPair_p4_corrected = Producer(
+    name="HiggsToDiMuonPair_p4_corrected",
+    call='physicsobject::HiggsToDiMuonPairCollection({df}, {output}, {input})',
+    input=[q.Muon_pt_corrected,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           q.dimuon_HiggsCand_collection],
+    output=[q.dimuon_p4_Higgs_corrected],
+    scopes=["nnmm","fjmm"],
+)
+
 HiggsToDiMuonPair_p4_4m = Producer(
     name="HiggsToDiMuonPair_p4_4m",
     call='physicsobject::HiggsToDiMuonPairCollection({df}, {output}, {input})',
@@ -403,9 +415,19 @@ mumuH_dR = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mumuH_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm",
+    scopes=["e2m","m2m","eemm","mmmm",
             "e2m_dyfakeinge_regionc",
             "m2m_dyfakeingmu_regionc"],
+)
+mumuH_dR_corrected = Producer(
+    name="mumuH_dR_corrected",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_H_corrected,
+      q.muon_subleadingp4_H_corrected,
+    ],
+    output=[q.mumuH_dR],
+    scopes=["nnmm","fjmm"],
 )
 mumuZCR_dR = Producer(
     name="mumuH_dR",
@@ -427,10 +449,21 @@ mumuH_deta = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mumuH_deta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm",
+    scopes=["e2m","m2m","eemm","mmmm",
             "e2m_dyfakeinge_regionc",
             "m2m_dyfakeingmu_regionc"],
 )
+mumuH_deta_corrected = Producer(
+    name="mumuH_deta_corrected",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_H_corrected,
+      q.muon_subleadingp4_H_corrected,
+    ],
+    output=[q.mumuH_deta],
+    scopes=["nnmm","fjmm"],
+)
+
 mumuZCR_deta = Producer(
     name="mumuZCR_deta",
     call='quantities::deltaEta({df}, {output}, {input})',
@@ -727,12 +760,12 @@ llZ_mmH_dphi = Producer(
     scopes=["eemm","mmmm"],
 )
 ### dphi met and H
-met_mmH_dphi = Producer(
-    name="met_mmH_dphi",
+met_mmH_dphi_corrected = Producer(
+    name="met_mmH_dphi_corrected",
     call='quantities::deltaPhi({df}, {output}, {input})',
     input=[
-      q.met_p4_uncorrected,
-      q.dimuon_p4_Higgs,
+      q.met_p4_jetcorrected,
+      q.dimuon_p4_Higgs_corrected,
     ],
     output=[q.met_H_dphi],
     scopes=["nnmm","fjmm"],
@@ -741,7 +774,7 @@ met_mm_fromZCR_dphi = Producer(
     name="met_mm_fromZCR_dphi",
     call='quantities::deltaPhi({df}, {output}, {input})',
     input=[
-      q.met_p4_uncorrected,
+      q.met_p4_jetcorrected,
       q.dimuon_p4_CR,
     ],
     output=[q.met_mm_fromZCR_dphi],
@@ -758,10 +791,21 @@ mumuH_dphi = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mumuH_dphi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm",
+    scopes=["e2m","m2m","eemm","mmmm",
             "e2m_dyfakeinge_regionc",
             "m2m_dyfakeingmu_regionc"],
 )
+mumuH_dphi_corrected = Producer(
+    name="mumuH_dphi_corrected",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_H_corrected,
+      q.muon_subleadingp4_H_corrected,
+    ],
+    output=[q.mumuH_dphi],
+    scopes=["nnmm","fjmm"],
+)
+
 mumuZCR_dphi = Producer(
     name="mumuZCR_dphi",
     call='quantities::deltaPhi({df}, {output}, {input})',
@@ -916,8 +960,19 @@ mumuH_MHTALL_dphi = Producer(
       q.MHTALL_p4,
     ],
     output=[q.mumuH_MHTALL_dphi],
-    scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
+mumuH_MHTALL_dphi_corrected = Producer(
+    name="mumuH_MHTALL_dphi_corrected",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.dimuon_p4_Higgs_corrected,
+      q.MHTALL_p4,
+    ],
+    output=[q.mumuH_MHTALL_dphi],
+    scopes=["nnmm","fjmm"],
+)
+
 ZCR_MHTALL_dphi = Producer(
     name="ZCR_MHTALL_dphi",
     call='quantities::deltaPhi({df}, {output}, {input})',
@@ -948,8 +1003,19 @@ mu1_MHTALL_dphi = Producer(
       q.MHTALL_p4,
     ],
     output=[q.mu1_MHTALL_dphi],
-    scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
+mu1_MHTALL_dphi_corrected = Producer(
+    name="mu1_MHTALL_dphi_corrected",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_H_corrected,
+      q.MHTALL_p4,
+    ],
+    output=[q.mu1_MHTALL_dphi],
+    scopes=["nnmm","fjmm"],
+)
+
 mu1_fromZCR_MHTALL_dphi = Producer(
     name="mu1_fromZCR_MHTALL_dphi",
     call='quantities::deltaPhi({df}, {output}, {input})',
@@ -980,8 +1046,19 @@ mu2_MHTALL_dphi = Producer(
       q.MHTALL_p4,
     ],
     output=[q.mu2_MHTALL_dphi],
-    scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
+mu2_MHTALL_dphi_corrected = Producer(
+    name="mu2_MHTALL_dphi_corrected",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.muon_subleadingp4_H_corrected,
+      q.MHTALL_p4,
+    ],
+    output=[q.mu2_MHTALL_dphi],
+    scopes=["nnmm","fjmm"],
+)
+
 mu2_fromZCR_MHTALL_dphi = Producer(
     name="mu2_fromZCR_MHTALL_dphi",
     call='quantities::deltaPhi({df}, {output}, {input})',
@@ -1002,8 +1079,19 @@ mu1_mu2_dphi = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu1_mu2_dphi],
-    scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
+    scopes=["e2m","m2m","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
+mu1_mu2_dphi_corrected = Producer(
+    name="mu1_mu2_dphi_corrected",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_H_corrected,
+      q.muon_subleadingp4_H_corrected,
+    ],
+    output=[q.mu1_mu2_dphi],
+    scopes=["nnmm","fjmm"],
+)
+
 mu1_mu2_fromZCR_dphi = Producer(
     name="mu1_mu2_fromZCR_dphi",
     call='quantities::deltaPhi({df}, {output}, {input})',
@@ -1134,7 +1222,7 @@ Flag_MetCut = Producer(
     name="Flag_MetCut",
     call="physicsobject::MetCut({df}, {output}, {input}, {min_met})",
     input=[
-      q.met_p4_uncorrected,
+      q.met_p4_jetcorrected,
     ],
     output=[q.Flag_MetCut],
     scopes=["nnmm","nnmm_dycontrol","nnmm_topcontrol"],
@@ -1151,7 +1239,7 @@ Flag_MaxMetCut = Producer(
     name="Flag_MaxMetCut",
     call="physicsobject::MaxMetCut({df}, {output}, {input}, {max_met})",
     input=[
-      q.met_p4_uncorrected,
+      q.met_p4_jetcorrected,
     ],
     output=[q.Flag_MaxMetCut],
     scopes=["fjmm","fjmm_cr"],
@@ -1167,12 +1255,12 @@ FilterFlagMaxMetCut = Producer(
 ################## fatjet and Higgs
 ##################################
 ### deta fatjet and H
-fatjet_mmH_deta = Producer(
-    name="fatjet_mmH_deta",
+fatjet_mmH_deta_corrected = Producer(
+    name="fatjet_mmH_deta_corrected",
     call='quantities::deltaEta({df}, {output}, {input})',
     input=[
       q.fatjet_p4_1,
-      q.dimuon_p4_Higgs,
+      q.dimuon_p4_Higgs_corrected,
     ],
     output=[q.fatjet_mmH_deta],
     scopes=["fjmm"],
@@ -1188,12 +1276,12 @@ fatjet_ZCR_deta = Producer(
     scopes=["fjmm_cr"],
 )
 ### dphi fatjet and H
-fatjet_mmH_dphi = Producer(
-    name="fatjet_mmH_dphi",
+fatjet_mmH_dphi_corrected = Producer(
+    name="fatjet_mmH_dphi_corrected",
     call='quantities::deltaPhi({df}, {output}, {input})',
     input=[
       q.fatjet_p4_1,
-      q.dimuon_p4_Higgs,
+      q.dimuon_p4_Higgs_corrected,
     ],
     output=[q.fatjet_mmH_dphi],
     scopes=["fjmm"],
@@ -1209,12 +1297,12 @@ fatjet_ZCR_dphi = Producer(
     scopes=["fjmm_cr"],
 )
 ### dR fatjet and H
-fatjet_mmH_dR = Producer(
-    name="fatjet_mmH_dR",
+fatjet_mmH_dR_corrected = Producer(
+    name="fatjet_mmH_dR_corrected",
     call='quantities::deltaR({df}, {output}, {input})',
     input=[
       q.fatjet_p4_1,
-      q.dimuon_p4_Higgs,
+      q.dimuon_p4_Higgs_corrected,
     ],
     output=[q.fatjet_mmH_dR],
     scopes=["fjmm"],
@@ -1233,12 +1321,12 @@ fatjet_ZCR_dR = Producer(
 ################## fatjet and mu1
 ##################################
 ### deta fatjet and mu1
-fatjet_mu1_deta = Producer(
-    name="fatjet_mu1_deta",
+fatjet_mu1_deta_corrected = Producer(
+    name="fatjet_mu1_deta_corrected",
     call='quantities::deltaEta({df}, {output}, {input})',
     input=[
       q.fatjet_p4_1,
-      q.muon_leadingp4_H,
+      q.muon_leadingp4_H_corrected,
     ],
     output=[q.fatjet_mu1_deta],
     scopes=["fjmm"],
@@ -1254,12 +1342,12 @@ fatjet_mu1_fromZCR_deta = Producer(
     scopes=["fjmm_cr"],
 )
 ### dphi fatjet and mu1
-fatjet_mu1_dphi = Producer(
-    name="fatjet_mu1_dphi",
+fatjet_mu1_dphi_corrected = Producer(
+    name="fatjet_mu1_dphi_corrected",
     call='quantities::deltaPhi({df}, {output}, {input})',
     input=[
       q.fatjet_p4_1,
-      q.muon_leadingp4_H,
+      q.muon_leadingp4_H_corrected,
     ],
     output=[q.fatjet_mu1_dphi],
     scopes=["fjmm"],
@@ -1275,12 +1363,12 @@ fatjet_mu1_fromZCR_dphi = Producer(
     scopes=["fjmm_cr"],
 )
 ### dR fatjet and mu1
-fatjet_mu1_dR = Producer(
-    name="fatjet_mu1_dR",
+fatjet_mu1_dR_corrected = Producer(
+    name="fatjet_mu1_dR_corrected",
     call='quantities::deltaR({df}, {output}, {input})',
     input=[
       q.fatjet_p4_1,
-      q.muon_leadingp4_H,
+      q.muon_leadingp4_H_corrected,
     ],
     output=[q.fatjet_mu1_dR],
     scopes=["fjmm"],
@@ -1299,12 +1387,12 @@ fatjet_mu1_fromZCR_dR = Producer(
 ################## fatjet and mu2
 ##################################
 ### deta fatjet and mu2
-fatjet_mu2_deta = Producer(
-    name="fatjet_mu2_deta",
+fatjet_mu2_deta_corrected = Producer(
+    name="fatjet_mu2_deta_corrected",
     call='quantities::deltaEta({df}, {output}, {input})',
     input=[
       q.fatjet_p4_1,
-      q.muon_subleadingp4_H,
+      q.muon_subleadingp4_H_corrected,
     ],
     output=[q.fatjet_mu2_deta],
     scopes=["fjmm"],
@@ -1320,12 +1408,12 @@ fatjet_mu2_fromZCR_deta = Producer(
     scopes=["fjmm_cr"],
 )
 ### dphi fatjet and mu2
-fatjet_mu2_dphi = Producer(
-    name="fatjet_mu2_dphi",
+fatjet_mu2_dphi_corrected = Producer(
+    name="fatjet_mu2_dphi_corrected",
     call='quantities::deltaPhi({df}, {output}, {input})',
     input=[
       q.fatjet_p4_1,
-      q.muon_subleadingp4_H,
+      q.muon_subleadingp4_H_corrected,
     ],
     output=[q.fatjet_mu2_dphi],
     scopes=["fjmm"],
@@ -1341,12 +1429,12 @@ fatjet_mu2_fromZCR_dphi = Producer(
     scopes=["fjmm_cr"],
 )
 ### dR fatjet and mu2
-fatjet_mu2_dR = Producer(
-    name="fatjet_mu2_dR",
+fatjet_mu2_dR_corrected = Producer(
+    name="fatjet_mu2_dR_corrected",
     call='quantities::deltaR({df}, {output}, {input})',
     input=[
       q.fatjet_p4_1,
-      q.muon_subleadingp4_H,
+      q.muon_subleadingp4_H_corrected,
     ],
     output=[q.fatjet_mu2_dR],
     scopes=["fjmm"],

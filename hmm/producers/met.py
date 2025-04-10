@@ -117,7 +117,15 @@ PropagateTwoLeptonsToMet = Producer(
     call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
     input=[q.met_p4_uncorrected, q.muon_p4_1, q.muon_p4_2, q.muon_p4_1, q.muon_p4_2],
     output=[q.met_p4_leptoncorrected],
-    scopes=["nnmm","fjmm","fjmm_cr"],
+    scopes=["fjmm_cr"],
+)
+
+PropagateTwoLeptonsToMet_corrected = Producer(
+    name="PropagateTwoLeptonsToMet_corrected",
+    call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
+    input=[q.met_p4_uncorrected, q.muon_leadingp4_H, q.muon_subleadingp4_H, q.muon_leadingp4_H_corrected, q.muon_subleadingp4_H_corrected],
+    output=[q.met_p4_leptoncorrected],
+    scopes=["nnmm","fjmm"],
 )
 
 PropagateJetsToMet = Producer(
@@ -145,7 +153,7 @@ MetPt = Producer(
     name="MetPt",
     call="quantities::pt({df}, {output}, {input})",
     input=[q.met_p4_jetcorrected],
-    output=[q.met],
+    output=[q.met_pt_corrected],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -154,7 +162,7 @@ MetPhi = Producer(
     name="MetPhi",
     call="quantities::phi({df}, {output}, {input})",
     input=[q.met_p4_jetcorrected],
-    output=[q.metphi],
+    output=[q.met_phi_corrected],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -230,13 +238,13 @@ MetCorrections = ProducerGroup(
             MetPhi,
         ],
         "nnmm": [
-            PropagateTwoLeptonsToMet,
+            PropagateTwoLeptonsToMet_corrected,
             PropagateJetsToMet,
             MetPt,
             MetPhi,
         ],
         "fjmm": [
-            PropagateTwoLeptonsToMet,
+            PropagateTwoLeptonsToMet_corrected,
             PropagateJetsToMet,
             MetPt,
             MetPhi,

@@ -15,6 +15,7 @@ from .producers import met as met
 from .producers import p4 as p4
 from .producers import cr as cr
 from .producers import fatjets as fatjets
+from .producers import momentumscale as momentumscale
 # end 
 from .quantities import nanoAOD as nanoAOD
 from .quantities import output as q
@@ -587,8 +588,18 @@ def build_config(
             "muon_iso_sf_name_HighPt": "NUM_probe_TightRelTkIso_DEN_MediumIDProbes",
             "muon_sf_varation_HighPt": "nominal",
             "muon_reco_sf_name_HighPt": "NUM_GlobalMuons_DEN_TrackerMuonProbes",
+            
             # below HighPt Momentum Scale, only for fjmm and nnmm
-            "muon_momentum_scale": "HighPtMuon_Momentum_Scale",
+            "muon_momentum_scale_name": "HighPtMuon_Momentum_Scale",
+            "muon_momentum_scale_variation": "nominal",
+            "muon_momentum_scale_corr_file": EraModifier(
+                {
+                    "2022preEE": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2022preEE.json.gz",
+                    "2022postEE": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2022postEE.json.gz",
+                    "2023preBPix": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023preBPix.json.gz",
+                    "2023postBPix": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023postBPix.json.gz",
+                }
+            ),
             ######################
             ##### for HighPt #####
             ######################
@@ -1252,6 +1263,12 @@ def build_config(
             p4.MHTALL_phi,
             p4.MHTALL_mass,
             met.MetCorrections,
+        ]
+    )
+    configuration.add_producers(
+        ["nnmm","fjmm"],
+        [
+            momentumscale.MuonPtCorrection,
         ]
     )
     configuration.add_producers(
@@ -2299,7 +2316,8 @@ def build_config(
             ###
             event.Mask_DiMuonPair, # dimuonHiggs index
             event.Flag_DiMuonFromHiggs,
-            event.HiggsToDiMuonPair_p4, # select the dimuon pairs in [110,150] and order by pt
+            event.HiggsToDiMuonPair_p4,
+            event.HiggsToDiMuonPair_p4_corrected, # select the dimuon pairs in [110,150] and order by pt
             ###
             lepton.LeptonChargeSumVeto,
             ###
@@ -2314,6 +2332,12 @@ def build_config(
             muons.LVMu1,
             muons.LVMu2,
 
+            momentumscale.Mu1_H_corrected,
+            momentumscale.Mu2_H_corrected,
+            p4.mu1_fromH_pt_corrected,
+            p4.mu2_fromH_pt_corrected,
+            p4.H_pt_corrected,
+
             ##############################
             # met.MetCorrections,
             ##############################
@@ -2321,20 +2345,20 @@ def build_config(
             ##############################
 
             ###
-            event.mumuH_dR,
-            event.mumuH_dphi,
-            event.mumuH_deta,
+            event.mumuH_dR_corrected,
+            event.mumuH_dphi_corrected,
+            event.mumuH_deta_corrected,
             ###
             event.mumuH_MHT_dphi,
             event.mu1_MHT_dphi,
             event.mu2_MHT_dphi,
 
-            event.mumuH_MHTALL_dphi,
-            event.mu1_MHTALL_dphi,
-            event.mu2_MHTALL_dphi,
+            event.mumuH_MHTALL_dphi_corrected,
+            event.mu1_MHTALL_dphi_corrected,
+            event.mu2_MHTALL_dphi_corrected,
             
-            event.mu1_mu2_dphi,
-            event.met_mmH_dphi,
+            event.mu1_mu2_dphi_corrected,
+            event.met_mmH_dphi_corrected,
             #
             #muons.LVMu3, # vh 
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
@@ -2389,7 +2413,8 @@ def build_config(
             ###
             event.Mask_DiMuonPair, # dimuonHiggs index
             event.Flag_DiMuonFromHiggs,
-            event.HiggsToDiMuonPair_p4, # select the dimuon pairs in [110,150] and order by pt
+            event.HiggsToDiMuonPair_p4,
+            event.HiggsToDiMuonPair_p4_corrected, # select the dimuon pairs in [110,150] and order by pt
             ###
             lepton.LeptonChargeSumVeto,
             ###
@@ -2403,7 +2428,13 @@ def build_config(
             muons.Mu2_H, # vh
             muons.LVMu1,
             muons.LVMu2,
-
+            
+            momentumscale.Mu1_H_corrected,
+            momentumscale.Mu2_H_corrected,
+            p4.mu1_fromH_pt_corrected,
+            p4.mu2_fromH_pt_corrected,
+            p4.H_pt_corrected,
+            
             ##############################
             # met.MetCorrections,
             ##############################
@@ -2411,20 +2442,20 @@ def build_config(
             ##############################
 
             # ###
-            event.mumuH_dR,
-            event.mumuH_dphi,
-            event.mumuH_deta,
+            event.mumuH_dR_corrected,
+            event.mumuH_dphi_corrected,
+            event.mumuH_deta_corrected,
             # ###
             event.mumuH_MHT_dphi,
             event.mu1_MHT_dphi,
             event.mu2_MHT_dphi,
 
-            event.mumuH_MHTALL_dphi,
-            event.mu1_MHTALL_dphi,
-            event.mu2_MHTALL_dphi,
+            event.mumuH_MHTALL_dphi_corrected,
+            event.mu1_MHTALL_dphi_corrected,
+            event.mu2_MHTALL_dphi_corrected,
             
-            event.mu1_mu2_dphi,
-            event.met_mmH_dphi,
+            event.mu1_mu2_dphi_corrected,
+            event.met_mmH_dphi_corrected,
             # #
             # #muons.LVMu3, # vh 
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
@@ -2451,15 +2482,15 @@ def build_config(
             p4.fatjet_eta,
             p4.fatjet_phi,
             p4.fatjet_mass,
-            event.fatjet_mmH_deta,
-            event.fatjet_mmH_dphi,
-            event.fatjet_mmH_dR,
-            event.fatjet_mu1_deta,
-            event.fatjet_mu1_dphi,
-            event.fatjet_mu1_dR,
-            event.fatjet_mu2_deta,
-            event.fatjet_mu2_dphi,
-            event.fatjet_mu2_dR,
+            event.fatjet_mmH_deta_corrected,
+            event.fatjet_mmH_dphi_corrected,
+            event.fatjet_mmH_dR_corrected,
+            event.fatjet_mu1_deta_corrected,
+            event.fatjet_mu1_dphi_corrected,
+            event.fatjet_mu1_dR_corrected,
+            event.fatjet_mu2_deta_corrected,
+            event.fatjet_mu2_dphi_corrected,
+            event.fatjet_mu2_dR_corrected,
             event.fatjetSoftDropMass,
             
             # event.fatjet_PNet_withMass_QCD_Nanov9,
@@ -2694,8 +2725,8 @@ def build_config(
             q.met_pt_uncorrected,
             q.met_phi_uncorrected,
             q.metSumEt,
-            q.met,
-            q.metphi,
+            q.met_pt_corrected,
+            q.met_phi_corrected,
             
             q.genmet_pt,
             q.genmet_phi,
@@ -2857,6 +2888,15 @@ def build_config(
             q.fatjet_tau3,
             q.fatjet_tau4,
             q.pnet_wqcd_wgt,
+        ]
+    )
+    ### HighPt Momentum Scale
+    configuration.add_outputs(
+        ["nnmm","fjmm"],
+        [
+            q.mu1_fromH_pt_corrected,
+            q.mu2_fromH_pt_corrected,
+            q.H_pt_corrected,
         ]
     )
     ### HighPtMuon RECO SF 

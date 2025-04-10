@@ -3,6 +3,12 @@
 
 namespace scalefactor {
 namespace muon {
+ROOT::RDF::RNode Muonmomentumscale(ROOT::RDF::RNode df, const std::string &pt_uncorrected, 
+                    const std::string &phi, const std::string &eta, 
+                    const std::string &charge, 
+                    const std::string &variation, const std::string &pt_corrected,
+                    const std::string &sf_file,
+                    const std::string &idAlgorithm);
 ROOT::RDF::RNode id_rooworkspace(ROOT::RDF::RNode df, const std::string &pt,
                                  const std::string &eta,
                                  const std::string &id_output,

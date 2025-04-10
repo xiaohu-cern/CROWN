@@ -12,6 +12,50 @@
 /// namespace used for scale factor related functions
 namespace scalefactor {
 namespace muon {
+///
+ROOT::RDF::RNode Muonmomentumscale(ROOT::RDF::RNode df, const std::string &pt_uncorrected, 
+                    const std::string &phi, const std::string &eta, 
+                    const std::string &charge, 
+                    const std::string &variation, const std::string &pt_corrected, 
+                    const std::string &sf_file,
+                    const std::string &idAlgorithm) {
+    Logger::get("HighPtMuon Momentum Scale")->debug("Setting up functions for muon momentum scale");
+    Logger::get("HighPtMuon Momentum Scale")->debug("Algorithm - Name {}", idAlgorithm);
+    auto evaluator =
+        correction::CorrectionSet::from_file(sf_file)->at(idAlgorithm);
+    auto df1 = df.Define(
+        pt_corrected,
+        [evaluator, variation, sf_file](const ROOT::RVec<float> &pt_values,
+                                        const ROOT::RVec<float> &phi_values,
+                                        const ROOT::RVec<float> &eta_values,
+                                        const ROOT::RVec<int> &q_values) {
+            // maybe can input good muon mask also, to speed up the process
+            // input is phi and eta
+            // https://twiki.cern.ch/twiki/bin/view/CMS/MuonRun32022#Momentum_Scale 
+            // https://twiki.cern.ch/twiki/bin/view/CMS/MuonRun3_2023#Momentum_Scale 
+            // https://indico.cern.ch/event/1411292/contributions/5932367/attachments/2846614/4977311/GEMethod_22+23_29Apr24.pdf 
+            ROOT::RVec<float> corrected_pt_values(pt_values.size());            
+            for (int i = 0; i < pt_values.size(); i++) {
+                Logger::get("muon momentum scale file:")->debug("{}", sf_file);
+                // apply scale for muon pt > 200 using HighPt file
+                if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && pt_values.at(i) > 200) {
+                    // q/pt_corr = q/pt + kappa(TeV^-1) 
+                    float kappa = 0;
+                    kappa = evaluator->evaluate(
+                            {phi_values.at(i), eta_values.at(i), variation});
+                    corrected_pt_values[i] = (pt_values.at(i) * q_values.at(i)) / (q_values.at(i) + pt_values.at(i) * kappa * 0.001);
+                } else {
+                    corrected_pt_values[i] = pt_values.at(i);
+                }
+                Logger::get("uncorrected pt:")->debug("{}", pt_values.at(i));
+                Logger::get("corrected pt:")->debug("{}", corrected_pt_values.at(i));
+            }
+            return corrected_pt_values;
+        },
+        {pt_uncorrected, phi, eta, charge});
+    return df1;
+}
+///
 /**
  * @brief Function used to evaluate id scale factors from muons
  *

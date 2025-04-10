@@ -17,6 +17,15 @@ mu1_fromH_pt = Producer(
     output=[q.mu1_fromH_pt],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
+mu1_fromH_pt_corrected = Producer(
+    name="mu1_fromH_pt_corrected",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_H_corrected,
+    ],
+    output=[q.mu1_fromH_pt_corrected],
+    scopes=["nnmm","fjmm"],
+)
 mu1_fromH_eta = Producer(
     name="mu1_fromH_eta",
     call='quantities::eta({df}, {output}, {input})',
@@ -55,6 +64,15 @@ mu2_fromH_pt = Producer(
     ],
     output=[q.mu2_fromH_pt],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+mu2_fromH_pt_corrected = Producer(
+    name="mu2_fromH_pt_corrected",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.muon_subleadingp4_H_corrected,
+    ],
+    output=[q.mu2_fromH_pt_corrected],
+    scopes=["nnmm","fjmm"],
 )
 mu2_fromH_eta = Producer(
     name="mu2_fromH_eta",
@@ -95,6 +113,16 @@ H_pt = Producer(
     output=[q.H_pt],
     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
+H_pt_corrected = Producer(
+    name="H_pt_corrected",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.dimuon_p4_Higgs_corrected,
+    ],
+    output=[q.H_pt_corrected],
+    scopes=["nnmm","fjmm"],
+)
+
 H_eta = Producer(
     name="H_eta",
     call='quantities::eta({df}, {output}, {input})',
@@ -791,7 +819,7 @@ W_pt = Producer(
     call='physicsobject::pt_W({df}, {output}, {input})',
     input=[
       q.extra_lep_p4,
-      q.met_p4_uncorrected,
+      q.met_p4_jetcorrected,
     ],
     output=[q.W_pt],
     scopes=["e2m","m2m",
@@ -803,7 +831,7 @@ W_phi = Producer(
     call='physicsobject::phi_W({df}, {output}, {input})',
     input=[
       q.extra_lep_p4,
-      q.met_p4_uncorrected,
+      q.met_p4_jetcorrected,
     ],
     output=[q.W_phi],
     scopes=["e2m","m2m",
@@ -816,21 +844,21 @@ calc_pz_nu = Producer(
     call='quantities::calculateNeutrinoPz({df}, {output}, {input})',
     input=[
       q.extra_lep_p4,
-      q.met_p4_uncorrected,
+      q.met_p4_jetcorrected,
     ],
     output=[q.pz_nu],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 calc_nu_p4 = Producer(
     name="calc_nu_p4",
     call='physicsobject::build_nup4({df}, {output}, {input})',
     input=[
-      q.met_p4_uncorrected,
+      q.met_p4_jetcorrected,
       q.pz_nu,
     ],
     output=[q.nu_p4],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 calc_W_p4 = Producer(
@@ -841,7 +869,7 @@ calc_W_p4 = Producer(
       q.nu_p4,
     ],
     output=[q.W_p4],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_eta = Producer(
@@ -851,7 +879,7 @@ W_eta = Producer(
       q.W_p4,
     ],
     output=[q.W_eta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_H_dR = Producer(
@@ -862,7 +890,7 @@ W_H_dR = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.W_H_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_H_deta = Producer(
@@ -873,7 +901,7 @@ W_H_deta = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.W_H_deta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 
@@ -885,7 +913,7 @@ W_H_dphi = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.W_H_dphi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 ### mu1_H_dR
@@ -898,7 +926,7 @@ mu1_H_dR = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.mu1_H_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 
@@ -913,7 +941,7 @@ HT = Producer(
       q.mu2_fromH_pt,
     ],
     output=[q.HT],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 ### add by Leyan 2024/12/20
@@ -924,10 +952,10 @@ HT_met = Producer(
       q.extra_lep_pt,
       q.mu1_fromH_pt,
       q.mu2_fromH_pt,
-      q.met_pt_uncorrected
+      q.met_pt_corrected
     ],
     output=[q.HT_met],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 
@@ -941,7 +969,7 @@ mu1_H_deta = Producer(
     q.dimuon_p4_Higgs,
   ],
   output = [q.mu1_H_deta],
-  scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+  scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 mu1_H_dphi = Producer(
@@ -952,7 +980,7 @@ mu1_H_dphi = Producer(
     q.dimuon_p4_Higgs,
   ],
   output = [q.mu1_H_dphi],
-  scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+  scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 mu2_H_dR = Producer(
@@ -963,7 +991,7 @@ mu2_H_dR = Producer(
       q.dimuon_p4_Higgs,
     ],
     output=[q.mu2_H_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 mu2_H_deta = Producer(
@@ -974,7 +1002,7 @@ mu2_H_deta = Producer(
     q.dimuon_p4_Higgs,
   ],
   output = [q.mu2_H_deta],
-  scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+  scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 mu2_H_dphi = Producer(
@@ -985,7 +1013,7 @@ mu2_H_dphi = Producer(
     q.dimuon_p4_Higgs,
   ],
   output = [q.mu2_H_dphi],
-  scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+  scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 mu1_mu2_dR = Producer(
@@ -996,7 +1024,7 @@ mu1_mu2_dR = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu1_mu2_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 mu1_mu2_deta = Producer(
@@ -1007,7 +1035,7 @@ mu1_mu2_deta = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu1_mu2_deta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 mu1_mu2_dphi = Producer(
     name="mu1_mu2_dphi",
@@ -1017,7 +1045,7 @@ mu1_mu2_dphi = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu1_mu2_dphi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 ptH_ov_massH = Producer(
@@ -1028,7 +1056,17 @@ ptH_ov_massH = Producer(
       q.H_mass,
     ],
     output = [q.ptH_ov_massH],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m","m2m","eemm","mmmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+ptH_ov_massH_corrected = Producer(
+    name = "ptH_ov_massH_corrected",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.H_pt_corrected,
+      q.H_mass,
+    ],
+    output = [q.ptH_ov_massH],
+    scopes=["nnmm","fjmm"],
 )
 
 ptmu1_ov_ptH = Producer(
@@ -1039,7 +1077,17 @@ ptmu1_ov_ptH = Producer(
        q.H_pt,
      ],
      output = [q.ptmu1_ov_ptH],
-     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+     scopes=["e2m","m2m","eemm","mmmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+ptmu1_ov_ptH_corrected = Producer(
+     name = "ptmu1_ov_ptH_corrected",
+     call = "quantities::calc_ratio({df}, {output}, {input})",
+     input = [
+       q.mu1_fromH_pt_corrected,
+       q.H_pt_corrected,
+     ],
+     output = [q.ptmu1_ov_ptH],
+     scopes=["nnmm","fjmm"],
 )
 
 ptmu2_ov_ptH = Producer(
@@ -1050,7 +1098,17 @@ ptmu2_ov_ptH = Producer(
        q.H_pt,
      ],
      output = [q.ptmu2_ov_ptH],
-     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+     scopes=["e2m","m2m","eemm","mmmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+ptmu2_ov_ptH_corrected = Producer(
+     name = "ptmu2_ov_ptH_corrected",
+     call = "quantities::calc_ratio({df}, {output}, {input})",
+     input = [
+       q.mu2_fromH_pt_corrected,
+       q.H_pt_corrected,
+     ],
+     output = [q.ptmu2_ov_ptH],
+     scopes=["nnmm","fjmm"],
 )
 
 ptmu1_ov_massH = Producer(
@@ -1061,7 +1119,17 @@ ptmu1_ov_massH = Producer(
        q.H_mass,
      ],
      output = [q.ptmu1_ov_massH],
-     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+     scopes=["e2m","m2m","eemm","mmmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+ptmu1_ov_massH_corrected = Producer(
+     name = "ptmu1_ov_massH_corrected",
+     call = "quantities::calc_ratio({df}, {output}, {input})",
+     input = [
+       q.mu1_fromH_pt_corrected,
+       q.H_mass,
+     ],
+     output = [q.ptmu1_ov_massH],
+     scopes=["nnmm","fjmm"],
 )
 
 ptmu2_ov_massH = Producer(
@@ -1072,7 +1140,17 @@ ptmu2_ov_massH = Producer(
        q.H_mass,
      ],
      output = [q.ptmu2_ov_massH],
-     scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+     scopes=["e2m","m2m","eemm","mmmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+ptmu2_ov_massH_corrected = Producer(
+     name = "ptmu2_ov_massH_corrected",
+     call = "quantities::calc_ratio({df}, {output}, {input})",
+     input = [
+       q.mu2_fromH_pt_corrected,
+       q.H_mass,
+     ],
+     output = [q.ptmu2_ov_massH],
+     scopes=["nnmm","fjmm"],
 )
 
 
@@ -1086,7 +1164,7 @@ nu_H_dR = Producer(
       q.nu_p4,
     ],
     output=[q.nu_H_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 mu1_nu_dR = Producer(
@@ -1097,7 +1175,7 @@ mu1_nu_dR = Producer(
       q.nu_p4,
     ],
     output = [q.mu1_nu_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 mu1_nu_deta = Producer(
@@ -1108,7 +1186,7 @@ mu1_nu_deta = Producer(
       q.nu_p4,
     ],
     output = [q.mu1_nu_deta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 mu1_nu_dphi = Producer(
@@ -1119,7 +1197,7 @@ mu1_nu_dphi = Producer(
       q.nu_p4,
     ],
     output = [q.mu1_nu_dphi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 mu2_nu_dR = Producer(
@@ -1130,7 +1208,7 @@ mu2_nu_dR = Producer(
       q.nu_p4,
     ],
     output = [q.mu2_nu_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 ### add by Leyan 2024/12/20
 nu_H_deta =  Producer(
@@ -1141,7 +1219,7 @@ nu_H_deta =  Producer(
       q.nu_p4,
     ],
     output=[q.nu_H_deta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 ### add by Leyan 2024/12/20
@@ -1153,7 +1231,7 @@ nu_H_dphi = Producer(
       q.nu_p4,
     ],
     output=[q.nu_H_dphi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 
@@ -1167,7 +1245,7 @@ lep_nu_dR = Producer(
       q.nu_p4,
     ],
     output=[q.lep_nu_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 lep_nu_deta = Producer(
@@ -1178,7 +1256,7 @@ lep_nu_deta = Producer(
       q.nu_p4,
     ],
     output=[q.lep_nu_deta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 
@@ -1190,7 +1268,7 @@ lep_nu_dphi = Producer(
       q.nu_p4,
     ],
     output=[q.lep_nu_dphi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 
@@ -1205,7 +1283,7 @@ mu2_nu_deta = Producer(
       q.nu_p4,
     ],
     output = [q.mu2_nu_deta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 mu2_nu_dphi = Producer(
@@ -1216,7 +1294,7 @@ mu2_nu_dphi = Producer(
       q.nu_p4,
     ],
     output = [q.mu2_nu_dphi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_mu1_dR = Producer(
@@ -1227,7 +1305,7 @@ W_mu1_dR = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.W_mu1_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_mu1_deta = Producer(
@@ -1238,7 +1316,7 @@ W_mu1_deta = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.W_mu1_deta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_mu1_dphi = Producer(
@@ -1249,7 +1327,7 @@ W_mu1_dphi = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.W_mu1_dphi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_mu2_dR = Producer(
@@ -1260,7 +1338,7 @@ W_mu2_dR = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.W_mu2_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_mu2_deta = Producer(
@@ -1271,7 +1349,7 @@ W_mu2_deta = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.W_mu2_deta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_mu2_dphi = Producer(
@@ -1282,7 +1360,7 @@ W_mu2_dphi = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.W_mu2_dphi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_lep_dR = Producer(
@@ -1293,7 +1371,7 @@ W_lep_dR = Producer(
       q.extra_lep_p4,
     ],
     output=[q.W_lep_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_lep_deta = Producer(
@@ -1304,7 +1382,7 @@ W_lep_deta = Producer(
       q.extra_lep_p4,
     ],
     output=[q.W_lep_deta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_lep_dphi = Producer(
@@ -1315,7 +1393,7 @@ W_lep_dphi = Producer(
       q.extra_lep_p4,
     ],
     output=[q.W_lep_dphi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_nu_dR = Producer(
@@ -1326,7 +1404,7 @@ W_nu_dR = Producer(
       q.nu_p4,
     ],
     output=[q.W_nu_dR],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_nu_deta = Producer(
@@ -1337,7 +1415,7 @@ W_nu_deta = Producer(
       q.nu_p4,
     ],
     output=[q.W_nu_deta],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 W_nu_dphi = Producer(
@@ -1348,7 +1426,7 @@ W_nu_dphi = Producer(
       q.nu_p4,
     ],
     output=[q.W_nu_dphi],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 ptW_ov_ptH = Producer(
@@ -1359,18 +1437,18 @@ ptW_ov_ptH = Producer(
       q.H_pt,
     ],
     output = [q.ptW_ov_ptH],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 met_ov_ptW = Producer(
     name = "met_ov_ptW",
     call = "quantities::calc_ratio({df}, {output}, {input})",
     input = [
-      q.met_pt_uncorrected,
+      q.met_pt_corrected,
       q.W_pt,
     ],
     output = [q.met_ov_ptW],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 ptl_ov_ptW = Producer(
@@ -1381,7 +1459,7 @@ ptl_ov_ptW = Producer(
       q.W_pt,
     ],
     output = [q.ptl_ov_ptW],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 Calc_CosThStar_lep_W = Producer(
@@ -1392,7 +1470,7 @@ Calc_CosThStar_lep_W = Producer(
       q.nu_p4,
     ],
     output=[q.lep_W_cosThStar],
-    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 Calc_CosThStar_mu1_H = Producer(
@@ -1403,7 +1481,17 @@ Calc_CosThStar_mu1_H = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu1_H_cosThStar],
-    scopes=["e2m","m2m","eemm","mmmm","fjmm","nnmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    scopes=["e2m","m2m","eemm","mmmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+Calc_CosThStar_mu1_H_corrected = Producer(
+    name="Calc_CosThStar_mu1_H_corrected",
+    call="physicsobject::Calc_CosThetaStar({df}, {output}, {input})",
+    input=[
+      q.muon_leadingp4_H_corrected,
+      q.muon_subleadingp4_H_corrected,
+    ],
+    output=[q.mu1_H_cosThStar],
+    scopes=["nnmm","fjmm"],
 )
 
 Calc_CosThStar_H_WH = Producer(
@@ -1414,7 +1502,7 @@ Calc_CosThStar_H_WH = Producer(
       q.W_p4,
     ],
     output=[q.H_WH_cosThStar],
-    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 mu1_mu2_kT = Producer(
@@ -1425,7 +1513,7 @@ mu1_mu2_kT = Producer(
       q.muon_subleadingp4_H,
     ],
     output = [q.mu1_mu2_kT],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 mu1_mu2_antikT = Producer(
@@ -1436,7 +1524,7 @@ mu1_mu2_antikT = Producer(
       q.muon_subleadingp4_H,
     ],
     output = [q.mu1_mu2_antikT],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m", "m2m", "m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 
 ##4l new variables added by Mingxuan 2024/12/24
@@ -1687,7 +1775,7 @@ ptfj_ov_ptH = Producer(
     call = "quantities::calc_ratio({df}, {output}, {input})",
     input = [
       q.fatjet_pt,
-      q.H_pt,
+      q.H_pt_corrected,
     ],
     output = [q.ptfj_ov_ptH],
     scopes = ["fjmm"],
@@ -1708,8 +1796,8 @@ met_ov_ptH = Producer(
     name = "met_ov_ptH",
     call = "quantities::calc_ratio({df}, {output}, {input})",
     input = [
-      q.met_pt_uncorrected,
-      q.H_pt,
+      q.met_pt_corrected,
+      q.H_pt_corrected,
     ],
     output = [q.met_ov_ptH],
     scopes = ["nnmm"],
@@ -1719,7 +1807,7 @@ met_ov_massH = Producer(
     name = "met_ov_massH",
     call = "quantities::calc_ratio({df}, {output}, {input})",
     input = [
-      q.met_pt_uncorrected,
+      q.met_pt_corrected,
       q.H_mass,
     ],
     output = [q.met_ov_massH],
@@ -1730,8 +1818,8 @@ met_mu1_dphi = Producer(
     name = "met_mu1_dphi",
     call = "quantities::deltaPhi({df}, {output}, {input})",
     input = [
-      q.met_p4_uncorrected,
-      q.muon_leadingp4_H
+      q.met_p4_jetcorrected,
+      q.muon_leadingp4_H_corrected
     ],
     output = [q.met_mu1_dphi],
     scopes = ["nnmm"],
@@ -1741,8 +1829,8 @@ met_mu2_dphi = Producer(
     name = "met_mu2_dphi",
     call = "quantities::deltaPhi({df}, {output}, {input})",
     input = [
-      q.met_p4_uncorrected,
-      q.muon_subleadingp4_H
+      q.met_p4_jetcorrected,
+      q.muon_subleadingp4_H_corrected
     ],
     output = [q.met_mu2_dphi],
     scopes = ["nnmm"],
@@ -1800,8 +1888,8 @@ Mct = Producer(
     name = "Mct",
     call = "quantities::calc_Mct({df}, {output}, {input})",
     input = [
-      q.muon_leadingp4_H,
-      q.muon_subleadingp4_H,
+      q.muon_leadingp4_H_corrected,
+      q.muon_subleadingp4_H_corrected,
     ],
     output = [q.Mct],
     scopes = ["nnmm"],
@@ -1813,7 +1901,7 @@ cosThStar_fj_hzz = Producer(
     input = [
       q.fatjet_p4_1,
       q.dimuon_p4_Higgs,
-      q.muon_leadingp4_H,
+      q.muon_leadingp4_H_corrected,
     ],
     output = [q.cosThStar_fj_hzz],
     scopes = ["fjmm"],
@@ -1834,7 +1922,7 @@ cosphi1_fj_hzz = Producer(
     name = "cosphi1_fj_hzz",
     call = "physicsobject::calc_4l_cosphi1_hzz({df}, {output}, {input})",
     input = [
-      q.muon_leadingp4_H,
+      q.muon_leadingp4_H_corrected,
       q.dimuon_p4_Higgs,
       q.fatjet_p4_1,
     ],
@@ -1846,9 +1934,9 @@ MT2 = Producer(
     name = "MT2",
     call = "quantities::calc_MT2({df}, {output}, {input})",
     input = [
-      q.muon_leadingp4_H,
-      q.muon_subleadingp4_H,
-      q.met_p4_uncorrected,
+      q.muon_leadingp4_H_corrected,
+      q.muon_subleadingp4_H_corrected,
+      q.met_p4_jetcorrected,
     ],
     output = [q.MT2],
     scopes = ["nnmm"],
@@ -1975,13 +2063,13 @@ FatJetMuMuQuantities = ProducerGroup(
     output=None,
     scopes=["fjmm"],
     subproducers=[
-      ptH_ov_massH,
-      ptmu1_ov_ptH, ##mingxuan add 2024/12/25
-      ptmu2_ov_ptH,
-      ptmu1_ov_massH,
-      ptmu2_ov_massH,
+      ptH_ov_massH_corrected,
+      ptmu1_ov_ptH_corrected, ##mingxuan add 2024/12/25
+      ptmu2_ov_ptH_corrected,
+      ptmu1_ov_massH_corrected,
+      ptmu2_ov_massH_corrected,
 
-      Calc_CosThStar_mu1_H,
+      Calc_CosThStar_mu1_H_corrected,
 
       ptfj_ov_ptH,
       mfj_ov_massH,
@@ -1999,13 +2087,13 @@ METMuMuQuantities = ProducerGroup(
     output=None,
     scopes=["nnmm"],
     subproducers=[
-      ptH_ov_massH,
-      ptmu1_ov_massH,
-      ptmu1_ov_ptH,
-      ptmu2_ov_massH,
-      ptmu2_ov_ptH,
+      ptH_ov_massH_corrected,
+      ptmu1_ov_massH_corrected,
+      ptmu1_ov_ptH_corrected,
+      ptmu2_ov_massH_corrected,
+      ptmu2_ov_ptH_corrected,
 
-      Calc_CosThStar_mu1_H,
+      Calc_CosThStar_mu1_H_corrected,
 
       met_ov_massH,
       met_ov_ptH,
