@@ -1244,7 +1244,7 @@ def build_config(
         [
             jets.NumberOfGoodJets,
             jets.JetCollection,
-            jets.Calc_MHT,
+
             jets.Calc_MHT_all,
 
             jets.GoodBJetsLoose_PNet, 
@@ -1254,10 +1254,7 @@ def build_config(
             jets.VetottHLooseB, # vh veto ttH no more than 1 loose bjet
             jets.VetottHMediumB, # vh veto ttH no more than 1 medium bjet   
             scalefactors.btaggingloose_SF,
-            p4.MHT_pt,
-            p4.MHT_eta,
-            p4.MHT_phi,
-            p4.MHT_mass,
+
             p4.MHTALL_pt,
             p4.MHTALL_eta,
             p4.MHTALL_phi,
@@ -1332,21 +1329,12 @@ def build_config(
             event.lepton_H_deta,
             event.lepton_muSS_deta,
             event.lepton_muOS_deta,
-            ###
-            event.lepW_MHT_dphi,
-            event.Calc_MT_muSS_MHT,
-            event.Calc_MT_muOS_MHT,
-            event.Calc_MT_lepton_MHT,
-            
+            ###            
             event.lepW_MHTALL_dphi,
             event.Calc_MT_muSS_MHTALL,
             event.Calc_MT_muOS_MHTALL,
             event.Calc_MT_lepton_MHTALL,
             ###
-            event.mumuH_MHT_dphi,
-            event.mu1_MHT_dphi,
-            event.mu2_MHT_dphi,
-
             event.mumuH_MHTALL_dphi,
             event.mu1_MHTALL_dphi,
             event.mu2_MHTALL_dphi,
@@ -1443,11 +1431,6 @@ def build_config(
             event.lepton_muOS_dR,
             event.lepton_muSS_deta,
             event.lepton_muOS_deta,
-            
-            event.lepW_MHT_dphi,
-            event.Calc_MT_muSS_MHT,
-            event.Calc_MT_muOS_MHT,
-            event.Calc_MT_lepton_MHT,
             
             event.lepW_MHTALL_dphi,
             event.Calc_MT_muSS_MHTALL,
@@ -1546,20 +1529,11 @@ def build_config(
             event.lepton_H_deta,
             event.lepton_muSS_deta,
             event.lepton_muOS_deta,
-
-            event.lepW_MHT_dphi,
-            event.Calc_MT_muSS_MHT,
-            event.Calc_MT_muOS_MHT,
-            event.Calc_MT_lepton_MHT,
             
             event.lepW_MHTALL_dphi,
             event.Calc_MT_muSS_MHTALL,
             event.Calc_MT_muOS_MHTALL,
             event.Calc_MT_lepton_MHTALL,
-
-            event.mumuH_MHT_dphi,
-            event.mu1_MHT_dphi,
-            event.mu2_MHT_dphi,
 
             event.mumuH_MHTALL_dphi,
             event.mu1_MHTALL_dphi,
@@ -1657,11 +1631,6 @@ def build_config(
             event.lepton_muOS_dR,
             event.lepton_muSS_deta,
             event.lepton_muOS_deta,
-
-            event.lepW_MHT_dphi,
-            event.Calc_MT_muSS_MHT,
-            event.Calc_MT_muOS_MHT,
-            event.Calc_MT_lepton_MHT,
             
             event.lepW_MHTALL_dphi,
             event.Calc_MT_muSS_MHTALL,
@@ -1749,19 +1718,11 @@ def build_config(
             event.lepton_H_deta,
             event.lepton_muSS_deta,
             event.lepton_muOS_deta,
-            ###
-            event.lepW_MHT_dphi,
-            event.Calc_MT_muSS_MHT,
-            event.Calc_MT_muOS_MHT,
-            event.Calc_MT_lepton_MHT,
-            
+            ###            
             event.lepW_MHTALL_dphi,
             event.Calc_MT_muSS_MHTALL,
             event.Calc_MT_muOS_MHTALL,
             event.Calc_MT_lepton_MHTALL,
-            event.mumuH_MHT_dphi,
-            event.mu1_MHT_dphi,
-            event.mu2_MHT_dphi,
 
             event.mumuH_MHTALL_dphi,
             event.mu1_MHTALL_dphi,
@@ -1856,11 +1817,6 @@ def build_config(
             event.lepton_muOS_dR,
             event.lepton_muSS_deta,
             event.lepton_muOS_deta,
-
-            event.lepW_MHT_dphi,
-            event.Calc_MT_muSS_MHT,
-            event.Calc_MT_muOS_MHT,
-            event.Calc_MT_lepton_MHT,
             
             event.lepW_MHTALL_dphi,
             event.Calc_MT_muSS_MHTALL,
@@ -1949,19 +1905,10 @@ def build_config(
             event.lepton_muSS_deta,
             event.lepton_muOS_deta,
 
-            event.lepW_MHT_dphi,
-            event.Calc_MT_muSS_MHT,
-            event.Calc_MT_muOS_MHT,
-            event.Calc_MT_lepton_MHT,
-            
             event.lepW_MHTALL_dphi,
             event.Calc_MT_muSS_MHTALL,
             event.Calc_MT_muOS_MHTALL,
             event.Calc_MT_lepton_MHTALL,
-
-            event.mumuH_MHT_dphi,
-            event.mu1_MHT_dphi,
-            event.mu2_MHT_dphi,
 
             event.mumuH_MHTALL_dphi,
             event.mu1_MHTALL_dphi,
@@ -2056,11 +2003,6 @@ def build_config(
             event.lepton_muSS_deta,
             event.lepton_muOS_deta,
 
-            event.lepW_MHT_dphi,
-            event.Calc_MT_muSS_MHT,
-            event.Calc_MT_muOS_MHT,
-            event.Calc_MT_lepton_MHT,
-            
             event.lepW_MHTALL_dphi,
             event.Calc_MT_muSS_MHTALL,
             event.Calc_MT_muOS_MHTALL,
@@ -2349,10 +2291,6 @@ def build_config(
             event.mumuH_dphi_corrected,
             event.mumuH_deta_corrected,
             ###
-            event.mumuH_MHT_dphi,
-            event.mu1_MHT_dphi,
-            event.mu2_MHT_dphi,
-
             event.mumuH_MHTALL_dphi_corrected,
             event.mu1_MHTALL_dphi_corrected,
             event.mu2_MHTALL_dphi_corrected,
@@ -2446,10 +2384,6 @@ def build_config(
             event.mumuH_dphi_corrected,
             event.mumuH_deta_corrected,
             # ###
-            event.mumuH_MHT_dphi,
-            event.mu1_MHT_dphi,
-            event.mu2_MHT_dphi,
-
             event.mumuH_MHTALL_dphi_corrected,
             event.mu1_MHTALL_dphi_corrected,
             event.mu2_MHTALL_dphi_corrected,
@@ -2713,10 +2647,7 @@ def build_config(
             q.nbjets_loose,
             q.nbjets_medium,
             q.btag_weight,
-            q.MHT_pt,
-            q.MHT_eta,
-            q.MHT_phi,
-            q.MHT_mass,
+
             q.MHTALL_pt,
             q.MHTALL_eta,
             q.MHTALL_phi,
@@ -3004,7 +2935,7 @@ def build_config(
         [
             q.W_pt,
             q.W_phi,
-            q.lep_MHT_dphi,
+
             q.mt_W,
             q.mt_muSSAndMHT,
             q.mt_muOSAndMHT,
@@ -3045,11 +2976,8 @@ def build_config(
             q.muSS_eta,
             q.muSS_phi,            
             ###
-            q.mumuH_MHT_dphi,
             q.mumuH_MHTALL_dphi,
-            q.mu1_MHT_dphi,
             q.mu1_MHTALL_dphi,
-            q.mu2_MHT_dphi,
             q.mu2_MHTALL_dphi,
             
             q.mu1_mu2_dphi,
@@ -3188,11 +3116,8 @@ def build_config(
             q.mumuH_dphi,
             q.mumuH_deta,
             ###
-            q.mumuH_MHT_dphi,
             q.mumuH_MHTALL_dphi,
-            q.mu1_MHT_dphi,
             q.mu1_MHTALL_dphi,
-            q.mu2_MHT_dphi,
             q.mu2_MHTALL_dphi,
             q.mu1_mu2_dphi,
             q.met_H_dphi,
@@ -3222,11 +3147,9 @@ def build_config(
             q.mumuH_dphi,
             q.mumuH_deta,
             q.nfatjets,
-            q.mumuH_MHT_dphi,
+
             q.mumuH_MHTALL_dphi,
-            q.mu1_MHT_dphi,
             q.mu1_MHTALL_dphi,
-            q.mu2_MHT_dphi,
             q.mu2_MHTALL_dphi,
             q.mu1_mu2_dphi,
             q.met_H_dphi,

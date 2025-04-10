@@ -819,16 +819,6 @@ mumuZCR_dphi = Producer(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
 )
 ### calc MT(muSS and MHT)
-Calc_MT_muSS_MHT = Producer(
-    name="Calc_MT_muSS_MHT",
-    call="quantities::mT_MHT({df}, {output}, {input})",
-    input=[
-        q.mu_p4_SSwithLep,
-        q.MHT_p4,
-    ],
-    output=[q.mt_muSSAndMHT],
-    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
-)
 Calc_MT_muSS_MHTALL = Producer(
     name="Calc_MT_muSS_MHTALL",
     call="quantities::mT_MHT({df}, {output}, {input})",
@@ -840,16 +830,6 @@ Calc_MT_muSS_MHTALL = Producer(
     scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### calc MT(muOS and MHT)
-Calc_MT_muOS_MHT = Producer(
-    name="Calc_MT_muOS_MHT",
-    call="quantities::mT_MHT({df}, {output}, {input})",
-    input=[
-        q.mu_p4_OSwithLep,
-        q.MHT_p4,
-    ],
-    output=[q.mt_muOSAndMHT],
-    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
-)
 Calc_MT_muOS_MHTALL = Producer(
     name="Calc_MT_muOS_MHTALL",
     call="quantities::mT_MHT({df}, {output}, {input})",
@@ -861,16 +841,6 @@ Calc_MT_muOS_MHTALL = Producer(
     scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### calc MT(lepW and MHT)
-Calc_MT_lepton_MHT = Producer(
-    name="Calc_MT_lepton_MHT",
-    call="quantities::mT_MHT({df}, {output}, {input})",
-    input=[
-        q.extra_lep_p4,
-        q.MHT_p4,
-    ],
-    output=[q.mt_lepWAndMHT],
-    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
-)
 Calc_MT_lepton_MHTALL = Producer(
     name="Calc_MT_lepton_MHTALL",
     call="quantities::mT_MHT({df}, {output}, {input})",
@@ -882,16 +852,6 @@ Calc_MT_lepton_MHTALL = Producer(
     scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### calc dphi(lepW and MHT)
-lepW_MHT_dphi = Producer(
-    name="lepW_MHT_dphi",
-    call='quantities::deltaPhi({df}, {output}, {input})',
-    input=[
-      q.extra_lep_p4,
-      q.MHT_p4,
-    ],
-    output=[q.lep_MHT_dphi],
-    scopes=["e2m","m2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
-)
 lepW_MHTALL_dphi = Producer(
     name="lepW_MHTALL_dphi",
     call='quantities::deltaPhi({df}, {output}, {input})',
@@ -942,16 +902,6 @@ FilterFlagDiEleZMassVeto = Producer(
     scopes=["eemm"],
 )
 # check dphi
-mumuH_MHT_dphi = Producer(
-    name="mumuH_MHT_dphi",
-    call='quantities::deltaPhi({df}, {output}, {input})',
-    input=[
-      q.dimuon_p4_Higgs,
-      q.MHT_p4,
-    ],
-    output=[q.mumuH_MHT_dphi],
-    scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
-)
 mumuH_MHTALL_dphi = Producer(
     name="mumuH_MHTALL_dphi",
     call='quantities::deltaPhi({df}, {output}, {input})',
@@ -985,16 +935,6 @@ ZCR_MHTALL_dphi = Producer(
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
 )
-mu1_MHT_dphi = Producer(
-    name="mu1_MHT_dphi",
-    call='quantities::deltaPhi({df}, {output}, {input})',
-    input=[
-      q.muon_leadingp4_H,
-      q.MHT_p4,
-    ],
-    output=[q.mu1_MHT_dphi],
-    scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
-)
 mu1_MHTALL_dphi = Producer(
     name="mu1_MHTALL_dphi",
     call='quantities::deltaPhi({df}, {output}, {input})',
@@ -1027,16 +967,6 @@ mu1_fromZCR_MHTALL_dphi = Producer(
     scopes=["fjmm_cr",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
-)
-mu2_MHT_dphi = Producer(
-    name="mu2_MHT_dphi",
-    call='quantities::deltaPhi({df}, {output}, {input})',
-    input=[
-      q.muon_subleadingp4_H,
-      q.MHT_p4,
-    ],
-    output=[q.mu2_MHT_dphi],
-    scopes=["e2m","m2m","nnmm","fjmm","e2m_dyfakeinge_regionc","m2m_dyfakeingmu_regionc"],
 )
 mu2_MHTALL_dphi = Producer(
     name="mu2_MHTALL_dphi",

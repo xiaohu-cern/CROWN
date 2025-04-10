@@ -715,55 +715,6 @@ jet2_mass = Producer(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
-#### MHT_p4 ####
-MHT_pt = Producer(
-    name="MHT_pt",
-    call='quantities::pt({df}, {output}, {input})',
-    input=[
-      q.MHT_p4,
-    ],
-    output=[q.MHT_pt],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
-            "nnmm_dycontrol","nnmm_topcontrol",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-)
-MHT_eta = Producer(
-    name="MHT_eta",
-    call='quantities::eta({df}, {output}, {input})',
-    input=[
-      q.MHT_p4,
-    ],
-    output=[q.MHT_eta],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
-            "nnmm_dycontrol","nnmm_topcontrol",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-)
-MHT_phi = Producer(
-    name="MHT_phi",
-    call='quantities::phi({df}, {output}, {input})',
-    input=[
-      q.MHT_p4,
-    ],
-    output=[q.MHT_phi],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
-            "nnmm_dycontrol","nnmm_topcontrol",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-)
-MHT_mass = Producer(
-    name="MHT_mass",
-    call='quantities::mass({df}, {output}, {input})',
-    input=[
-      q.MHT_p4,
-    ],
-    output=[q.MHT_mass],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
-            "nnmm_dycontrol","nnmm_topcontrol",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-)
 #### MHTALL_p4 ####
 MHTALL_pt = Producer(
     name="MHTALL_pt",

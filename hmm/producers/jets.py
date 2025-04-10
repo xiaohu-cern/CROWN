@@ -441,23 +441,6 @@ VetottHMediumB = Filter(
     subproducers=[ttHMediumBFlag]
 )
 
-# define MHT from good_jet_collection
-Calc_MHT = Producer(
-    name="Calc_MHT",
-    call="physicsobject::MHT_Calculation({df}, {output}, {input})",
-    input=[
-        q.Jet_pt_corrected,
-        nanoAOD.Jet_eta,
-        nanoAOD.Jet_phi,
-        q.Jet_mass_corrected,
-        q.good_jet_collection,
-    ],
-    output=[q.MHT_p4],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
-            "nnmm_dycontrol","nnmm_topcontrol",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-)
 # n jets ouput
 NumberOfGoodJets = Producer(
     name="NumberOfGoodJets",
