@@ -589,7 +589,7 @@ def build_config(
             "muon_sf_varation_HighPt": "nominal",
             "muon_reco_sf_name_HighPt": "NUM_GlobalMuons_DEN_TrackerMuonProbes",
             
-            # below HighPt Momentum Scale, only for fjmm and nnmm
+            # below HighPt Momentum Scale, only for fjmm, nnmm and fjmm_cr
             "muon_momentum_scale_name": "HighPtMuon_Momentum_Scale",
             "muon_momentum_scale_variation": "nominal",
             "muon_momentum_scale_corr_file": EraModifier(
@@ -1263,7 +1263,7 @@ def build_config(
         ]
     )
     configuration.add_producers(
-        ["nnmm","fjmm"],
+        ["nnmm","fjmm","fjmm_cr"],
         [
             momentumscale.MuonPtCorrection,
         ]
@@ -2464,11 +2464,7 @@ def build_config(
             cr.DY_DiMuonPair_CR,
             cr.Flag_DiMuonFromCR,
             cr.FilterFlag_DiMuonFromCR,
-            cr.DiMuonPairCR_p4,
-            cr.dimuonCR_pt,
-            cr.dimuonCR_eta,
-            cr.dimuonCR_phi,
-            cr.dimuonCR_mass,      
+            
             lepton.LeptonChargeSumVeto,
             electrons.GoodEle_Veto,
             # flag cut
@@ -2476,6 +2472,19 @@ def build_config(
             event.FilterFlagGoodEleVeto,
             muons.LVMu1,
             muons.LVMu2,
+
+            cr.DiMuonPairCR_p4,
+            cr.dimuonCR_pt,
+            cr.dimuonCR_eta,
+            cr.dimuonCR_phi,
+            cr.dimuonCR_mass,
+            
+            cr.DiMuonPairCR_p4_corrected,
+            momentumscale.Mu1_Z_CR_corrected,
+            momentumscale.Mu2_Z_CR_corrected,
+            p4.mu1_fromZCR_pt_corrected,
+            p4.mu2_fromZCR_pt_corrected,
+            cr.dimuonCR_pt_corrected,
 
             ##############################
             # met.MetCorrections,
@@ -2941,9 +2950,6 @@ def build_config(
             q.W_phi,
 
             q.mt_W,
-            q.mt_muSSAndMHT,
-            q.mt_muOSAndMHT,
-            q.mt_lepWAndMHT,
             
             q.lep_MHTALL_dphi,
             q.mt_muSSAndMHTALL,
@@ -3011,10 +3017,6 @@ def build_config(
             q.smallest_dimuon_mass,
             q.Flag_LeptonChargeSumVeto,
             q.Flag_DiMuonFromCR,
-            q.dimuonCR_pt,
-            q.dimuonCR_eta,
-            q.dimuonCR_phi,
-            q.dimuonCR_mass,
             q.dimuonCR_pt,
             q.dimuonCR_eta,
             q.dimuonCR_phi,
@@ -3204,6 +3206,10 @@ def build_config(
             q.fatjet_PNet_withMass_TvsQCD,
             q.BosonDecayMode,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
+            
+            q.dimuonCR_pt_corrected,
+            q.mu1_fromZCR_pt_corrected,
+            q.mu2_fromZCR_pt_corrected,
         ],
     )
     configuration.add_outputs(
@@ -3533,7 +3539,7 @@ def build_config(
         ),
     )
     configuration.add_modification_rule(
-        ["nnmm","fjmm"],
+        ["nnmm","fjmm","fjmm_cr"],
         ReplaceProducer(
             producers=[momentumscale.MuonPtCorrection,momentumscale.RenameMuonPt],
             samples=["data"],

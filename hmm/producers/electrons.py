@@ -16,7 +16,10 @@ ElectronPtCut = Producer(
 ElectronECalGapVeto = Producer(
     name="ElectronECalGapVeto",
     call="physicsobject::ECalGapVeto({df}, {input}, {output}, {max_ele_eta}, 0, {upper_threshold_barrel}, {lower_threshold_endcap})",
-    input=[nanoAOD.Electron_eta],
+    input=[
+        nanoAOD.Electron_eta,
+        nanoAOD.Electron_deltaEtaSC,
+    ],
     output=[],
     scopes=["global"],
 )

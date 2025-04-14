@@ -561,6 +561,15 @@ mu1_fromZCR_pt = Producer(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
 )
+mu1_fromZCR_pt_corrected = Producer(
+    name="mu1_fromZCR_pt_corrected",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_Z_CR_corrected,
+    ],
+    output=[q.mu1_fromZCR_pt_corrected],
+    scopes=["fjmm_cr"],
+)
 mu1_fromZCR_eta = Producer(
     name="mu1_fromZCR_eta",
     call='quantities::eta({df}, {output}, {input})',
@@ -594,6 +603,15 @@ mu2_fromZCR_pt = Producer(
     scopes=["fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+mu2_fromZCR_pt_corrected = Producer(
+    name="mu2_fromZCR_pt_corrected",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.muon_subleadingp4_Z_CR_corrected,
+    ],
+    output=[q.mu2_fromZCR_pt_corrected],
+    scopes=["fjmm_cr"],
 )
 mu2_fromZCR_eta = Producer(
     name="mu2_fromZCR_eta",

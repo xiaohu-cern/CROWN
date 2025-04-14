@@ -45,6 +45,7 @@ Electron_iso = NanoAODQuantity("Electron_pfRelIso03_all")
 Electron_charge = NanoAODQuantity("Electron_charge")
 Electron_indexToGen = NanoAODQuantity("Electron_genPartIdx")
 # write by botao
+Electron_deltaEtaSC = NanoAODQuantity("Electron_deltaEtaSC")
 Electron_sip3d = NanoAODQuantity("Electron_sip3d")
 Electron_mvaFall17V2noIso_WP90 = NanoAODQuantity("Electron_mvaFall17V2noIso_WP90")
 Electron_convVeto = NanoAODQuantity("Electron_convVeto")

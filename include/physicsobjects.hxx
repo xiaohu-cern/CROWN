@@ -38,11 +38,11 @@ ROOT::RDF::RNode M_dileptonMass(ROOT::RDF::RNode df, const std::string &outputna
                                  const std::string &particle_masses,
                                  const std::string &particle_charges,
                                  const std::string &goodmuons_index);
-ROOT::RDF::RNode ECalGapVeto(ROOT::RDF::RNode df, const std::string &etaColumnName,
+ROOT::RDF::RNode ECalGapVeto(ROOT::RDF::RNode df, const std::string &deltaSC, const std::string &etaColumnName,
                               const std::string &maskname,
-                              const float &etaBoundary,
+                              const float &etaBoundary, 
                               const float &lowerThresholdBarrel,
-                              const float &upperThresholdBarrel,
+                              const float &upperThresholdBarrel, 
                               const float &lowerThresholdEndcap);
 ROOT::RDF::RNode DiMuonFromHiggs(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &dimuons_index);

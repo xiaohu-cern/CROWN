@@ -21,6 +21,7 @@ DY_DiMuonPair_CR = Producer(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
 )
+
 Flag_DiMuonFromCR = Producer(
     name="Flag_DiMuonFromCR",
     call='physicsobject::DiMuonFromCR({df}, {output}, {input})',
@@ -40,6 +41,19 @@ DiMuonPairCR_p4 = Producer(
            nanoAOD.Muon_mass,
            q.dimuon_ZControl_collection],
     output=[q.dimuon_p4_CR],
+    scopes=["nnmm_dycontrol","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+DiMuonPairCR_p4_corrected = Producer(
+    name="DiMuonPairCR_p4_corrected",
+    call='physicsobject::ZControlDiMuonPairP4({df}, {output}, {input})',
+    input=[q.Muon_pt_corrected,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           q.dimuon_ZControl_collection],
+    output=[q.dimuon_p4_CR_corrected],
     scopes=["nnmm_dycontrol","fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
@@ -65,6 +79,15 @@ dimuonCR_pt = Producer(
     scopes=["nnmm_dycontrol","fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+dimuonCR_pt_corrected = Producer(
+    name="dimuonCR_pt_corrected",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.dimuon_p4_CR_corrected,
+    ],
+    output=[q.dimuonCR_pt_corrected],
+    scopes=["fjmm_cr"],
 )
 dimuonCR_eta = Producer(
     name="dimuonCR_eta",

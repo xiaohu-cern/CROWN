@@ -13,7 +13,7 @@ MuonPtCorrection = Producer(
         nanoAOD.Muon_charge,
     ],
     output=[q.Muon_pt_corrected],
-    scopes=["nnmm","fjmm"],
+    scopes=["nnmm","fjmm","fjmm_cr"],
     # scopes=["global"],
 )
 RenameMuonPt = Producer(
@@ -23,7 +23,7 @@ RenameMuonPt = Producer(
         nanoAOD.Muon_pt,
     ],
     output=[q.Muon_pt_corrected],
-    scopes=["nnmm","fjmm"],
+    scopes=["nnmm","fjmm","fjmm_cr"],
     # scopes=["global"],
 )
 Mu1_H_corrected = Producer(
@@ -51,4 +51,30 @@ Mu2_H_corrected = Producer(
     ],
     output=[q.muon_subleadingp4_H_corrected],
     scopes=["nnmm","fjmm"],
+)
+Mu1_Z_CR_corrected = Producer(
+    name="Mu1_Z_CR_corrected",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.dimuon_ZControl_collection,
+        q.Muon_pt_corrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_leadingp4_Z_CR_corrected],
+    scopes=["fjmm_cr"],
+)
+Mu2_Z_CR_corrected = Producer(
+    name="Mu2_Z_CR_corrected",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.dimuon_ZControl_collection,
+        q.Muon_pt_corrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_subleadingp4_Z_CR_corrected],
+    scopes=["fjmm_cr"],
 )

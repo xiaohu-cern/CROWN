@@ -329,19 +329,27 @@ ROOT::RDF::RNode M_dileptonMass(ROOT::RDF::RNode df, const std::string &outputna
 /// function to veto ECal Gap
 /// \param[in] etaBoundary The upper boundary of the eta, such as 2.5
 ///
-ROOT::RDF::RNode ECalGapVeto(ROOT::RDF::RNode df, const std::string &etaColumnName,
+ROOT::RDF::RNode ECalGapVeto(ROOT::RDF::RNode df, const std::string &deltaSC, const std::string &etaColumnName,
                               const std::string &maskname,
-                              const float &etaBoundary, const float &lowerThresholdBarrel,
-                              const float &upperThresholdBarrel, const float &lowerThresholdEndcap) {
+                              const float &etaBoundary, 
+                              const float &lowerThresholdBarrel,
+                              const float &upperThresholdBarrel, 
+                              const float &lowerThresholdEndcap) {
     auto lambda = [etaBoundary, lowerThresholdBarrel, upperThresholdBarrel,
-                   lowerThresholdEndcap](const ROOT::RVec<float> &eta) {
+                   lowerThresholdEndcap](const ROOT::RVec<float> &deltaSC,
+                                         const ROOT::RVec<float> &eta) {
+        // lowerThresholdBarrel -> 0
+        // upperThresholdBarrel -> 1.444
+        // lowerThresholdEndcap -> 1.566
+        // etaBoundary -> 2.5
+        // (abs >=0 && < 1.444) || (abs >=1.566 && < 2.5)
         ROOT::RVec<int> mask =
-            ( ( (abs(eta) >= lowerThresholdBarrel) && (abs(eta) < upperThresholdBarrel) ) || 
-              ( ( abs(eta) >= lowerThresholdEndcap ) && ( abs(eta) < etaBoundary ) ) );
+            ( ( (abs(deltaSC + eta) >= lowerThresholdBarrel) && (abs(deltaSC + eta) < upperThresholdBarrel) ) || 
+              ( ( abs(deltaSC + eta) >= lowerThresholdEndcap ) && ( abs(deltaSC + eta) < etaBoundary ) ) );
         return mask;
     };
 
-    auto df1 = df.Define(maskname, lambda, {etaColumnName});
+    auto df1 = df.Define(maskname, lambda, {deltaSC, etaColumnName});
     return df1;
 }
 ///
