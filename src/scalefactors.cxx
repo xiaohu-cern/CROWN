@@ -233,6 +233,37 @@ ROOT::RDF::RNode id_vhmm(ROOT::RDF::RNode df, const std::string &p4,
         {p4});
     return df1;
 }
+//// for mvaTTH SF
+ROOT::RDF::RNode mvatth_vhmm(ROOT::RDF::RNode df, const std::string &p4, 
+                    const std::string &year_id,
+                    const std::string &variation, const std::string &id_output,
+                    const std::string &sf_file,
+                    const std::string &idAlgorithm) {
+
+    Logger::get("muonIdSF")->debug("Setting up functions for muon id sf");
+    Logger::get("muonIdSF")->debug("ID - Name {}", idAlgorithm);
+    auto evaluator =
+        correction::CorrectionSet::from_file(sf_file)->at(idAlgorithm);
+    auto df1 = df.Define(
+        id_output,
+        [evaluator, year_id, variation, sf_file](ROOT::Math::PtEtaPhiMVector &p4) {
+            const float &pt = p4.Pt();
+            const float &eta = p4.Eta();
+            double sf = 1.;
+            
+            Logger::get("muon SF file:")->debug("{}", sf_file);
+            // apply sf for muon pt > 5 using mvaTTH
+            if (pt >= 5 && std::abs(eta) >= 0.0) {
+                sf = evaluator->evaluate(
+                    {std::abs(eta), pt, variation});
+            } else {
+                sf = 1.;
+            }
+            return sf;
+        },
+        {p4});
+    return df1;
+}
 /**
  * @brief Function used to evaluate iso scale factors from muons with
  * correctionlib. Configurations:
@@ -1124,6 +1155,40 @@ ROOT::RDF::RNode id_e_vhmm(ROOT::RDF::RNode df,
                     sf = evaluator->evaluate({year_id, variation, wp, eta, pt});
                 }
             } else if (pt < 10) {
+                sf = 1.;
+            }
+            Logger::get("electronIDSF")->debug("Scale Factor {}", sf);
+            return sf;
+        },
+        {p4});
+    return df1;
+}
+
+ROOT::RDF::RNode custom_e_vhmm(ROOT::RDF::RNode df,
+                    const std::string &p4, const std::string &year_id,
+                    const std::string &wp, const std::string &variation,
+                    const std::string &id_output, const std::string &sf_file,
+                    const std::string &idAlgorithm) {
+
+    Logger::get("electronIDSF")
+        ->debug("Setting up functions for electron id sf with correctionlib");
+    Logger::get("electronIDSF")->debug("ID - Name {}", idAlgorithm);
+    auto evaluator =
+        correction::CorrectionSet::from_file(sf_file)->at(idAlgorithm);
+    auto df1 = df.Define(
+        id_output,
+        [evaluator, year_id, idAlgorithm, wp, variation](ROOT::Math::PtEtaPhiMVector &p4) {
+            const float &pt = p4.Pt();
+            const float &eta = p4.Eta();
+            Logger::get("electronIDSF")
+                ->debug("Year {}, Name {}, WP {}", year_id, idAlgorithm, wp);
+            Logger::get("electronID-customSF")->debug("ID - pt {}, eta {}", pt, eta);
+            double sf = 1.;
+            if (pt >= 7.0 && pt < 10.0) {
+                sf = evaluator->evaluate({year_id, variation, wp, eta, pt});
+            } else if (pt < 200 && pt >= 10 && wp == "mvaTTH") {
+                sf = evaluator->evaluate({year_id, variation, wp, eta, pt});
+            } else {
                 sf = 1.;
             }
             Logger::get("electronIDSF")->debug("Scale Factor {}", sf);

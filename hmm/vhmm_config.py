@@ -560,7 +560,16 @@ def build_config(
                     "2023postBPix": "data/jsonpog-integration/POG/MUO/2023_Summer23BPix/muon_HighPt.json.gz", # HighPt for 200+
                 }
             ),
+            "muon_sf_file_mvaTTH": EraModifier(
+                {
+                    "2022preEE": "data/muon_corrections/mvaTTH/Run2022_mvaTTH_SF.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
+                    "2022postEE": "data/muon_corrections/mvaTTH/Run2022_EE_mvaTTH_SF.json.gz", # HighPt for 200+
+                    "2023preBPix": "data/muon_corrections/mvaTTH/Run2023_mvaTTH_SF.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
+                    "2023postBPix": "data/muon_corrections/mvaTTH/Run2023_BPix_mvaTTH_SF.json.gz", # HighPt for 200+
+                }
+            ),
             "muon_id_sf_name": "NUM_MediumID_DEN_TrackerMuons",
+            "muon_id_sf_name_mvaTTH": "NUM_goodMuon_DEN_goodMuon_others",
             # "muon_iso_sf_name": "NUM_TightRelIso_DEN_MediumID", # for run2?
             "muon_iso_sf_name": EraModifier(
                 {
@@ -649,6 +658,14 @@ def build_config(
                     "2023postBPix": "data/jsonpog-integration/POG/EGM/2023_Summer23BPix/electron.json.gz",
                 }
             ),
+            "custom_ele_sf_file": EraModifier(
+                {
+                    "2022preEE": "data/ele_corrections/custom_ele_sf/2022preEE/electron.json.gz", # correction for pt >= 10
+                    "2022postEE": "data/ele_corrections/custom_ele_sf/2022postEE/electron.json.gz",
+                    "2023preBPix": "data/ele_corrections/custom_ele_sf/2023preBPix/electron.json.gz", # correction for pt >= 10
+                    "2023postBPix": "data/ele_corrections/custom_ele_sf/2023postBPix/electron.json.gz",
+                }
+            ),
             # "ele_id_sf_name": "UL-Electron-ID-SF",
             "ele_id_sf_name": EraModifier(
                 {
@@ -672,6 +689,14 @@ def build_config(
                     "2022postEE": "2022Re-recoE+PromptFG",
                     "2023preBPix": "2023PromptC",
                     "2023postBPix": "2023PromptD",
+                }
+            ),
+            "custom_ele_sf_year_id": EraModifier(
+                {
+                    "2022preEE": "2022preEE",
+                    "2022postEE": "2022postEE",
+                    "2023preBPix": "2023preBPix",
+                    "2023postBPix": "2023postBPix",
                 }
             ),
             "ele_sf_varation": "sf",  # "sf" is nominal, "sfup"/"sfdown" are up/down variations
@@ -1240,12 +1265,26 @@ def build_config(
             ]
         )
     configuration.add_producers(
+        ["nnmm","fjmm","fjmm_cr"],
+        [
+            momentumscale.MuonPtCorrection,
+        ]
+    )
+    configuration.add_producers(
+        ["e2m","m2m", "eemm","mmmm",
+         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        [
+            momentumscale.RenameMuonPt,
+        ]
+    )
+    configuration.add_producers(
         scopes,
         [
             jets.NumberOfGoodJets,
             jets.JetCollection,
 
-            jets.Calc_MHT_all,
+            jets.Calc_MHT_all_corrected,
 
             jets.GoodBJetsLoose_PNet, 
             jets.GoodBJetsMedium_PNet, 
@@ -1260,12 +1299,6 @@ def build_config(
             p4.MHTALL_phi,
             p4.MHTALL_mass,
             met.MetCorrections,
-        ]
-    )
-    configuration.add_producers(
-        ["nnmm","fjmm","fjmm_cr"],
-        [
-            momentumscale.MuonPtCorrection,
         ]
     )
     configuration.add_producers(
@@ -2895,6 +2928,8 @@ def build_config(
             q.iso_wgt_mu_1_above200,
             q.iso_wgt_mu_2_above200,
 
+            q.id_wgt_mu_mvatth_1,
+            q.id_wgt_mu_mvatth_2,
             # q.iso_wgt_mu_1_below15,
             # q.iso_wgt_mu_2_below15,
         ],
@@ -2910,6 +2945,8 @@ def build_config(
             q.id_wgt_mu_3_above200,
             q.iso_wgt_mu_3_above200,
             
+            q.id_wgt_mu_mvatth_3,
+            
             # q.iso_wgt_mu_3_below15,
         ],
     )
@@ -2923,6 +2960,8 @@ def build_config(
             
             q.id_wgt_mu_4_above200,
             q.iso_wgt_mu_4_above200,
+            
+            q.id_wgt_mu_mvatth_4,
 
             # q.iso_wgt_mu_4_below15,
         ],
@@ -2931,16 +2970,24 @@ def build_config(
         ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"],
         [
             q.id_wgt_ele_loose_1,
+            q.id_wgt_ele_loose_1_below10,
             q.id_wgt_ele_wp90Iso_1,
+            q.id_wgt_ele_wp90Iso_1_below10,
             q.reco_wgt_ele_1,
+            q.reco_wgt_ele_1_below10,
+            q.id_wgt_ele_mvatth_1,
         ],
     )
     configuration.add_outputs(
         ["eemm"],
         [
             q.id_wgt_ele_loose_2,
+            q.id_wgt_ele_loose_2_below10,
             q.id_wgt_ele_wp90Iso_2,
+            q.id_wgt_ele_wp90Iso_2_below10,
             q.reco_wgt_ele_2,
+            q.reco_wgt_ele_2_below10,
+            q.id_wgt_ele_mvatth_2,
         ],
     )
     configuration.add_outputs(
@@ -3545,13 +3592,13 @@ def build_config(
             samples=["data"],
         ),
     )
-    configuration.add_modification_rule(
-        ["nnmm","fjmm"],
-        ReplaceProducer(
-            producers=[jets.Calc_MHT_all,jets.Calc_MHT_all_corrected],
-            samples=sample,
-        ),
-    )
+    # configuration.add_modification_rule(
+    #     ["nnmm","fjmm"],
+    #     ReplaceProducer(
+    #         producers=[jets.Calc_MHT_all,jets.Calc_MHT_all_corrected],
+    #         samples=sample,
+    #     ),
+    # )
     
     #######################
     #### Pileup Shifts ####

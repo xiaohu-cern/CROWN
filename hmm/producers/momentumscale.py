@@ -23,7 +23,10 @@ RenameMuonPt = Producer(
         nanoAOD.Muon_pt,
     ],
     output=[q.Muon_pt_corrected],
-    scopes=["nnmm","fjmm","fjmm_cr"],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
     # scopes=["global"],
 )
 Mu1_H_corrected = Producer(

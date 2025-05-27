@@ -225,12 +225,17 @@ id_wgt_ele_wp80nonIso_1 = Quantity("id_wgt_ele_wp80nonIso_1")
 id_wgt_ele_wp80nonIso_2 = Quantity("id_wgt_ele_wp80nonIso_2")
 
 id_wgt_ele_wp90Iso_1 = Quantity("id_wgt_ele_wp90Iso_1")
+id_wgt_ele_wp90Iso_1_below10 = Quantity("id_wgt_ele_wp90Iso_1_below10")
 id_wgt_ele_wp90Iso_2 = Quantity("id_wgt_ele_wp90Iso_2")
+id_wgt_ele_wp90Iso_2_below10 = Quantity("id_wgt_ele_wp90Iso_2_below10")
 
 id_wgt_ele_medium_1 = Quantity("id_wgt_ele_medium_1")
 id_wgt_ele_medium_2 = Quantity("id_wgt_ele_medium_2")
+
 id_wgt_ele_loose_1 = Quantity("id_wgt_ele_loose_1")
+id_wgt_ele_loose_1_below10 = Quantity("id_wgt_ele_loose_1_below10")
 id_wgt_ele_loose_2 = Quantity("id_wgt_ele_loose_2")
+id_wgt_ele_loose_2_below10 = Quantity("id_wgt_ele_loose_2_below10")
 
 # Muon weights
 id_wgt_mu_1 = Quantity("id_wgt_mu_1")
@@ -543,8 +548,11 @@ mu1_mvaTTH = Quantity("mu1_mvaTTH")
 mu2_mvaTTH = Quantity("mu2_mvaTTH")
 mu1_ptErr = Quantity("mu1_ptErr")
 mu2_ptErr = Quantity("mu2_ptErr")
+
 reco_wgt_ele_1 = Quantity("reco_wgt_ele_1")
+reco_wgt_ele_1_below10 = Quantity("reco_wgt_ele_1_below10")
 reco_wgt_ele_2 = Quantity("reco_wgt_ele_2")
+reco_wgt_ele_2_below10 = Quantity("reco_wgt_ele_2_below10")
 
 # hackthon Mingxuan
 mu1_H_dR = Quantity("mu1_H_dR")
@@ -694,3 +702,10 @@ dimuonCR_pt_corrected = Quantity("dimuonCR_pt_corrected")
 
 met_pt_corrected = Quantity("met_pt_corrected")
 met_phi_corrected = Quantity("met_phi_corrected")
+
+id_wgt_ele_mvatth_1 = Quantity("id_wgt_ele_mvatth_1")
+id_wgt_ele_mvatth_2 = Quantity("id_wgt_ele_mvatth_2")
+id_wgt_mu_mvatth_1 = Quantity("id_wgt_mu_mvatth_1")
+id_wgt_mu_mvatth_2 = Quantity("id_wgt_mu_mvatth_2")
+id_wgt_mu_mvatth_3 = Quantity("id_wgt_mu_mvatth_3")
+id_wgt_mu_mvatth_4 = Quantity("id_wgt_mu_mvatth_4")

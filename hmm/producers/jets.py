@@ -575,5 +575,8 @@ Calc_MHT_all_corrected = Producer(
         q.good_jet_collection,
     ],
     output=[q.MHTALL_p4],
-    scopes=["nnmm","fjmm"],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
