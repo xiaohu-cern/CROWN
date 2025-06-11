@@ -439,11 +439,18 @@ dimuonCR_mass = Quantity("dimuonCR_mass")
 
 elemu_TopControl_collection = Quantity("elemu_TopControl_collection")
 Flag_EleMuFromCR = Quantity("Flag_EleMuFromCR")
+
 elemu_p4_CR = Quantity("elemu_p4_CR")
 elemuCR_pt = Quantity("elemuCR_pt")
 elemuCR_eta = Quantity("elemuCR_eta")
 elemuCR_phi = Quantity("elemuCR_phi")
 elemuCR_mass = Quantity("elemuCR_mass")
+
+# muon_Top_CR = Quantity("muon_Top_CR")
+muon_Top_CR_corrected = Quantity("muon_Top_CR_corrected")
+ele_Top_CR = Quantity("ele_Top_CR")
+elemu_p4_CR_corrected = Quantity("elemu_p4_CR_corrected")
+elemuCR_pt_corrected = Quantity("elemuCR_pt_corrected")
 
 # Fat Jet 
 FatJet_pt_corrected = Quantity("FatJet_pt_corrected")

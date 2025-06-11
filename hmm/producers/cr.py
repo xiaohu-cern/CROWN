@@ -126,10 +126,10 @@ dimuonCR_mass = Producer(
 ########
 ### for nnmm top control region
 ########
-TOP_EleMuPair_CR = Producer(
-    name="TOP_EleMuPair_CR",
+TOP_EleMuPair_CR_corrected = Producer(
+    name="TOP_EleMuPair_CR_corrected",
     call='physicsobject::TOP_EleMuPair_CR({df}, {output}, {input})',
-    input=[nanoAOD.Muon_pt,
+    input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
@@ -149,6 +149,21 @@ Flag_EleMuFromCR = Producer(
     call='physicsobject::EleMuFromCR({df}, {output}, {input})',
     input=[q.elemu_TopControl_collection],
     output=[q.Flag_EleMuFromCR],
+    scopes=["nnmm_topcontrol"],
+)
+EleMuPairCR_p4_corrected = Producer(
+    name="EleMuPairCR_p4_corrected",
+    call='physicsobject::TopControlEleMuPairP4({df}, {output}, {input})',
+    input=[q.Muon_pt_corrected,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           nanoAOD.Electron_pt,
+           nanoAOD.Electron_eta, 
+           nanoAOD.Electron_phi, 
+           nanoAOD.Electron_mass,
+           q.elemu_TopControl_collection],
+    output=[q.elemu_p4_CR_corrected],
     scopes=["nnmm_topcontrol"],
 )
 EleMuPairCR_p4 = Producer(
@@ -175,6 +190,15 @@ FilterFlag_EleMuFromCR = Producer(
     scopes=["nnmm_topcontrol"],
 )
 #####
+elemuCR_pt_corrected = Producer(
+    name="elemuCR_pt_corrected",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.elemu_p4_CR_corrected,
+    ],
+    output=[q.elemuCR_pt_corrected],
+    scopes=["nnmm_topcontrol"],
+)
 elemuCR_pt = Producer(
     name="elemuCR_pt",
     call='quantities::pt({df}, {output}, {input})',
@@ -209,5 +233,31 @@ elemuCR_mass = Producer(
       q.elemu_p4_CR,
     ],
     output=[q.elemuCR_mass],
+    scopes=["nnmm_topcontrol"],
+)
+Mu_Top_CR = Producer(
+    name="Mu_Top_CR",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.elemu_TopControl_collection,
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_p4_1],
+    scopes=["nnmm_topcontrol"],
+)
+Ele_Top_CR = Producer(
+    name="Ele_Top_CR",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.elemu_TopControl_collection,
+        nanoAOD.Electron_pt,
+        nanoAOD.Electron_eta,
+        nanoAOD.Electron_phi,
+        nanoAOD.Electron_mass,
+    ],
+    output=[q.ele_Top_CR],
     scopes=["nnmm_topcontrol"],
 )

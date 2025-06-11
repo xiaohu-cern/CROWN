@@ -1162,7 +1162,7 @@ def build_config(
         "nnmm_topcontrol", # Top control reigon e mu final state
         {
             "vh_good_nmuons" : 1,
-            "min_met" : 50.0,
+            "min_met" : 150.0,
             "flag_EleMuFromTopCR" : 1,
             "flag_MetCut" : 1,
         }
@@ -1265,7 +1265,7 @@ def build_config(
             ]
         )
     configuration.add_producers(
-        ["nnmm","fjmm","fjmm_cr"],
+        ["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
         [
             momentumscale.MuonPtCorrection,
         ]
@@ -2615,7 +2615,7 @@ def build_config(
         "nnmm_topcontrol",
         [
             event.Flag_MetCut,
-            event.FilterFlagMetCut, # MET >= 50
+            event.FilterFlagMetCut, # MET >= 150
             event.FilterNGoodMuons,
             event.FilterNGoodElectrons,
             lepton.LeptonChargeSumVeto_elemu,
@@ -2626,14 +2626,31 @@ def build_config(
             p4.genmet_pt,
             p4.genmet_phi,
             
-            cr.TOP_EleMuPair_CR,
+            cr.TOP_EleMuPair_CR_corrected,
             cr.Flag_EleMuFromCR,
             cr.FilterFlag_EleMuFromCR,
             cr.EleMuPairCR_p4,
+            cr.EleMuPairCR_p4_corrected,
+            
+            cr.Mu_Top_CR,
+            momentumscale.Mu_Top_CR_corrected,
+            cr.Ele_Top_CR,
+            
+            cr.elemuCR_pt_corrected,
             cr.elemuCR_pt,
             cr.elemuCR_eta,
             cr.elemuCR_phi,
             cr.elemuCR_mass,
+            genparticles.BosonDecayMode,
+            triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel,
+            scalefactors.GenerateSingleMuonTriggerSF_MC,
+            
+            scalefactors.MuonID_SF,
+            scalefactors.MuonIso_SF,
+            # add HighPtMuon RECO SF here
+            scalefactors.MuonRECO_SF,
+            scalefactors.EleID_SF,
+            scalefactors.EleReco_SF,
         ],
     )
     configuration.add_producers(
@@ -2967,7 +2984,7 @@ def build_config(
         ],
     )
     configuration.add_outputs(
-        ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"],
+        ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm","nnmm_topcontrol"],
         [
             q.id_wgt_ele_loose_1,
             q.id_wgt_ele_loose_1_below10,
@@ -3083,6 +3100,12 @@ def build_config(
             q.mu1_mu2_fromZCR_dphi,
             q.met_mm_fromZCR_dphi,            
             q.BosonDecayMode,
+        ],
+    )
+    configuration.add_outputs(
+        ["nnmm_topcontrol"],
+        [
+            triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel.output_group,
         ],
     )
     configuration.add_outputs(
@@ -3281,11 +3304,23 @@ def build_config(
             q.Flag_MetCut,
             q.Flag_LeptonChargeSumVeto,
             q.Flag_EleMuFromCR,
+            q.BosonDecayMode,
             # q.elemu_p4_CR,
             q.elemuCR_pt,
+            q.elemuCR_pt_corrected,
             q.elemuCR_eta,
             q.elemuCR_phi,
             q.elemuCR_mass,
+
+            q.id_wgt_mu_1,
+            q.iso_wgt_mu_1,
+            q.id_wgt_mu_1_below15,
+            q.id_wgt_mu_mvatth_1,
+            
+            q.id_wgt_mu_1_above200,
+            q.iso_wgt_mu_1_above200,
+            q.reco_wgt_mu_1_above200
+
         ],
     )
     # add genWeight for everything but data
@@ -3545,7 +3580,7 @@ def build_config(
         ),
     )
     configuration.add_modification_rule(
-        ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm"],
+        ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm","nnmm_topcontrol"],
         RemoveProducer(
             producers=[
                 scalefactors.EleID_SF,
@@ -3557,7 +3592,7 @@ def build_config(
     configuration.add_modification_rule(
         ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
          "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-         "eemm","mmmm","nnmm","fjmm","fjmm_cr"],
+         "eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
         RemoveProducer(
             producers=[
                 scalefactors.MuonID_SF,
@@ -3568,7 +3603,7 @@ def build_config(
         ),
     )
     configuration.add_modification_rule(
-        ["nnmm","fjmm","fjmm_cr"],
+        ["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
         RemoveProducer(
             producers=[
                 scalefactors.MuonRECO_SF,

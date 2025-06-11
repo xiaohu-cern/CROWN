@@ -119,6 +119,13 @@ PropagateTwoLeptonsToMet = Producer(
     output=[q.met_p4_leptoncorrected],
     scopes=["fjmm_cr"],
 )
+PropagateTwoLeptonsToMet_TopCR = Producer(
+    name="PropagateTwoLeptonsToMet_TopCR",
+    call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
+    input=[q.met_p4_uncorrected, q.ele_Top_CR, q.muon_p4_1, q.ele_Top_CR, q.muon_Top_CR_corrected],
+    output=[q.met_p4_leptoncorrected],
+    scopes=["nnmm_topcontrol"],
+)
 
 PropagateTwoLeptonsToMet_corrected = Producer(
     name="PropagateTwoLeptonsToMet_corrected",
@@ -144,7 +151,7 @@ PropagateJetsToMet = Producer(
         nanoAOD.Jet_mass,
     ],
     output=[q.met_p4_jetcorrected],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -154,7 +161,7 @@ MetPt = Producer(
     call="quantities::pt({df}, {output}, {input})",
     input=[q.met_p4_jetcorrected],
     output=[q.met_pt_corrected],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -163,7 +170,7 @@ MetPhi = Producer(
     call="quantities::phi({df}, {output}, {input})",
     input=[q.met_p4_jetcorrected],
     output=[q.met_phi_corrected],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -173,7 +180,7 @@ MetCorrections = ProducerGroup(
     call=None,
     input=None,
     output=None,
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
     subproducers={
@@ -255,5 +262,11 @@ MetCorrections = ProducerGroup(
             MetPt,
             MetPhi,
         ],
+        "nnmm_topcontrol": [
+            PropagateTwoLeptonsToMet_TopCR,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ]
     },
 )

@@ -56,6 +56,26 @@ GenerateSingleMuonTriggerFlagsForDiMuChannel = ExtendedVectorProducer(
     scope=["e2m","eemm","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
     vec_config="singlemuon_trigger",
 )
+### for emu top Control Region
+# using the same muon to do the trigger
+GenerateSingleMuonTriggerFlagsForEleMuChannel = ExtendedVectorProducer(
+    name="GenerateSingleMuonTriggerFlagsForEleMuChannel",
+    call='trigger::GenerateDoubleTriggerORFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {ptcut}, {etacut}, {etacut}, {trigger_particle_id}, {trigger_particle_id}, {filterbit}, {filterbit}, {max_deltaR_triggermatch} )',
+    input=[
+        q.muon_p4_1,
+        q.muon_p4_1,
+        nanoAOD.TriggerObject_bit,
+        nanoAOD.TriggerObject_id,
+        nanoAOD.TriggerObject_pt,
+        nanoAOD.TriggerObject_eta,
+        nanoAOD.TriggerObject_phi,
+    ],
+    output="flagname",
+    scope=["nnmm_topcontrol"],
+    vec_config="singlemuon_trigger",
+)
+
+
 GenerateSingleMuonTriggerFlagsForDiMuChannel_run2 = ExtendedVectorProducer(
     name="GenerateSingleMuonTriggerFlagsForDiMuChannel_run2",
     call='trigger::GenerateDoubleTriggerORFlag_run2({df}, {output}, {input}, "{hlt_path}", {ptcut}, {ptcut}, {etacut}, {etacut}, {trigger_particle_id}, {trigger_particle_id}, {filterbit}, {filterbit}, {max_deltaR_triggermatch} )',
