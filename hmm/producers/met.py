@@ -270,3 +270,44 @@ MetCorrections = ProducerGroup(
         ]
     },
 )
+
+Rename_PropagateThreeLeptons = Producer(
+    name="Rename_PropagateThreeLeptons",
+    call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
+    input=[
+        q.met_p4_uncorrected,
+    ],
+    output=[q.met_p4_leptoncorrected],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+Rename_PropagateJetsToMet = Producer(
+    name="Rename_PropagateJetsToMet",
+    call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
+    input=[
+        q.met_p4_leptoncorrected,
+    ],
+    output=[q.met_p4_jetcorrected],
+    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+
+RenameMetCorrections = ProducerGroup(
+    name="RenameMetCorrections",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    subproducers={
+        Rename_PropagateThreeLeptons,
+        Rename_PropagateJetsToMet,
+        MetPt,
+        MetPhi,
+    },
+)

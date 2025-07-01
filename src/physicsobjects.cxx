@@ -1437,6 +1437,70 @@ ROOT::RDF::RNode DY_DiMuonPair_CR(ROOT::RDF::RNode df, const std::string &output
     return df1;
 }
 ///
+/// function to pick dimuon pair in DY control region High mass
+ROOT::RDF::RNode DY_DiMuonPair_CR_HighMass(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &particle_pts,
+                                 const std::string &particle_etas,
+                                 const std::string &particle_phis,
+                                 const std::string &particle_masses,
+                                 const std::string &particle_charges,
+                                 const std::string &goodmuons_index) {
+    auto pair_calc_p4byPt = [](const ROOT::RVec<float> &particle_pts,
+                               const ROOT::RVec<float> &particle_etas,
+                               const ROOT::RVec<float> &particle_phis,
+                               const ROOT::RVec<float> &particle_masses,
+                               const ROOT::RVec<int> &particle_charges,
+                               const ROOT::RVec<int> &goodmuons_index) {
+                                 std::vector<ROOT::Math::PtEtaPhiMVector> p4;
+                                 for (unsigned int k = 0; k < (int)goodmuons_index.size(); ++k) {
+                                    try {
+                                        p4.push_back(ROOT::Math::PtEtaPhiMVector(particle_pts.at(goodmuons_index[k]),  ///goodmuons_index[k] points to the good muon index k
+                                                                         particle_etas.at(goodmuons_index[k]),          // k = 0, points to goodmuon_index[0]
+                                                                         particle_phis.at(goodmuons_index[k]),          // k ,points to goodmuon_index[k]
+                                                                         particle_masses.at(goodmuons_index[k])));      // index what I want is goodmuon_index[k] k,i or j
+                                    } catch (const std::out_of_range &e) {
+                                        p4.push_back(ROOT::Math::PtEtaPhiMVector(default_float, default_float,default_float, default_float));
+                                    }
+                                 }
+                                 std::vector<ROOT::Math::PtEtaPhiMVector> p4_1;
+                                 std::vector<ROOT::Math::PtEtaPhiMVector> p4_2;
+                                 p4_1 = p4;
+                                 p4_2 = p4;
+                                 float ptsum = -1;
+                                 int index1 = -1,index2 = -1;
+                                 for (unsigned int i = 0; i < p4_1.size(); ++i) {
+                                     for (unsigned int j = i + 1; j < p4_2.size(); ++j) {
+                                         if (p4_1[i].pt() < 0.0 || p4_2[j].pt() < 0.0)
+                                             continue; 
+                                         /// need opposite sign dimuons
+                                         if ( particle_charges[goodmuons_index[i]] + particle_charges[goodmuons_index[j]] != 0 ) {
+                                             continue;
+                                         }
+                                         /// Add dimuon mass window, 70-110, 150-Inf
+                                         if ( ( (p4_1[i] + p4_2[j]).mass() < 70 ) || ( (p4_1[i] + p4_2[j]).mass() > 110 && (p4_1[i] + p4_2[j]).mass() < 150 ) ) {
+                                             continue;
+                                         }
+                                         if ( p4_1[i].pt() + p4_2[j].pt() > ptsum) {
+                                             ptsum = p4_1[i].pt() + p4_2[j].pt();
+                                             if ( p4_1[i].pt() > p4_1[j].pt() ) {
+                                                index1 = goodmuons_index[i];
+                                                index2 = goodmuons_index[j];
+                                             } else {
+                                                index1 = goodmuons_index[j];
+                                                index2 = goodmuons_index[i]; /// need to return the index1 and index2 as goodmuons pair collection.
+                                             }
+                                         }
+                                     }
+                                 }
+                                 ROOT::RVec<int> DiMuonPair = {index1, index2};
+                                 return DiMuonPair;
+                                 ///p4_dimuon = p4_dileptonsystem[0];
+                                 ///return p4_dimuon; /// return dimuon_pair_p4 order by pt
+                             };
+    auto df1 = 
+        df.Define(outputname, pair_calc_p4byPt, {particle_pts, particle_etas, particle_phis, particle_masses, particle_charges, goodmuons_index});
+    return df1;
+}
 ///
 /// function  to make a flag that if exist dimuon pair in control region
 ROOT::RDF::RNode DiMuonFromCR(ROOT::RDF::RNode df, const std::string &outputname,

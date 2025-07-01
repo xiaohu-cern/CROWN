@@ -1435,8 +1435,8 @@ def build_config(
             electrons.GoodEle_Veto,
             event.FilterFlagLepChargeSum,
             event.FilterFlagGoodEleVeto,
-            ### dimuon pairs in [70,110]
-            cr.DY_DiMuonPair_CR,
+            ### dimuon pairs in [70,110] OR [150,Inf)
+            cr.DY_DiMuonPair_CR_HighMass,
             cr.Flag_DiMuonFromCR,
             cr.FilterFlag_DiMuonFromCR,
             cr.DiMuonPairCR_p4,
@@ -1632,8 +1632,8 @@ def build_config(
             # flag cut
             event.FilterFlagLepChargeSum,
             event.FilterFlagGoodEleVeto,
-            # m(mm) in [70,110]
-            cr.DY_DiMuonPair_CR,
+            # m(mm) in [70,110] OR [150,Inf)
+            cr.DY_DiMuonPair_CR_HighMass,
             cr.Flag_DiMuonFromCR,
             cr.FilterFlag_DiMuonFromCR,
             cr.DiMuonPairCR_p4,
@@ -1821,8 +1821,8 @@ def build_config(
             lepton.LeptonChargeSumVeto_elemu, # only in e2m and 2e2m channel
             event.FilterFlagLepChargeSum,
             event.DimuonMinMassCut,
-            # m(mm) in [70,110]
-            cr.DY_DiMuonPair_CR,
+            # m(mm) in [70,110] OR [150,Inf)
+            cr.DY_DiMuonPair_CR_HighMass,
             cr.Flag_DiMuonFromCR,
             cr.FilterFlag_DiMuonFromCR,
             cr.DiMuonPairCR_p4,
@@ -2006,8 +2006,8 @@ def build_config(
             event.FilterFlagLepChargeSum,
             event.DimuonMinMassCut,
             ###
-            # m(mm) in [70,110]
-            cr.DY_DiMuonPair_CR,
+            # m(mm) in [70,110] OR [150,Inf)
+            cr.DY_DiMuonPair_CR_HighMass,
             cr.Flag_DiMuonFromCR,
             cr.FilterFlag_DiMuonFromCR,
             cr.DiMuonPairCR_p4,
@@ -3621,9 +3621,16 @@ def build_config(
         ),
     )
     configuration.add_modification_rule(
-        ["nnmm","fjmm","fjmm_cr"],
+        ["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
         ReplaceProducer(
             producers=[momentumscale.MuonPtCorrection,momentumscale.RenameMuonPt],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        scopes,
+        ReplaceProducer(
+            producers=[met.MetCorrections,met.RenameMetCorrections],
             samples=["data"],
         ),
     )

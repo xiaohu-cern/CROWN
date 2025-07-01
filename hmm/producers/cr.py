@@ -22,6 +22,22 @@ DY_DiMuonPair_CR = Producer(
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
 )
 
+DY_DiMuonPair_CR_HighMass = Producer(
+    name="DY_DiMuonPair_CR_HighMass",
+    call='physicsobject::DY_DiMuonPair_CR_HighMass({df}, {output}, {input})',
+    input=[nanoAOD.Muon_pt,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           nanoAOD.Muon_charge,
+           q.good_muon_collection],
+    output=[q.dimuon_ZControl_collection], # index about the two selected muons may from Z boson
+    scopes=["nnmm_dycontrol","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+
+
 Flag_DiMuonFromCR = Producer(
     name="Flag_DiMuonFromCR",
     call='physicsobject::DiMuonFromCR({df}, {output}, {input})',

@@ -181,6 +181,13 @@ ROOT::RDF::RNode DY_DiMuonPair_CR(ROOT::RDF::RNode df, const std::string &output
                                  const std::string &particle_masses,
                                  const std::string &particle_charges,
                                  const std::string &goodmuons_index);
+ROOT::RDF::RNode DY_DiMuonPair_CR_HighMass(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &particle_pts,
+                                 const std::string &particle_etas,
+                                 const std::string &particle_phis,
+                                 const std::string &particle_masses,
+                                 const std::string &particle_charges,
+                                 const std::string &goodmuons_index);
 ROOT::RDF::RNode DiMuonFromCR(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &dimuons_index);
 ROOT::RDF::RNode ZControlDiMuonPairP4(ROOT::RDF::RNode df, const std::string &outputname,
