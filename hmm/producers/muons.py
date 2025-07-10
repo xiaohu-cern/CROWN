@@ -249,7 +249,7 @@ LVMu1 = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_1],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -277,7 +277,7 @@ LVMu2 = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_2],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -333,7 +333,7 @@ Mu1_H = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_leadingp4_H],
-    scopes=["e2m","m2m", "eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 ##### The sub leading muon form Higgs
 Mu2_H = Producer(
@@ -347,7 +347,7 @@ Mu2_H = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_subleadingp4_H],
-    scopes=["e2m","m2m", "eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 ##### The leading muon from Higgs in 4m channel
 Mu1_H_4m = Producer(
@@ -467,7 +467,7 @@ mu1_Higgs_mvaTTH = Producer(
         q.dimuon_HiggsCand_collection,
     ],
     output=[q.mu1_mvaTTH],
-    scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 mu2_Higgs_mvaTTH = Producer(
     name="mu2_Higgs_mvaTTH",
@@ -477,7 +477,7 @@ mu2_Higgs_mvaTTH = Producer(
         q.dimuon_HiggsCand_collection,
     ],
     output=[q.mu2_mvaTTH],
-    scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 ##### q.quadmuon_HiggsZCand_collection 0, 1 -> scopes=["mmmm"]
 mu1_Higgs_mvaTTH_mmmm = Producer(
@@ -532,7 +532,7 @@ mu1_Higgs_ptErr = Producer(
         q.dimuon_HiggsCand_collection,
     ],
     output=[q.mu1_ptErr],
-    scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 mu2_Higgs_ptErr = Producer(
     name="mu2_Higgs_ptErr",
@@ -542,7 +542,7 @@ mu2_Higgs_ptErr = Producer(
         q.dimuon_HiggsCand_collection,
     ],
     output=[q.mu2_ptErr],
-    scopes=["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+    scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 ##### q.quadmuon_HiggsZCand_collection 0, 1 -> scopes=["mmmm"]
 mu1_Higgs_ptErr_mmmm = Producer(

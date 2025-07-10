@@ -94,7 +94,7 @@ PropagateFourLeptonsToMet = Producer(
            q.muon_leadingp4_H, q.muon_subleadingp4_H, q.lepton_leadingp4_Z, q.lepton_subleadingp4_Z, 
            q.muon_leadingp4_H, q.muon_subleadingp4_H, q.lepton_leadingp4_Z, q.lepton_subleadingp4_Z],
     output=[q.met_p4_leptoncorrected],
-    scopes=["eemm","mmmm"],
+    scopes=["eemm","eemm_cr","mmmm"],
 )
 PropagateThreeLeptonsToMet_e2m = Producer(
     name="PropagateThreeLeptonsToMet",
@@ -151,7 +151,7 @@ PropagateJetsToMet = Producer(
         nanoAOD.Jet_mass,
     ],
     output=[q.met_p4_jetcorrected],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
+    scopes=["e2m","m2m","eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -161,7 +161,7 @@ MetPt = Producer(
     call="quantities::pt({df}, {output}, {input})",
     input=[q.met_p4_jetcorrected],
     output=[q.met_pt_corrected],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
+    scopes=["e2m","m2m","eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -170,7 +170,7 @@ MetPhi = Producer(
     call="quantities::phi({df}, {output}, {input})",
     input=[q.met_p4_jetcorrected],
     output=[q.met_phi_corrected],
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
+    scopes=["e2m","m2m","eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -180,7 +180,7 @@ MetCorrections = ProducerGroup(
     call=None,
     input=None,
     output=None,
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
+    scopes=["e2m","m2m","eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
     subproducers={
@@ -238,6 +238,12 @@ MetCorrections = ProducerGroup(
             MetPt,
             MetPhi,
         ],
+        "eemm_cr": [
+            PropagateFourLeptonsToMet,
+            PropagateJetsToMet,
+            MetPt,
+            MetPhi,
+        ],
         "mmmm": [
             PropagateFourLeptonsToMet,
             PropagateJetsToMet,
@@ -278,7 +284,7 @@ Rename_PropagateThreeLeptons = Producer(
         q.met_p4_uncorrected,
     ],
     output=[q.met_p4_leptoncorrected],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr",
             "nnmm_dycontrol","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -290,7 +296,7 @@ Rename_PropagateJetsToMet = Producer(
         q.met_p4_leptoncorrected,
     ],
     output=[q.met_p4_jetcorrected],
-    scopes=["e2m","m2m", "eemm","mmmm","nnmm","fjmm","fjmm_cr",
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr",
             "nnmm_dycontrol","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -301,7 +307,7 @@ RenameMetCorrections = ProducerGroup(
     call=None,
     input=None,
     output=None,
-    scopes=["e2m","m2m","eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
+    scopes=["e2m","m2m","eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
     subproducers={

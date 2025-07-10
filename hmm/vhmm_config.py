@@ -1046,7 +1046,7 @@ def build_config(
     # m2m cuts
     # m2m regionB: pass 3 medium muons and fail m(mm) in [110,150], actually in [70,110]
     configuration.add_config_parameters(
-        ["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm","nnmm","fjmm"],
+        ["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm","nnmm","fjmm","eemm_cr"],
         {
             "flag_DiMuonFromHiggs" : 1,
         }
@@ -1074,7 +1074,7 @@ def build_config(
         }
     )
     configuration.add_config_parameters(
-        ["eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr",],
+        ["eemm","eemm_cr","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr",],
         {
             "flag_LeptonChargeSumVeto" : 2, # 2 stands 0
         }
@@ -1089,7 +1089,7 @@ def build_config(
     configuration.add_config_parameters(
         ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
          "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-         "eemm","nnmm","fjmm","nnmm_dycontrol","fjmm_cr",],
+         "eemm","nnmm","fjmm","nnmm_dycontrol","fjmm_cr","eemm_cr",],
         {
             "vh_good_nmuons" : 2, # 2 good muons
         }
@@ -1131,6 +1131,14 @@ def build_config(
         }
     )
     configuration.add_config_parameters(
+        "eemm_cr",
+        {
+            "vh_base_nelectrons" : 2,
+            "min_dielectron_mass" : 12,
+            "flag_DiEleFromZ" : 1,
+        }
+    )
+    configuration.add_config_parameters(
         "mmmm",
         {
             "vh_good_nmuons" : 4,
@@ -1139,7 +1147,9 @@ def build_config(
     configuration.add_config_parameters(
         "nnmm",
         {
-            "min_met" : 150.0,
+            # change to 100, to contain the DNN cr for MET,
+            # but remember to keep nfatjet<=0, to remove the overlap with fjmm
+            "min_met" : 100.0,
             "flag_MetCut" : 1,
         }
     )
@@ -1227,7 +1237,7 @@ def build_config(
         )
         configuration.add_producers(
             # overlap with good muon and base ele
-            ["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+            ["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm_cr"],
             [
                 jets.GoodJets_2022_BaseEle_GoodMu, 
             ]
@@ -1271,7 +1281,7 @@ def build_config(
         ]
     )
     configuration.add_producers(
-        ["e2m","m2m", "eemm","mmmm",
+        ["e2m","m2m", "eemm","mmmm","eemm_cr",
          "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
          "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         [
@@ -1309,6 +1319,13 @@ def build_config(
             fatjets.FatJetCollection,
             fatjets.FilterNFatjets_fjmm, # vh fjmm >=1 fatjet
             fatjets.LVFatJet1,
+        ]
+    )
+    configuration.add_producers(
+        ["nnmm"],
+        [
+            fatjets.GoodFatJets,
+            fatjets.NumberOfGoodFatJets,
         ]
     )
     configuration.add_producers(
@@ -2110,10 +2127,26 @@ def build_config(
     configuration.add_producers(
         "eemm",
         [
-            event.FilterNGoodMuons,
-            ###
+            # private for eemm
             event.FilterNGoodElectrons,
-            ###
+            event.Mask_DiElectronPair,
+            lepton.LeptonChargeSumVeto_elemu, # only in e2m and 2e2m channel
+        ]
+    )
+    configuration.add_producers(
+        "eemm_cr",
+        [
+            # private for eemm_cr
+            event.FilterNBaseElectrons,
+            event.Mask_DiBaseElectronPair,
+            lepton.LeptonChargeSumVeto_mubaseele, # only in e2m and 2e2m channel
+        ]
+    )
+    configuration.add_producers(
+        ["eemm","eemm_cr"],
+        [            
+            # common for eemm and eemm_cr
+            event.FilterNGoodMuons,
             lepton.CalcSmallestDiMuonMass,  # both dimuon and diele
             lepton.CalcSmallestDiElectronMass,
             event.DimuonMinMassCut,
@@ -2123,11 +2156,9 @@ def build_config(
             event.Flag_DiMuonFromHiggs,
             event.HiggsToDiMuonPair_p4, # select the first dimuon pairs in [110,150] that ordered by pt
             ###
-            event.Mask_DiElectronPair,
             event.Flag_DiEleFromZ,  ### need ZCand m(ee) in [70,110]
             event.ZToDiElectronPair_p4,
             ###
-            lepton.LeptonChargeSumVeto_elemu, # only in e2m and 2e2m channel
             # flag cut
             event.FilterFlagDiMuFromH,
             event.FilterFlagLepChargeSum,
@@ -2664,7 +2695,7 @@ def build_config(
         ]
     )
     configuration.add_producers(
-        ["e2m","m2m","eemm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+        ["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
         [
             # Higgs mu1,mu2
             muons.mu1_Higgs_mvaTTH,
@@ -2790,7 +2821,7 @@ def build_config(
     )
     # hackathon
     configuration.add_outputs(
-        ["eemm","mmmm"],
+        ["eemm","eemm_cr","mmmm"],
         [
             q.ptH_ov_massH,
             q.Z_H_dR, ## mingxuan add 2024/12/24
@@ -2903,7 +2934,7 @@ def build_config(
     )
     
     configuration.add_outputs(
-        ["e2m","m2m","eemm","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+        ["e2m","m2m","eemm","eemm_cr","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
         [
             q.mu1_fromH_pt,
             q.mu1_fromH_eta,
@@ -2925,7 +2956,7 @@ def build_config(
     configuration.add_outputs(
         ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
          "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-         "eemm","mmmm","nnmm","fjmm","fjmm_cr"],
+         "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr"],
         [
             q.mu1_mvaTTH,
             q.mu2_mvaTTH,
@@ -2984,7 +3015,7 @@ def build_config(
         ],
     )
     configuration.add_outputs(
-        ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm","nnmm_topcontrol"],
+        ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm","eemm_cr","nnmm_topcontrol"],
         [
             q.id_wgt_ele_loose_1,
             q.id_wgt_ele_loose_1_below10,
@@ -2996,7 +3027,7 @@ def build_config(
         ],
     )
     configuration.add_outputs(
-        ["eemm"],
+        ["eemm","eemm_cr"],
         [
             q.id_wgt_ele_loose_2,
             q.id_wgt_ele_loose_2_below10,
@@ -3134,7 +3165,7 @@ def build_config(
         ]
     )
     configuration.add_outputs(
-        ["eemm","mmmm"],
+        ["eemm","eemm_cr","mmmm"],
         [
             q.lep1_mvaTTH,
             q.lep2_mvaTTH,
@@ -3174,7 +3205,7 @@ def build_config(
         ]
     )
     configuration.add_outputs(
-        "eemm",
+        ["eemm","eemm_cr"],
         [            
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
         ],
@@ -3198,7 +3229,8 @@ def build_config(
             q.mu1_mu2_dphi,
             q.met_H_dphi,
             # q.MHTALL_p4,
-            #
+            # add cut nfatjet<=0 to remove the overlap with fjmm
+            q.nfatjets,
             q.smallest_dimuon_mass,
             # q.Flag_MetCut,
             q.Flag_LeptonChargeSumVeto,

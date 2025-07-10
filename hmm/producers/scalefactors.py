@@ -75,21 +75,21 @@ Muon_1_ID_SF_vhmm = Producer(
     call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file}", "{muon_id_sf_name}")',
     input=[q.muon_leadingp4_H],
     output=[q.id_wgt_mu_1],
-    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm"],
+    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","eemm_cr","mmmm"],
 )
 Muon_1_ID_SF_vhmm_below15 = Producer(
     name="Muon_1_ID_SF_vhmm_below15",
     call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
     input=[q.muon_leadingp4_H],
     output=[q.id_wgt_mu_1_below15],
-    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm"],
+    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","eemm_cr","mmmm"],
 )
 Muon_1_ID_SF_vhmm_above200 = Producer(
     name="Muon_1_ID_SF_vhmm_above200",
     call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_HighPt}", {output}, "{muon_sf_file_HighPt}", "{muon_id_sf_name_HighPt}")',
     input=[q.muon_leadingp4_H],
     output=[q.id_wgt_mu_1_above200],
-    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm"],
+    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","eemm_cr","mmmm"],
 )
 #############################
 ###### Muon mvaTTH SF #######
@@ -99,7 +99,7 @@ Muon_1_mvaTTH_SF_vhmm = Producer(
     call='scalefactor::muon::mvatth_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_mvaTTH}", "{muon_id_sf_name_mvaTTH}")',
     input=[q.muon_leadingp4_H],
     output=[q.id_wgt_mu_mvatth_1],
-    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm"],
+    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","eemm_cr","mmmm"],
 )
 Muon_1_mvaTTH_SF_vhmm_corrected = Producer(
     name="Muon_1_mvaTTH_SF_vhmm_corrected",
@@ -170,21 +170,21 @@ Muon_2_ID_SF_vhmm = Producer(
     call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file}", "{muon_id_sf_name}")',
     input=[q.muon_subleadingp4_H],
     output=[q.id_wgt_mu_2],
-    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm"],
+    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","eemm_cr","mmmm"],
 )
 Muon_2_ID_SF_vhmm_below15 = Producer(
     name="Muon_2_ID_SF_vhmm_below15",
     call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_JPsi}", {output}, "{muon_sf_file_JPsi}", "{muon_id_sf_name}")',
     input=[q.muon_subleadingp4_H],
     output=[q.id_wgt_mu_2_below15],
-    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm"],
+    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","eemm_cr","mmmm"],
 )
 Muon_2_ID_SF_vhmm_above200 = Producer(
     name="Muon_2_ID_SF_vhmm_above200",
     call='scalefactor::muon::id_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_HighPt}", {output}, "{muon_sf_file_HighPt}", "{muon_id_sf_name_HighPt}")',
     input=[q.muon_subleadingp4_H],
     output=[q.id_wgt_mu_2_above200],
-    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm"],
+    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","eemm_cr","mmmm"],
 )
 #############################
 ###### Muon mvaTTH SF #######
@@ -194,7 +194,7 @@ Muon_2_mvaTTH_SF_vhmm = Producer(
     call='scalefactor::muon::mvatth_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file_mvaTTH}", "{muon_id_sf_name_mvaTTH}")',
     input=[q.muon_subleadingp4_H],
     output=[q.id_wgt_mu_mvatth_2],
-    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm"],
+    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","eemm_cr","mmmm"],
 )
 Muon_2_mvaTTH_SF_vhmm_corrected = Producer(
     name="Muon_2_mvaTTH_SF_vhmm_corrected",
@@ -476,14 +476,14 @@ Muon_1_Iso_SF_vhmm = Producer(
     call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file}", "{muon_iso_sf_name}")',
     input=[q.muon_leadingp4_H],
     output=[q.iso_wgt_mu_1],
-    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm"],
+    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","eemm_cr","mmmm"],
 )
 Muon_1_Iso_SF_vhmm_above200 = Producer(
     name="Muon_1_Iso_SF_vhmm_above200",
     call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_HighPt}", {output}, "{muon_sf_file_HighPt}", "{muon_iso_sf_name_HighPt}")',
     input=[q.muon_leadingp4_H],
     output=[q.iso_wgt_mu_1_above200],
-    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm"],
+    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","eemm_cr","mmmm"],
 )
 Muon_1_Iso_SF_vhmm_corrected = Producer(
     name="Muon_1_Iso_SF_vhmm_corrected",
@@ -523,14 +523,14 @@ Muon_2_Iso_SF_vhmm = Producer(
     call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file}", "{muon_iso_sf_name}")',
     input=[q.muon_subleadingp4_H],
     output=[q.iso_wgt_mu_2],
-    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm"],
+    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","eemm_cr","mmmm"],
 )
 Muon_2_Iso_SF_vhmm_above200 = Producer(
     name="Muon_2_Iso_SF_vhmm_above200",
     call='scalefactor::muon::iso_vhmm({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation_HighPt}", {output}, "{muon_sf_file_HighPt}", "{muon_iso_sf_name_HighPt}")',
     input=[q.muon_subleadingp4_H],
     output=[q.iso_wgt_mu_2_above200],
-    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm"],
+    scopes=["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","eemm_cr","mmmm"],
 )
 
 Muon_2_Iso_SF_vhmm_corrected = Producer(
@@ -721,7 +721,7 @@ MuonID_SF = ProducerGroup(
     output=None,
     scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
             "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
+            "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
     subproducers={
         "e2m": [
             Muon_1_ID_SF_vhmm,
@@ -844,6 +844,19 @@ MuonID_SF = ProducerGroup(
             Muon_3_mvaTTH_SF_vhmm_m2m,
         ],
         "eemm": [
+            Muon_1_ID_SF_vhmm,
+            Muon_2_ID_SF_vhmm,
+            # below 15
+            Muon_1_ID_SF_vhmm_below15,
+            Muon_2_ID_SF_vhmm_below15,
+            # above 200
+            Muon_1_ID_SF_vhmm_above200,
+            Muon_2_ID_SF_vhmm_above200,
+            # mvatth
+            Muon_1_mvaTTH_SF_vhmm,
+            Muon_2_mvaTTH_SF_vhmm,
+        ],
+        "eemm_cr": [
             Muon_1_ID_SF_vhmm,
             Muon_2_ID_SF_vhmm,
             # below 15
@@ -935,7 +948,7 @@ MuonIso_SF = ProducerGroup(
     output=None,
     scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
             "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
+            "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
     subproducers={
         "e2m": [
             Muon_1_Iso_SF_vhmm,
@@ -1002,6 +1015,13 @@ MuonIso_SF = ProducerGroup(
             Muon_3_Iso_SF_vhmm_m2m_above200,
         ],
         "eemm": [
+            Muon_1_Iso_SF_vhmm,
+            Muon_2_Iso_SF_vhmm,
+            # above 200
+            Muon_1_Iso_SF_vhmm_above200,
+            Muon_2_Iso_SF_vhmm_above200,
+        ],
+        "eemm_cr": [
             Muon_1_Iso_SF_vhmm,
             Muon_2_Iso_SF_vhmm,
             # above 200
@@ -1244,14 +1264,14 @@ Ele_1_Loose_SF_eemm = Producer(
     call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "Loose", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_leadingp4_Z],
     output=[q.id_wgt_ele_loose_1],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 Ele_1_Loose_SF_eemm_below10 = Producer(
     name="Ele_1_Loose_SF_eemm_below10",
     call='scalefactor::electron::custom_e_vhmm({df}, {input}, "{custom_ele_sf_year_id}", "Loose", "{ele_sf_varation}", {output}, "{custom_ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_leadingp4_Z],
     output=[q.id_wgt_ele_loose_1_below10],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 
 Ele_1_IDWP90_SF_eemm = Producer(
@@ -1259,21 +1279,21 @@ Ele_1_IDWP90_SF_eemm = Producer(
     call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp90iso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_leadingp4_Z],
     output=[q.id_wgt_ele_wp90Iso_1],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 Ele_1_IDWP90_SF_eemm_below10 = Producer(
     name="Ele_1_IDWP90_SF_eemm_below10",
     call='scalefactor::electron::custom_e_vhmm({df}, {input}, "{custom_ele_sf_year_id}", "wp90iso", "{ele_sf_varation}", {output}, "{custom_ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_leadingp4_Z],
     output=[q.id_wgt_ele_wp90Iso_1_below10],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 Ele_1_mvaTTH_SF_eemm = Producer(
     name="Ele_1_mvaTTH_SF_eemm",
     call='scalefactor::electron::custom_e_vhmm({df}, {input}, "{custom_ele_sf_year_id}", "mvaTTH", "{ele_sf_varation}", {output}, "{custom_ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_leadingp4_Z],
     output=[q.id_wgt_ele_mvatth_1],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 
 Ele_2_Loose_SF_eemm = Producer(
@@ -1281,14 +1301,14 @@ Ele_2_Loose_SF_eemm = Producer(
     call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "Loose", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_subleadingp4_Z],
     output=[q.id_wgt_ele_loose_2],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 Ele_2_Loose_SF_eemm_below10 = Producer(
     name="Ele_2_Loose_SF_eemm_below10",
     call='scalefactor::electron::custom_e_vhmm({df}, {input}, "{custom_ele_sf_year_id}", "Loose", "{ele_sf_varation}", {output}, "{custom_ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_subleadingp4_Z],
     output=[q.id_wgt_ele_loose_2_below10],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 
 Ele_2_IDWP90_SF_eemm = Producer(
@@ -1296,21 +1316,21 @@ Ele_2_IDWP90_SF_eemm = Producer(
     call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp90iso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_subleadingp4_Z],
     output=[q.id_wgt_ele_wp90Iso_2],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 Ele_2_IDWP90_SF_eemm_below10 = Producer(
     name="Ele_2_IDWP90_SF_eemm_below10",
     call='scalefactor::electron::custom_e_vhmm({df}, {input}, "{custom_ele_sf_year_id}", "wp90iso", "{ele_sf_varation}", {output}, "{custom_ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_subleadingp4_Z],
     output=[q.id_wgt_ele_wp90Iso_2_below10],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 Ele_2_mvaTTH_SF_eemm = Producer(
     name="Ele_2_mvaTTH_SF_eemm",
     call='scalefactor::electron::custom_e_vhmm({df}, {input}, "{custom_ele_sf_year_id}", "mvaTTH", "{ele_sf_varation}", {output}, "{custom_ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_subleadingp4_Z],
     output=[q.id_wgt_ele_mvatth_2],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 
 EleID_SF = ProducerGroup(
@@ -1318,7 +1338,7 @@ EleID_SF = ProducerGroup(
     call=None,
     input=None,
     output=None,
-    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm","nnmm_topcontrol"],
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm","eemm_cr","nnmm_topcontrol"],
     subproducers={
         "e2m": [
             Ele_1_Loose_SF_e2m, # for 2022
@@ -1349,6 +1369,18 @@ EleID_SF = ProducerGroup(
             Ele_1_mvaTTH_SF_e2m,
         ],
         "eemm": [
+            Ele_1_Loose_SF_eemm,
+            Ele_1_Loose_SF_eemm_below10,
+            Ele_2_Loose_SF_eemm,
+            Ele_2_Loose_SF_eemm_below10,
+            Ele_1_IDWP90_SF_eemm,
+            Ele_1_IDWP90_SF_eemm_below10,
+            Ele_2_IDWP90_SF_eemm,
+            Ele_2_IDWP90_SF_eemm_below10,
+            Ele_1_mvaTTH_SF_eemm,
+            Ele_2_mvaTTH_SF_eemm,
+        ],
+        "eemm_cr": [
             Ele_1_Loose_SF_eemm,
             Ele_1_Loose_SF_eemm_below10,
             Ele_2_Loose_SF_eemm,
@@ -1411,14 +1443,14 @@ Ele_1_Reco_SF_eemm = Producer(
     call='scalefactor::electron::reco_e_vhmm({df}, {input}, "{ele_sf_year_id}", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_leadingp4_Z],
     output=[q.reco_wgt_ele_1],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 Ele_1_Reco_SF_eemm_below10 = Producer(
     name="Ele_1_Reco_SF_eemm_below10",
     call='scalefactor::electron::custom_e_vhmm({df}, {input}, "{custom_ele_sf_year_id}", "Reco", "{ele_sf_varation}", {output}, "{custom_ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_leadingp4_Z],
     output=[q.reco_wgt_ele_1_below10],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 
 Ele_2_Reco_SF_eemm = Producer(
@@ -1426,14 +1458,14 @@ Ele_2_Reco_SF_eemm = Producer(
     call='scalefactor::electron::reco_e_vhmm({df}, {input}, "{ele_sf_year_id}", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_subleadingp4_Z],
     output=[q.reco_wgt_ele_2],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 Ele_2_Reco_SF_eemm_below10 = Producer(
     name="Ele_2_Reco_SF_eemm_below10",
     call='scalefactor::electron::custom_e_vhmm({df}, {input}, "{custom_ele_sf_year_id}", "Reco", "{ele_sf_varation}", {output}, "{custom_ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.lepton_subleadingp4_Z],
     output=[q.reco_wgt_ele_2_below10],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 
 EleReco_SF = ProducerGroup(
@@ -1441,7 +1473,7 @@ EleReco_SF = ProducerGroup(
     call=None,
     input=None,
     output=None,
-    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm","nnmm_topcontrol"],
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm","eemm_cr","nnmm_topcontrol"],
     subproducers={
         "e2m": [
             Ele_1_Reco_SF_e2m,
@@ -1460,6 +1492,12 @@ EleReco_SF = ProducerGroup(
             Ele_1_Reco_SF_e2m_below10,
         ],
         "eemm": [
+            Ele_1_Reco_SF_eemm,
+            Ele_1_Reco_SF_eemm_below10,
+            Ele_2_Reco_SF_eemm,
+            Ele_2_Reco_SF_eemm_below10,
+        ],
+        "eemm_cr": [
             Ele_1_Reco_SF_eemm,
             Ele_1_Reco_SF_eemm_below10,
             Ele_2_Reco_SF_eemm,
@@ -1490,7 +1528,7 @@ btaggingloose_SF = Producer(
     output=[q.btag_weight],
     scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
             "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",],
+            "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",],
 )
 btaggingloose_SF_run2 = Producer(
     name="btaggingloose_SF_run2",
@@ -1521,6 +1559,6 @@ GenerateSingleMuonTriggerSF_MC = ExtendedVectorProducer(
     output="flagname",
     scope=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
             "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "eemm","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
+            "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
     vec_config="singlemuon_trigger_sf_mc",
 )

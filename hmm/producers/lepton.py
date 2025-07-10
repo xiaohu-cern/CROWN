@@ -18,7 +18,7 @@ CalcSmallestDiMuonMass = Producer(
            nanoAOD.Muon_charge,
            q.good_muon_collection],
     output=[q.smallest_dimuon_mass],
-    scopes=["m2m","e2m","eemm","mmmm","nnmm","fjmm","fjmm_cr",
+    scopes=["m2m","e2m","eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr",
             "nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -42,9 +42,9 @@ CalcSmallestDiElectronMass = Producer(
            nanoAOD.Electron_phi, 
            nanoAOD.Electron_mass,
            nanoAOD.Electron_charge,
-           q.good_electron_collection],
+           q.dielectron_ZCand_collection],
     output=[q.smallest_dielectron_mass],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 LeptonChargeSumVeto = Producer(
     name="LeptonChargeSumVeto",
@@ -71,6 +71,16 @@ LeptonChargeSumVeto_elemu = Producer(
            q.good_electron_collection],
     output=[q.Flag_LeptonChargeSumVeto],   # 1 stands pm1, 2 stands 0, 0 stands others
     scopes=["e2m","eemm","nnmm_topcontrol","e2m_dyfakeinge_regionb"],
+)
+LeptonChargeSumVeto_mubaseele = Producer(
+    name="LeptonChargeSumVeto_mubaseele",
+    call='physicsobject::LeptonChargeSumEleMu({df}, {output}, {input})',
+    input=[nanoAOD.Muon_charge,  # only in e2m and 2e2m can input only muon charge
+           nanoAOD.Electron_charge,
+           q.good_muon_collection,
+           q.base_electron_collection],
+    output=[q.Flag_LeptonChargeSumVeto],   # 1 stands pm1, 2 stands 0, 0 stands others
+    scopes=["eemm_cr"],
 )
 LeptonChargeSumVeto_baseelegoodmu_regioncd = Producer(
     name="LeptonChargeSumVeto_baseelegoodmu_regioncd",
@@ -196,7 +206,7 @@ RenameZlepID_eemm = Producer(
     call="physicsobject::RedirectZlepID({df}, 0, {output})", # ifMu == 0, return 11
     input=[],
     output=[q.Zlep_ID],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 RenameZlepID_mmmm = Producer(
     name="RenameZlepID_mmmm",
@@ -247,20 +257,20 @@ lep1_mvaTTH_eemm = Producer(
     call="physicsobject::Muon_var({df}, {output}, {input}, 0)", # 0 stands the good_electron_collection[0]
     input=[
         nanoAOD.Electron_mvaTTH,
-        q.good_electron_collection,
+        q.dielectron_ZCand_collection,
     ],
     output=[q.lep1_mvaTTH],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 lep2_mvaTTH_eemm = Producer(
     name="lep2_mvaTTH_eemm",
     call="physicsobject::Muon_var({df}, {output}, {input}, 1)", # 0 stands the good_electron_collection[1]
     input=[
         nanoAOD.Electron_mvaTTH,
-        q.good_electron_collection,
+        q.dielectron_ZCand_collection,
     ],
     output=[q.lep2_mvaTTH],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 ### mmmm quadmuon_HiggsZCand_collection, collection[2], collection[3]
 lep1_mvaTTH_mmmm = Producer(

@@ -196,25 +196,25 @@ LVEle1 = Producer(
     name="LVEle1",
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
-        q.good_electron_collection,
+        q.dielectron_ZCand_collection,
         nanoAOD.Electron_pt,
         nanoAOD.Electron_eta,
         nanoAOD.Electron_phi,
         nanoAOD.Electron_mass,
     ],
     output=[q.lepton_leadingp4_Z],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
 LVEle2 = Producer(
     name="LVEle2",
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
     input=[
-        q.good_electron_collection,
+        q.dielectron_ZCand_collection,
         nanoAOD.Electron_pt,
         nanoAOD.Electron_eta,
         nanoAOD.Electron_phi,
         nanoAOD.Electron_mass,
     ],
     output=[q.lepton_subleadingp4_Z],
-    scopes=["eemm"],
+    scopes=["eemm","eemm_cr"],
 )
