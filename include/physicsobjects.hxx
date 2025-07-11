@@ -2,6 +2,9 @@
 #define GUARD_PHYSICSOBJECTS_H
 
 namespace physicsobject {
+ROOT::RDF::RNode CheckGoodMuon(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &good_muons_index,
+                                 const std::string &quadmuon_HiggsZCand_index);
 ///mingxuan add
 ROOT::RDF::RNode calc_4l_cosThStar_hzz(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &v_p4_, const std::string &h_p4_, const std::string &mu_p4_);

@@ -236,7 +236,7 @@ BaseLVMu1 = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_1],
-    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
 )
 LVMu1 = Producer(
     name="LVMu1",
@@ -264,7 +264,7 @@ BaseLVMu2 = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_2],
-    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
 )
 LVMu2 = Producer(
     name="LVMu2",
@@ -292,7 +292,7 @@ BaseLVMu3 = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_3],
-    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
 )
 LVMu3 = Producer(
     name="LVMu3",
@@ -319,6 +319,19 @@ LVMu4 = Producer(
     ],
     output=[q.muon_p4_4],
     scopes=["mmmm"],
+)
+BaseLVMu4 = Producer(
+    name="BaseLVMu4",
+    call="lorentzvectors::build({df}, {input_vec}, 3, {output})",
+    input=[
+        q.base_muon_collection,
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_p4_4],
+    scopes=["mmmm_cr"],
 )
 ##### 
 ##### The leading muon from Higgs
@@ -361,7 +374,7 @@ Mu1_H_4m = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_leadingp4_H],
-    scopes=["mmmm"],
+    scopes=["mmmm","mmmm_cr"],
 )
 ##### The sub leading muon from Higgs in 4m channel
 Mu2_H_4m = Producer(
@@ -375,7 +388,7 @@ Mu2_H_4m = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_subleadingp4_H],
-    scopes=["mmmm"],
+    scopes=["mmmm","mmmm_cr"],
 )
 ##### The leading muon from Z Cand in 4m channel
 Mu1_Z_4m = Producer(
@@ -389,7 +402,7 @@ Mu1_Z_4m = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.lepton_leadingp4_Z],
-    scopes=["mmmm"],
+    scopes=["mmmm","mmmm_cr"],
 )
 Mu2_Z_4m = Producer(
     name="Mu2_Z_4m",
@@ -402,7 +415,7 @@ Mu2_Z_4m = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.lepton_subleadingp4_Z],
-    scopes=["mmmm"],
+    scopes=["mmmm","mmmm_cr"],
 )
 ##### The leading muon from Z Cand in Z_CR region (fjmm_cr, regionbd)
 Mu1_Z_CR = Producer(
@@ -488,7 +501,7 @@ mu1_Higgs_mvaTTH_mmmm = Producer(
         q.quadmuon_HiggsZCand_collection,
     ],
     output=[q.mu1_mvaTTH],
-    scopes=["mmmm"]
+    scopes=["mmmm","mmmm_cr"]
 )
 mu2_Higgs_mvaTTH_mmmm = Producer(
     name="mu2_Higgs_mvaTTH_mmmm",
@@ -498,7 +511,7 @@ mu2_Higgs_mvaTTH_mmmm = Producer(
         q.quadmuon_HiggsZCand_collection,
     ],
     output=[q.mu2_mvaTTH],
-    scopes=["mmmm"]
+    scopes=["mmmm","mmmm_cr"]
 )
 #############
 #############
@@ -553,7 +566,7 @@ mu1_Higgs_ptErr_mmmm = Producer(
         q.quadmuon_HiggsZCand_collection,
     ],
     output=[q.mu1_ptErr],
-    scopes=["mmmm"]
+    scopes=["mmmm","mmmm_cr"]
 )
 mu2_Higgs_ptErr_mmmm = Producer(
     name="mu2_Higgs_ptErr_mmmm",
@@ -563,5 +576,5 @@ mu2_Higgs_ptErr_mmmm = Producer(
         q.quadmuon_HiggsZCand_collection,
     ],
     output=[q.mu2_ptErr],
-    scopes=["mmmm"]
+    scopes=["mmmm","mmmm_cr"]
 )

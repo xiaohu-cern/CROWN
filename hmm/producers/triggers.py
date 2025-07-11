@@ -107,7 +107,7 @@ GenerateSingleMuonTriggerFlagsForQuadMuChannel = ExtendedVectorProducer(
         nanoAOD.TriggerObject_phi,
     ],
     output="flagname",
-    scope=["mmmm"],
+    scope=["mmmm","mmmm_cr"],
     vec_config="singlemuon_trigger",
 )
 GenerateSingleMuonTriggerFlagsForQuadMuChannel_run2 = ExtendedVectorProducer(

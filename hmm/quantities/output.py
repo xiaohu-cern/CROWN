@@ -716,3 +716,5 @@ id_wgt_mu_mvatth_1 = Quantity("id_wgt_mu_mvatth_1")
 id_wgt_mu_mvatth_2 = Quantity("id_wgt_mu_mvatth_2")
 id_wgt_mu_mvatth_3 = Quantity("id_wgt_mu_mvatth_3")
 id_wgt_mu_mvatth_4 = Quantity("id_wgt_mu_mvatth_4")
+
+FlagGoodMuonsFromHiggs = Quantity("FlagGoodMuonsFromHiggs")

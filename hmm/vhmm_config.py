@@ -1046,7 +1046,9 @@ def build_config(
     # m2m cuts
     # m2m regionB: pass 3 medium muons and fail m(mm) in [110,150], actually in [70,110]
     configuration.add_config_parameters(
-        ["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc","eemm","mmmm","nnmm","fjmm","eemm_cr"],
+        ["e2m","e2m_dyfakeinge_regionc","m2m","m2m_dyfakeingmu_regionc",
+         "eemm","mmmm","nnmm","fjmm",
+         "eemm_cr","mmmm_cr"],
         {
             "flag_DiMuonFromHiggs" : 1,
         }
@@ -1061,7 +1063,7 @@ def build_config(
     )
     configuration.add_config_parameters(
         ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-         "mmmm","nnmm","fjmm","nnmm_dycontrol","fjmm_cr",],
+         "mmmm","mmmm_cr","nnmm","fjmm","nnmm_dycontrol","fjmm_cr",],
         {
             "flag_GoodEle_Veto" : 1, # no good ele
         }
@@ -1074,7 +1076,7 @@ def build_config(
         }
     )
     configuration.add_config_parameters(
-        ["eemm","eemm_cr","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr",],
+        ["eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr",],
         {
             "flag_LeptonChargeSumVeto" : 2, # 2 stands 0
         }
@@ -1142,6 +1144,13 @@ def build_config(
         "mmmm",
         {
             "vh_good_nmuons" : 4,
+        }
+    )
+    configuration.add_config_parameters(
+        "mmmm_cr",
+        {
+            "vh_base_nmuons" : 4,
+            "vh_good_nmuons" : 3,
         }
     )
     configuration.add_config_parameters(
@@ -1230,7 +1239,7 @@ def build_config(
         )
         configuration.add_producers(
             # overlap with base muon
-            ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+            ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
             [
                 jets.GoodJets_2022_BaseMu, 
             ]
@@ -1281,7 +1290,7 @@ def build_config(
         ]
     )
     configuration.add_producers(
-        ["e2m","m2m", "eemm","mmmm","eemm_cr",
+        ["e2m","m2m", "eemm","mmmm","eemm_cr","mmmm_cr",
          "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
          "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         [
@@ -2229,19 +2238,46 @@ def build_config(
         "mmmm",
         [
             event.FilterNGoodMuons, # vh == 4 muons
-            ###
             lepton.CalcSmallestDiMuonMass,
+            event.Mask_QuadMuonPair,
+            lepton.LeptonChargeSumVeto,
+            muons.LVMu1,
+            muons.LVMu2,
+            muons.LVMu3,
+            muons.LVMu4,
+            
+        ]
+    )
+    configuration.add_producers(
+        "mmmm_cr",
+        [
+            # mmmm_cr private
+            event.FilterNBaseMuons, # vh == 4 base muons,
+            event.FilterNGoodMuons, # vh == 3 muons
+            event.FlagGoodMuonsFromHiggs, # need to add flag == 1 at post process
+            lepton.CalcSmallestBaseDiMuonMass,
+            event.Mask_QuadBaseMuonPair,
+            lepton.BaseLeptonChargeSumVeto,
+            muons.BaseLVMu1,
+            muons.BaseLVMu2,
+            muons.BaseLVMu3,
+            muons.BaseLVMu4,
+        ]
+    )
+    configuration.add_producers(
+        ["mmmm","mmmm_cr"],
+        [            
             event.DimuonMinMassCut,
             ###
             ### need make dimuon pair from Higgs and pair from Z
-            event.Mask_QuadMuonPair,
+            
             event.Flag_ZZVeto,
             # Higgs p4
             event.HiggsToDiMuonPair_p4_4m,
             event.ZToDiMuonPair_p4_4m,
             # Z p4
             ###
-            lepton.LeptonChargeSumVeto,
+            
             electrons.GoodEle_Veto,
             # flag cut
             # event.FilterFlagDiMuFromH,
@@ -2266,10 +2302,6 @@ def build_config(
             event.PassFlagDiMuonHiggs,
             event.PassMinDiEleMass,
             # Muon collection for trigger
-            muons.LVMu1,
-            muons.LVMu2,
-            muons.LVMu3,
-            muons.LVMu4,
             triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel,
             
             p4.mu1_fromH_pt,
@@ -2705,7 +2737,7 @@ def build_config(
         ]
     )
     configuration.add_producers(
-        ["mmmm"],
+        ["mmmm","mmmm_cr"],
         [
             # Higgs mu1,mu2
             muons.mu1_Higgs_mvaTTH_mmmm,
@@ -2821,7 +2853,7 @@ def build_config(
     )
     # hackathon
     configuration.add_outputs(
-        ["eemm","eemm_cr","mmmm"],
+        ["eemm","eemm_cr","mmmm","mmmm_cr"],
         [
             q.ptH_ov_massH,
             q.Z_H_dR, ## mingxuan add 2024/12/24
@@ -2934,7 +2966,7 @@ def build_config(
     )
     
     configuration.add_outputs(
-        ["e2m","m2m","eemm","eemm_cr","mmmm","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+        ["e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
         [
             q.mu1_fromH_pt,
             q.mu1_fromH_eta,
@@ -2956,7 +2988,7 @@ def build_config(
     configuration.add_outputs(
         ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
          "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-         "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr"],
+         "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr"],
         [
             q.mu1_mvaTTH,
             q.mu2_mvaTTH,
@@ -2983,7 +3015,7 @@ def build_config(
         ],
     )
     configuration.add_outputs(
-        ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm"],
+        ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm","mmmm_cr"],
         [
             q.id_wgt_mu_3,
             q.iso_wgt_mu_3,
@@ -2999,7 +3031,7 @@ def build_config(
         ],
     )
     configuration.add_outputs(
-        "mmmm",
+        ["mmmm","mmmm_cr"],
         [
             q.id_wgt_mu_4,
             q.iso_wgt_mu_4,
@@ -3165,7 +3197,7 @@ def build_config(
         ]
     )
     configuration.add_outputs(
-        ["eemm","eemm_cr","mmmm"],
+        ["eemm","eemm_cr","mmmm","mmmm_cr"],
         [
             q.lep1_mvaTTH,
             q.lep2_mvaTTH,
@@ -3211,9 +3243,15 @@ def build_config(
         ],
     )
     configuration.add_outputs(
-        "mmmm",
+        ["mmmm","mmmm_cr"],
         [
             triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel.output_group,
+        ],
+    )
+    configuration.add_outputs(
+        "mmmm_cr",
+        [
+            q.FlagGoodMuonsFromHiggs,
         ],
     )
     configuration.add_outputs(

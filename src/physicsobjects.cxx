@@ -32,6 +32,39 @@
 /// multiple cuts can be combined by multiplying masks using
 /// physicsobject::CombineMasks.
 namespace physicsobject {
+/// to make sure the muon daughter of Higgs candidate is good muon
+ROOT::RDF::RNode CheckGoodMuon(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &good_muons_index,
+                                 const std::string &quadmuon_HiggsZCand_index) {
+    auto check_good_mu = [](const ROOT::RVec<int> &good_muons_index,
+                              const ROOT::RVec<int> &quadmuon_HiggsZCand_index) {
+        /// the first two index in quadmuon_HiggsZCand_index stands for Higgs candidate, 0 and 1
+        /// 1356
+        /// 15
+        int goodmu1 = -1;
+        int goodmu2 = -1;
+        for (unsigned int k = 0; k < (int)good_muons_index.size(); ++k) {
+            if (good_muons_index[k] == quadmuon_HiggsZCand_index[0]) {
+                /// the leading muon from Higgs is a good muon
+                goodmu1 = 1;
+            }
+            if (good_muons_index[k] == quadmuon_HiggsZCand_index[1]) {
+                /// the subleading muon from Higgs is a good muon
+                goodmu2 = 1;
+            }
+        }
+        if (goodmu1 == 1 && goodmu2 == 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    
+    };
+    auto df1 =
+        df.Define(outputname, check_good_mu, {good_muons_index, quadmuon_HiggsZCand_index});
+    return df1;
+}
+///
 ///mingxuan calc 4l cosThStar from HZZ
 ROOT::RDF::RNode calc_4l_cosThStar_hzz(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &v_p4_, const std::string &h_p4_, const std::string &mu_p4_) {

@@ -32,7 +32,7 @@ CalcSmallestBaseDiMuonMass = Producer(
            nanoAOD.Muon_charge,
            q.base_muon_collection],
     output=[q.smallest_dimuon_mass],
-    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","mmmm_cr"],
 )
 CalcSmallestDiElectronMass = Producer(
     name="CalcSmallestDiElectronMass",
@@ -60,7 +60,7 @@ BaseLeptonChargeSumVeto = Producer(
     input=[nanoAOD.Muon_charge,  # only in m2m and 4m can input only muon charge
            q.base_muon_collection],
     output=[q.Flag_LeptonChargeSumVeto],   # 1 stands pm1, 2 stands 0, 0 stands others
-    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
 )
 LeptonChargeSumVeto_elemu = Producer(
     name="LeptonChargeSumVeto_elemu",
@@ -213,7 +213,7 @@ RenameZlepID_mmmm = Producer(
     call="physicsobject::RedirectZlepID({df}, 1, {output})", # ifMu == 1, return 13
     input=[],
     output=[q.Zlep_ID],
-    scopes=["mmmm"],
+    scopes=["mmmm","mmmm_cr"],
 )
 ##### extra_lep mvaTTH
 ### mu using extra_muon_index[0]
@@ -281,7 +281,7 @@ lep1_mvaTTH_mmmm = Producer(
         q.quadmuon_HiggsZCand_collection,
     ],
     output=[q.lep1_mvaTTH],
-    scopes=["mmmm"],
+    scopes=["mmmm","mmmm_cr"],
 )
 lep2_mvaTTH_mmmm = Producer(
     name="lep2_mvaTTH_mmmm",
@@ -291,5 +291,5 @@ lep2_mvaTTH_mmmm = Producer(
         q.quadmuon_HiggsZCand_collection,
     ],
     output=[q.lep2_mvaTTH],
-    scopes=["mmmm"],
+    scopes=["mmmm","mmmm_cr"],
 )
