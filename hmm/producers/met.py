@@ -285,7 +285,7 @@ MetCorrections = ProducerGroup(
 
 Rename_PropagateThreeLeptons = Producer(
     name="Rename_PropagateThreeLeptons",
-    call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
+    call='physicsobject::renameMET({df}, {output}, {input})',
     input=[
         q.met_p4_uncorrected,
     ],
@@ -297,7 +297,7 @@ Rename_PropagateThreeLeptons = Producer(
 )
 Rename_PropagateJetsToMet = Producer(
     name="Rename_PropagateJetsToMet",
-    call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
+    call='physicsobject::renameMET({df}, {output}, {input})',
     input=[
         q.met_p4_leptoncorrected,
     ],

@@ -718,3 +718,4 @@ id_wgt_mu_mvatth_3 = Quantity("id_wgt_mu_mvatth_3")
 id_wgt_mu_mvatth_4 = Quantity("id_wgt_mu_mvatth_4")
 
 FlagGoodMuonsFromHiggs = Quantity("FlagGoodMuonsFromHiggs")
+Flag_ecalBadCalibFilter_cuttomized = Quantity("Flag_ecalBadCalibFilter_cuttomized")

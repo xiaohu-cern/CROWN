@@ -2,6 +2,17 @@
 #define GUARD_PHYSICSOBJECTS_H
 
 namespace physicsobject {
+ROOT::RDF::RNode update_Flag_ecalBadCalibFilter(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &jet_pts,
+                                 const std::string &jet_etas,
+                                 const std::string &jet_phis,
+                                 const std::string &jet_neEmEF,
+                                 const std::string &jet_chEmEF,
+                                 const std::string &met_pt,
+                                 const std::string &met_phi,
+                                 const std::string &run);
+ROOT::RDF::RNode renameMET(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &met_p4_uncorr);
 ROOT::RDF::RNode CheckGoodMuon(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &good_muons_index,
                                  const std::string &quadmuon_HiggsZCand_index);

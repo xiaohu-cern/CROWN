@@ -113,6 +113,23 @@ RenameJetsData = ProducerGroup(
     scopes=["global"],
     subproducers=[RenameJetPt, RenameJetMass],
 )
+### 
+cutsomized_Flag_ecalBadCalibFilter = Producer(
+    name="cutsomized_Flag_ecalBadCalibFilter",
+    call="physicsobject::update_Flag_ecalBadCalibFilter({df}, {output}, {input})",
+    input=[
+        nanoAOD.Jet_pt,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        nanoAOD.Jet_neEmEF,
+        nanoAOD.Jet_chEmEF,
+        nanoAOD.MET_pt,
+        nanoAOD.MET_phi,
+        nanoAOD.run,
+    ],
+    output=[q.Flag_ecalBadCalibFilter_cuttomized],
+    scopes=["global"],
+)
 ### discard the event if any Jet_pt_corrected == -999
 FlagVetoMap = Producer(
     name="VetoMap",

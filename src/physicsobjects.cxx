@@ -32,6 +32,66 @@
 /// multiple cuts can be combined by multiplying masks using
 /// physicsobject::CombineMasks.
 namespace physicsobject {
+/// ECal BadCalibration Filter (Flag_ecalBadCalibFilter) updates:
+/// https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#Run_3_2022_and_2023_data_and_MC
+ROOT::RDF::RNode update_Flag_ecalBadCalibFilter(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &jet_pts,
+                                 const std::string &jet_etas,
+                                 const std::string &jet_phis,
+                                 const std::string &jet_neEmEF,
+                                 const std::string &jet_chEmEF,
+                                 const std::string &met_pt,
+                                 const std::string &met_phi,
+                                 const std::string &run) {
+    auto update_flag = [](const ROOT::RVec<float> &jet_pts,
+                               const ROOT::RVec<float> &jet_etas,
+                               const ROOT::RVec<float> &jet_phis,
+                               const ROOT::RVec<float> &jet_neEmEF,
+                               const ROOT::RVec<float> &jet_chEmEF,
+                               float met_pt,
+                               float met_phi,
+                               UInt_t run) {
+        /// Apply it only for RunNumbers in the range 362433 to 367144 which belong to later part of 2022 and early 2023.
+        if (run >= 362433 && run <= 367144) {
+            // Reject the event if PuppiMET _pt > 100 GeV and there is at least one jet (AK4) which has
+            if (met_pt > 100) {
+                for (int i = 0; i < jet_pts.size(); i++) {
+                    /// jet pt > 50, eta from -0.5 to -0.1, phi from -2.1 to -1.8
+                    if (jet_pts[i] > 50 && jet_etas[i] > -0.5 && jet_etas[i] < -0.1 && jet_phis[i] > -2.1 && jet_phis[i] < -1.8) {
+                        /// neEmEF and chEmEF > 0.9
+                        if (jet_neEmEF[i] > 0.9 && jet_chEmEF[i] > 0.9) {
+                            /// dphi(met,jet) > 2.9
+                            float dphi = met_phi - jet_phis[i];
+                            if ( dphi > M_PI ) {
+                                dphi -= 2.0*M_PI;
+                            } else if ( dphi <= -M_PI ) {
+                                dphi += 2.0*M_PI;
+                            }
+                            if (abs(dphi) > 2.9) {
+                                return 0;
+                            }
+                        }
+                    }
+                }
+            } 
+        }
+        return 1;
+    };
+    auto df1 = 
+        df.Define(outputname, update_flag, {jet_pts, jet_etas, jet_phis, jet_neEmEF, jet_chEmEF, met_pt, met_phi, run});
+    return df1;
+}
+/// rename MET correction for data
+ROOT::RDF::RNode renameMET(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &met_p4_uncorr) {
+    auto rename_p4 = [](ROOT::Math::PtEtaPhiMVector &met_p4_uncorr) {
+        return met_p4_uncorr;
+    };
+    auto df1 = 
+        df.Define(outputname, rename_p4, {met_p4_uncorr});
+    return df1;
+}
+///
 /// to make sure the muon daughter of Higgs candidate is good muon
 ROOT::RDF::RNode CheckGoodMuon(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &good_muons_index,

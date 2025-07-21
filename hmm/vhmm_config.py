@@ -157,7 +157,7 @@ def build_config(
                         "Flag_BadPFMuonDzFilter", # only since nanoAODv9 available
                         "Flag_hfNoisyHitsFilter",
                         "Flag_eeBadScFilter",
-                        "Flag_ecalBadCalibFilter",
+                        # "Flag_ecalBadCalibFilter",
                     ],
                     "2022postEE": [
                         "Flag_goodVertices",
@@ -167,7 +167,7 @@ def build_config(
                         "Flag_BadPFMuonDzFilter", # only since nanoAODv9 available
                         "Flag_hfNoisyHitsFilter",
                         "Flag_eeBadScFilter",
-                        "Flag_ecalBadCalibFilter",
+                        # "Flag_ecalBadCalibFilter",
                     ],
                     "2023preBPix": [
                         "Flag_goodVertices",
@@ -177,7 +177,7 @@ def build_config(
                         "Flag_BadPFMuonDzFilter", # only since nanoAODv9 available
                         "Flag_hfNoisyHitsFilter",
                         "Flag_eeBadScFilter",
-                        "Flag_ecalBadCalibFilter",
+                        # "Flag_ecalBadCalibFilter",
                     ],
                     "2023postBPix": [
                         "Flag_goodVertices",
@@ -187,7 +187,7 @@ def build_config(
                         "Flag_BadPFMuonDzFilter", # only since nanoAODv9 available
                         "Flag_hfNoisyHitsFilter",
                         "Flag_eeBadScFilter",
-                        "Flag_ecalBadCalibFilter",
+                        # "Flag_ecalBadCalibFilter",
                     ],
                 }
             ),
@@ -3399,6 +3399,12 @@ def build_config(
             scopes,
             nanoAOD.genWeight,
         )
+    # update the metfilter flag here
+    if sample == "data":
+        configuration.add_outputs(
+            scopes,
+            q.Flag_ecalBadCalibFilter_cuttomized,
+        )
     ##### debug on 2017 AK8 jet
     if era == "2017" and sample != "data":
         configuration.add_modification_rule(
@@ -3612,10 +3618,17 @@ def build_config(
             ),
         )
     # global scope
+    ### add the "Flag_ecalBadCalibFilter" update here:
+    ### https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#Run_3_2022_and_2023_data_and_MC
     configuration.add_modification_rule(
         "global",
         AppendProducer(
-            producers=[jets.RenameJetsData, fatjets.RenameFatJetsData, event.JSONFilter,],
+            producers=[
+                jets.RenameJetsData, 
+                fatjets.RenameFatJetsData, 
+                event.JSONFilter,
+                jets.cutsomized_Flag_ecalBadCalibFilter,
+            ],
             samples=["data"],
             update_output=False,
         ),
@@ -3694,13 +3707,6 @@ def build_config(
         ["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
         ReplaceProducer(
             producers=[momentumscale.MuonPtCorrection,momentumscale.RenameMuonPt],
-            samples=["data"],
-        ),
-    )
-    configuration.add_modification_rule(
-        scopes,
-        ReplaceProducer(
-            producers=[met.MetCorrections,met.RenameMetCorrections],
             samples=["data"],
         ),
     )
