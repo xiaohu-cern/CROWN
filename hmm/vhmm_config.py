@@ -2918,6 +2918,12 @@ def build_config(
 
             q.ptfj_ov_ptH,
             q.mfj_ov_massH,
+            
+            ###Mingxuan 2025.07.23
+            q.MT2_fjmm,
+            q.Mct_fjmm,
+            q.msdfj_ov_massH,
+            q.ptfj_ov_massH,
 
             # q.cosphi1_fj_hzz, ##mingxuan add 2024/12/28
             # q.cosTh1_fj_hzz,

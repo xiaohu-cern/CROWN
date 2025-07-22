@@ -681,6 +681,12 @@ cosThStar_fj_hzz = Quantity("cosThStar_fj_hzz")
 cosTh1_fj_hzz = Quantity("cosTh1_fj_hzz")
 cosphi1_fj_hzz = Quantity("cosphi1_fj_hzz")
 
+###new variables for fjmm added by Mingxuan 2025.07.23
+MT2_fjmm = Quantity("MT2_fjmm")
+Mct_fjmm = Quantity("Mct_fjmm")
+msdfj_ov_massH = Quantity("msdfj_ov_massH")
+ptfj_ov_massH = Quantity("ptfj_ov_massH")
+
 ##mingxuan add MT2 2025/1/1
 MT2 = Quantity("MT2")
 
@@ -720,3 +726,4 @@ id_wgt_mu_mvatth_4 = Quantity("id_wgt_mu_mvatth_4")
 FlagGoodMuonsFromHiggs = Quantity("FlagGoodMuonsFromHiggs")
 Flag_ecalBadCalibFilter_cuttomized = Quantity("Flag_ecalBadCalibFilter_cuttomized")
 recoil_genboson_p4_vec = Quantity("recoil_genboson_p4_vec")
+

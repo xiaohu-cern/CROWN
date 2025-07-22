@@ -1910,6 +1910,51 @@ MT2 = Producer(
     output = [q.MT2],
     scopes = ["nnmm"],
 )
+### Mingxuan add new variables for fjmm 2025.07.23
+MT2_fjmm = Producer(
+    name = "MT2_fjmm",
+    call = "quantities::calc_MT2({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H_corrected,
+      q.muon_subleadingp4_H_corrected,
+      q.fatjet_p4_1,
+    ],
+    output = [q.MT2_fjmm],
+    scopes = ["fjmm"],
+)
+
+Mct_fjmm = Producer(
+    name = "Mct_fjmm",
+    call = "quantities::calc_Mct({df}, {output}, {input})",
+    input = [
+      q.muon_leadingp4_H_corrected,
+      q.muon_subleadingp4_H_corrected,
+    ],
+    output = [q.Mct_fjmm],
+    scopes = ["fjmm"],
+)
+
+msdfj_ov_massH = Producer(
+    name = "msdfj_ov_massH",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.fatjet_msoftdrop,
+      q.H_mass,
+    ],
+    output = [q.msdfj_ov_massH],
+    scopes = ["fjmm"],
+)
+
+ptfj_ov_massH = Producer(
+    name = "ptfj_ov_massH",
+    call = "quantities::calc_ratio({df}, {output}, {input})",
+    input = [
+      q.fatjet_pt,
+      q.H_mass,
+    ],
+    output = [q.ptfj_ov_massH],
+    scopes = ["fjmm"],
+)
 
 ThreeLepQuantities = ProducerGroup(
     name="ThreeLepQuantities",
@@ -2042,6 +2087,11 @@ FatJetMuMuQuantities = ProducerGroup(
 
       ptfj_ov_ptH,
       mfj_ov_massH,
+
+      MT2_fjmm,
+      Mct_fjmm,
+      msdfj_ov_massH,
+      ptfj_ov_massH,
 
       # cosphi1_fj_hzz, ##mingxuan add 2024/12/28
       # cosTh1_fj_hzz,
