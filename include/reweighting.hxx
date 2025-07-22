@@ -16,12 +16,17 @@ ROOT::RDF::RNode topptreweighting(ROOT::RDF::RNode df,
                                   const std::string &gen_pdgids,
                                   const std::string &gen_status,
                                   const std::string &gen_pt);
-ROOT::RDF::RNode zPtMassReweighting(ROOT::RDF::RNode df,
-                                    const std::string &weightname,
-                                    const std::string &gen_boson,
-                                    const std::string &workspace_file,
-                                    const std::string &functor_name,
-                                    const std::string &argset);
+ROOT::RDF::RNode zPtMassReweighting(ROOT::RDF::RNode df, 
+    const std::string &weightname,
+    const std::string &gen_boson,
+    const std::string &workspace_file,
+    const std::string &variation);
+// ROOT::RDF::RNode zPtMassReweighting(ROOT::RDF::RNode df,
+//                                     const std::string &weightname,
+//                                     const std::string &gen_boson,
+//                                     const std::string &workspace_file,
+//                                     const std::string &functor_name,
+//                                     const std::string &argset);
 ROOT::RDF::RNode lhe_scale_weights(ROOT::RDF::RNode df,
                                    const std::string &weightname,
                                    const std::string &lhe_scale_weights,

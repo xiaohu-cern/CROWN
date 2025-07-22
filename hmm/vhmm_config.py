@@ -193,7 +193,28 @@ def build_config(
             ),
         },
     )
-
+    ### DY ptll reweighting
+    configuration.add_config_parameters(
+        scopes,
+        {
+            "zptmass_file": EraModifier(
+                {
+                    "2016preVFP": "data/zpt/htt_scalefactors_legacy_2016.root",  # ToDO: Measured in legacy, therefore the same for pre- and postVFP for now
+                    "2016postVFP": "data/zpt/htt_scalefactors_legacy_2016.root",  # ToDO: Measured in legacy, therefore the same for pre- and postVFP for now
+                    "2017": "data/zpt/htt_scalefactors_legacy_2017.root",
+                    "2018": "data/zpt/htt_scalefactors_legacy_2018.root",
+                    "2022preEE": "/data/bond/botaoguo/CROWN/data/zpt/DY_pTll_weights_2022preEE_v3.json.gz", ## This correction is also applied when we derived DY control region, so keep it
+                    "2022postEE": "/data/bond/botaoguo/CROWN/data/zpt/DY_pTll_weights_2022postEE_v3.json.gz",
+                    "2023preBPix": "/data/bond/botaoguo/CROWN/data/zpt/DY_pTll_weights_2023preBPix_v3.json.gz", 
+                    "2023postBPix": "/data/bond/botaoguo/CROWN/data/zpt/DY_pTll_weights_2023postBPix_v3.json.gz", 
+                }
+            ),
+            # "zptmass_functor": "zptmass_weight_nom",
+            # "zptmass_arguments": "z_gen_mass,z_gen_pt",
+            "DY_pTll_reweighting_syst" : "nom",
+        },
+    )
+    
     # vh add triggers (copying htautau mtau TODO)
     configuration.add_config_parameters(
         scopes,
@@ -1437,7 +1458,7 @@ def build_config(
             
             p4.genmet_pt,
             p4.genmet_phi,
-            genparticles.BosonDecayMode,
+            # genparticles.BosonDecayMode,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
@@ -1527,7 +1548,7 @@ def build_config(
             p4.extra_lep_eta,
             p4.extra_lep_phi,
             p4.extra_lep_mass,
-            genparticles.BosonDecayMode,
+            # genparticles.BosonDecayMode,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
@@ -1633,7 +1654,7 @@ def build_config(
             p4.met_phi_uncorrected,
             p4.genmet_pt,
             p4.genmet_phi,
-            genparticles.BosonDecayMode,
+            # genparticles.BosonDecayMode,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
@@ -1723,7 +1744,7 @@ def build_config(
             p4.extra_lep_eta,
             p4.extra_lep_phi,
             p4.extra_lep_mass,
-            genparticles.BosonDecayMode,
+            # genparticles.BosonDecayMode,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
@@ -1823,7 +1844,7 @@ def build_config(
             
             p4.genmet_pt,
             p4.genmet_phi,            
-            genparticles.BosonDecayMode,
+            # genparticles.BosonDecayMode,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
             scalefactors.EleID_SF,
@@ -1911,7 +1932,7 @@ def build_config(
             p4.extra_lep_eta,
             p4.extra_lep_phi,
             p4.extra_lep_mass,
-            genparticles.BosonDecayMode,
+            # genparticles.BosonDecayMode,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
             scalefactors.EleID_SF,
@@ -2009,7 +2030,7 @@ def build_config(
             p4.met_phi_uncorrected,
             p4.genmet_pt,
             p4.genmet_phi,
-            genparticles.BosonDecayMode,
+            # genparticles.BosonDecayMode,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
             scalefactors.EleID_SF,
@@ -2096,7 +2117,7 @@ def build_config(
             p4.extra_lep_eta,
             p4.extra_lep_phi,
             p4.extra_lep_mass,
-            genparticles.BosonDecayMode,
+            # genparticles.BosonDecayMode,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
             scalefactors.EleID_SF,
@@ -2225,7 +2246,7 @@ def build_config(
 
             p4.genmet_pt,
             p4.genmet_phi,
-            genparticles.BosonDecayMode,
+            # genparticles.BosonDecayMode,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
             scalefactors.EleID_SF,
@@ -2335,7 +2356,7 @@ def build_config(
 
             p4.genmet_pt,
             p4.genmet_phi,            
-            genparticles.BosonDecayMode,
+            # genparticles.BosonDecayMode,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
@@ -2426,7 +2447,7 @@ def build_config(
             p4.genmu2_fromH_eta,
             p4.genmu2_fromH_phi,
             p4.genmu2_fromH_mass,
-            genparticles.BosonDecayMode,
+            # genparticles.BosonDecayMode,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
             # add HighPtMuon RECO SF here
@@ -2489,7 +2510,7 @@ def build_config(
             event.mu2_MHTALL_dphi_corrected,
             
             event.mu1_mu2_dphi_corrected,
-            event.met_mmH_dphi_corrected,
+            # event.met_mmH_dphi_corrected, # due to limited importance, drop it
             # #
             # #muons.LVMu3, # vh 
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
@@ -2511,7 +2532,7 @@ def build_config(
             
             p4.genmet_pt,
             p4.genmet_phi,
-            genparticles.BosonDecayMode,
+            # genparticles.BosonDecayMode,
             p4.fatjet_pt,
             p4.fatjet_eta,
             p4.fatjet_phi,
@@ -2531,11 +2552,11 @@ def build_config(
             # event.fatjet_PNet_withMass_WvsQCD_Nanov9,
             # event.fatjet_PNet_withMass_ZvsQCD_Nanov9,
             # event.fatjet_PNet_withMass_TvsQCD_Nanov9,
-            event.fatjet_PNet_QCD,
-            event.fatjet_PNet_withMass_QCD,
+            # event.fatjet_PNet_QCD,
+            # event.fatjet_PNet_withMass_QCD,
             event.fatjet_PNet_withMass_WvsQCD,
-            event.fatjet_PNet_withMass_ZvsQCD,
-            event.fatjet_PNet_withMass_TvsQCD,
+            # event.fatjet_PNet_withMass_ZvsQCD,
+            # event.fatjet_PNet_withMass_TvsQCD,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
             # add HighPtMuon RECO SF here
@@ -2544,7 +2565,7 @@ def build_config(
             scalefactors.PNetWvsQCD_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             p4.FatJetMuMuQuantities, # hackathon
-            event.FatJetQuantities, # tau1,2,3,4...
+            # event.FatJetQuantities, # tau1,2,3,4...
         ],
     )
     configuration.add_producers(
@@ -2625,13 +2646,9 @@ def build_config(
             event.fatjet_mu2_fromZCR_dphi,
             event.fatjet_mu2_fromZCR_dR,
             event.fatjetSoftDropMass,
-            
-            event.fatjet_PNet_QCD,
-            event.fatjet_PNet_withMass_QCD,
-            event.fatjet_PNet_withMass_WvsQCD,
-            event.fatjet_PNet_withMass_ZvsQCD,
-            event.fatjet_PNet_withMass_TvsQCD,
-            genparticles.BosonDecayMode,
+
+            event.fatjet_PNet_withMass_WvsQCD,            
+            # genparticles.BosonDecayMode,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
@@ -2640,7 +2657,7 @@ def build_config(
             # add PNet WvsQCD SF here
             scalefactors.PNetWvsQCD_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
-            event.FatJetQuantities, # tau1,2,3,4...
+            # event.FatJetQuantities, # tau1,2,3,4... # drop it
         ],
     )    
     configuration.add_producers(
@@ -2704,7 +2721,7 @@ def build_config(
             cr.elemuCR_eta,
             cr.elemuCR_phi,
             cr.elemuCR_mass,
-            genparticles.BosonDecayMode,
+            # genparticles.BosonDecayMode,
             triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             
@@ -2715,36 +2732,6 @@ def build_config(
             scalefactors.EleID_SF,
             scalefactors.EleReco_SF,
         ],
-    )
-    configuration.add_producers(
-        ["fjmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
-        [
-            # ZCR mu1,mu2
-            muons.mu1_ZCR_mvaTTH,
-            muons.mu2_ZCR_mvaTTH,
-            muons.mu1_ZCR_ptErr,
-            muons.mu2_ZCR_ptErr,
-        ]
-    )
-    configuration.add_producers(
-        ["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
-        [
-            # Higgs mu1,mu2
-            muons.mu1_Higgs_mvaTTH,
-            muons.mu2_Higgs_mvaTTH,
-            muons.mu1_Higgs_ptErr,
-            muons.mu2_Higgs_ptErr,
-        ]
-    )
-    configuration.add_producers(
-        ["mmmm","mmmm_cr"],
-        [
-            # Higgs mu1,mu2
-            muons.mu1_Higgs_mvaTTH_mmmm,
-            muons.mu2_Higgs_mvaTTH_mmmm,
-            muons.mu1_Higgs_ptErr_mmmm,
-            muons.mu2_Higgs_ptErr_mmmm,
-        ]
     )
     configuration.add_outputs(
         scopes,
@@ -2923,7 +2910,7 @@ def build_config(
         [
             q.ptH_ov_massH,
             q.ptmu1_ov_massH,
-            q.ptmu1_ov_ptH,
+            # q.ptmu1_ov_ptH, # due to limited importance, drop it
             q.ptmu2_ov_massH,
             q.ptmu2_ov_ptH,
 
@@ -2932,18 +2919,18 @@ def build_config(
             q.ptfj_ov_ptH,
             q.mfj_ov_massH,
 
-            q.cosphi1_fj_hzz, ##mingxuan add 2024/12/28
-            q.cosTh1_fj_hzz,
-            q.cosThStar_fj_hzz,
+            # q.cosphi1_fj_hzz, ##mingxuan add 2024/12/28
+            # q.cosTh1_fj_hzz,
+            # q.cosThStar_fj_hzz, # drop it
         ]
     )
     configuration.add_outputs(
         ["fjmm","fjmm_cr"],
         [
-            q.fatjet_tau1,
-            q.fatjet_tau2,
-            q.fatjet_tau3,
-            q.fatjet_tau4,
+            # q.fatjet_tau1, # drop it
+            # q.fatjet_tau2, # drop it
+            # q.fatjet_tau3, # drop it
+            # q.fatjet_tau4, # drop it
             q.pnet_wqcd_wgt,
         ]
     )
@@ -2982,19 +2969,13 @@ def build_config(
             q.H_eta,
             q.H_phi,
             q.H_mass,
-            q.BosonDecayMode,
         ],
     )
     configuration.add_outputs(
         ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
          "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
          "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr"],
-        [
-            q.mu1_mvaTTH,
-            q.mu2_mvaTTH,
-            q.mu1_ptErr,
-            q.mu2_ptErr,
-            
+        [            
             q.id_wgt_mu_1,
             q.id_wgt_mu_2,
             q.iso_wgt_mu_1,
@@ -3161,8 +3142,7 @@ def build_config(
             q.mu1_fromZCR_MHTALL_dphi,
             q.mu2_fromZCR_MHTALL_dphi,
             q.mu1_mu2_fromZCR_dphi,
-            q.met_mm_fromZCR_dphi,            
-            q.BosonDecayMode,
+            q.met_mm_fromZCR_dphi,
         ],
     )
     configuration.add_outputs(
@@ -3298,7 +3278,7 @@ def build_config(
             q.mu1_MHTALL_dphi,
             q.mu2_MHTALL_dphi,
             q.mu1_mu2_dphi,
-            q.met_H_dphi,
+            # q.met_H_dphi, # due to limited importance, drop it
 
             q.smallest_dimuon_mass,
             # q.Flag_MaxMetCut,
@@ -3321,11 +3301,7 @@ def build_config(
             q.fatjet_mu2_deta,
             q.fatjet_mu2_dphi,
             q.fatjet_mu2_dR,
-            q.fatjet_PNet_QCD,
-            q.fatjet_PNet_withMass_QCD,
             q.fatjet_PNet_withMass_WvsQCD,
-            q.fatjet_PNet_withMass_ZvsQCD,
-            q.fatjet_PNet_withMass_TvsQCD,
         ],
     )
     configuration.add_outputs(
@@ -3339,12 +3315,7 @@ def build_config(
             q.fatjet_eta,
             q.fatjet_phi,
             q.fatjet_mass,
-            q.fatjet_PNet_QCD,
-            q.fatjet_PNet_withMass_QCD,
             q.fatjet_PNet_withMass_WvsQCD,
-            q.fatjet_PNet_withMass_ZvsQCD,
-            q.fatjet_PNet_withMass_TvsQCD,
-            q.BosonDecayMode,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
             
             q.dimuonCR_pt_corrected,
@@ -3374,7 +3345,6 @@ def build_config(
             q.Flag_MetCut,
             q.Flag_LeptonChargeSumVeto,
             q.Flag_EleMuFromCR,
-            q.BosonDecayMode,
             # q.elemu_p4_CR,
             q.elemuCR_pt,
             q.elemuCR_pt_corrected,
@@ -3463,31 +3433,6 @@ def build_config(
             ),
         )
         configuration.add_modification_rule(
-            ["fjmm","fjmm_cr"],
-            RemoveProducer(
-                producers=[
-                    event.fatjet_PNet_QCD,
-                    event.fatjet_PNet_withMass_QCD,
-                    event.fatjet_PNet_withMass_WvsQCD,
-                    event.fatjet_PNet_withMass_ZvsQCD,
-                    event.fatjet_PNet_withMass_TvsQCD,
-                ],
-                samples=sample,
-            ),
-        )
-        configuration.add_modification_rule(
-            ["fjmm","fjmm_cr"],
-            AppendProducer(
-                producers=[
-                    event.fatjet_PNet_withMass_QCD_Nanov9,
-                    event.fatjet_PNet_withMass_WvsQCD_Nanov9,
-                    event.fatjet_PNet_withMass_ZvsQCD_Nanov9,
-                    event.fatjet_PNet_withMass_TvsQCD_Nanov9,
-                ],
-                samples=sample,
-            ),
-        )
-        configuration.add_modification_rule(
             scopes,
             RemoveProducer(
                 producers=[
@@ -3508,24 +3453,6 @@ def build_config(
                 ],
                 samples=sample,
                 update_output=False, # false , no need the internal mask to output
-            ),
-        )
-        configuration.add_modification_rule(
-            scopes,
-            RemoveProducer(
-                producers=[
-                    genparticles.BosonDecayMode,
-                ],
-                samples=sample,
-            ),
-        )
-        configuration.add_modification_rule(
-            scopes,
-            AppendProducer(
-                producers=[
-                    genparticles.BosonDecayMode_run2,
-                ],
-                samples = ["vhmm","diboson","dyjets","top","triboson"],
             ),
         )
         configuration.add_modification_rule(
@@ -3611,12 +3538,19 @@ def build_config(
             scopes,
             RemoveProducer(
                 producers=[
-                    genparticles.BosonDecayMode,
+                    # genparticles.BosonDecayMode,
                     scalefactors.btaggingloose_SF,
                 ],
                 samples=["data"],
             ),
         )
+    ### DY pt reweight
+    configuration.add_modification_rule(
+        scopes,
+        AppendProducer(
+            producers=event.ZPtMassReweighting, samples=["dyjets"]
+        ),
+    )
     # global scope
     ### add the "Flag_ecalBadCalibFilter" update here:
     ### https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#Run_3_2022_and_2023_data_and_MC
@@ -3794,7 +3728,38 @@ def build_config(
             if sample not in ["data"]
         ],
     )
-    
+    ##########################
+    #### DY ptll reweight shift ####
+    ##########################
+    if "dyjets" in sample:
+        for n in range(1,11):
+            ## NLO contains 10 Uncs. 
+            configuration.add_shift(
+                SystematicShift(
+                    name="DY_pTll_reweighting" + str(n) + "Up",
+                    shift_config={
+                        ("e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
+                         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {"DY_pTll_reweighting_syst": "up" + str(n)},
+                    },
+                    producers={("e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
+                                "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                                "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [event.ZPtMassReweighting]},
+                )
+            )
+            configuration.add_shift(
+                SystematicShift(
+                    name="DY_pTll_reweighting" + str(n) + "Down",
+                    shift_config={
+                        ("e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
+                         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {"DY_pTll_reweighting_syst": "down" + str(n)},
+                    },
+                    producers={("e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
+                                "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                                "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [event.ZPtMassReweighting]},
+                )
+            )
     ##########################
     #### Muon ID shift ####
     ##########################
@@ -4018,7 +3983,7 @@ def build_config(
     ###########################
     configuration.add_shift(
         SystematicShift(
-            name="fatjet_PNetSF_Up",
+            name="fatjet_PNetSFUp",
             shift_config={
                 ("fjmm","fjmm_cr"): {
                     "fatjet_sf_varation": "systup",
@@ -4031,7 +3996,7 @@ def build_config(
     )
     configuration.add_shift(
         SystematicShift(
-            name="fatjet_PNetSF_Down",
+            name="fatjet_PNetSFDown",
             shift_config={
                 ("fjmm","fjmm_cr"): {
                     "fatjet_sf_varation": "systdown",

@@ -2033,9 +2033,9 @@ FatJetMuMuQuantities = ProducerGroup(
     scopes=["fjmm"],
     subproducers=[
       ptH_ov_massH_corrected,
-      ptmu1_ov_ptH_corrected, ##mingxuan add 2024/12/25
+      # ptmu1_ov_ptH_corrected, ##mingxuan add 2024/12/25 # due to limited importance, drop it
       ptmu2_ov_ptH_corrected,
-      ptmu1_ov_massH_corrected,
+      ptmu1_ov_massH_corrected, 
       ptmu2_ov_massH_corrected,
 
       Calc_CosThStar_mu1_H_corrected,
@@ -2043,9 +2043,9 @@ FatJetMuMuQuantities = ProducerGroup(
       ptfj_ov_ptH,
       mfj_ov_massH,
 
-      cosphi1_fj_hzz, ##mingxuan add 2024/12/28
-      cosTh1_fj_hzz,
-      cosThStar_fj_hzz,
+      # cosphi1_fj_hzz, ##mingxuan add 2024/12/28
+      # cosTh1_fj_hzz,
+      # cosThStar_fj_hzz, # drop it 
     ],
 )
 

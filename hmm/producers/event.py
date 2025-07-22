@@ -1548,58 +1548,6 @@ fatjet_PNet_withMass_TvsQCD = Producer(
     scopes=["fjmm","fjmm_cr"],
 )
 
-### fatjet_tau1 and fatjet_tau2...
-fatjet_tau1 = Producer(
-    name="fatjet_tau1",
-    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
-    input=[ 
-           nanoAOD.FatJet_tau1,
-           q.good_fatjet_collection],
-    output=[q.fatjet_tau1],
-    scopes=["fjmm","fjmm_cr"],
-)
-fatjet_tau2 = Producer(
-    name="fatjet_tau2",
-    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
-    input=[ 
-           nanoAOD.FatJet_tau2,
-           q.good_fatjet_collection],
-    output=[q.fatjet_tau2],
-    scopes=["fjmm","fjmm_cr"],
-)
-fatjet_tau3 = Producer(
-    name="fatjet_tau3",
-    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
-    input=[ 
-           nanoAOD.FatJet_tau3,
-           q.good_fatjet_collection],
-    output=[q.fatjet_tau3],
-    scopes=["fjmm","fjmm_cr"],
-)
-fatjet_tau4 = Producer(
-    name="fatjet_tau4",
-    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
-    input=[ 
-           nanoAOD.FatJet_tau4,
-           q.good_fatjet_collection],
-    output=[q.fatjet_tau4],
-    scopes=["fjmm","fjmm_cr"],
-)
-FatJetQuantities = ProducerGroup(
-    name="FatJetQuantities",
-    call=None,
-    input=None,
-    output=None,
-    scopes=["fjmm","fjmm_cr"],
-    subproducers=[
-      fatjet_tau1,
-      fatjet_tau2,
-      fatjet_tau3,
-      fatjet_tau4,
-    ],
-)
-
-
 ### FatJet PNet in Nano v9
 fatjet_PNet_withMass_QCD_Nanov9 = Producer(
     name="fatjet_PNet_withMass_QCD_Nanov9",
@@ -1636,4 +1584,16 @@ fatjet_PNet_withMass_TvsQCD_Nanov9 = Producer(
            q.good_fatjet_collection],
     output=[q.fatjet_PNet_withMass_TvsQCD],
     scopes=["fjmm","fjmm_cr"],
+)
+
+ZPtMassReweighting = Producer(
+    name="ZPtMassReweighting",
+    call='reweighting::zPtMassReweighting({df}, {output}, {input}, "{zptmass_file}", "{DY_pTll_reweighting_syst}")',
+    input=[
+        q.recoil_genboson_p4_vec,
+    ],
+    output=[q.ZPtMassReweightWeight],
+    scopes=["e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )

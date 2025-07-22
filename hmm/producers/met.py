@@ -58,6 +58,21 @@ MetPhi_uncorrected = Producer(
     output=[q.metphi_uncorrected],
     scopes=["global"],
 )
+CalculateGenBosonVector = Producer(
+    name="calculateGenBosonVector",
+    call="met::calculateGenBosonVector({df}, {input}, {output}, {is_data})",
+    input=[
+        nanoAOD.GenParticle_pt,
+        nanoAOD.GenParticle_eta,
+        nanoAOD.GenParticle_phi,
+        nanoAOD.GenParticle_mass,
+        nanoAOD.GenParticle_pdgId,
+        nanoAOD.GenParticle_status,
+        nanoAOD.GenParticle_statusFlags,
+    ],
+    output=[q.recoil_genboson_p4_vec],
+    scopes=["global"],
+)
 
 MetBasics = ProducerGroup(
     name="MetBasics",
@@ -71,7 +86,7 @@ MetBasics = ProducerGroup(
         # MetPt_uncorrected,
         # MetPhi_uncorrected,
         MetSumEt,
-
+        CalculateGenBosonVector,
         # BuildGenMetVector,
     ],
 )

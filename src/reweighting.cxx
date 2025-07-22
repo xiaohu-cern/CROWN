@@ -143,44 +143,70 @@ ROOT::RDF::RNode topptreweighting(ROOT::RDF::RNode df,
  * @param argset arguments of the function
  * @return a new dataframe containing the new column
  */
-ROOT::RDF::RNode zPtMassReweighting(ROOT::RDF::RNode df,
-                                    const std::string &weightname,
-                                    const std::string &gen_boson,
-                                    const std::string &workspace_file,
-                                    const std::string &functor_name,
-                                    const std::string &argset) {
+// ROOT::RDF::RNode zPtMassReweighting(ROOT::RDF::RNode df,
+//                                     const std::string &weightname,
+//                                     const std::string &gen_boson,
+//                                     const std::string &workspace_file,
+//                                     const std::string &functor_name,
+//                                     const std::string &argset) {
 
-    // retrieve pt and mass of gen boson reconstructed with the method used by
-    // recoil corrections; resulting quantities are only for the purpose of this
-    // method
-    auto df1 = df.Define(gen_boson + "_pt",
-                         [](const std::pair<ROOT::Math::PtEtaPhiMVector,
-                                            ROOT::Math::PtEtaPhiMVector> &p4) {
-                             return (float)p4.first.pt();
-                         },
-                         {gen_boson});
-    auto df2 = df1.Define(gen_boson + "_mass",
-                          [](const std::pair<ROOT::Math::PtEtaPhiMVector,
-                                             ROOT::Math::PtEtaPhiMVector> &p4) {
-                              return (float)p4.first.mass();
-                          },
-                          {gen_boson});
+//     // retrieve pt and mass of gen boson reconstructed with the method used by
+//     // recoil corrections; resulting quantities are only for the purpose of this
+//     // method
+//     auto df1 = df.Define(gen_boson + "_pt",
+//                          [](const std::pair<ROOT::Math::PtEtaPhiMVector,
+//                                             ROOT::Math::PtEtaPhiMVector> &p4) {
+//                              return (float)p4.first.pt();
+//                          },
+//                          {gen_boson});
+//     auto df2 = df1.Define(gen_boson + "_mass",
+//                           [](const std::pair<ROOT::Math::PtEtaPhiMVector,
+//                                              ROOT::Math::PtEtaPhiMVector> &p4) {
+//                               return (float)p4.first.mass();
+//                           },
+//                           {gen_boson});
 
-    // set up workspace
-    Logger::get("zPtMassReweighting")
-        ->debug("Setting up functions for zPtMassReweighting");
-    Logger::get("zPtMassReweighting")
-        ->debug("zPtMassReweighting - Function {} // argset {}", functor_name,
-                argset);
+//     // set up workspace
+//     Logger::get("zPtMassReweighting")
+//         ->debug("Setting up functions for zPtMassReweighting");
+//     Logger::get("zPtMassReweighting")
+//         ->debug("zPtMassReweighting - Function {} // argset {}", functor_name,
+//                 argset);
 
-    const std::shared_ptr<RooFunctorThreadsafe> weight_function =
-        loadFunctor(workspace_file, functor_name, argset);
-    auto df3 = basefunctions::evaluateWorkspaceFunction(
-        df2, weightname, weight_function, gen_boson + "_mass",
-        gen_boson + "_pt");
-    return df3;
+//     const std::shared_ptr<RooFunctorThreadsafe> weight_function =
+//         loadFunctor(workspace_file, functor_name, argset);
+//     auto df3 = basefunctions::evaluateWorkspaceFunction(
+//         df2, weightname, weight_function, gen_boson + "_mass",
+//         gen_boson + "_pt");
+//     return df3;
+// }
+
+ROOT::RDF::RNode zPtMassReweighting(ROOT::RDF::RNode df, 
+    const std::string &weightname,
+    const std::string &gen_boson,
+    const std::string &workspace_file,
+    const std::string &variation) {
+    auto evaluator =
+        correction::CorrectionSet::from_file(workspace_file)->at("DY_pTll_reweighting"); //doc: https://cms-higgs-leprare.docs.cern.ch/htt-common/DY_reweight/#correctionlib-file
+    
+    // auto df1 = df.Define(gen_boson + "_pt",
+    //         [](const std::pair<ROOT::Math::PtEtaPhiMVector,
+    //                            ROOT::Math::PtEtaPhiMVector> &p4) {
+    //             return (float)p4.first.pt();
+    //         },
+    //         {gen_boson});
+    auto df1 =
+        df.Define(weightname,
+            [evaluator, variation](
+                const std::pair<ROOT::Math::PtEtaPhiMVector,
+                               ROOT::Math::PtEtaPhiMVector> &gen_boson) {
+            float gen_boson_pt = gen_boson.first.pt();
+            double weight = evaluator->evaluate({"NLO",gen_boson_pt, variation});
+            return weight;
+            },
+            {gen_boson});
+            return df1;   
 }
-
 /**
  * @brief Function used to evaluate the lheScaleweight of an event. The weights
 are stored in the nanoAOD file an defined as w_var/w_nominal. Depending on the
