@@ -2237,8 +2237,6 @@ def build_config(
             p4.lep2_fromZ_eta,
             p4.lep2_fromZ_phi,
             p4.lep2_fromZ_mass,
-            lepton.lep1_mvaTTH_eemm,
-            lepton.lep2_mvaTTH_eemm,
             p4.Z_pt,
             p4.Z_eta,
             p4.Z_phi,
@@ -2347,8 +2345,6 @@ def build_config(
             p4.lep2_fromZ_eta,
             p4.lep2_fromZ_phi,
             p4.lep2_fromZ_mass,
-            lepton.lep1_mvaTTH_mmmm,
-            lepton.lep2_mvaTTH_mmmm,
             p4.Z_pt,
             p4.Z_eta,
             p4.Z_phi,
@@ -2784,12 +2780,12 @@ def build_config(
             q.mu1_H_dR,
             q.HT,   #add by Leyan 2024/12/20
             q.HT_met,      #add by Leyan 2024/12/20
-            q.nu_H_dR,    # add by Leyan 2024/12/20
-            q.nu_H_deta,  # add by Leyan 2024/12/20
-            q.nu_H_dphi,  # add by Leyan 2024/12/20
+            # q.nu_H_dR,    # add by Leyan 2024/12/20
+            # q.nu_H_deta,  # add by Leyan 2024/12/20
+            # q.nu_H_dphi,  # add by Leyan 2024/12/20
             q.lep_nu_dR,  # add by Leyan 2024/12/20
-            q.lep_nu_deta,  # add by Leyan 2024/12/20
-            q.lep_nu_dphi,  # add by Leyan 2024/12/20
+            # q.lep_nu_deta,  # add by Leyan 2024/12/20
+            # q.lep_nu_dphi,  # add by Leyan 2024/12/20
             # q.W_p4,
             q.mu1_H_deta,
             q.mu1_H_dphi,
@@ -2804,29 +2800,29 @@ def build_config(
             q.ptmu2_ov_ptH,
             q.ptmu1_ov_massH,
             q.ptmu2_ov_massH,
-            q.mu1_nu_dR,
-            q.mu1_nu_deta,
-            q.mu1_nu_dphi,
-            q.mu2_nu_dR,
-            q.mu2_nu_deta,
-            q.mu2_nu_dphi,
+            # q.mu1_nu_dR,
+            # q.mu1_nu_deta,
+            # q.mu1_nu_dphi,
+            # q.mu2_nu_dR,
+            # q.mu2_nu_deta,
+            # q.mu2_nu_dphi,
             
-            q.W_eta,
-            q.W_H_dR,
-            q.W_H_deta,
-            q.W_H_dphi,
-            q.W_mu1_dR,
-            q.W_mu1_deta,
-            q.W_mu1_dphi,
-            q.W_mu2_dR,
-            q.W_mu2_deta,
-            q.W_mu2_dphi,
+            # q.W_eta,
+            # q.W_H_dR,
+            # q.W_H_deta,
+            # q.W_H_dphi,
+            # q.W_mu1_dR,
+            # q.W_mu1_deta,
+            # q.W_mu1_dphi,
+            # q.W_mu2_dR,
+            # q.W_mu2_deta,
+            # q.W_mu2_dphi,
             q.W_lep_dR,
-            q.W_lep_deta,
-            q.W_lep_dphi,
+            # q.W_lep_deta,
+            # q.W_lep_dphi,
             q.W_nu_dR,
-            q.W_nu_deta,
-            q.W_nu_dphi,
+            # q.W_nu_deta,
+            # q.W_nu_dphi,
             q.ptW_ov_ptH,
             q.met_ov_ptW,
             q.ptl_ov_ptW,
@@ -2834,8 +2830,8 @@ def build_config(
             q.lep_W_cosThStar,
             q.mu1_H_cosThStar,
             q.H_WH_cosThStar,
-            q.mu1_mu2_kT,
-            q.mu1_mu2_antikT,
+            # q.mu1_mu2_kT,
+            # q.mu1_mu2_antikT,
         ]
     )
     # hackathon
@@ -2847,23 +2843,23 @@ def build_config(
             q.lep1_lep2_cosThStar,
             q.mu1_H_cosThStar,
             
-            q.lep1_mu1_dR,
-            q.lep1_mu1_deta,
-            q.lep1_mu1_dphi,
-            q.lep1_mu2_dR,
-            q.lep1_mu2_deta,
-            q.lep1_mu2_dphi,
+            # q.lep1_mu1_dR,
+            # q.lep1_mu1_deta,
+            # q.lep1_mu1_dphi,
+            # q.lep1_mu2_dR,
+            # q.lep1_mu2_deta,
+            # q.lep1_mu2_dphi,
 
-            q.lep2_mu1_dR,
-            q.lep2_mu1_deta,
-            q.lep2_mu1_dphi,
-            q.lep2_mu2_dR,
-            q.lep2_mu2_deta,
-            q.lep2_mu2_dphi,
+            # q.lep2_mu1_dR,
+            # q.lep2_mu1_deta,
+            # q.lep2_mu1_dphi,
+            # q.lep2_mu2_dR,
+            # q.lep2_mu2_deta,
+            # q.lep2_mu2_dphi,
 
-            q.lep1_lep2_dR,
-            q.lep1_lep2_deta,
-            q.lep1_lep2_dphi,
+            # q.lep1_lep2_dR,
+            # q.lep1_lep2_deta,
+            # q.lep1_lep2_dphi,
 
             q.ptmu1_ov_ptH, ##mingxuan add 2024/12/25
             q.ptmu2_ov_ptH,
@@ -2876,10 +2872,10 @@ def build_config(
             q.ptlep2_ov_massZ,
             q.ptlep2_ov_ptZ,
 
-            q.cosThStar_4l_hzz, ##mingxuan add 2024/12/27
-            q.cosTh1_4l_hzz,
-            q.cosphi_4l_hzz,
-            q.cosphi1_4l_hzz,
+            # q.cosThStar_4l_hzz, ##mingxuan add 2024/12/27
+            # q.cosTh1_4l_hzz,
+            # q.cosphi_4l_hzz,
+            # q.cosphi1_4l_hzz,
         ]
     )
     # hackathon
@@ -3185,8 +3181,6 @@ def build_config(
     configuration.add_outputs(
         ["eemm","eemm_cr","mmmm","mmmm_cr"],
         [
-            q.lep1_mvaTTH,
-            q.lep2_mvaTTH,
             q.mumuH_dR,
             q.mumuH_dphi,
             q.mumuH_deta,

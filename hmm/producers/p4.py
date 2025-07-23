@@ -1980,45 +1980,45 @@ ThreeLepQuantities = ProducerGroup(
       ptmu1_ov_massH,
       ptmu2_ov_massH,
       calc_nu_p4,
-      mu1_nu_dR,
-      mu1_nu_deta,
-      mu1_nu_dphi,
-      mu2_nu_dR,
-      mu2_nu_deta,
-      mu2_nu_dphi,
+      # mu1_nu_dR,
+      # mu1_nu_deta,
+      # mu1_nu_dphi,
+      # mu2_nu_dR,
+      # mu2_nu_deta,
+      # mu2_nu_dphi,
       HT_met,    ### add by Leyan 2024/12/20
-      nu_H_deta,  ### add by Leyan 2024/12/20
-      nu_H_dphi,  ### add by Leyan 2024/12/20
-      nu_H_dR,   ### add by Leyan 2024/12/20
+      # nu_H_deta,  ### add by Leyan 2024/12/20
+      # nu_H_dphi,  ### add by Leyan 2024/12/20
+      # nu_H_dR,   ### add by Leyan 2024/12/20
       lep_nu_dR,  ### add by Leyan 2024/12/20
-      lep_nu_dphi, ### add by Leyan 2024/12/20
-      lep_nu_deta, ### add by Leyan 2024/12/20
+      # lep_nu_dphi, ### add by Leyan 2024/12/20
+      # lep_nu_deta, ### add by Leyan 2024/12/20
       
       calc_W_p4,
-      W_eta, # W_pt, W_phi already finished
-      W_H_dR,
-      W_H_deta,
-      W_H_dphi,
-      W_mu1_dR,
-      W_mu1_deta,
-      W_mu1_dphi,
-      W_mu2_dR,
-      W_mu2_deta,
-      W_mu2_dphi,
+      # W_eta, # W_pt, W_phi already finished
+      # W_H_dR,
+      # W_H_deta,
+      # W_H_dphi,
+      # W_mu1_dR,
+      # W_mu1_deta,
+      # W_mu1_dphi,
+      # W_mu2_dR,
+      # W_mu2_deta,
+      # W_mu2_dphi,
       W_lep_dR,
-      W_lep_deta,
-      W_lep_dphi,
+      # W_lep_deta,
+      # W_lep_dphi,
       W_nu_dR,
-      W_nu_deta,
-      W_nu_dphi,
+      # W_nu_deta,
+      # W_nu_dphi,
       ptW_ov_ptH,
       met_ov_ptW,
       ptl_ov_ptW,
       Calc_CosThStar_lep_W,
       Calc_CosThStar_mu1_H,
       Calc_CosThStar_H_WH,
-      mu1_mu2_kT,
-      mu1_mu2_antikT,
+      # mu1_mu2_kT,
+      # mu1_mu2_antikT,
     ],
 )
 
@@ -2034,23 +2034,23 @@ FourLepQuantities = ProducerGroup(
       lep1_lep2_cosThStar,
       Calc_CosThStar_mu1_H,
 
-      lep1_mu1_dR,
-      lep1_mu1_deta,
-      lep1_mu1_dphi,
-      lep1_mu2_dR,
-      lep1_mu2_deta,
-      lep1_mu2_dphi,
+      # lep1_mu1_dR,
+      # lep1_mu1_deta,
+      # lep1_mu1_dphi,
+      # lep1_mu2_dR,
+      # lep1_mu2_deta,
+      # lep1_mu2_dphi,
 
-      lep2_mu1_dR,
-      lep2_mu1_deta,
-      lep2_mu1_dphi,
-      lep2_mu2_dR,
-      lep2_mu2_deta,
-      lep2_mu2_dphi,
+      # lep2_mu1_dR,
+      # lep2_mu1_deta,
+      # lep2_mu1_dphi,
+      # lep2_mu2_dR,
+      # lep2_mu2_deta,
+      # lep2_mu2_dphi,
 
-      lep1_lep2_dR,
-      lep1_lep2_deta,
-      lep1_lep2_dphi,
+      # lep1_lep2_dR,
+      # lep1_lep2_deta,
+      # lep1_lep2_dphi,
 
       ptmu1_ov_ptH, ##mingxuan add 2024/12/25
       ptmu2_ov_ptH,
@@ -2063,10 +2063,10 @@ FourLepQuantities = ProducerGroup(
       ptlep2_ov_massZ,
       ptlep2_ov_ptZ,
 
-      cosThStar_4l_hzz, ##mingxian add 2024/12/27
-      cosTh1_4l_hzz,
-      cosphi1_4l_hzz,
-      cosphi_4l_hzz,
+      # cosThStar_4l_hzz, ##mingxian add 2024/12/27
+      # cosTh1_4l_hzz,
+      # cosphi1_4l_hzz,
+      # cosphi_4l_hzz,
     ],
 )
 
