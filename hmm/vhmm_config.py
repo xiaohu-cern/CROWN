@@ -2125,27 +2125,27 @@ def build_config(
             scalefactors.GenerateSingleMuonTriggerSF_MC,
         ]
     )
-    configuration.add_producers(
-        ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
-        [
-            # extra mu
-            lepton.extra_muon_mvaTTH,
-        ]
-    )
-    configuration.add_producers(
-        ["e2m","e2m_dyfakeinge_regionb"],
-        [
-            # extra good ele
-            lepton.extra_goodele_mvaTTH,
-        ]
-    )
-    configuration.add_producers(
-        ["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-        [
-            # extra base ele
-            lepton.extra_baseele_mvaTTH,
-        ]
-    )
+    # configuration.add_producers(
+    #     ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    #     [
+    #         # extra mu
+    #         lepton.extra_muon_mvaTTH,
+    #     ]
+    # )
+    # configuration.add_producers(
+    #     ["e2m","e2m_dyfakeinge_regionb"],
+    #     [
+    #         # extra good ele
+    #         lepton.extra_goodele_mvaTTH,
+    #     ]
+    # )
+    # configuration.add_producers(
+    #     ["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    #     [
+    #         # extra base ele
+    #         lepton.extra_baseele_mvaTTH,
+    #     ]
+    # )
     configuration.add_producers(
         ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
          "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -3070,7 +3070,7 @@ def build_config(
             q.extra_lep_eta,
             q.extra_lep_phi,
             q.extra_lep_mass,
-            q.extra_lep_mvaTTH,
+            # q.extra_lep_mvaTTH,
             q.lep_muOS_cosThStar,
             q.lep_muSS_cosThStar,
             q.lep_muSS_dR,
