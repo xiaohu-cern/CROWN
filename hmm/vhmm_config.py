@@ -203,10 +203,10 @@ def build_config(
                     "2016postVFP": "data/zpt/htt_scalefactors_legacy_2016.root",  # ToDO: Measured in legacy, therefore the same for pre- and postVFP for now
                     "2017": "data/zpt/htt_scalefactors_legacy_2017.root",
                     "2018": "data/zpt/htt_scalefactors_legacy_2018.root",
-                    "2022preEE": "/data/bond/botaoguo/CROWN/data/zpt/DY_pTll_weights_2022preEE_v3.json.gz", ## This correction is also applied when we derived DY control region, so keep it
-                    "2022postEE": "/data/bond/botaoguo/CROWN/data/zpt/DY_pTll_weights_2022postEE_v3.json.gz",
-                    "2023preBPix": "/data/bond/botaoguo/CROWN/data/zpt/DY_pTll_weights_2023preBPix_v3.json.gz", 
-                    "2023postBPix": "/data/bond/botaoguo/CROWN/data/zpt/DY_pTll_weights_2023postBPix_v3.json.gz", 
+                    "2022preEE": "data/zpt/DY_pTll_weights_2022preEE_v3.json.gz", ## This correction is also applied when we derived DY control region, so keep it
+                    "2022postEE": "data/zpt/DY_pTll_weights_2022postEE_v3.json.gz",
+                    "2023preBPix": "data/zpt/DY_pTll_weights_2023preBPix_v3.json.gz", 
+                    "2023postBPix": "data/zpt/DY_pTll_weights_2023postBPix_v3.json.gz", 
                 }
             ),
             # "zptmass_functor": "zptmass_weight_nom",
