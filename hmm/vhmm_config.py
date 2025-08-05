@@ -1177,9 +1177,10 @@ def build_config(
     configuration.add_config_parameters(
         "nnmm",
         {
+            # change to 50, to check the met for MET channel
             # change to 100, to contain the DNN cr for MET,
             # but remember to keep nfatjet<=0, to remove the overlap with fjmm
-            "min_met" : 100.0,
+            "min_met" : 50.0,
             "flag_MetCut" : 1,
         }
     )
