@@ -1005,6 +1005,30 @@ def build_config(
                     "2023postBPix": "data/jsonpog-integration/POG/BTV/2023_Summer23BPix/btagging.json.gz",## TODO: update to 2022 recommendation when available. These lines only for testing
                 }
             ),
+            "loose_btag_eff_file": EraModifier(
+                {
+                    "2022preEE": "data/btag_corrections/loose/2022preEE/btagging_efficiency.json",
+                    "2022postEE": "data/btag_corrections/loose/2022postEE/btagging_efficiency.json",
+                    "2023preBPix": "data/btag_corrections/loose/2023preBPix/btagging_efficiency.json",
+                    "2023postBPix": "data/btag_corrections/loose/2023postBPix/btagging_efficiency.json",
+                }
+            ),
+            "medium_btag_eff_file": EraModifier(
+                {
+                    "2022preEE": "data/btag_corrections/medium/2022preEE/btagging_efficiency.json",
+                    "2022postEE": "data/btag_corrections/medium/2022postEE/btagging_efficiency.json",
+                    "2023preBPix": "data/btag_corrections/medium/2023preBPix/btagging_efficiency.json",
+                    "2023postBPix": "data/btag_corrections/medium/2023postBPix/btagging_efficiency.json",
+                }
+            ),
+            "era_name": EraModifier(
+                {
+                    "2022preEE": "2022preEE",
+                    "2022postEE": "2022postEE",
+                    "2023preBPix": "2023preBPix",
+                    "2023postBPix": "2023postBPix",
+                }
+            ),
             "btag_sf_variation": "central",## TODO: update to 2022 recommendation when available. These lines only for testing
             "btag_corr_algo": EraModifier(
                 {
@@ -1317,6 +1341,7 @@ def build_config(
          "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         [
             momentumscale.RenameMuonPt,
+            scalefactors.btagging_SF_2WPs_3l_4l, ###update btag sf by Mingxuan
         ]
     )
     configuration.add_producers(
@@ -1333,7 +1358,7 @@ def build_config(
             jets.NumberOfMediumB, # vh count medium bjets for ttH veto
             jets.VetottHLooseB, # vh veto ttH no more than 1 loose bjet
             jets.VetottHMediumB, # vh veto ttH no more than 1 medium bjet   
-            scalefactors.btaggingloose_SF,
+            # scalefactors.btaggingloose_SF,
 
             p4.MHTALL_pt,
             p4.MHTALL_eta,
@@ -1350,6 +1375,7 @@ def build_config(
             fatjets.FatJetCollection,
             fatjets.FilterNFatjets_fjmm, # vh fjmm >=1 fatjet
             fatjets.LVFatJet1,
+            scalefactors.btagging_SF_2WPs_fjmm, ###update btag sf by Mingxuan
         ]
     )
     configuration.add_producers(
@@ -1357,6 +1383,7 @@ def build_config(
         [
             fatjets.GoodFatJets,
             fatjets.NumberOfGoodFatJets,
+            scalefactors.btagging_SF_2WPs_met, ###update btag sf by Mingxuan
         ]
     )
     configuration.add_producers(
@@ -3439,7 +3466,7 @@ def build_config(
                 producers=[
                     jets.GoodBJetsLoose_PNet, 
                     jets.GoodBJetsMedium_PNet,
-                    scalefactors.btaggingloose_SF,
+                    # scalefactors.btaggingloose_SF,
                 ],
                 samples=sample,
             ),
@@ -3535,16 +3562,16 @@ def build_config(
                 samples=["data"],
             ),
         )
-        configuration.add_modification_rule(
-            scopes,
-            RemoveProducer(
-                producers=[
-                    # genparticles.BosonDecayMode,
-                    scalefactors.btaggingloose_SF,
-                ],
-                samples=["data"],
-            ),
-        )
+        # configuration.add_modification_rule(
+        #     scopes,
+        #     RemoveProducer(
+        #         producers=[
+        #             # genparticles.BosonDecayMode,
+        #             scalefactors.btaggingloose_SF,
+        #         ],
+        #         samples=["data"],
+        #     ),
+        # )
     ### DY pt reweight
     configuration.add_modification_rule(
         scopes,
@@ -3645,6 +3672,37 @@ def build_config(
             samples=["data"],
         ),
     )
+    #### update btag sf by Mingxuan ####
+    configuration.add_modification_rule(
+        ["e2m","m2m", "eemm","mmmm","eemm_cr","mmmm_cr",
+         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+         RemoveProducer(
+            producers=[
+                scalefactors.btagging_SF_2WPs_3l_4l,
+            ],
+            samples=["data"],
+         ),
+    )
+    configuration.add_modification_rule(
+        ["fjmm", "fjmm_cr"],
+         RemoveProducer(
+            producers=[
+                scalefactors.btagging_SF_2WPs_fjmm,
+            ],
+            samples=["data"],
+         ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm"],
+         RemoveProducer(
+            producers=[
+                scalefactors.btagging_SF_2WPs_met,
+            ],
+            samples=["data"],
+         ),
+    )
+    ##########################################################
     # configuration.add_modification_rule(
     #     ["nnmm","fjmm"],
     #     ReplaceProducer(

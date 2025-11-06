@@ -142,6 +142,15 @@ ROOT::RDF::RNode reco_e_vhmm(ROOT::RDF::RNode df,
 namespace jet {
 
 ROOT::RDF::RNode
+btagSF_2WPs(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
+            const std::string &btag_discr, const std::string &flavor,
+            const std::string &jet_mask, const std::string &bjet_mask,
+            const std::string &jet_veto_mask, const std::string &variation,
+            const std::string &sf_output, const std::string &sf_file,
+            const std::string &loose_eff_file, const std::string &medium_eff_file,
+            const std::string &year, const std::string &channel, 
+            const float &loose_cut, const float &medium_cut);
+ROOT::RDF::RNode
 btagSF(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
        const std::string &btag_discr, const std::string &flavor,
        const std::string &jet_mask, const std::string &bjet_mask,

@@ -1580,6 +1580,57 @@ btaggingloose_SF_run2 = Producer(
             "eemm","mmmm","nnmm","fjmm","fjmm_cr"],
 )
 
+#### to calculate btag weight for different channels (by Mingxuan) #####
+btagging_SF_2WPs_3l_4l = Producer(
+    name="btagging_SF_2WPs_3l_4l",
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{btag_sf_variation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file}", "{medium_btag_eff_file}", "{era_name}", "3l_4l", {btag_cut_loose}, {btag_cut_medium})',
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.BJet_discriminator_PNet,
+        nanoAOD.Jet_flavor,
+        q.good_jets_mask,
+        q.good_bjets_mask_loose,
+        q.jet_overlap_veto_mask,
+    ],
+    output=[q.btag_weight],
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "eemm","mmmm", "eemm_cr", "mmmm_cr"],
+)
+
+btagging_SF_2WPs_fjmm = Producer(
+    name="btagging_SF_2WPs_fjmm",
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{btag_sf_variation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file}", "{medium_btag_eff_file}", "{era_name}", "fjmm", {btag_cut_loose}, {btag_cut_medium})',
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.BJet_discriminator_PNet,
+        nanoAOD.Jet_flavor,
+        q.good_jets_mask,
+        q.good_bjets_mask_loose,
+        q.jet_overlap_veto_mask,
+    ],
+    output=[q.btag_weight],
+    scopes=["fjmm","fjmm_cr"],
+)
+
+btagging_SF_2WPs_met = Producer(
+    name="btagging_SF_2WPs_met",
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{btag_sf_variation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file}", "{medium_btag_eff_file}", "{era_name}", "met", {btag_cut_loose}, {btag_cut_medium})',
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.BJet_discriminator_PNet,
+        nanoAOD.Jet_flavor,
+        q.good_jets_mask,
+        q.good_bjets_mask_loose,
+        q.jet_overlap_veto_mask,
+    ],
+    output=[q.btag_weight],
+    scopes=["nnmm"],
+)
+
 #######################
 ##### trigger SFs #####
 #######################

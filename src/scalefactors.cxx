@@ -1282,6 +1282,89 @@ namespace jet {
  * @return a new dataframe containing the new column
  */
 ROOT::RDF::RNode
+btagSF_2WPs(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
+            const std::string &btag_discr, const std::string &flavor,
+            const std::string &jet_mask, const std::string &bjet_mask,
+            const std::string &jet_veto_mask, const std::string &variation,
+            const std::string &sf_output, const std::string &sf_file,
+            const std::string &loose_eff_file, const std::string &medium_eff_file,
+            const std::string &year, const std::string &channel, 
+            const float &loose_cut, const float &medium_cut) {
+    auto evaluator_bc = correction::CorrectionSet::from_file(sf_file)->at("particleNet_comb");
+    auto evaluator_light = correction::CorrectionSet::from_file(sf_file)->at("particleNet_light");
+    auto loose_btag_eff = correction::CorrectionSet::from_file(loose_eff_file)->at("Btagging effciency[pt,eta,flavor]");
+    auto medium_btag_eff = correction::CorrectionSet::from_file(medium_eff_file)->at("Btagging effciency[pt,eta,flavor]");
+
+    auto btagSF_lambda = [evaluator_bc, evaluator_light, loose_btag_eff, medium_btag_eff, variation, year, channel, loose_cut, medium_cut](
+            const ROOT::RVec<float> &pt_values,
+            const ROOT::RVec<float> &eta_values,
+            const ROOT::RVec<float> &btag_values,
+            const ROOT::RVec<UChar_t> &flavors,
+            const ROOT::RVec<int> &jet_mask,
+            const ROOT::RVec<int> &bjet_mask,
+            const ROOT::RVec<int> &jet_veto_mask) {
+        Logger::get("btagSF")->debug("Vatiation - Name {}", variation);
+        float sf = 1.;
+        for (int i = 0; i < pt_values.size(); i++) {
+             Logger::get("btagSF")->debug(
+                 "jet masks - jet {}, bjet {}, jet veto {}", jet_mask.at(i),
+                 bjet_mask.at(i), jet_veto_mask.at(i));
+             // considering only good jets/bjets, this is needed since jets and
+             // bjets might have different cuts depending on the analysis
+             if ((jet_mask.at(i) || bjet_mask.at(i)) && jet_veto_mask.at(i) && pt_values.at(i) >= 20.0 && pt_values.at(i) < 10000.0 && std::abs(eta_values.at(i)) < 2.5 &&  btag_values.at(i) > 0 ) {
+                auto loose_bjet_sf = 1.0;
+                auto medium_bjet_sf = 1.0;
+                auto pt_tmp = 0.0;
+                if ( pt_values.at(i) >= 200) {pt_tmp = 199.99; } else pt_tmp=  pt_values.at(i) ;
+
+                // for difference case: if evaluate light variation, use light SF and light flavor, vice versa. 
+                if (variation.find("light") != std::string::npos) {
+                    if ( flavors.at(i) == 0) {
+                        loose_bjet_sf = evaluator_light->evaluate({variation, "L", flavors.at(i), std::abs(eta_values.at(i)), pt_values.at(i)  });}
+                    else {
+                        loose_bjet_sf = evaluator_bc->evaluate({"central", "L", flavors.at(i), std::abs(eta_values.at(i)), pt_values.at(i)  });}
+                }   
+                else {
+                    if ( flavors.at(i) == 0) {
+                        loose_bjet_sf = evaluator_light->evaluate({"central", "L", flavors.at(i), std::abs(eta_values.at(i)), pt_values.at(i)  });}
+                    else {
+                        loose_bjet_sf = evaluator_bc->evaluate({variation, "L", flavors.at(i), std::abs(eta_values.at(i)), pt_values.at(i)  });}
+                }
+                // for difference case: if evaluate light variation, use light SF and light flavor, vice versa. 
+                if (variation.find("light") != std::string::npos) {
+                    if ( flavors.at(i) == 0) {
+                        medium_bjet_sf = evaluator_light->evaluate({variation, "M", flavors.at(i), std::abs(eta_values.at(i)), pt_values.at(i)  });}
+                    else {
+                        medium_bjet_sf = evaluator_bc->evaluate({"central", "M", flavors.at(i), std::abs(eta_values.at(i)), pt_values.at(i)  });}
+                }   
+                else {
+                    if ( flavors.at(i) == 0) {
+                        medium_bjet_sf = evaluator_light->evaluate({"central", "M", flavors.at(i), std::abs(eta_values.at(i)), pt_values.at(i)  });}
+                    else {
+                        medium_bjet_sf = evaluator_bc->evaluate({variation, "M", flavors.at(i), std::abs(eta_values.at(i)), pt_values.at(i)  });}
+                }
+
+                auto  loose_bjet_eff =  loose_btag_eff->evaluate({year, "btagging-eff", channel, pt_tmp, eta_values.at(i), flavors.at(i)  });
+                auto  medium_bjet_eff =  medium_btag_eff->evaluate({year, "btagging-eff", channel, pt_tmp, eta_values.at(i), flavors.at(i)  });
+                if (btag_values.at(i) >= medium_cut) { 
+                    sf *= (medium_bjet_sf * medium_bjet_eff/medium_bjet_eff); 
+                }
+                else if (btag_values.at(i) >= loose_cut && btag_values.at(i) < medium_cut) {
+                    sf *= ((loose_bjet_sf * loose_bjet_eff-medium_bjet_sf * medium_bjet_eff)/(loose_bjet_eff-medium_bjet_eff));
+                }
+                else{  sf *= ( (1 - loose_bjet_sf * loose_bjet_eff) /(1 - loose_bjet_eff));   }
+            }
+        };
+         
+        return sf;
+    };
+    auto df1 = df.Define(
+         sf_output, btagSF_lambda,
+         {pt, eta, btag_discr, flavor, jet_mask, bjet_mask, jet_veto_mask});
+     return df1;
+}
+
+ROOT::RDF::RNode
 btagSF(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
        const std::string &btag_discr, const std::string &flavor,
        const std::string &jet_mask, const std::string &bjet_mask,

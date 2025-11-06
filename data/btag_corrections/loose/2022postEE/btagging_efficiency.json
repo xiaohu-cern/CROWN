@@ -1,0 +1,459 @@
+{
+    "schema_version": 2,
+    "description": "These are the electron ID & Reco Scale Factors (nominal, up or down) for 2022postEE dataset. They are available for the cut-based and MVA IDs. They are dependent on the transverse momenta and pseudorapidity of the electron. Please keep in the mind that if your analysis is sensitive to high pT electrons (>500 GeV), we recommend you to use HEEP ID. In any case, you have even some electrons above 500 GeV, be careful while applying these SFs.",
+    "corrections": [
+        {
+            "name": "Btagging effciency[pt,eta,flavor]",
+            "description": "These are the electron ID & Reco Scale Factors (nominal, up or down) for 2022postEE dataset. They are available for the cut-based and MVA IDs. They are dependent on the transverse momenta and pseudorapidity of the electron.",
+            "version": 2,
+            "inputs": [
+                {
+                    "name": "year",
+                    "type": "string",
+                    "description": "year/scenario: example, 2017, 2022FG etc"
+                },
+                {
+                    "name": "ValType",
+                    "type": "string",
+                    "description": "btagging-eff"
+                },
+                {
+                    "name": "Channel",
+                    "type": "string",
+                    "description": "em/et/mt/tt"
+                },
+                {
+                    "name": "pt",
+                    "type": "real",
+                    "description": "Jet pt"
+                },
+                {
+                    "name": "eta",
+                    "type": "real",
+                    "description": "Jet eta"
+                },
+                {
+                    "name": "flavor",
+                    "type": "int",
+                    "description": "Jet flavor (0: light, 4: c, 5: b)"
+                }
+            ],
+            "output": {
+                "name": "weight",
+                "type": "real",
+                "description": "value of scale factor (nominal, up or down)"
+            },
+            "data": {
+                "nodetype": "category",
+                "input": "year",
+                "content": [
+                    {
+                        "key": "2022postEE",
+                        "value": {
+                            "nodetype": "category",
+                            "input": "ValType",
+                            "content": [
+                                {
+                                    "key": "btagging-eff",
+                                    "value": {
+                                        "nodetype": "category",
+                                        "input": "Channel",
+                                        "content": [
+                                            {
+                                                "key": "3l_4l",
+                                                "value": {
+                                                    "nodetype": "category",
+                                                    "input": "flavor",
+                                                    "content": [
+                                                        {
+                                                            "key": 0,
+                                                            "value": {
+                                                                "nodetype": "multibinning",
+                                                                "inputs": [
+                                                                    "pt",
+                                                                    "eta"
+                                                                ],
+                                                                "edges": [
+                                                                    [
+                                                                        20.0,
+                                                                        30.0,
+                                                                        50.0,
+                                                                        70.0,
+                                                                        100.0,
+                                                                        140.0,
+                                                                        200.0,
+                                                                        300.0,
+                                                                        600.0,
+                                                                        1000.0
+                                                                    ],
+                                                                    [
+                                                                        -2.5,
+                                                                        2.5
+                                                                    ]
+                                                                ],
+                                                                "content": [
+                                                                    0.5598804950714111,
+                                                                    0.6887966394424438,
+                                                                    0.7207793593406677,
+                                                                    0.655392587184906,
+                                                                    0.48795342445373535,
+                                                                    0.25220802426338196,
+                                                                    0.09956148266792297,
+                                                                    0.07594697177410126,
+                                                                    0.08181817829608917
+                                                                ],
+                                                                "flow": "error"
+                                                            }
+                                                        },
+                                                        {
+                                                            "key": 4,
+                                                            "value": {
+                                                                "nodetype": "multibinning",
+                                                                "inputs": [
+                                                                    "pt",
+                                                                    "eta"
+                                                                ],
+                                                                "edges": [
+                                                                    [
+                                                                        20.0,
+                                                                        30.0,
+                                                                        50.0,
+                                                                        70.0,
+                                                                        100.0,
+                                                                        140.0,
+                                                                        200.0,
+                                                                        300.0,
+                                                                        600.0,
+                                                                        1000.0
+                                                                    ],
+                                                                    [
+                                                                        -2.5,
+                                                                        2.5
+                                                                    ]
+                                                                ],
+                                                                "content": [
+                                                                    0.5704504251480103,
+                                                                    0.6050811409950256,
+                                                                    0.5973998308181763,
+                                                                    0.5537046194076538,
+                                                                    0.47844111919403076,
+                                                                    0.40650925040245056,
+                                                                    0.3944056034088135,
+                                                                    0.46684351563453674,
+                                                                    0.5555555820465088
+                                                                ],
+                                                                "flow": "error"
+                                                            }
+                                                        },
+                                                        {
+                                                            "key": 5,
+                                                            "value": {
+                                                                "nodetype": "multibinning",
+                                                                "inputs": [
+                                                                    "pt",
+                                                                    "eta"
+                                                                ],
+                                                                "edges": [
+                                                                    [
+                                                                        20.0,
+                                                                        30.0,
+                                                                        50.0,
+                                                                        70.0,
+                                                                        100.0,
+                                                                        140.0,
+                                                                        200.0,
+                                                                        300.0,
+                                                                        600.0,
+                                                                        1000.0
+                                                                    ],
+                                                                    [
+                                                                        -2.5,
+                                                                        2.5
+                                                                    ]
+                                                                ],
+                                                                "content": [
+                                                                    0.9368166923522949,
+                                                                    0.941973090171814,
+                                                                    0.94832444190979,
+                                                                    0.9542826414108276,
+                                                                    0.9549254179000854,
+                                                                    0.9546128511428833,
+                                                                    0.9498483538627625,
+                                                                    0.9410131573677063,
+                                                                    0.8095238208770752
+                                                                ],
+                                                                "flow": "error"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "key": "fjmm",
+                                                "value": {
+                                                    "nodetype": "category",
+                                                    "input": "flavor",
+                                                    "content": [
+                                                        {
+                                                            "key": 0,
+                                                            "value": {
+                                                                "nodetype": "multibinning",
+                                                                "inputs": [
+                                                                    "pt",
+                                                                    "eta"
+                                                                ],
+                                                                "edges": [
+                                                                    [
+                                                                        20.0,
+                                                                        30.0,
+                                                                        50.0,
+                                                                        70.0,
+                                                                        100.0,
+                                                                        140.0,
+                                                                        200.0,
+                                                                        300.0,
+                                                                        600.0,
+                                                                        1000.0
+                                                                    ],
+                                                                    [
+                                                                        -2.5,
+                                                                        2.5
+                                                                    ]
+                                                                ],
+                                                                "content": [
+                                                                    0.5598804950714111,
+                                                                    0.6887966394424438,
+                                                                    0.7207793593406677,
+                                                                    0.655392587184906,
+                                                                    0.48795342445373535,
+                                                                    0.25220802426338196,
+                                                                    0.09956148266792297,
+                                                                    0.07594697177410126,
+                                                                    0.08181817829608917
+                                                                ],
+                                                                "flow": "error"
+                                                            }
+                                                        },
+                                                        {
+                                                            "key": 4,
+                                                            "value": {
+                                                                "nodetype": "multibinning",
+                                                                "inputs": [
+                                                                    "pt",
+                                                                    "eta"
+                                                                ],
+                                                                "edges": [
+                                                                    [
+                                                                        20.0,
+                                                                        30.0,
+                                                                        50.0,
+                                                                        70.0,
+                                                                        100.0,
+                                                                        140.0,
+                                                                        200.0,
+                                                                        300.0,
+                                                                        600.0,
+                                                                        1000.0
+                                                                    ],
+                                                                    [
+                                                                        -2.5,
+                                                                        2.5
+                                                                    ]
+                                                                ],
+                                                                "content": [
+                                                                    0.5704504251480103,
+                                                                    0.6050811409950256,
+                                                                    0.5973998308181763,
+                                                                    0.5537046194076538,
+                                                                    0.47844111919403076,
+                                                                    0.40650925040245056,
+                                                                    0.3944056034088135,
+                                                                    0.46684351563453674,
+                                                                    0.5555555820465088
+                                                                ],
+                                                                "flow": "error"
+                                                            }
+                                                        },
+                                                        {
+                                                            "key": 5,
+                                                            "value": {
+                                                                "nodetype": "multibinning",
+                                                                "inputs": [
+                                                                    "pt",
+                                                                    "eta"
+                                                                ],
+                                                                "edges": [
+                                                                    [
+                                                                        20.0,
+                                                                        30.0,
+                                                                        50.0,
+                                                                        70.0,
+                                                                        100.0,
+                                                                        140.0,
+                                                                        200.0,
+                                                                        300.0,
+                                                                        600.0,
+                                                                        1000.0
+                                                                    ],
+                                                                    [
+                                                                        -2.5,
+                                                                        2.5
+                                                                    ]
+                                                                ],
+                                                                "content": [
+                                                                    0.9368166923522949,
+                                                                    0.941973090171814,
+                                                                    0.94832444190979,
+                                                                    0.9542826414108276,
+                                                                    0.9549254179000854,
+                                                                    0.9546128511428833,
+                                                                    0.9498483538627625,
+                                                                    0.9410131573677063,
+                                                                    0.8095238208770752
+                                                                ],
+                                                                "flow": "error"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "key": "met",
+                                                "value": {
+                                                    "nodetype": "category",
+                                                    "input": "flavor",
+                                                    "content": [
+                                                        {
+                                                            "key": 0,
+                                                            "value": {
+                                                                "nodetype": "multibinning",
+                                                                "inputs": [
+                                                                    "pt",
+                                                                    "eta"
+                                                                ],
+                                                                "edges": [
+                                                                    [
+                                                                        20.0,
+                                                                        30.0,
+                                                                        50.0,
+                                                                        70.0,
+                                                                        100.0,
+                                                                        140.0,
+                                                                        200.0,
+                                                                        300.0,
+                                                                        600.0,
+                                                                        1000.0
+                                                                    ],
+                                                                    [
+                                                                        -2.5,
+                                                                        2.5
+                                                                    ]
+                                                                ],
+                                                                "content": [
+                                                                    0.5598804950714111,
+                                                                    0.6887966394424438,
+                                                                    0.7207793593406677,
+                                                                    0.655392587184906,
+                                                                    0.48795342445373535,
+                                                                    0.25220802426338196,
+                                                                    0.09956148266792297,
+                                                                    0.07594697177410126,
+                                                                    0.08181817829608917
+                                                                ],
+                                                                "flow": "error"
+                                                            }
+                                                        },
+                                                        {
+                                                            "key": 4,
+                                                            "value": {
+                                                                "nodetype": "multibinning",
+                                                                "inputs": [
+                                                                    "pt",
+                                                                    "eta"
+                                                                ],
+                                                                "edges": [
+                                                                    [
+                                                                        20.0,
+                                                                        30.0,
+                                                                        50.0,
+                                                                        70.0,
+                                                                        100.0,
+                                                                        140.0,
+                                                                        200.0,
+                                                                        300.0,
+                                                                        600.0,
+                                                                        1000.0
+                                                                    ],
+                                                                    [
+                                                                        -2.5,
+                                                                        2.5
+                                                                    ]
+                                                                ],
+                                                                "content": [
+                                                                    0.5704504251480103,
+                                                                    0.6050811409950256,
+                                                                    0.5973998308181763,
+                                                                    0.5537046194076538,
+                                                                    0.47844111919403076,
+                                                                    0.40650925040245056,
+                                                                    0.3944056034088135,
+                                                                    0.46684351563453674,
+                                                                    0.5555555820465088
+                                                                ],
+                                                                "flow": "error"
+                                                            }
+                                                        },
+                                                        {
+                                                            "key": 5,
+                                                            "value": {
+                                                                "nodetype": "multibinning",
+                                                                "inputs": [
+                                                                    "pt",
+                                                                    "eta"
+                                                                ],
+                                                                "edges": [
+                                                                    [
+                                                                        20.0,
+                                                                        30.0,
+                                                                        50.0,
+                                                                        70.0,
+                                                                        100.0,
+                                                                        140.0,
+                                                                        200.0,
+                                                                        300.0,
+                                                                        600.0,
+                                                                        1000.0
+                                                                    ],
+                                                                    [
+                                                                        -2.5,
+                                                                        2.5
+                                                                    ]
+                                                                ],
+                                                                "content": [
+                                                                    0.9368166923522949,
+                                                                    0.941973090171814,
+                                                                    0.94832444190979,
+                                                                    0.9542826414108276,
+                                                                    0.9549254179000854,
+                                                                    0.9546128511428833,
+                                                                    0.9498483538627625,
+                                                                    0.9410131573677063,
+                                                                    0.8095238208770752
+                                                                ],
+                                                                "flow": "error"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
