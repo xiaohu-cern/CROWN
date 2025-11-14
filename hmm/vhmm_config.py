@@ -389,6 +389,14 @@ def build_config(
                     "2023postBPix": "data/muon_corrections/HLT/2023postBPix/ScaleFactors_Muon_Z_HLT_2023_BPix_abseta_pt_schemaV2.json.gz",
                 }
             ),
+            "KIT_sf_file": EraModifier(
+                {
+                    "2022preEE": "data/muon_corrections/KIT_Corr/2022_Summer22.json",
+                    "2022postEE": "data/muon_corrections/KIT_Corr/2022_Summer22EE.json",
+                    "2023preBPix": "data/muon_corrections/KIT_Corr/2023_Summer23.json",
+                    "2023postBPix": "data/muon_corrections/KIT_Corr/2023_Summer23BPix.json",
+                }
+            ),
             "singlemuon_trigger_sf_mc": EraModifier(
                 {   
                     "2023preBPix": [
@@ -1001,8 +1009,10 @@ def build_config(
                     "2018": "data/jsonpog-integration/POG/BTV/2018_UL/btagging.json.gz",
                     "2022preEE": "data/jsonpog-integration/POG/BTV/2022_Summer22/btagging.json.gz",## TODO: update to 2022 recommendation when available. These lines only for testing
                     "2022postEE": "data/jsonpog-integration/POG/BTV/2022_Summer22EE/btagging.json.gz",## TODO: update to 2022 recommendation when available. These lines only for testing
-                    "2023preBPix": "data/jsonpog-integration/POG/BTV/2023_Summer23/btagging.json.gz",## TODO: update to 2022 recommendation when available. These lines only for testing
-                    "2023postBPix": "data/jsonpog-integration/POG/BTV/2023_Summer23BPix/btagging.json.gz",## TODO: update to 2022 recommendation when available. These lines only for testing
+                    # "2023preBPix": "data/jsonpog-integration/POG/BTV/2023_Summer23/btagging.json.gz",## TODO: update to 2022 recommendation when available. These lines only for testing
+                    # "2023postBPix": "data/jsonpog-integration/POG/BTV/2023_Summer23BPix/btagging.json.gz",## TODO: update to 2022 recommendation when available. These lines only for testing
+                    "2023preBPix": "data/btag_corrections/new_json_2023/2023_Summer23/btagging.json.gz",
+                    "2023postBPix": "data/btag_corrections/new_json_2023/2023_Summer23BPix/btagging.json.gz"
                 }
             ),
             "loose_btag_eff_file": EraModifier(
@@ -1030,6 +1040,7 @@ def build_config(
                 }
             ),
             "btag_sf_variation": "central",## TODO: update to 2022 recommendation when available. These lines only for testing
+            "BtagWeightVariation": "central",
             "btag_corr_algo": EraModifier(
                 {
                     "2016preVFP": "deepJet_shape",
@@ -1342,6 +1353,22 @@ def build_config(
         [
             momentumscale.RenameMuonPt,
             scalefactors.btagging_SF_2WPs_3l_4l, ###update btag sf by Mingxuan
+        ]
+    )
+    configuration.add_producers(
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        [
+            momentumscale.MC_KIT_MuonPt_Scale_no2l,
+            momentumscale.MC_KIT_MuonPt_Res,
+        ]
+    )
+    configuration.add_producers(
+        ["nnmm", "fjmm", "fjmm_cr"],
+        [
+            momentumscale.MC_KIT_MuonPt_Scale_2l,
+            momentumscale.MC_KIT_MuonPt_Res,
         ]
     )
     configuration.add_producers(
@@ -2760,6 +2787,9 @@ def build_config(
     configuration.add_outputs(
         scopes,
         [
+            ########test unc############
+
+            ############################
             q.is_data,
             q.is_embedding,
             q.is_top,
@@ -3672,6 +3702,31 @@ def build_config(
             samples=["data"],
         ),
     )
+    configuration.add_modification_rule(
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
+        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        ReplaceProducer(
+            producers=[momentumscale.MC_KIT_MuonPt_Scale_no2l, momentumscale.Data_KIT_MuonPt_Scale],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm", "fjmm", "fjmm_cr"],
+        ReplaceProducer(
+            producers=[momentumscale.MC_KIT_MuonPt_Scale_2l, momentumscale.Data_KIT_MuonPt_Scale],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        RemoveProducer(
+            producers=[momentumscale.MC_KIT_MuonPt_Res],
+            samples=["data"],
+        ),
+    )
     #### update btag sf by Mingxuan ####
     configuration.add_modification_rule(
         ["e2m","m2m", "eemm","mmmm","eemm_cr","mmmm_cr",
@@ -3819,6 +3874,107 @@ def build_config(
                                 "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [event.ZPtMassReweighting]},
                 )
             )
+    ##########################
+    #### btag weight shift ###
+    ##########################
+    configuration.add_shift(
+        SystematicShift(
+            name="BtagWeightUp",
+            shift_config={
+                ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "eemm","mmmm", "eemm_cr", "mmmm_cr"): {
+                "BtagWeightVariation": "up"
+                }
+            },
+            producers={
+                ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "eemm","mmmm", "eemm_cr", "mmmm_cr"): {
+                scalefactors.btagging_SF_2WPs_3l_4l,
+                }
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="BtagWeightUp",
+            shift_config={
+                ("fjmm", "fjmm_cr"): {
+                "BtagWeightVariation": "up"
+                }
+            },
+            producers={
+                ("fjmm", "fjmm_cr"): {
+                scalefactors.btagging_SF_2WPs_fjmm,
+                }
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="BtagWeightUp",
+            shift_config={
+                ("nnmm"): {
+                "BtagWeightVariation": "up"
+                }
+            },
+            producers={
+                ("nnmm"): {
+                scalefactors.btagging_SF_2WPs_met,
+                }
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="BtagWeightDown",
+            shift_config={
+                ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "eemm","mmmm", "eemm_cr", "mmmm_cr"): {
+                "BtagWeightVariation": "down"
+                }
+            },
+            producers={
+                ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "eemm","mmmm", "eemm_cr", "mmmm_cr"): {
+                scalefactors.btagging_SF_2WPs_3l_4l,
+                }
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="BtagWeightDown",
+            shift_config={
+                ("fjmm", "fjmm_cr"): {
+                "BtagWeightVariation": "down"
+                }
+            },
+            producers={
+                ("fjmm", "fjmm_cr"): {
+                scalefactors.btagging_SF_2WPs_fjmm,
+                }
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="BtagWeightDown",
+            shift_config={
+                ("nnmm"): {
+                "BtagWeightVariation": "down"
+                }
+            },
+            producers={
+                ("nnmm"): {
+                scalefactors.btagging_SF_2WPs_met,
+                }
+            },
+        )
+    )
     ##########################
     #### Muon ID shift ####
     ##########################
@@ -3972,6 +4128,122 @@ def build_config(
             producers={
                 ("nnmm","fjmm"): [
                     momentumscale.MuonPtCorrection,
+                ]
+            },
+        )
+    )
+    #########################################
+    #### KIT MuonPt Momentum Scale shift ####
+    #########################################
+    configuration.add_shift(
+        SystematicShift(
+            name="KITMuonPtScaleUp",
+            shift_config={
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                    "KIT_Muon_Pt_Scale_variation": "Up",
+                }
+            },
+            producers={
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                    momentumscale.MC_KIT_MuonPt_Scale_Var_no2l,
+                    momentumscale.MC_KIT_MuonPt_Res,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="KITMuonPtScaleDown",
+            shift_config={
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                    "KIT_Muon_Pt_Scale_variation": "Down",
+                }
+            },
+            producers={
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                    momentumscale.MC_KIT_MuonPt_Scale_Var_no2l,
+                    momentumscale.MC_KIT_MuonPt_Res,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="KITMuonPtScaleUp",
+            shift_config={
+                ("nnmm", "fjmm", "fjmm_cr"): {
+                    "KIT_Muon_Pt_Scale_variation": "Up",
+                }
+            },
+            producers={
+                ("nnmm", "fjmm", "fjmm_cr"): [
+                    momentumscale.MC_KIT_MuonPt_Scale_Var_2l,
+                    momentumscale.MC_KIT_MuonPt_Res,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="KITMuonPtScaleDown",
+            shift_config={
+                ("nnmm", "fjmm", "fjmm_cr"): {
+                    "KIT_Muon_Pt_Scale_variation": "Down",
+                }
+            },
+            producers={
+                ("nnmm", "fjmm", "fjmm_cr"): [
+                    momentumscale.MC_KIT_MuonPt_Scale_Var_2l,
+                    momentumscale.MC_KIT_MuonPt_Res,
+                ]
+            },
+        )
+    )
+    #########################################
+    ## KIT MuonPt Momentum Resolution shift #
+    #########################################
+    configuration.add_shift(
+        SystematicShift(
+            name="KITMuonResUp",
+            shift_config={
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                    "KIT_Muon_Pt_Res_variation": "Up",
+                }
+            },
+            producers={
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                    momentumscale.MC_KIT_MuonPt_Res_Var,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="KITMuonResDown",
+            shift_config={
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                    "KIT_Muon_Pt_Res_variation": "Down",
+                }
+            },
+            producers={
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                    momentumscale.MC_KIT_MuonPt_Res_Var,
                 ]
             },
         )

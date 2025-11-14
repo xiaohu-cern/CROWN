@@ -9,9 +9,190 @@
 #include "RooWorkspace.h"
 #include "TFile.h"
 #include "correction.h"
+#include "../include/SVFit/KIT_Corr.hxx"
 /// namespace used for scale factor related functions
 namespace scalefactor {
 namespace muon {
+///////KIT Correction/////////
+//////////////////muon pt scale////////////////////////////
+ROOT::RDF::RNode KIT_MuonPtScale(ROOT::RDF::RNode df, const std::string &pt, 
+                    const std::string &phi, const std::string &eta, 
+                    const std::string &charge, const std::string &pt_corrected, 
+                    const std::string &sf_file, const std::string &data_type, const std::string &channel) {
+    Logger::get("KIT Muon Momentum Scale")->debug("Setting up functions for KIT muon momentum scale");
+    const std::string a_key = "a_" + data_type;
+    const std::string m_key = "m_" + data_type;
+    auto cset_a = correction::CorrectionSet::from_file(sf_file)->at(a_key);
+    auto cset_m = correction::CorrectionSet::from_file(sf_file)->at(m_key);
+    auto df1 = df.Define(
+        pt_corrected,
+        [cset_a, cset_m, data_type, channel](const ROOT::RVec<float> &pt_values,
+                          const ROOT::RVec<float> &phi_values,
+                          const ROOT::RVec<float> &eta_values,
+                          const ROOT::RVec<int> &q_values) {
+            ROOT::RVec<float> corrected_pt_values(pt_values.size());
+            for (int i = 0; i < pt_values.size(); i++) {
+                if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && (pt_values.at(i) <= 200 || channel !="2l" || data_type == "data") && eta_values.at(i) > -2.4 && eta_values.at(i) < 2.4) {
+                    double a = cset_a->evaluate({eta_values.at(i), phi_values.at(i), "nom"});
+                    double m = cset_m->evaluate({eta_values.at(i), phi_values.at(i), "nom"});
+                    
+                    if (pt_values.at(i) < 26) {
+                        corrected_pt_values[i] = pt_values.at(i);
+                    }
+                    else {
+                        corrected_pt_values[i] = 1/(m/pt_values.at(i) + q_values.at(i)*a);
+                    }
+                }
+                else {
+                    corrected_pt_values[i] = pt_values.at(i);
+                }
+                Logger::get("uncorrected pt:")->debug("{}", pt_values.at(i));
+                Logger::get("corrected pt:")->debug("{}", corrected_pt_values.at(i));
+            }
+            return corrected_pt_values;
+        },{pt, phi, eta, charge});
+    return df1;
+}
+ROOT::RDF::RNode KIT_MuonPtScale_Var(ROOT::RDF::RNode df, const std::string &pt, 
+                    const std::string &phi, const std::string &eta, 
+                    const std::string &charge, const std::string &pt_variation, 
+                    const std::string &sf_file, const std::string &variation, const std::string &channel) {
+    Logger::get("KIT Muon Momentum Scale variation")->debug("Setting up functions for KIT muon momentum scale variation");
+    auto cset_a = correction::CorrectionSet::from_file(sf_file)->at("a_mc");
+    auto cset_m = correction::CorrectionSet::from_file(sf_file)->at("m_mc");
+    auto df1 = df.Define(
+        pt_variation,
+        [cset_a, cset_m, variation, channel](const ROOT::RVec<float> &pt_values,
+                          const ROOT::RVec<float> &phi_values,
+                          const ROOT::RVec<float> &eta_values,
+                          const ROOT::RVec<int> &q_values) {
+            ROOT::RVec<float> variation_pt_values(pt_values.size());
+            for (int i = 0; i < pt_values.size(); i++) {
+                if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && (pt_values.at(i) <= 200 || channel != "2l") && eta_values.at(i) > -2.4 && eta_values.at(i) < 2.4) {
+                    double stat_a = cset_a->evaluate({eta_values.at(i), phi_values.at(i), "stat"});
+                    double stat_m = cset_m->evaluate({eta_values.at(i), phi_values.at(i), "stat"});
+                    double stat_rho = cset_m->evaluate({eta_values.at(i), phi_values.at(i), "rho_stat"});
+
+                    double unc = pt_values.at(i)*pt_values.at(i)*sqrt(stat_m*stat_m / (pt_values.at(i)*pt_values.at(i)) + stat_a*stat_a + 2*q_values.at(i)*stat_rho*stat_m/pt_values.at(i)*stat_a);
+                    // Logger::get("KIT uncertainty pt:")->info("{}", unc);
+
+                    if (variation=="Up"){
+                        variation_pt_values[i] = pt_values.at(i) + unc;
+                    }
+                    if (variation=="Down"){
+                        variation_pt_values[i] = pt_values.at(i) - unc;
+                    }
+                }
+                else {
+                    variation_pt_values[i] = pt_values.at(i);
+                }
+            }
+            return variation_pt_values;
+        },{pt, phi, eta, charge});
+    return df1;
+}
+////////test KIT uncertainty////////////
+
+///////////////////////////////////////////////////////////////////////
+ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, 
+                    const std::string &phi, const std::string &eta, 
+                    const std::string &nL, const std::string &evtNumber,
+                    const std::string &lumiNumber, const std::string &pt_corrected,
+                    const std::string &sf_file) {
+    Logger::get("KIT Muon Momentum Resolution")->debug("Setting up functions for KIT muon momentum resolution");
+    auto cset_cb_params = correction::CorrectionSet::from_file(sf_file)->at("cb_params");
+    auto cset_poly_params = correction::CorrectionSet::from_file(sf_file)->at("poly_params");
+    auto cset_k_data = correction::CorrectionSet::from_file(sf_file)->at("k_data");
+    auto cset_k_mc = correction::CorrectionSet::from_file(sf_file)->at("k_mc");
+    auto df1 = df.Define(
+        pt_corrected,
+        [cset_cb_params, cset_poly_params, cset_k_data, cset_k_mc](const ROOT::RVec<float> &pt_values,
+           const ROOT::RVec<float> &phi_values,
+           const ROOT::RVec<float> &eta_values,
+           const ROOT::RVec<UChar_t> &nL_values_char,
+           ULong64_t evtNumber,
+           UInt_t lumiNumber) {
+        ROOT::RVec<float> corrected_pt_values(pt_values.size());
+        ROOT::RVec<float> nL_values = ROOT::RVec<float>(nL_values_char.begin(), nL_values_char.end());
+        for (int i = 0; i < pt_values.size(); i++) {
+            if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && eta_values.at(i) > -2.4 && eta_values.at(i) < 2.4){
+                double mean = cset_cb_params->evaluate({std::abs(eta_values.at(i)), nL_values.at(i), 0});
+                double sigma = cset_cb_params->evaluate({std::abs(eta_values.at(i)), nL_values.at(i), 1});
+                double n = cset_cb_params->evaluate({std::abs(eta_values.at(i)), nL_values.at(i), 2});
+                double alpha = cset_cb_params->evaluate({std::abs(eta_values.at(i)), nL_values.at(i), 3});
+
+                double param_0 = cset_poly_params->evaluate({std::abs(eta_values.at(i)), nL_values.at(i), 0});
+                double param_1 = cset_poly_params->evaluate({std::abs(eta_values.at(i)), nL_values.at(i), 1});
+                double param_2 = cset_poly_params->evaluate({std::abs(eta_values.at(i)), nL_values.at(i), 2});
+
+                double k_data = cset_k_data->evaluate({std::abs(eta_values.at(i)), "nom"});
+                double k_mc = cset_k_mc->evaluate({std::abs(eta_values.at(i)), "nom"});
+
+                double rndm = (double) get_rndm(eta_values.at(i), phi_values.at(i), nL_values.at(i), evtNumber, lumiNumber, mean, sigma, n, alpha);
+                double std = (double) get_std(pt_values.at(i), eta_values.at(i), nL_values.at(i), param_0, param_1, param_2);
+                double k = (double) get_k(eta_values.at(i), "nom", k_data, k_mc);
+                
+                double ptc = pt_values.at(i) * ( 1 + k * std * rndm);
+                if (isnan(ptc)) ptc = pt_values.at(i);
+                if (ptc / pt_values.at(i) > 2 || ptc / pt_values.at(i) < 0.1 || pt_values.at(i) < 26 || pt_values.at(i) > 200) {
+                    ptc = pt_values.at(i);
+                }
+                corrected_pt_values[i] = ptc;
+            }
+            else {
+                corrected_pt_values[i] = pt_values.at(i);
+            }
+        }return corrected_pt_values;
+    }, {pt, phi, eta, nL, evtNumber, lumiNumber});
+    return df1;  
+}
+ROOT::RDF::RNode KIT_MuonPtRes_Var(ROOT::RDF::RNode df, const std::string &pt_woresol, 
+                    const std::string &pt_wresol, const std::string &phi, const std::string &eta, 
+                    const std::string &pt_variation, const std::string &sf_file, const std::string &variation) {
+    Logger::get("KIT Muon Momentum Resolution Variation")->debug("Setting up functions for KIT muon momentum resolution variation");
+    auto cset_k_data = correction::CorrectionSet::from_file(sf_file)->at("k_data");
+    auto cset_k_mc = correction::CorrectionSet::from_file(sf_file)->at("k_mc");
+    auto df1 = df.Define(
+        pt_variation,
+        [cset_k_data, cset_k_mc, variation](const ROOT::RVec<float> &pt_woresol_val,
+                    const ROOT::RVec<float> &pt_wresol_val,
+                    const ROOT::RVec<float> &phi_values,
+                    const ROOT::RVec<float> &eta_values) {
+        ROOT::RVec<float> variation_pt_values(pt_woresol_val.size());
+        for (int i = 0; i < pt_woresol_val.size(); i++) {
+            if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && eta_values.at(i) > -2.4 && eta_values.at(i) < 2.4) {
+                double k_data = cset_k_data->evaluate({std::abs(eta_values.at(i)), "nom"});
+                double k_mc = cset_k_mc->evaluate({std::abs(eta_values.at(i)), "nom"});
+                double k = (double) get_k(eta_values.at(i), "nom", k_data, k_mc);
+
+                if (k==0) {
+                    variation_pt_values[i] = pt_wresol_val.at(i);
+                }
+                else{
+                    double k_unc = cset_k_mc->evaluate({std::abs(eta_values.at(i)), "stat"});
+                    double std_x_rndm = (pt_wresol_val.at(i) / pt_woresol_val.at(i) -1 ) / k;
+                    if (variation=="Up") {
+                        variation_pt_values[i] = pt_woresol_val.at(i) * (1 + (k+k_unc) * std_x_rndm);
+                    }
+                    else if (variation=="Down") {
+                        variation_pt_values[i] = pt_woresol_val.at(i) * (1 + (k-k_unc) * std_x_rndm);
+                    }
+                    else {
+                        std::cout << "ERROR: updn must be 'Up' or 'Down'" << std::endl;
+                    }
+
+                    if (variation_pt_values[i] / pt_woresol_val.at(i) > 2 || variation_pt_values[i] / pt_woresol_val.at(i) < 0.1 || variation_pt_values[i] < 0) {
+                        variation_pt_values[i] = pt_woresol_val.at(i);
+                    }
+                }
+            }
+            else {
+                variation_pt_values[i] = pt_wresol_val.at(i);
+            }
+        }return variation_pt_values;
+    },{pt_woresol, pt_wresol, phi, eta});
+    return df1;
+}
 ///
 ROOT::RDF::RNode Muonmomentumscale(ROOT::RDF::RNode df, const std::string &pt_uncorrected, 
                     const std::string &phi, const std::string &eta, 
@@ -1350,9 +1531,9 @@ btagSF_2WPs(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
                     sf *= (medium_bjet_sf * medium_bjet_eff/medium_bjet_eff); 
                 }
                 else if (btag_values.at(i) >= loose_cut && btag_values.at(i) < medium_cut) {
-                    sf *= ((loose_bjet_sf * loose_bjet_eff-medium_bjet_sf * medium_bjet_eff)/(loose_bjet_eff-medium_bjet_eff));
+                    sf *= ((1 * loose_bjet_eff-medium_bjet_sf * medium_bjet_eff)/(loose_bjet_eff-medium_bjet_eff));
                 }
-                else{  sf *= ( (1 - loose_bjet_sf * loose_bjet_eff) /(1 - loose_bjet_eff));   }
+                else{  sf *= ( (1 - 1 * loose_bjet_eff) /(1 - loose_bjet_eff));   }
             }
         };
          
