@@ -7,21 +7,12 @@ ROOT::RDF::RNode KIT_MuonPtScale(ROOT::RDF::RNode df, const std::string &pt,
                     const std::string &phi, const std::string &eta, 
                     const std::string &charge, const std::string &pt_corrected, 
                     const std::string &sf_file, const std::string &data_type, const std::string &channel);
-ROOT::RDF::RNode KIT_MuonPtScale_Var(ROOT::RDF::RNode df, const std::string &pt, 
-                    const std::string &phi, const std::string &eta, 
-                    const std::string &charge, const std::string &pt_variation, 
-                    const std::string &sf_file, const std::string &variation, const std::string &channel);
 ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, 
-                    const std::string &phi, const std::string &eta, 
+                    const std::string &phi, const std::string &eta,
                     const std::string &nL, const std::string &evtNumber,
-                    const std::string &lumiNumber, const std::string &pt_corrected,
-                    const std::string &sf_file);
-ROOT::RDF::RNode KIT_MuonPtRes_Var(ROOT::RDF::RNode df, const std::string &pt_woresol, 
-                    const std::string &pt_wresol, const std::string &phi, const std::string &eta, 
-                    const std::string &pt_variation, const std::string &sf_file, const std::string &variation);
-ROOT::RDF::RNode KIT_MuonPtRes_Var_test(ROOT::RDF::RNode df, const std::string &pt_woresol, 
-                    const std::string &pt_wresol, const std::string &phi, const std::string &eta, 
-                    const std::string &unc_test, const std::string &sf_file);
+                    const std::string &lumiNumber, const std::string &charge, const std::string &pt_corrected,
+                    const std::string &sf_file, const std::string &do_var, const std::string &variation,
+                    const std::string &data_type, const std::string &channel, const std::string &s_variation);
 
 ROOT::RDF::RNode Muonmomentumscale(ROOT::RDF::RNode df, const std::string &pt_uncorrected, 
                     const std::string &phi, const std::string &eta, 

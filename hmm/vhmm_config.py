@@ -1041,6 +1041,9 @@ def build_config(
             ),
             "btag_sf_variation": "central",## TODO: update to 2022 recommendation when available. These lines only for testing
             "BtagWeightVariation": "central",
+            "KIT_do_Var": "none",
+            "KIT_Muon_Pt_Scale_variation": "none",
+            "KIT_Muon_Pt_Res_variation": "none",
             "btag_corr_algo": EraModifier(
                 {
                     "2016preVFP": "deepJet_shape",
@@ -1360,15 +1363,13 @@ def build_config(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         [
-            momentumscale.MC_KIT_MuonPt_Scale_no2l,
-            momentumscale.MC_KIT_MuonPt_Res,
+            momentumscale.MC_KIT_MuonPt_ScaleRes_no2l,
         ]
     )
     configuration.add_producers(
         ["nnmm", "fjmm", "fjmm_cr"],
         [
-            momentumscale.MC_KIT_MuonPt_Scale_2l,
-            momentumscale.MC_KIT_MuonPt_Res,
+            momentumscale.MC_KIT_MuonPt_ScaleRes_2l,
         ]
     )
     configuration.add_producers(
@@ -2788,7 +2789,7 @@ def build_config(
         scopes,
         [
             ########test unc############
-
+            # q.Muon_pt_corrected_woKIT,
             ############################
             q.is_data,
             q.is_embedding,
@@ -3707,26 +3708,26 @@ def build_config(
         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         ReplaceProducer(
-            producers=[momentumscale.MC_KIT_MuonPt_Scale_no2l, momentumscale.Data_KIT_MuonPt_Scale],
+            producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_no2l, momentumscale.Data_KIT_MuonPt_Scale],
             samples=["data"],
         ),
     )
     configuration.add_modification_rule(
         ["nnmm", "fjmm", "fjmm_cr"],
         ReplaceProducer(
-            producers=[momentumscale.MC_KIT_MuonPt_Scale_2l, momentumscale.Data_KIT_MuonPt_Scale],
+            producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_2l, momentumscale.Data_KIT_MuonPt_Scale],
             samples=["data"],
         ),
     )
-    configuration.add_modification_rule(
-        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-        RemoveProducer(
-            producers=[momentumscale.MC_KIT_MuonPt_Res],
-            samples=["data"],
-        ),
-    )
+    # configuration.add_modification_rule(
+    #     ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    #     "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #     "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    #     RemoveProducer(
+    #         producers=[momentumscale.MC_KIT_MuonPt_Res],
+    #         samples=["data"],
+    #     ),
+    # )
     #### update btag sf by Mingxuan ####
     configuration.add_modification_rule(
         ["e2m","m2m", "eemm","mmmm","eemm_cr","mmmm_cr",
@@ -4142,15 +4143,17 @@ def build_config(
                 ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                    "KIT_do_Var": "variation",
                     "KIT_Muon_Pt_Scale_variation": "Up",
+                    "KIT_Muon_Pt_Res_variation": "none",
                 }
             },
             producers={
                 ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
-                    momentumscale.MC_KIT_MuonPt_Scale_Var_no2l,
-                    momentumscale.MC_KIT_MuonPt_Res,
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_no2l,
+                    # momentumscale.MC_KIT_MuonPt_Res,
                 ]
             },
         )
@@ -4162,15 +4165,17 @@ def build_config(
                 ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                    "KIT_do_Var": "variation",
                     "KIT_Muon_Pt_Scale_variation": "Down",
+                    "KIT_Muon_Pt_Res_variation": "none",
                 }
             },
             producers={
                 ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
-                    momentumscale.MC_KIT_MuonPt_Scale_Var_no2l,
-                    momentumscale.MC_KIT_MuonPt_Res,
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_no2l,
+                    # momentumscale.MC_KIT_MuonPt_Res,
                 ]
             },
         )
@@ -4180,13 +4185,15 @@ def build_config(
             name="KITMuonPtScaleUp",
             shift_config={
                 ("nnmm", "fjmm", "fjmm_cr"): {
+                    "KIT_do_Var": "variation",
                     "KIT_Muon_Pt_Scale_variation": "Up",
+                    "KIT_Muon_Pt_Res_variation": "none",
                 }
             },
             producers={
                 ("nnmm", "fjmm", "fjmm_cr"): [
-                    momentumscale.MC_KIT_MuonPt_Scale_Var_2l,
-                    momentumscale.MC_KIT_MuonPt_Res,
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_2l,
+                    # momentumscale.MC_KIT_MuonPt_Res,
                 ]
             },
         )
@@ -4196,13 +4203,15 @@ def build_config(
             name="KITMuonPtScaleDown",
             shift_config={
                 ("nnmm", "fjmm", "fjmm_cr"): {
+                    "KIT_do_Var": "variation",
                     "KIT_Muon_Pt_Scale_variation": "Down",
+                    "KIT_Muon_Pt_Res_variation": "none",
                 }
             },
             producers={
                 ("nnmm", "fjmm", "fjmm_cr"): [
-                    momentumscale.MC_KIT_MuonPt_Scale_Var_2l,
-                    momentumscale.MC_KIT_MuonPt_Res,
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_2l,
+                    # momentumscale.MC_KIT_MuonPt_Res,
                 ]
             },
         )
@@ -4214,17 +4223,19 @@ def build_config(
         SystematicShift(
             name="KITMuonResUp",
             shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                    "KIT_do_Var": "variation",
+                    "KIT_Muon_Pt_Scale_variation": "none",
                     "KIT_Muon_Pt_Res_variation": "Up",
                 }
             },
             producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
-                    momentumscale.MC_KIT_MuonPt_Res_Var,
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_no2l,
                 ]
             },
         )
@@ -4233,17 +4244,53 @@ def build_config(
         SystematicShift(
             name="KITMuonResDown",
             shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                    "KIT_do_Var": "variation",
+                    "KIT_Muon_Pt_Scale_variation": "none",
                     "KIT_Muon_Pt_Res_variation": "Down",
                 }
             },
             producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
-                    momentumscale.MC_KIT_MuonPt_Res_Var,
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_no2l,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="KITMuonResUp",
+            shift_config={
+                ("nnmm", "fjmm", "fjmm_cr"): {
+                    "KIT_do_Var": "variation",
+                    "KIT_Muon_Pt_Scale_variation": "none",
+                    "KIT_Muon_Pt_Res_variation": "Up",
+                }
+            },
+            producers={
+                ("nnmm", "fjmm", "fjmm_cr"): [
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_2l,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="KITMuonResDown",
+            shift_config={
+                ("nnmm", "fjmm", "fjmm_cr"): {
+                    "KIT_do_Var": "variation",
+                    "KIT_Muon_Pt_Scale_variation": "none",
+                    "KIT_Muon_Pt_Res_variation": "Down",
+                }
+            },
+            producers={
+                ("nnmm", "fjmm", "fjmm_cr"): [
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_2l,
                 ]
             },
         )

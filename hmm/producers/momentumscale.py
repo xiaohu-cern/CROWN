@@ -31,7 +31,7 @@ RenameMuonPt = Producer(
 )
 Data_KIT_MuonPt_Scale = Producer(
     name="Data_KIT_MuonPt_Scale",
-    call='scalefactor::muon::KIT_MuonPtScale({df}, {input}, {output}, "{KIT_sf_file}", "data", " ")',
+    call='scalefactor::muon::KIT_MuonPtScale({df}, {input}, {output}, "{KIT_sf_file}", "data", "none")',
     input=[
         q.Muon_pt_corrected_woKIT,
         nanoAOD.Muon_phi, 
@@ -39,93 +39,42 @@ Data_KIT_MuonPt_Scale = Producer(
         nanoAOD.Muon_charge,
     ],
     output=[q.Muon_pt_corrected],
-    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "nnmm", "fjmm", "fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
-MC_KIT_MuonPt_Scale_no2l = Producer(
-    name="Data_KIT_MuonPt_Scale_no2l",
-    call='scalefactor::muon::KIT_MuonPtScale({df}, {input}, {output}, "{KIT_sf_file}", "mc", "3l_4l")',
+MC_KIT_MuonPt_ScaleRes_no2l = Producer(
+    name="MC_KIT_MuonPt_ScaleRes_no2l",
+    call='scalefactor::muon::KIT_MuonPtRes({df}, {input}, {output}, "{KIT_sf_file}", "{KIT_do_Var}", "{KIT_Muon_Pt_Res_variation}", "mc", "3l_4l", "{KIT_Muon_Pt_Scale_variation}")',
     input=[
         q.Muon_pt_corrected_woKIT,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_pt_corrected_scale],
-    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-)
-MC_KIT_MuonPt_Scale_2l = Producer(
-    name="Data_KIT_MuonPt_Scale_2l",
-    call='scalefactor::muon::KIT_MuonPtScale({df}, {input}, {output}, "{KIT_sf_file}", "mc", "2l")',
-    input=[
-        q.Muon_pt_corrected_woKIT,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_pt_corrected_scale],
-    scopes=["nnmm", "fjmm", "fjmm_cr"],
-)
-MC_KIT_MuonPt_Res = Producer(
-    name="MC_KIT_MuonPt_Res",
-    call='scalefactor::muon::KIT_MuonPtRes({df}, {input}, {output}, "{KIT_sf_file}")',
-    input=[
-        q.Muon_pt_corrected_scale,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_nTrackerLayers,
         nanoAOD.event,
         nanoAOD.luminosityBlock,
+        nanoAOD.Muon_charge,
     ],
     output=[q.Muon_pt_corrected],
-    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
-MC_KIT_MuonPt_Scale_Var_no2l = Producer(
-    name="MC_KIT_MuonPt_Scale_Var_no2l",
-    call='scalefactor::muon::KIT_MuonPtScale_Var({df}, {input}, {output}, "{KIT_sf_file}", "{KIT_Muon_Pt_Scale_variation}", "3l_4l")',
+MC_KIT_MuonPt_ScaleRes_2l = Producer(
+    name="MC_KIT_MuonPt_ScaleRes_2l",
+    call='scalefactor::muon::KIT_MuonPtRes({df}, {input}, {output}, "{KIT_sf_file}", "{KIT_do_Var}", "{KIT_Muon_Pt_Res_variation}", "mc", "2l", "{KIT_Muon_Pt_Scale_variation}")',
     input=[
-        q.Muon_pt_corrected,
+        q.Muon_pt_corrected_woKIT,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_eta,
+        nanoAOD.Muon_nTrackerLayers,
+        nanoAOD.event,
+        nanoAOD.luminosityBlock,
         nanoAOD.Muon_charge,
     ],
-    output=[q.Muon_pt_corrected_scale],
-    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-)
-MC_KIT_MuonPt_Scale_Var_2l = Producer(
-    name="MC_KIT_MuonPt_Scale_Var_2l",
-    call='scalefactor::muon::KIT_MuonPtScale_Var({df}, {input}, {output}, "{KIT_sf_file}", "{KIT_Muon_Pt_Scale_variation}", "2l")',
-    input=[
-        q.Muon_pt_corrected,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_pt_corrected_scale],
+    output=[q.Muon_pt_corrected],
     scopes=["nnmm", "fjmm", "fjmm_cr"],
 )
-MC_KIT_MuonPt_Res_Var = Producer(
-    name="MC_KIT_MuonPt_Res_Var",
-    call='scalefactor::muon::KIT_MuonPtRes_Var({df}, {input}, {output}, "{KIT_sf_file}", "{KIT_Muon_Pt_Res_variation}")',
-    input=[
-        q.Muon_pt_corrected_scale,
-        q.Muon_pt_corrected,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-    ],
-    output=[q.Muon_pt_corrected],
-    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-)
-
 #####################################################################################
 Mu1_H_corrected = Producer(
     name="Mu1_H_corrected",
