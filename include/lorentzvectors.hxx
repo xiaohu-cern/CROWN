@@ -12,6 +12,10 @@ ROOT::RDF::RNode buildparticle(ROOT::RDF::RNode df,
                                const std::vector<std::string> &quantities,
                                const std::string &outputname,
                                const int &position);
+ROOT::RDF::RNode buildVar(ROOT::RDF::RNode df,
+                               const std::vector<std::string> &quantities,
+                               const std::string &outputname,
+                               const int &position);
 ROOT::RDF::RNode build(ROOT::RDF::RNode df,
                        const std::vector<std::string> &obj_quantities,
                        const int pairindex, const std::string &obj_p4_name);

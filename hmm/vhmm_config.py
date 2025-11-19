@@ -591,14 +591,23 @@ def build_config(
             ),
             "muon_sf_file_mvaTTH": EraModifier(
                 {
-                    "2022preEE": "data/muon_corrections/mvaTTH/Run2022_mvaTTH_SF.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
-                    "2022postEE": "data/muon_corrections/mvaTTH/Run2022_EE_mvaTTH_SF.json.gz", # HighPt for 200+
-                    "2023preBPix": "data/muon_corrections/mvaTTH/Run2023_mvaTTH_SF.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
-                    "2023postBPix": "data/muon_corrections/mvaTTH/Run2023_BPix_mvaTTH_SF.json.gz", # HighPt for 200+
+                    "2022preEE": "data/muon_corrections/mvaTTH/Run2022_mvaTTH_SF.json.gz",
+                    "2022postEE": "data/muon_corrections/mvaTTH/Run2022_EE_mvaTTH_SF.json.gz",
+                    "2023preBPix": "data/muon_corrections/mvaTTH/Run2023_mvaTTH_SF.json.gz",
+                    "2023postBPix": "data/muon_corrections/mvaTTH/Run2023_BPix_mvaTTH_SF.json.gz",
+                }
+            ),
+            "muon_sf_file_dxydz3dsip": EraModifier(
+                {
+                    "2022preEE": "data/muon_corrections/dxydz3dsipCut/Run2022_dxydz3dsip_SF.json.gz", 
+                    "2022postEE": "data/muon_corrections/dxydz3dsipCut/Run2022_EE_dxydz3dsip_SF.json.gz", 
+                    "2023preBPix": "data/muon_corrections/dxydz3dsipCut/Run2023_dxydz3dsip_SF.json.gz", 
+                    "2023postBPix": "data/muon_corrections/dxydz3dsipCut/Run2023_BPix_dxydz3dsip_SF.json.gz", 
                 }
             ),
             "muon_id_sf_name": "NUM_MediumID_DEN_TrackerMuons",
             "muon_id_sf_name_mvaTTH": "NUM_goodMuon_DEN_goodMuon_others",
+            "muon_id_sf_name_dxydz3dsip": "NUM_baseMuon_3Dcut_DEN_baseMuon",
             # "muon_iso_sf_name": "NUM_TightRelIso_DEN_MediumID", # for run2?
             "muon_iso_sf_name": EraModifier(
                 {
@@ -1404,6 +1413,7 @@ def build_config(
             fatjets.FilterNFatjets_fjmm, # vh fjmm >=1 fatjet
             fatjets.LVFatJet1,
             scalefactors.btagging_SF_2WPs_fjmm, ###update btag sf by Mingxuan
+            fatjets.Pnet_Fatjet_Mass_Corr,
         ]
     )
     configuration.add_producers(
@@ -2446,6 +2456,8 @@ def build_config(
 
             momentumscale.Mu1_H_corrected,
             momentumscale.Mu2_H_corrected,
+            momentumscale.Mu1_H_corrected_woKIT,
+            momentumscale.Mu2_H_corrected_woKIT,
             p4.mu1_fromH_pt_corrected,
             p4.mu2_fromH_pt_corrected,
             p4.H_pt_corrected,
@@ -2542,6 +2554,8 @@ def build_config(
             
             momentumscale.Mu1_H_corrected,
             momentumscale.Mu2_H_corrected,
+            momentumscale.Mu1_H_corrected_woKIT,
+            momentumscale.Mu2_H_corrected_woKIT,
             p4.mu1_fromH_pt_corrected,
             p4.mu2_fromH_pt_corrected,
             p4.H_pt_corrected,
@@ -2651,6 +2665,8 @@ def build_config(
             cr.DiMuonPairCR_p4_corrected,
             momentumscale.Mu1_Z_CR_corrected,
             momentumscale.Mu2_Z_CR_corrected,
+            momentumscale.Mu1_Z_CR_corrected_woKIT,
+            momentumscale.Mu2_Z_CR_corrected_woKIT,
             p4.mu1_fromZCR_pt_corrected,
             p4.mu2_fromZCR_pt_corrected,
             cr.dimuonCR_pt_corrected,
@@ -2766,6 +2782,7 @@ def build_config(
             
             cr.Mu_Top_CR,
             momentumscale.Mu_Top_CR_corrected,
+            momentumscale.Mu_Top_CR_corrected_woKIT,
             cr.Ele_Top_CR,
             
             cr.elemuCR_pt_corrected,
@@ -3054,6 +3071,8 @@ def build_config(
             q.id_wgt_mu_mvatth_2,
             # q.iso_wgt_mu_1_below15,
             # q.iso_wgt_mu_2_below15,
+            q.id_wgt_mu_dxydz3dsip_1,
+            q.id_wgt_mu_dxydz3dsip_2,
         ],
     )
     configuration.add_outputs(
@@ -3068,6 +3087,7 @@ def build_config(
             q.iso_wgt_mu_3_above200,
             
             q.id_wgt_mu_mvatth_3,
+            q.id_wgt_mu_dxydz3dsip_3,
             
             # q.iso_wgt_mu_3_below15,
         ],
@@ -3084,6 +3104,7 @@ def build_config(
             q.iso_wgt_mu_4_above200,
             
             q.id_wgt_mu_mvatth_4,
+            q.id_wgt_mu_dxydz3dsip_4,
 
             # q.iso_wgt_mu_4_below15,
         ],
@@ -3351,6 +3372,7 @@ def build_config(
             q.fatjet_eta,
             q.fatjet_phi,
             q.fatjet_mass,
+            q.good_FatJet_particleNet_massCorr,
             q.fatjet_mmH_deta,
             q.fatjet_mmH_dphi,
             q.fatjet_mmH_dR,
@@ -3374,6 +3396,7 @@ def build_config(
             q.fatjet_eta,
             q.fatjet_phi,
             q.fatjet_mass,
+            q.good_FatJet_particleNet_massCorr,
             q.fatjet_PNet_withMass_WvsQCD,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
             
@@ -3415,6 +3438,7 @@ def build_config(
             q.iso_wgt_mu_1,
             q.id_wgt_mu_1_below15,
             q.id_wgt_mu_mvatth_1,
+            q.id_wgt_mu_dxydz3dsip_1,
             
             q.id_wgt_mu_1_above200,
             q.iso_wgt_mu_1_above200,

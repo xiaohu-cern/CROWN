@@ -226,3 +226,13 @@ LVFatJet1 = Producer(
     output=[q.fatjet_p4_1],
     scopes=["fjmm","fjmm_cr"],
 )
+Pnet_Fatjet_Mass_Corr = Producer(
+    name="Pnet_Fatjet_Mass_Corr",
+    call="lorentzvectors::buildVar({df}, {input_vec}, {output}, 0)",
+    input=[
+        q.good_fatjet_collection,
+        nanoAOD.FatJet_particleNet_massCorr,
+    ],
+    output=[q.good_FatJet_particleNet_massCorr],
+    scopes=["fjmm", "fjmm_cr"],
+)

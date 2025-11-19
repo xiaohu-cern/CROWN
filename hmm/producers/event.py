@@ -169,15 +169,23 @@ PUweights = Producer(
 #             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
 #             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 # )
-
-FilterNGoodMuons = Producer(
-    name="FilterGoodNMuons",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nmuons}, "==", "Number of muons {vh_good_nmuons}")',
+ExactTwoGoodMuons = Producer(
+    name="ExactTwoGoodMuons",
+    call='physicsobject::flagQuantity({df}, {output}, {input}, {vh_good_nmuons}, "==")',
     input=[q.nmuons],
-    output=None,
+    output=[],
     scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
             "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
+)
+FilterNGoodMuons = Filter(
+    name="FilterGoodNMuons",
+    call='basefunctions::FilterFlagsAny({df}, "Number of muons", {input})',
+    input=[],
+    scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
+    subproducers=[ExactTwoGoodMuons]
 )
 FilterNBaseMuons = Producer(
     name="FilterNBaseMuons",

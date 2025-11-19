@@ -155,6 +155,7 @@ FatJet_area = NanoAODQuantity("FatJet_area")
 FatJet_rawFactor = NanoAODQuantity("FatJet_rawFactor")
 FatJet_ID = NanoAODQuantity("FatJet_jetId")
 FatJet_msoftdrop = NanoAODQuantity("FatJet_msoftdrop")
+FatJet_particleNet_massCorr = NanoAODQuantity("FatJet_particleNet_massCorr")
 # FatJet_PUID = NanoAODQuantity("FatJet_puId")
 # Jet_associatedGenJet = NanoAODQuantity("Jet_genJetIdx")
 #BJet_discriminator = NanoAODQuantity("Jet_btagDeepFlavB") # DeepFlavour

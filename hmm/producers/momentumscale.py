@@ -141,3 +141,70 @@ Mu_Top_CR_corrected = Producer(
     output=[q.muon_Top_CR_corrected],
     scopes=["nnmm_topcontrol"],
 )
+
+##########feedback from discussion about the SF##################
+Mu1_H_corrected_woKIT = Producer(
+    name="Mu1_H_corrected_woKIT",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.dimuon_HiggsCand_collection,
+        q.Muon_pt_corrected_woKIT,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_leadingp4_H_corrected_woKIT],
+    scopes=["nnmm","fjmm"],
+)
+Mu2_H_corrected_woKIT = Producer(
+    name="Mu2_H_corrected_woKIT",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.dimuon_HiggsCand_collection,
+        q.Muon_pt_corrected_woKIT,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_subleadingp4_H_corrected_woKIT],
+    scopes=["nnmm","fjmm"],
+)
+Mu1_Z_CR_corrected_woKIT = Producer(
+    name="Mu1_Z_CR_corrected_woKIT",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.dimuon_ZControl_collection,
+        q.Muon_pt_corrected_woKIT,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_leadingp4_Z_CR_corrected_woKIT],
+    scopes=["fjmm_cr"],
+)
+Mu2_Z_CR_corrected_woKIT = Producer(
+    name="Mu2_Z_CR_corrected_woKIT",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.dimuon_ZControl_collection,
+        q.Muon_pt_corrected_woKIT,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_subleadingp4_Z_CR_corrected_woKIT],
+    scopes=["fjmm_cr"],
+)
+Mu_Top_CR_corrected_woKIT = Producer(
+    name="Mu_Top_CR_corrected_woKIT",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.elemu_TopControl_collection,
+        q.Muon_pt_corrected_woKIT,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_Top_CR_corrected_woKIT],
+    scopes=["nnmm_topcontrol"],
+)

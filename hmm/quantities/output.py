@@ -463,6 +463,7 @@ nfatjets = Quantity("nfatjets")
 good_fatjet_collection = Quantity("good_fatjet_collection")
 fatjet_p4_1 = Quantity("fatjet_p4_1")
 Flag_MaxMetCut = Quantity("Flag_MaxMetCut") # Max MET in fjmm is 150
+good_FatJet_particleNet_massCorr = Quantity("good_FatJet_particleNet_massCorr")
 
 fatjet_pt = Quantity("fatjet_pt")
 fatjet_eta = Quantity("fatjet_eta")
@@ -725,7 +726,17 @@ id_wgt_mu_mvatth_2 = Quantity("id_wgt_mu_mvatth_2")
 id_wgt_mu_mvatth_3 = Quantity("id_wgt_mu_mvatth_3")
 id_wgt_mu_mvatth_4 = Quantity("id_wgt_mu_mvatth_4")
 
+id_wgt_mu_dxydz3dsip_1 = Quantity("id_wgt_mu_dxydz3dsip_1")
+id_wgt_mu_dxydz3dsip_2 = Quantity("id_wgt_mu_dxydz3dsip_2")
+id_wgt_mu_dxydz3dsip_3 = Quantity("id_wgt_mu_dxydz3dsip_3")
+id_wgt_mu_dxydz3dsip_4 = Quantity("id_wgt_mu_dxydz3dsip_4")
+
 FlagGoodMuonsFromHiggs = Quantity("FlagGoodMuonsFromHiggs")
 Flag_ecalBadCalibFilter_cuttomized = Quantity("Flag_ecalBadCalibFilter_cuttomized")
 recoil_genboson_p4_vec = Quantity("recoil_genboson_p4_vec")
 
+muon_leadingp4_H_corrected_woKIT = Quantity("muon_leadingp4_H_corrected_woKIT")
+muon_subleadingp4_H_corrected_woKIT = Quantity("muon_subleadingp4_H_corrected_woKIT")
+muon_leadingp4_Z_CR_corrected_woKIT = Quantity("muon_leadingp4_Z_CR_corrected_woKIT")
+muon_subleadingp4_Z_CR_corrected_woKIT = Quantity("muon_subleadingp4_Z_CR_corrected_woKIT")
+muon_Top_CR_corrected_woKIT = Quantity("muon_Top_CR_corrected_woKIT")

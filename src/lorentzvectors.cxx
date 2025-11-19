@@ -69,6 +69,36 @@ ROOT::RDF::RNode buildparticle(ROOT::RDF::RNode df,
     return df1;
 }
 
+ROOT::RDF::RNode buildVar(ROOT::RDF::RNode df,
+                               const std::vector<std::string> &quantities,
+                               const std::string &outputname,
+                               const int &position) {
+    auto df1 = df.Define(
+        outputname,
+        [position, outputname](
+            const ROOT::RVec<int> &pair, const ROOT::RVec<float> &sele_Var
+            ) {
+            // the index of the particle is stored in the pair vector
+            double single_sele_Var;
+            try {
+                const int index = pair.at(position);
+                Logger::get("lorentzvectors")->debug("pair {}", pair);
+                single_sele_Var = sele_Var.at(index);
+            } catch (const std::out_of_range &e) {
+                single_sele_Var = 1.;
+                Logger::get("lorentzvectors")
+                    ->debug("Index not found, retuning dummy vector !");
+            }
+            if (single_sele_Var!=0) return single_sele_Var;
+            else {
+                single_sele_Var = 1.;
+                return single_sele_Var;
+            }
+        },
+        quantities);
+    return df1;
+}
+
 /**
  * @brief Function used to construct a 4-vector for a pair particle.
  *

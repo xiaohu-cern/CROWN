@@ -419,9 +419,9 @@ ROOT::RDF::RNode mvatth_vhmm(ROOT::RDF::RNode df, const std::string &p4,
             
             Logger::get("muon SF file:")->debug("{}", sf_file);
             // apply sf for muon pt > 5 using mvaTTH
-            if (pt >= 5 && std::abs(eta) >= 0.0) {
+            if (pt >= 5 && std::abs(eta) <= 2.4) {
                 sf = evaluator->evaluate(
-                    {std::abs(eta), pt, variation});
+                    {eta, pt, variation});
             } else {
                 sf = 1.;
             }
