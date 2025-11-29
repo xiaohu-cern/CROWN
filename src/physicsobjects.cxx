@@ -2956,6 +2956,155 @@ ROOT::RDF::RNode CutGap(ROOT::RDF::RNode df, const std::string &eta,
     return df1;
 }
 
+///help from Zhiyuan: electron scale and smearing. Add by Mingxuan
+/// Function to correct data electron pt
+///
+/// \param[in] df the input dataframe
+/// \param[out] corrected_pt name of the corrected electron pt to be calculated
+/// \param[in] deltaEtaSC name of the quantity: superCluster().eta()-eta()
+/// \param[in] pt name of the raw electron pt
+/// \param[in] eta the name of the raw electron eta
+
+/// \return a dataframe containing the new pt
+// scale_evaluator.evaluate("scale", data_run, data_electrons.ScEta, data_electrons.r9, data_electrons.pt, data_electrons.seedGain)
+ROOT::RDF::RNode
+PtCorrection_scaling(ROOT::RDF::RNode df, const std::string &corrected_pt,
+                    const std::string &sf_file, const std::string &jsonESname,
+                     const std::string &data_run,
+                     const std::string &deltaEtaSC, const std::string &eta,
+                     const std::string &r9, const std::string &pt, 
+                     const std::string &seedGain) {
+
+    auto evaluator = correction::CorrectionSet::from_file(sf_file)->compound().at(jsonESname);
+    auto electron_pt_correction_lambda =
+    // usage of unsigned int is critical, the lenght of data_run is not the same as the other column
+        [evaluator](const unsigned int &data_run, 
+                   const ROOT::RVec<float> &deltaEtaSC, const ROOT::RVec<float> &eta,
+                   const ROOT::RVec<float> &r9, const ROOT::RVec<float> &pt,
+                   const ROOT::RVec<unsigned char> &seedGain) {
+            ROOT::RVec<float> corrected_pt_values(pt.size());
+            for (int i = 0; i < pt.size(); i++) {
+                auto ScEta = deltaEtaSC.at(i) + eta.at(i); 
+                std::vector<correction::Variable::Type> inputs = {
+                    "scale",                        // string
+                    static_cast<double>(data_run),  // double
+                    ScEta,                          // double
+                    static_cast<double>(r9[i]),     // double
+                    std::abs(ScEta),                // double
+                    static_cast<double>(pt[i]),     // double
+                    static_cast<double>(seedGain[i]) // double
+                };
+                
+                double sf = evaluator->evaluate(inputs);
+                corrected_pt_values[i] = pt[i] * sf;
+            }
+            return corrected_pt_values;
+        };
+    auto df1 =
+        df.Define(corrected_pt, electron_pt_correction_lambda, {data_run, deltaEtaSC, eta, r9, pt, seedGain});
+    return df1;
+}
+
+/// Function to smear mc electron pt with systematic variations
+///
+/// \param[in] df the input dataframe
+/// \param[out] corrected_pt name of the corrected electron pt to be calculated
+/// \param[in] sf_file path to the correction JSON file
+/// \param[in] jsonESname name of the correction in the JSON file
+/// \param[in] Smear_variation name of the systematic variation ("Nominal", "Up", "Down")
+/// \param[in] pt name of the raw electron pt
+/// \param[in] r9 name of the electron R9 variable
+/// \param[in] deltaEtaSC name of the quantity: superCluster().eta()-eta()
+/// \param[in] eta name of the raw electron eta
+///
+/// \return a dataframe containing the smeared pt
+ROOT::RDF::RNode
+PtCorrection_smearing(ROOT::RDF::RNode df, const std::string &corrected_pt,
+                    const std::string &sf_file, const std::string &jsonESname, 
+                    const std::string &Smear_variation,
+                    const std::string &pt, const std::string &r9,
+                    const std::string &deltaEtaSC, const std::string &eta) {
+
+    // Load the correction evaluator
+    auto evaluator = correction::CorrectionSet::from_file(sf_file)->at(jsonESname);
+    
+    // Create a random number generator with fixed seed for reproducibility
+    TRandom3 rng(12345);
+
+    auto electron_pt_correction_lambda =
+        [evaluator, rng, Smear_variation](const ROOT::RVec<float> &pt,  
+                                        const ROOT::RVec<float> &r9, 
+                                        const ROOT::RVec<float> &deltaEtaSC,
+                                        const ROOT::RVec<float> &eta) mutable {
+            ROOT::RVec<float> corrected_pt_values(pt.size());
+            
+            for (size_t i = 0; i < pt.size(); i++) {
+                // Calculate supercluster eta
+                double ScEta = deltaEtaSC[i] + eta[i];
+                
+                // Get nominal smearing factor
+                std::vector<correction::Variable::Type> nominal_inputs = {
+                    "smear",                        // string
+                    static_cast<double>(pt[i]),     // double
+                    static_cast<double>(r9[i]),     // double
+                    std::abs(ScEta)                 // double
+                };
+                double smear_factor = evaluator->evaluate(nominal_inputs);
+                
+                // Generate random number from normal distribution
+                double random_gauss = rng.Gaus(0.0, 1.0);
+                
+                // Handle systematic variations
+                if (Smear_variation.find("esmear") != std::string::npos) {
+                    // Get systematic uncertainty
+                    std::vector<correction::Variable::Type> syst_inputs = {
+                        "esmear",                   // string
+                        static_cast<double>(pt[i]),  // double
+                        static_cast<double>(r9[i]),  // double
+                        std::abs(ScEta)             // double
+                    };
+                    double unc_smear = evaluator->evaluate(syst_inputs);
+                    
+                    // Apply variation
+                    if (Smear_variation.find("Up") != std::string::npos) {
+                        corrected_pt_values[i] = pt[i] * (1.0 + (smear_factor + unc_smear) * random_gauss);
+                    } 
+                    else if (Smear_variation.find("Down") != std::string::npos) {
+                        corrected_pt_values[i] = pt[i] * (1.0 + (smear_factor - unc_smear) * random_gauss);
+                    }
+                } 
+                else if (Smear_variation.find("escale") != std::string::npos) {
+                    // Get systematic uncertainty
+                    std::vector<correction::Variable::Type> syst_inputs = {
+                        "escale",                   // string
+                        static_cast<double>(pt[i]),  // double
+                        static_cast<double>(r9[i]),  // double
+                        std::abs(ScEta)             // double
+                    };
+                    double unc_smear = evaluator->evaluate(syst_inputs);
+                   
+                    // Apply variation
+                    if (Smear_variation.find("Up") != std::string::npos) {
+                        // scaling based on smeared pt, mc_pt_corrected_scale_up   = (1 + unc_scale) * mc_pt_corrected_nominal
+                        corrected_pt_values[i] = pt[i] * (1.0 + smear_factor * random_gauss) * (1 + unc_smear )  ; 
+                    } 
+                    else if (Smear_variation.find("Down") != std::string::npos) {
+                        corrected_pt_values[i] = pt[i] * (1.0 + smear_factor * random_gauss) * (1 - unc_smear )  ; 
+                    }
+                } 
+                else {
+                    // Nominal case
+                    corrected_pt_values[i] = pt[i] * (1.0 + smear_factor * random_gauss);
+                }
+            }
+            return corrected_pt_values;
+        };
+
+    // Apply the correction
+    auto df1 = df.Define(corrected_pt, electron_pt_correction_lambda, {pt, r9, deltaEtaSC, eta});
+    return df1;
+}
+
 } // end namespace electron
 
 } // namespace physicsobject

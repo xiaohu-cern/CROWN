@@ -424,6 +424,19 @@ ROOT::RDF::RNode CutGap(ROOT::RDF::RNode df, const std::string &eta,
                         const std::string &detasc, const std::string &maskname,
                         const float &end_eb, const float &start_ee);
 
+ROOT::RDF::RNode PtCorrection_scaling(ROOT::RDF::RNode df, const std::string &corrected_pt,
+                    const std::string &sf_file, const std::string &jsonESname,
+                     const std::string &data_run,
+                     const std::string &deltaEtaSC, const std::string &eta,
+                     const std::string &r9, const std::string &pt, 
+                     const std::string &seedGain);
+
+ROOT::RDF::RNode PtCorrection_smearing(ROOT::RDF::RNode df, const std::string &corrected_pt,
+                    const std::string &sf_file, const std::string &jsonESname, 
+                    const std::string &Smear_variation,
+                    const std::string &pt, const std::string &r9,
+                    const std::string &deltaEtaSC, const std::string &eta);
+
 } // end namespace electron
 } // namespace physicsobject
 #endif /* GUARD_PHYSICSOBJECTS_H */

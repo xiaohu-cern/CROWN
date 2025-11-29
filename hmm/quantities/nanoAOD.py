@@ -37,6 +37,8 @@ Muon_mvaTTH = NanoAODQuantity("Muon_mvaTTH")
 Muon_nTrackerLayers = NanoAODQuantity("Muon_nTrackerLayers")
 
 Electron_pt = NanoAODQuantity("Electron_pt")
+Electron_r9 = NanoAODQuantity("Electron_r9")
+Electron_seedGain = NanoAODQuantity("Electron_seedGain")
 Electron_eta = NanoAODQuantity("Electron_eta")
 Electron_dxy = NanoAODQuantity("Electron_dxy")
 Electron_dz = NanoAODQuantity("Electron_dz")

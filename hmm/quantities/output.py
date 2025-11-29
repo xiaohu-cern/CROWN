@@ -740,3 +740,7 @@ muon_subleadingp4_H_corrected_woKIT = Quantity("muon_subleadingp4_H_corrected_wo
 muon_leadingp4_Z_CR_corrected_woKIT = Quantity("muon_leadingp4_Z_CR_corrected_woKIT")
 muon_subleadingp4_Z_CR_corrected_woKIT = Quantity("muon_subleadingp4_Z_CR_corrected_woKIT")
 muon_Top_CR_corrected_woKIT = Quantity("muon_Top_CR_corrected_woKIT")
+
+##electron pt scale and smearing####
+Electron_pt_corrected = Quantity("Electron_pt_corrected")
+extra_lep_p4_noCorr = Quantity("extra_lep_p4_noCorr")

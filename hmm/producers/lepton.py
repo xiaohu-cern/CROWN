@@ -97,7 +97,7 @@ Mu1_W_m2m_index = Producer(
     name="Mu1_W_m2m_index",
     call="physicsobject::ExtraMuonIndexFromW({df}, {output}, {input})",
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -111,7 +111,7 @@ Mu1_W_m2m_index_regionb = Producer(
     name="Mu1_W_m2m_index_regionb",
     call="physicsobject::ExtraMuonIndexFromW({df}, {output}, {input})",
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -125,7 +125,7 @@ Mu1_W_m2m_index_regionc = Producer(
     name="Mu1_W_m2m_index_regionc",
     call="physicsobject::ExtraMuonIndexFromW({df}, {output}, {input})",
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -139,7 +139,7 @@ Mu1_W_m2m_index_regiond = Producer(
     name="Mu1_W_m2m_index_regiond",
     call="physicsobject::ExtraMuonIndexFromW({df}, {output}, {input})",
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -153,7 +153,7 @@ Mu1_W_m2m = Producer(
     name="Mu1_W_m2m",
     call="physicsobject::ExtraMuonFromW({df}, {output}, {input})",
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -162,9 +162,36 @@ Mu1_W_m2m = Producer(
     output=[q.extra_lep_p4],
     scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
+
+Mu1_W_m2m_noCorr = Producer(
+    name="Mu1_W_m2m_noCorr",
+    call="physicsobject::ExtraMuonFromW({df}, {output}, {input})",
+    input=[
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+        q.extra_muon_index, # already the muon index, using index[0]
+    ],
+    output=[q.extra_lep_p4_noCorr],
+    scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+)
 ### extra lepton (electron) in e2m channel
 Ele1_W_e2m = Producer(
     name="Ele1_W_e2m",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.good_electron_collection,
+        q.Electron_pt_corrected,
+        nanoAOD.Electron_eta,
+        nanoAOD.Electron_phi,
+        nanoAOD.Electron_mass,
+    ],
+    output=[q.extra_lep_p4],
+    scopes=["e2m","e2m_dyfakeinge_regionb"],
+)
+Ele1_W_e2m_noCorr = Producer(
+    name="Ele1_W_e2m_noCorr",
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.good_electron_collection,
@@ -173,11 +200,24 @@ Ele1_W_e2m = Producer(
         nanoAOD.Electron_phi,
         nanoAOD.Electron_mass,
     ],
-    output=[q.extra_lep_p4],
+    output=[q.extra_lep_p4_noCorr],
     scopes=["e2m","e2m_dyfakeinge_regionb"],
 )
 Ele1_W_e2m_regioncd = Producer(
     name="Ele1_W_e2m_regioncd",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.base_electron_collection,
+        q.Electron_pt_corrected,
+        nanoAOD.Electron_eta,
+        nanoAOD.Electron_phi,
+        nanoAOD.Electron_mass,
+    ],
+    output=[q.extra_lep_p4],
+    scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+Ele1_W_e2m_regioncd_noCorr = Producer(
+    name="Ele1_W_e2m_regioncd_noCorr",
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.base_electron_collection,
@@ -186,7 +226,7 @@ Ele1_W_e2m_regioncd = Producer(
         nanoAOD.Electron_phi,
         nanoAOD.Electron_mass,
     ],
-    output=[q.extra_lep_p4],
+    output=[q.extra_lep_p4_noCorr],
     scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 ### calc MT_W using lepton_p4 and met

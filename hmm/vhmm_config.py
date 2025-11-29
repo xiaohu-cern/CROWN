@@ -684,6 +684,31 @@ def build_config(
     configuration.add_config_parameters(
         scopes,
         {
+            "Smear_variation": "smear",
+            "electron_SS_file" : EraModifier(
+                {
+                    "2022preEE": "data/jsonpog-integration/POG/EGM/2022_Summer22/electronSS_EtDependent.json.gz",
+                    "2022postEE": "data/jsonpog-integration/POG/EGM/2022_Summer22EE/electronSS_EtDependent.json.gz",
+                    "2023preBPix": "data/jsonpog-integration/POG/EGM/2023_Summer23/electronSS_EtDependent.json.gz",
+                    "2023postBPix": "data/jsonpog-integration/POG/EGM/2023_Summer23BPix/electronSS_EtDependent.json.gz",
+                }
+            ),
+            "electron_SS_scale_name": EraModifier(
+                {
+                    "2022preEE": "EGMScale_Compound_Ele_2022preEE",
+                    "2022postEE": "EGMScale_Compound_Ele_2022postEE",
+                    "2023preBPix": "EGMScale_Compound_Ele_2023preBPIX",
+                    "2023postBPix": "EGMScale_Compound_Ele_2023postBPIX",
+                },
+            ),
+            "electron_SS_smear_name": EraModifier(
+                {
+                    "2022preEE": "EGMSmearAndSyst_ElePTsplit_2022preEE",
+                    "2022postEE": "EGMSmearAndSyst_ElePTsplit_2022postEE",
+                    "2023preBPix": "EGMSmearAndSyst_ElePTsplit_2023preBPIX",
+                    "2023postBPix": "EGMSmearAndSyst_ElePTsplit_2023postBPIX",
+                },  
+            ),
             "ele_sf_file": EraModifier(
                 {
                     "2016preVFP": "data/jsonpog-integration/POG/EGM/2016preVFP_UL/electron.json.gz",
@@ -1454,6 +1479,7 @@ def build_config(
             ### extra muon in m2m
             lepton.Mu1_W_m2m_index, # extra muon index
             lepton.Mu1_W_m2m, # extra muon p4 (From W)
+            lepton.Mu1_W_m2m_noCorr, 
             
             ##############################
             # met.MetCorrections,
@@ -1568,6 +1594,7 @@ def build_config(
             ##############################
             lepton.Mu1_W_m2m_index_regionb,
             lepton.Mu1_W_m2m,
+            lepton.Mu1_W_m2m_noCorr,
             lepton.Calc_MT_W,
             event.lepton_Z_dR,
             event.lep_Z_dphi,
@@ -1634,6 +1661,7 @@ def build_config(
             lepton.Mu1_W_m2m_index_regionc,
             # lepton.Mu1_W_m2m_index_regionc,
             lepton.Mu1_W_m2m,
+            lepton.Mu1_W_m2m_noCorr,
             electrons.GoodEle_Veto,
             # flag cut
             event.FilterFlagLepChargeSum,
@@ -1757,6 +1785,7 @@ def build_config(
             ###
             lepton.Mu1_W_m2m_index_regiond,
             lepton.Mu1_W_m2m,
+            lepton.Mu1_W_m2m_noCorr,
 
             muons.BaseLVMu1,
             muons.BaseLVMu2,
@@ -1841,6 +1870,7 @@ def build_config(
             muons.Mu2_H,
 
             lepton.Ele1_W_e2m, # output extra lep p4
+            lepton.Ele1_W_e2m_noCorr,
             muons.LVMu1,
             muons.LVMu2,
             
@@ -1945,6 +1975,7 @@ def build_config(
             cr.dimuonCR_mass,
             ###
             lepton.Ele1_W_e2m,
+            lepton.Ele1_W_e2m_noCorr,
             muons.LVMu1,
             muons.LVMu2,
             
@@ -2029,6 +2060,7 @@ def build_config(
             muons.Mu2_H,
             ###
             lepton.Ele1_W_e2m_regioncd,
+            lepton.Ele1_W_e2m_regioncd_noCorr,
             muons.LVMu1,
             muons.LVMu2,
             
@@ -2130,6 +2162,7 @@ def build_config(
             cr.dimuonCR_mass,
             ###
             lepton.Ele1_W_e2m_regioncd,
+            lepton.Ele1_W_e2m_regioncd_noCorr,
             muons.LVMu1,
             muons.LVMu2,
             
@@ -2801,6 +2834,12 @@ def build_config(
             scalefactors.EleID_SF,
             scalefactors.EleReco_SF,
         ],
+    )
+    ##electron pt scale and smearing#####
+    configuration.add_producers(
+        ["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
+        # scopes,
+        [electrons.ElectronPtCorrectionSmearing],
     )
     configuration.add_outputs(
         scopes,
@@ -3743,6 +3782,13 @@ def build_config(
             samples=["data"],
         ),
     )
+    configuration.add_modification_rule(
+        ["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
+        ReplaceProducer(
+            producers=[electrons.ElectronPtCorrectionSmearing, electrons.ElectronPtCorrectionScaling],
+            samples=["data"],
+        ),
+    )
     # configuration.add_modification_rule(
     #     ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
     #     "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -4378,6 +4424,65 @@ def build_config(
                 scalefactors.EleReco_SF,
             ]},
         )
+    )
+    ########################
+    # Electron pT shifts
+    ########################
+    configuration.add_shift(
+        SystematicShift(
+            name="Smear_Up",
+            scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
+            shift_config={
+                ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): {"Smear_variation": "esmearUp"},
+            },
+            producers={
+                ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): [
+                    electrons.ElectronPtCorrectionSmearing,
+                ],
+            },
+        ),
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="Smear_Down",
+            scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
+            shift_config={
+                ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): {"Smear_variation": "esmearDown"},
+            },
+            producers={
+                ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): [
+                    electrons.ElectronPtCorrectionSmearing,
+                ],
+            },
+        ),
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="Scale_Up",
+            scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
+            shift_config={
+                ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): {"Smear_variation": "escaleUp"},
+            },
+            producers={
+                ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): [
+                    electrons.ElectronPtCorrectionSmearing,
+                ],
+            },
+        ),
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="Scale_Down",
+            scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
+            shift_config={
+                ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): {"Smear_variation": "escaleDown"},
+            },
+            producers={
+                ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): [
+                    electrons.ElectronPtCorrectionSmearing,
+                ],
+            },
+        ),
     )
 
     ###########################

@@ -197,7 +197,7 @@ LVEle1 = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.dielectron_ZCand_collection,
-        nanoAOD.Electron_pt,
+        q.Electron_pt_corrected,
         nanoAOD.Electron_eta,
         nanoAOD.Electron_phi,
         nanoAOD.Electron_mass,
@@ -210,11 +210,43 @@ LVEle2 = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
     input=[
         q.dielectron_ZCand_collection,
-        nanoAOD.Electron_pt,
+        q.Electron_pt_corrected,
         nanoAOD.Electron_eta,
         nanoAOD.Electron_phi,
         nanoAOD.Electron_mass,
     ],
     output=[q.lepton_subleadingp4_Z],
     scopes=["eemm","eemm_cr"],
+)
+
+###electron scaling and smearing####
+ElectronPtCorrectionScaling = Producer(
+    name="ElectronPtCorrectionScaling",
+    call='physicsobject::electron::PtCorrection_scaling({df}, {output}, "{electron_SS_file}", "{electron_SS_scale_name}", {input})',
+    input=[
+        nanoAOD.run,
+        nanoAOD.Electron_deltaEtaSC,
+        nanoAOD.Electron_eta,
+        nanoAOD.Electron_r9,
+        nanoAOD.Electron_pt,
+        nanoAOD.Electron_seedGain,
+        
+    ],
+    output=[q.Electron_pt_corrected],
+    scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
+    # scopes=["global"],
+)
+
+ElectronPtCorrectionSmearing = Producer(
+    name="ElectronPtCorrectionSmearing",
+    call='physicsobject::electron::PtCorrection_smearing({df}, {output}, "{electron_SS_file}", "{electron_SS_smear_name}", "{Smear_variation}", {input})',
+    input=[
+        nanoAOD.Electron_pt,
+        nanoAOD.Electron_r9,
+        nanoAOD.Electron_deltaEtaSC,
+        nanoAOD.Electron_eta,
+    ],
+    output=[q.Electron_pt_corrected],
+    scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
+    # scopes=["global"],
 )

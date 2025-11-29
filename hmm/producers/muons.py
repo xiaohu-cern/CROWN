@@ -230,7 +230,7 @@ BaseLVMu1 = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.base_muon_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -243,7 +243,7 @@ LVMu1 = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.good_muon_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -258,7 +258,7 @@ BaseLVMu2 = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
     input=[
         q.base_muon_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -271,7 +271,7 @@ LVMu2 = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
     input=[
         q.good_muon_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -286,7 +286,7 @@ BaseLVMu3 = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 2, {output})",
     input=[
         q.base_muon_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -299,7 +299,7 @@ LVMu3 = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 2, {output})",
     input=[
         q.good_muon_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -312,7 +312,7 @@ LVMu4 = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 3, {output})",
     input=[
         q.good_muon_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -325,7 +325,7 @@ BaseLVMu4 = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 3, {output})",
     input=[
         q.base_muon_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -340,7 +340,7 @@ Mu1_H = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.dimuon_HiggsCand_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -354,7 +354,7 @@ Mu2_H = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
     input=[
         q.dimuon_HiggsCand_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -368,7 +368,7 @@ Mu1_H_4m = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.quadmuon_HiggsZCand_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -382,7 +382,7 @@ Mu2_H_4m = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
     input=[
         q.quadmuon_HiggsZCand_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -396,7 +396,7 @@ Mu1_Z_4m = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 2, {output})",
     input=[
         q.quadmuon_HiggsZCand_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -409,7 +409,7 @@ Mu2_Z_4m = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 3, {output})",
     input=[
         q.quadmuon_HiggsZCand_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -423,7 +423,7 @@ Mu1_Z_CR = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.dimuon_ZControl_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -438,7 +438,7 @@ Mu2_Z_CR = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
     input=[
         q.dimuon_ZControl_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,

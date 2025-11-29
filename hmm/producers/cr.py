@@ -10,7 +10,7 @@ from code_generation.producer import Producer, ProducerGroup
 DY_DiMuonPair_CR = Producer(
     name="DY_DiMuonPair_CR",
     call='physicsobject::DY_DiMuonPair_CR({df}, {output}, {input})',
-    input=[nanoAOD.Muon_pt,
+    input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
@@ -25,7 +25,7 @@ DY_DiMuonPair_CR = Producer(
 DY_DiMuonPair_CR_HighMass = Producer(
     name="DY_DiMuonPair_CR_HighMass",
     call='physicsobject::DY_DiMuonPair_CR_HighMass({df}, {output}, {input})',
-    input=[nanoAOD.Muon_pt,
+    input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
@@ -51,7 +51,7 @@ Flag_DiMuonFromCR = Producer(
 DiMuonPairCR_p4 = Producer(
     name="DiMuonPairCR_p4",
     call='physicsobject::ZControlDiMuonPairP4({df}, {output}, {input})',
-    input=[nanoAOD.Muon_pt,
+    input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,

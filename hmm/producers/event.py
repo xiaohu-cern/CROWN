@@ -253,7 +253,7 @@ Flag_DiEleFromZ = Producer(
 HiggsToDiMuonPair_p4 = Producer(
     name="HiggsToDiMuonPair_p4",
     call='physicsobject::HiggsToDiMuonPairCollection({df}, {output}, {input})',
-    input=[nanoAOD.Muon_pt,
+    input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
@@ -276,7 +276,7 @@ HiggsToDiMuonPair_p4_corrected = Producer(
 HiggsToDiMuonPair_p4_4m = Producer(
     name="HiggsToDiMuonPair_p4_4m",
     call='physicsobject::HiggsToDiMuonPairCollection({df}, {output}, {input})',
-    input=[nanoAOD.Muon_pt,
+    input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
@@ -287,7 +287,7 @@ HiggsToDiMuonPair_p4_4m = Producer(
 ZToDiMuonPair_p4_4m = Producer(
     name="ZToDiMuonPair_p4_4m",
     call='physicsobject::ZToSecondMuonPairCollection({df}, {output}, {input})',
-    input=[nanoAOD.Muon_pt,
+    input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
@@ -298,7 +298,7 @@ ZToDiMuonPair_p4_4m = Producer(
 ZToDiElectronPair_p4 = Producer(
     name="ZToDiElectronPair_p4",
     call='physicsobject::ZToDiElectronPairCollection({df}, {output}, {input})',
-    input=[nanoAOD.Electron_pt,
+    input=[q.Electron_pt_corrected,
            nanoAOD.Electron_eta, 
            nanoAOD.Electron_phi, 
            nanoAOD.Electron_mass,
@@ -354,7 +354,7 @@ FilterFlagDiMuonZVeto = Producer(
 Mask_DiMuonPair = Producer(
     name="Mask_DiMuonPair",
     call='physicsobject::HiggsCandDiMuonPairCollection({df}, {output}, {input})',
-    input=[nanoAOD.Muon_pt,
+    input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
@@ -366,7 +366,7 @@ Mask_DiMuonPair = Producer(
 Mask_DiElectronPair = Producer(
     name="Mask_DiElectronPair",
     call='physicsobject::ZCandDiElectronPairCollection({df}, {output}, {input})',
-    input=[nanoAOD.Electron_pt,
+    input=[q.Electron_pt_corrected,
            nanoAOD.Electron_eta,
            nanoAOD.Electron_phi,
            nanoAOD.Electron_mass,
@@ -378,7 +378,7 @@ Mask_DiElectronPair = Producer(
 Mask_DiBaseElectronPair = Producer(
     name="Mask_DiBaseElectronPair",
     call='physicsobject::ZCandDiElectronPairCollection({df}, {output}, {input})',
-    input=[nanoAOD.Electron_pt,
+    input=[q.Electron_pt_corrected,
            nanoAOD.Electron_eta,
            nanoAOD.Electron_phi,
            nanoAOD.Electron_mass,
@@ -391,7 +391,7 @@ Mask_DiBaseElectronPair = Producer(
 Mask_QuadMuonPair = Producer(
     name="Mask_QuadMuonPair",
     call='physicsobject::HiggsAndZFourMuonsCollection({df}, {output}, {input})',
-    input=[nanoAOD.Muon_pt,
+    input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
@@ -403,7 +403,7 @@ Mask_QuadMuonPair = Producer(
 Mask_QuadBaseMuonPair = Producer(
     name="Mask_QuadBaseMuonPair",
     call='physicsobject::HiggsAndZFourMuonsCollection({df}, {output}, {input})',
-    input=[nanoAOD.Muon_pt,
+    input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
@@ -513,7 +513,7 @@ muSSwithElectronW_p4 = Producer(
     name="muSSwithElectronW_p4",
     call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 1)',
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta, 
         nanoAOD.Muon_phi, 
         nanoAOD.Muon_mass,
@@ -529,7 +529,7 @@ muSSwithElectronW_p4_e2m_regionb = Producer(
     name="muSSwithElectronW_p4_e2m_regionb",
     call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 1)',
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta, 
         nanoAOD.Muon_phi, 
         nanoAOD.Muon_mass,
@@ -545,7 +545,7 @@ muSSwithElectronW_p4_e2m_regionc = Producer(
     name="muSSwithElectronW_p4_e2m_regionc",
     call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 1)',
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta, 
         nanoAOD.Muon_phi, 
         nanoAOD.Muon_mass,
@@ -561,7 +561,7 @@ muSSwithElectronW_p4_e2m_regiond = Producer(
     name="muSSwithElectronW_p4_e2m_regiond",
     call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 1)',
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta, 
         nanoAOD.Muon_phi, 
         nanoAOD.Muon_mass,
@@ -577,7 +577,7 @@ muOSwithElectronW_p4 = Producer(
     name="muOSwithElectronW_p4",
     call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 0)',
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta, 
         nanoAOD.Muon_phi, 
         nanoAOD.Muon_mass,
@@ -593,7 +593,7 @@ muOSwithElectronW_p4_e2m_regionb = Producer(
     name="muOSwithElectronW_p4_e2m_regionb",
     call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 0)',
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta, 
         nanoAOD.Muon_phi, 
         nanoAOD.Muon_mass,
@@ -609,7 +609,7 @@ muOSwithElectronW_p4_e2m_regionc = Producer(
     name="muOSwithElectronW_p4_e2m_regionc",
     call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 0)',
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta, 
         nanoAOD.Muon_phi, 
         nanoAOD.Muon_mass,
@@ -625,7 +625,7 @@ muOSwithElectronW_p4_e2m_regiond = Producer(
     name="muOSwithElectronW_p4_e2m_regiond",
     call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 0)',
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta, 
         nanoAOD.Muon_phi, 
         nanoAOD.Muon_mass,
@@ -642,7 +642,7 @@ muSSwithMuonW_p4 = Producer(
     name="muSSwithMuonW_p4",
     call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 1)',
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta, 
         nanoAOD.Muon_phi, 
         nanoAOD.Muon_mass,
@@ -658,7 +658,7 @@ muSSwithMuonW_p4_regionbd = Producer(
     name="muSSwithMuonW_p4_regionbd",
     call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 1)',
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta, 
         nanoAOD.Muon_phi, 
         nanoAOD.Muon_mass,
@@ -674,7 +674,7 @@ muOSwithMuonW_p4 = Producer(
     name="muOSwithMuonW_p4",
     call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 0)',
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta, 
         nanoAOD.Muon_phi, 
         nanoAOD.Muon_mass,
@@ -690,7 +690,7 @@ muOSwithMuonW_p4_regionbd = Producer(
     name="muOSwithMuonW_p4_regionbd",
     call='physicsobject::muSSorOSwithLeptonW_p4({df}, {output}, {input}, 0)',
     input=[
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta, 
         nanoAOD.Muon_phi, 
         nanoAOD.Muon_mass,
