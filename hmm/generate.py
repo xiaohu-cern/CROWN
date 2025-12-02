@@ -18,6 +18,7 @@ def run(args):
         "dyjets",
         "wjets",
         "diboson",
+        "singlehiggs",
     ]
     available_eras = ["2016preVFP","2016postVFP","2017","2018","2022preEE","2022postEE","2023preBPix","2023postBPix",]
     # available_scopes = ["e2m","m2m",]

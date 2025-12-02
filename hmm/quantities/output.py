@@ -217,6 +217,7 @@ is_vbf_htautau = Quantity("is_vbf_htautau")
 is_diboson = Quantity("is_diboson")
 is_zjjew = Quantity("is_zjjew")
 is_triboson = Quantity("is_triboson")
+is_singlehiggs = Quantity("is_singlehiggs")
 
 # Electron Weights
 id_wgt_ele_wp90nonIso_1 = Quantity("id_wgt_ele_wp90nonIso_1")

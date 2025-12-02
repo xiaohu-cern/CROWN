@@ -2856,6 +2856,7 @@ def build_config(
             q.is_vhmm,
             q.is_zjjew,
             q.is_triboson,
+            q.is_singlehiggs,
             nanoAOD.run,
             q.lumi,
             nanoAOD.event,

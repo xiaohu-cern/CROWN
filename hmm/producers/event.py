@@ -98,6 +98,14 @@ is_diboson = Producer(
     scopes=["global"],
 )
 
+is_singlehiggs = Producer(
+    name="is_singlehiggs",
+    call="basefunctions::DefineQuantity({df}, {output}, {is_singlehiggs})",
+    input=[],
+    output=[q.is_singlehiggs],
+    scopes=["global"],
+)
+
 SampleFlags = ProducerGroup(
     name="SampleFlags",
     call=None,
@@ -114,6 +122,7 @@ SampleFlags = ProducerGroup(
         is_vhmm,
         is_zjjew,
         is_triboson,
+        is_singlehiggs,
     ],
 )
 
