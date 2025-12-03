@@ -1710,9 +1710,10 @@ btaggingloose_SF_run2 = Producer(
 )
 
 #### to calculate btag weight for different channels (by Mingxuan) #####
+########### ttbar sample ################
 btagging_SF_2WPs_3l_4l = Producer(
     name="btagging_SF_2WPs_3l_4l",
-    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file}", "{medium_btag_eff_file}", "{era_name}", "3l_4l", {btag_cut_loose}, {btag_cut_medium})',
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_ttbar}", "{medium_btag_eff_file_ttbar}", "{era_name}", "3l_4l", {btag_cut_loose}, {btag_cut_medium})',
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -1730,7 +1731,7 @@ btagging_SF_2WPs_3l_4l = Producer(
 
 btagging_SF_2WPs_fjmm = Producer(
     name="btagging_SF_2WPs_fjmm",
-    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file}", "{medium_btag_eff_file}", "{era_name}", "fjmm", {btag_cut_loose}, {btag_cut_medium})',
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_ttbar}", "{medium_btag_eff_file_ttbar}", "{era_name}", "fjmm", {btag_cut_loose}, {btag_cut_medium})',
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -1746,7 +1747,7 @@ btagging_SF_2WPs_fjmm = Producer(
 
 btagging_SF_2WPs_met = Producer(
     name="btagging_SF_2WPs_met",
-    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file}", "{medium_btag_eff_file}", "{era_name}", "met", {btag_cut_loose}, {btag_cut_medium})',
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_ttbar}", "{medium_btag_eff_file_ttbar}", "{era_name}", "met", {btag_cut_loose}, {btag_cut_medium})',
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -1759,7 +1760,106 @@ btagging_SF_2WPs_met = Producer(
     output=[q.btag_weight],
     scopes=["nnmm"],
 )
+########### DY sample ################
+btagging_SF_2WPs_3l_4l_dy = Producer(
+    name="btagging_SF_2WPs_3l_4l_dy",
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_dy}", "{medium_btag_eff_file_dy}", "{era_name}", "3l_4l", {btag_cut_loose}, {btag_cut_medium})',
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.BJet_discriminator_PNet,
+        nanoAOD.Jet_flavor,
+        q.good_jets_mask,
+        q.good_bjets_mask_loose,
+        q.jet_overlap_veto_mask,
+    ],
+    output=[q.btag_weight],
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "eemm","mmmm", "eemm_cr", "mmmm_cr"],
+)
 
+btagging_SF_2WPs_fjmm_dy = Producer(
+    name="btagging_SF_2WPs_fjmm_dy",
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_dy}", "{medium_btag_eff_file_dy}", "{era_name}", "fjmm", {btag_cut_loose}, {btag_cut_medium})',
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.BJet_discriminator_PNet,
+        nanoAOD.Jet_flavor,
+        q.good_jets_mask,
+        q.good_bjets_mask_loose,
+        q.jet_overlap_veto_mask,
+    ],
+    output=[q.btag_weight],
+    scopes=["fjmm","fjmm_cr"],
+)
+
+btagging_SF_2WPs_met_dy = Producer(
+    name="btagging_SF_2WPs_met_dy",
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_dy}", "{medium_btag_eff_file_dy}", "{era_name}", "met", {btag_cut_loose}, {btag_cut_medium})',
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.BJet_discriminator_PNet,
+        nanoAOD.Jet_flavor,
+        q.good_jets_mask,
+        q.good_bjets_mask_loose,
+        q.jet_overlap_veto_mask,
+    ],
+    output=[q.btag_weight],
+    scopes=["nnmm"],
+)
+########### VHmm sample ################
+btagging_SF_2WPs_3l_4l_vhmm = Producer(
+    name="btagging_SF_2WPs_3l_4l_vhmm",
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_vhmm}", "{medium_btag_eff_file_vhmm}", "{era_name}", "3l_4l", {btag_cut_loose}, {btag_cut_medium})',
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.BJet_discriminator_PNet,
+        nanoAOD.Jet_flavor,
+        q.good_jets_mask,
+        q.good_bjets_mask_loose,
+        q.jet_overlap_veto_mask,
+    ],
+    output=[q.btag_weight],
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "eemm","mmmm", "eemm_cr", "mmmm_cr"],
+)
+
+btagging_SF_2WPs_fjmm_vhmm = Producer(
+    name="btagging_SF_2WPs_fjmm_vhmm",
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_vhmm}", "{medium_btag_eff_file_vhmm}", "{era_name}", "fjmm", {btag_cut_loose}, {btag_cut_medium})',
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.BJet_discriminator_PNet,
+        nanoAOD.Jet_flavor,
+        q.good_jets_mask,
+        q.good_bjets_mask_loose,
+        q.jet_overlap_veto_mask,
+    ],
+    output=[q.btag_weight],
+    scopes=["fjmm","fjmm_cr"],
+)
+
+btagging_SF_2WPs_met_vhmm = Producer(
+    name="btagging_SF_2WPs_met_vhmm",
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_vhmm}", "{medium_btag_eff_file_vhmm}", "{era_name}", "met", {btag_cut_loose}, {btag_cut_medium})',
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.BJet_discriminator_PNet,
+        nanoAOD.Jet_flavor,
+        q.good_jets_mask,
+        q.good_bjets_mask_loose,
+        q.jet_overlap_veto_mask,
+    ],
+    output=[q.btag_weight],
+    scopes=["nnmm"],
+)
 #######################
 ##### trigger SFs #####
 #######################

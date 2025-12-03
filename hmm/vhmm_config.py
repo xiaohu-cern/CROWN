@@ -1049,20 +1049,52 @@ def build_config(
                     "2023postBPix": "data/btag_corrections/new_json_2023/2023_Summer23BPix/btagging.json.gz"
                 }
             ),
-            "loose_btag_eff_file": EraModifier(
+            "loose_btag_eff_file_ttbar": EraModifier(
                 {
-                    "2022preEE": "data/btag_corrections/loose/2022preEE/btagging_efficiency.json",
-                    "2022postEE": "data/btag_corrections/loose/2022postEE/btagging_efficiency.json",
-                    "2023preBPix": "data/btag_corrections/loose/2023preBPix/btagging_efficiency.json",
-                    "2023postBPix": "data/btag_corrections/loose/2023postBPix/btagging_efficiency.json",
+                    "2022preEE": "data/btag_corrections/loose_ttbar/2022preEE/btagging_efficiency.json",
+                    "2022postEE": "data/btag_corrections/loose_ttbar/2022postEE/btagging_efficiency.json",
+                    "2023preBPix": "data/btag_corrections/loose_ttbar/2023preBPix/btagging_efficiency.json",
+                    "2023postBPix": "data/btag_corrections/loose_ttbar/2023postBPix/btagging_efficiency.json",
                 }
             ),
-            "medium_btag_eff_file": EraModifier(
+            "medium_btag_eff_file_ttbar": EraModifier(
                 {
-                    "2022preEE": "data/btag_corrections/medium/2022preEE/btagging_efficiency.json",
-                    "2022postEE": "data/btag_corrections/medium/2022postEE/btagging_efficiency.json",
-                    "2023preBPix": "data/btag_corrections/medium/2023preBPix/btagging_efficiency.json",
-                    "2023postBPix": "data/btag_corrections/medium/2023postBPix/btagging_efficiency.json",
+                    "2022preEE": "data/btag_corrections/medium_ttbar/2022preEE/btagging_efficiency.json",
+                    "2022postEE": "data/btag_corrections/medium_ttbar/2022postEE/btagging_efficiency.json",
+                    "2023preBPix": "data/btag_corrections/medium_ttbar/2023preBPix/btagging_efficiency.json",
+                    "2023postBPix": "data/btag_corrections/medium_ttbar/2023postBPix/btagging_efficiency.json",
+                }
+            ),
+            "loose_btag_eff_file_dy": EraModifier(
+                {
+                    "2022preEE": "data/btag_corrections/loose_dy/2022preEE/btagging_efficiency.json",
+                    "2022postEE": "data/btag_corrections/loose_dy/2022postEE/btagging_efficiency.json",
+                    "2023preBPix": "data/btag_corrections/loose_dy/2023preBPix/btagging_efficiency.json",
+                    "2023postBPix": "data/btag_corrections/loose_dy/2023postBPix/btagging_efficiency.json",
+                }
+            ),
+            "medium_btag_eff_file_dy": EraModifier(
+                {
+                    "2022preEE": "data/btag_corrections/medium_dy/2022preEE/btagging_efficiency.json",
+                    "2022postEE": "data/btag_corrections/medium_dy/2022postEE/btagging_efficiency.json",
+                    "2023preBPix": "data/btag_corrections/medium_dy/2023preBPix/btagging_efficiency.json",
+                    "2023postBPix": "data/btag_corrections/medium_dy/2023postBPix/btagging_efficiency.json",
+                }
+            ),
+            "loose_btag_eff_file_vhmm": EraModifier(
+                {
+                    "2022preEE": "data/btag_corrections/loose_vhmm/2022preEE/btagging_efficiency.json",
+                    "2022postEE": "data/btag_corrections/loose_vhmm/2022postEE/btagging_efficiency.json",
+                    "2023preBPix": "data/btag_corrections/loose_vhmm/2023preBPix/btagging_efficiency.json",
+                    "2023postBPix": "data/btag_corrections/loose_vhmm/2023postBPix/btagging_efficiency.json",
+                }
+            ),
+            "medium_btag_eff_file_vhmm": EraModifier(
+                {
+                    "2022preEE": "data/btag_corrections/medium_vhmm/2022preEE/btagging_efficiency.json",
+                    "2022postEE": "data/btag_corrections/medium_vhmm/2022postEE/btagging_efficiency.json",
+                    "2023preBPix": "data/btag_corrections/medium_vhmm/2023preBPix/btagging_efficiency.json",
+                    "2023postBPix": "data/btag_corrections/medium_vhmm/2023postBPix/btagging_efficiency.json",
                 }
             ),
             "era_name": EraModifier(
@@ -1390,6 +1422,8 @@ def build_config(
         [
             momentumscale.RenameMuonPt,
             scalefactors.btagging_SF_2WPs_3l_4l, ###update btag sf by Mingxuan
+            # scalefactors.btagging_SF_2WPs_3l_4l_dy,
+            # scalefactors.btagging_SF_2WPs_3l_4l_vhmm,
         ]
     )
     configuration.add_producers(
@@ -1438,6 +1472,8 @@ def build_config(
             fatjets.FilterNFatjets_fjmm, # vh fjmm >=1 fatjet
             fatjets.LVFatJet1,
             scalefactors.btagging_SF_2WPs_fjmm, ###update btag sf by Mingxuan
+            # scalefactors.btagging_SF_2WPs_fjmm_dy,
+            # scalefactors.btagging_SF_2WPs_fjmm_vhmm,
             fatjets.Pnet_Fatjet_Mass_Corr,
         ]
     )
@@ -1447,6 +1483,8 @@ def build_config(
             fatjets.GoodFatJets,
             fatjets.NumberOfGoodFatJets,
             scalefactors.btagging_SF_2WPs_met, ###update btag sf by Mingxuan
+            # scalefactors.btagging_SF_2WPs_met_dy,
+            # scalefactors.btagging_SF_2WPs_met_vhmm,
         ]
     )
     configuration.add_producers(
@@ -3790,6 +3828,54 @@ def build_config(
             samples=["data"],
         ),
     )
+    configuration.add_modification_rule(
+        ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "eemm","mmmm", "eemm_cr", "mmmm_cr"],
+            ReplaceProducer(
+                producers=[scalefactors.btagging_SF_2WPs_3l_4l, scalefactors.btagging_SF_2WPs_3l_4l_dy],
+                samples=["dyjets"],
+            ),
+    )
+    configuration.add_modification_rule(
+        ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "eemm","mmmm", "eemm_cr", "mmmm_cr"],
+            ReplaceProducer(
+                producers=[scalefactors.btagging_SF_2WPs_3l_4l, scalefactors.btagging_SF_2WPs_3l_4l_vhmm],
+                samples=["vhmm", "singlehiggs"],
+            ),
+    )
+
+    configuration.add_modification_rule(
+        ["fjmm","fjmm_cr"],
+            ReplaceProducer(
+                producers=[scalefactors.btagging_SF_2WPs_fjmm, scalefactors.btagging_SF_2WPs_fjmm_dy],
+                samples=["dyjets"],
+            ),
+    )
+    configuration.add_modification_rule(
+        ["fjmm","fjmm_cr"],
+            ReplaceProducer(
+                producers=[scalefactors.btagging_SF_2WPs_fjmm, scalefactors.btagging_SF_2WPs_fjmm_vhmm],
+                samples=["vhmm", "singlehiggs"],
+            ),
+    )
+
+    configuration.add_modification_rule(
+        ["nnmm"],
+            ReplaceProducer(
+                producers=[scalefactors.btagging_SF_2WPs_met, scalefactors.btagging_SF_2WPs_met_dy],
+                samples=["dyjets"],
+            ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm"],
+            ReplaceProducer(
+                producers=[scalefactors.btagging_SF_2WPs_met, scalefactors.btagging_SF_2WPs_met_vhmm],
+                samples=["vhmm", "singlehiggs"],
+            ),
+    )
     # configuration.add_modification_rule(
     #     ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
     #     "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -3964,6 +4050,8 @@ def build_config(
             "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "eemm","mmmm", "eemm_cr", "mmmm_cr"): {
                 scalefactors.btagging_SF_2WPs_3l_4l,
+                scalefactors.btagging_SF_2WPs_3l_4l_dy,
+                scalefactors.btagging_SF_2WPs_3l_4l_vhmm,
                 }
             },
         )
@@ -3979,6 +4067,8 @@ def build_config(
             producers={
                 ("fjmm", "fjmm_cr"): {
                 scalefactors.btagging_SF_2WPs_fjmm,
+                scalefactors.btagging_SF_2WPs_fjmm_dy,
+                scalefactors.btagging_SF_2WPs_fjmm_vhmm,
                 }
             },
         )
@@ -3994,6 +4084,8 @@ def build_config(
             producers={
                 ("nnmm"): {
                 scalefactors.btagging_SF_2WPs_met,
+                scalefactors.btagging_SF_2WPs_met_dy,
+                scalefactors.btagging_SF_2WPs_met_vhmm,
                 }
             },
         )
@@ -4013,6 +4105,8 @@ def build_config(
             "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "eemm","mmmm", "eemm_cr", "mmmm_cr"): {
                 scalefactors.btagging_SF_2WPs_3l_4l,
+                scalefactors.btagging_SF_2WPs_3l_4l_dy,
+                scalefactors.btagging_SF_2WPs_3l_4l_vhmm,
                 }
             },
         )
@@ -4028,6 +4122,8 @@ def build_config(
             producers={
                 ("fjmm", "fjmm_cr"): {
                 scalefactors.btagging_SF_2WPs_fjmm,
+                scalefactors.btagging_SF_2WPs_fjmm_dy,
+                scalefactors.btagging_SF_2WPs_fjmm_vhmm,
                 }
             },
         )
@@ -4043,6 +4139,8 @@ def build_config(
             producers={
                 ("nnmm"): {
                 scalefactors.btagging_SF_2WPs_met,
+                scalefactors.btagging_SF_2WPs_met_dy,
+                scalefactors.btagging_SF_2WPs_met_vhmm,
                 }
             },
         )

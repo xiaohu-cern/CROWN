@@ -1458,8 +1458,8 @@ btagSF_2WPs(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
             const float &loose_cut, const float &medium_cut) {
     auto evaluator_bc = correction::CorrectionSet::from_file(sf_file)->at("particleNet_comb");
     auto evaluator_light = correction::CorrectionSet::from_file(sf_file)->at("particleNet_light");
-    auto loose_btag_eff = correction::CorrectionSet::from_file(loose_eff_file)->at("Btagging effciency[pt,eta,flavor]");
-    auto medium_btag_eff = correction::CorrectionSet::from_file(medium_eff_file)->at("Btagging effciency[pt,eta,flavor]");
+    auto loose_btag_eff = correction::CorrectionSet::from_file(loose_eff_file)->at("Btagging efficiency[pt,eta,flavor]");
+    auto medium_btag_eff = correction::CorrectionSet::from_file(medium_eff_file)->at("Btagging efficiency[pt,eta,flavor]");
 
     auto btagSF_lambda = [evaluator_bc, evaluator_light, loose_btag_eff, medium_btag_eff, variation, year, channel, loose_cut, medium_cut](
             const ROOT::RVec<float> &pt_values,
