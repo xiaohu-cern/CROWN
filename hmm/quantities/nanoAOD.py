@@ -23,6 +23,8 @@ Tau_ID_vsEle = NanoAODQuantity("Tau_idDeepTau2017v2p1VSe")
 Tau_ID_vsMu = NanoAODQuantity("Tau_idDeepTau2017v2p1VSmu")
 
 Muon_pt = NanoAODQuantity("Muon_pt")
+Muon_bsConstrainedPt = NanoAODQuantity("Muon_bsConstrainedPt")
+Muon_bsConstrainedPtErr = NanoAODQuantity("Muon_bsConstrainedPtErr")
 Muon_eta = NanoAODQuantity("Muon_eta")
 Muon_phi = NanoAODQuantity("Muon_phi")
 Muon_mass = NanoAODQuantity("Muon_mass")

@@ -20,6 +20,8 @@ ROOT::RDF::RNode Muonmomentumscale(ROOT::RDF::RNode df, const std::string &pt_un
                     const std::string &variation, const std::string &pt_corrected,
                     const std::string &sf_file,
                     const std::string &idAlgorithm);
+ROOT::RDF::RNode MuonmomentumBSC(ROOT::RDF::RNode df, const std::string &pt, const std::string &phi, const std::string &eta, 
+                    const std::string &ptErr, const std::string &variation, const std::string &ptBSC);
 ROOT::RDF::RNode id_rooworkspace(ROOT::RDF::RNode df, const std::string &pt,
                                  const std::string &eta,
                                  const std::string &id_output,

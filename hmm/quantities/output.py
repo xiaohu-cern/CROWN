@@ -701,6 +701,8 @@ fatjet_tau4 = Quantity("fatjet_tau4")
 
 Muon_pt_corrected_woKIT = Quantity("Muon_pt_corrected_woKIT")
 Muon_pt_corrected = Quantity("Muon_pt_corrected")
+Muon_ptBSC = Quantity("Muon_ptBSC")
+Muon_ptBSC_partial = Quantity("Muon_ptBSC_partial")
 
 muon_leadingp4_H_corrected = Quantity("muon_leadingp4_H_corrected")
 muon_subleadingp4_H_corrected = Quantity("muon_subleadingp4_H_corrected")

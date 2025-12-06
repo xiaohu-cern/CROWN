@@ -221,6 +221,37 @@ ROOT::RDF::RNode Muonmomentumscale(ROOT::RDF::RNode df, const std::string &pt_un
         {pt_uncorrected, phi, eta, charge});
     return df1;
 }
+
+ROOT::RDF::RNode MuonmomentumBSC(ROOT::RDF::RNode df, const std::string &pt, const std::string &phi, const std::string &eta, 
+                    const std::string &ptErr, const std::string &variation, const std::string &ptBSC) {
+    auto df1 = df.Define(
+        ptBSC,
+        [variation](const ROOT::RVec<float> &pt_values,
+                    const ROOT::RVec<float> &phi_values,
+                    const ROOT::RVec<float> &eta_values,
+                    const ROOT::RVec<float> &ptErr_values) {
+            ROOT::RVec<float> BSC_pt_values(pt_values.size());            
+            for (int i = 0; i < pt_values.size(); i++) {
+                if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && eta_values.at(i) > -2.4 && eta_values.at(i) < 2.4) {
+                    if (variation=="Up") {
+                        BSC_pt_values[i] = pt_values.at(i) + ptErr_values.at(i);
+                    }
+                    if (variation=="Down") {
+                        BSC_pt_values[i] = pt_values.at(i) - ptErr_values.at(i);
+                    }
+                    if (variation=="nominal") {
+                        BSC_pt_values[i] = pt_values.at(i);
+                    }
+                } 
+                else {
+                    BSC_pt_values[i] = pt_values.at(i);
+                }
+            }
+            return BSC_pt_values;
+        },
+        {pt, phi, eta, ptErr});
+    return df1;
+}
 ///
 /**
  * @brief Function used to evaluate id scale factors from muons

@@ -639,6 +639,7 @@ def build_config(
             # below HighPt Momentum Scale, only for fjmm, nnmm and fjmm_cr
             "muon_momentum_scale_name": "HighPtMuon_Momentum_Scale",
             "muon_momentum_scale_variation": "nominal",
+            "muon_momentum_BSC_variation": "nominal",
             "muon_momentum_scale_corr_file": EraModifier(
                 {
                     "2022preEE": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2022preEE.json.gz",
@@ -1413,6 +1414,8 @@ def build_config(
         ["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
         [
             momentumscale.MuonPtCorrection,
+            momentumscale.MuonPtBSC_2l,
+            momentumscale.MuonPtCorrectionBSC,
         ]
     )
     configuration.add_producers(
@@ -1424,6 +1427,7 @@ def build_config(
             scalefactors.btagging_SF_2WPs_3l_4l, ###update btag sf by Mingxuan
             # scalefactors.btagging_SF_2WPs_3l_4l_dy,
             # scalefactors.btagging_SF_2WPs_3l_4l_vhmm,
+            momentumscale.MuonPtBSC_no2l,
         ]
     )
     configuration.add_producers(
@@ -3806,6 +3810,29 @@ def build_config(
         ),
     )
     configuration.add_modification_rule(
+        ["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
+        ReplaceProducer(
+            producers=[momentumscale.MuonPtBSC_2l,momentumscale.RenameMuonPtBSC_2l_partial],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
+        ReplaceProducer(
+            producers=[momentumscale.MuonPtCorrectionBSC,momentumscale.RenameMuonPtBSC_2l],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        ReplaceProducer(
+            producers=[momentumscale.MuonPtBSC_no2l,momentumscale.RenameMuonPtBSC],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
         ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -4270,6 +4297,83 @@ def build_config(
     )
 
     #########################################
+    ######  Muon BSC pt systematics   #######
+    #########################################
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonBSCpt_Up",
+            shift_config={
+                ("nnmm","fjmm"): {
+                    "muon_momentum_BSC_variation": "Up",
+                }
+            },
+            producers={
+                ("nnmm","fjmm"): [
+                    momentumscale.MuonPtBSC_2l,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonBSCpt_Down",
+            shift_config={
+                ("nnmm","fjmm"): {
+                    "muon_momentum_BSC_variation": "Down",
+                }
+            },
+            producers={
+                ("nnmm","fjmm"): [
+                    momentumscale.MuonPtBSC_2l,
+                ]
+            },
+        )
+    )
+
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonBSCpt_Up",
+            shift_config={
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+                "nnmm_dycontrol","nnmm_topcontrol",
+                "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                    "muon_momentum_BSC_variation": "Up",
+                }
+            },
+            producers={
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+                "nnmm_dycontrol","nnmm_topcontrol",
+                "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                    momentumscale.MuonPtBSC_no2l,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonBSCpt_Down",
+            shift_config={
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+                "nnmm_dycontrol","nnmm_topcontrol",
+                "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                    "muon_momentum_BSC_variation": "Down",
+                }
+            },
+            producers={
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+                "nnmm_dycontrol","nnmm_topcontrol",
+                "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+                "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                    momentumscale.MuonPtBSC_no2l,
+                ]
+            },
+        )
+    )
+
+    #########################################
     #### HighPtMuon Momentum Scale shift ####
     #########################################
     configuration.add_shift(
@@ -4282,7 +4386,7 @@ def build_config(
             },
             producers={
                 ("nnmm","fjmm"): [
-                    momentumscale.MuonPtCorrection,
+                    momentumscale.MuonPtCorrectionBSC,
                 ]
             },
         )
@@ -4297,7 +4401,7 @@ def build_config(
             },
             producers={
                 ("nnmm","fjmm"): [
-                    momentumscale.MuonPtCorrection,
+                    momentumscale.MuonPtCorrectionBSC,
                 ]
             },
         )
