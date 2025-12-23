@@ -1,0 +1,18 @@
+dbs: /WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/Run3Summer22NanoAODv12-130X_mcRun3_2022_realistic_v5-v2/NANOAODSIM
+era: 2022preEE
+filelist:
+- root://xrootd-cms.infn.it//store/mc/Run3Summer22NanoAODv12/WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_v5-v2/2540000/76ad3311-21bb-420a-8bdb-3beb628cb746.root
+- root://xrootd-cms.infn.it//store/mc/Run3Summer22NanoAODv12/WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_v5-v2/2540000/69f39293-bfa0-477c-a0d8-c61906672ecb.root
+- root://xrootd-cms.infn.it//store/mc/Run3Summer22NanoAODv12/WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_v5-v2/2540000/9f1dad7b-2cf5-486a-a41d-2eb5000b65ae.root
+- root://xrootd-cms.infn.it//store/mc/Run3Summer22NanoAODv12/WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_v5-v2/2540000/c4e0de8e-e310-4118-9ad8-b940afc8ccce.root
+- root://xrootd-cms.infn.it//store/mc/Run3Summer22NanoAODv12/WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_v5-v2/2540000/fc4935ec-d62e-469d-979e-da2f16fbbef1.root
+- root://xrootd-cms.infn.it//store/mc/Run3Summer22NanoAODv12/WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_v5-v2/2540000/6371fd01-cbfd-4df4-815c-90326f226704.root
+- root://xrootd-cms.infn.it//store/mc/Run3Summer22NanoAODv12/WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_v5-v2/2540000/10c07185-9ba8-4c8f-b15c-e5063a1352e8.root
+- root://xrootd-cms.infn.it//store/mc/Run3Summer22NanoAODv12/WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_v5-v2/2540000/2e716a9c-38bc-4092-96a0-798ff6a8e881.root
+- root://xrootd-cms.infn.it//store/mc/Run3Summer22NanoAODv12/WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/NANOAODSIM/130X_mcRun3_2022_realistic_v5-v2/2540000/1844590d-9734-4b5a-ae4a-2bfa46c11f93.root
+generator_weight: 1.0
+nevents: 124320
+nfiles: 9
+nick: WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer22NanoAODv12-130X
+sample_type: vhmm
+xsec: 0.0001237586
