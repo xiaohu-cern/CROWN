@@ -7,7 +7,7 @@ namespace muon {
 ROOT::RDF::RNode KIT_MuonPtScale(ROOT::RDF::RNode df, const std::string &pt, const std::string &pt_pre_corr,
                     const std::string &phi, const std::string &eta, 
                     const std::string &charge, const std::string &pt_corrected, 
-                    const std::string &sf_file, const std::string &data_type, const std::string &channel);
+                    const std::string &sf_file, const std::string &data_type);
 ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, const std::string &pt_pre_corr, 
                     const std::string &phi, const std::string &eta,
                     const std::string &nL, const std::string &evtNumber,
