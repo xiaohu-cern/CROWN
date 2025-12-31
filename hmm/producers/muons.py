@@ -82,7 +82,6 @@ BaseMuons = ProducerGroup(
         MuonIsoCut,
     ],
 )
-
 ####################
 # Set of producers used for more specific selection of muons in channels
 ####################
@@ -125,7 +124,6 @@ GoodMuons = ProducerGroup(
         GoodMuonIsoCut,
     ],
 )
-#
 NumberOfGoodMuons = Producer(
     name="NumberOfGoodMuons",
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
@@ -209,11 +207,11 @@ DiMuonVeto = ProducerGroup(
     subproducers=[DiMuonVetoMuons],
 )
 
-
 ### Muon collection and their properties
 MuonCollection = Producer(
     name="MuonCollection",
     call="jet::OrderJetsByPt({df}, {output}, {input})",
+    # input=[nanoAOD.Muon_pt, q.good_muons_mask],
     input=[nanoAOD.Muon_pt, q.good_muons_mask],
     output=[q.good_muon_collection],
     scopes=["global"],

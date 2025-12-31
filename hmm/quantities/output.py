@@ -704,19 +704,13 @@ Muon_pt_corrected = Quantity("Muon_pt_corrected")
 Muon_ptBSC = Quantity("Muon_ptBSC")
 Muon_ptBSC_partial = Quantity("Muon_ptBSC_partial")
 
-muon_leadingp4_H_corrected = Quantity("muon_leadingp4_H_corrected")
-muon_subleadingp4_H_corrected = Quantity("muon_subleadingp4_H_corrected")
 muon_leadingp4_Z_CR_corrected = Quantity("muon_leadingp4_Z_CR_corrected")
 muon_subleadingp4_Z_CR_corrected = Quantity("muon_subleadingp4_Z_CR_corrected")
 
-mu1_fromH_pt_corrected = Quantity("mu1_fromH_pt_corrected")
-mu2_fromH_pt_corrected = Quantity("mu2_fromH_pt_corrected")
 mu1_fromZCR_pt_corrected = Quantity("mu1_fromZCR_pt_corrected")
 mu2_fromZCR_pt_corrected = Quantity("mu2_fromZCR_pt_corrected")
 
 dimuon_p4_CR_corrected = Quantity("dimuon_p4_CR_corrected")
-dimuon_p4_Higgs_corrected = Quantity("dimuon_p4_Higgs_corrected")
-H_pt_corrected = Quantity("H_pt_corrected")
 dimuonCR_pt_corrected = Quantity("dimuonCR_pt_corrected")
 
 met_pt_corrected = Quantity("met_pt_corrected")

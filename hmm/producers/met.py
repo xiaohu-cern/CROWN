@@ -145,7 +145,7 @@ PropagateTwoLeptonsToMet_TopCR = Producer(
 PropagateTwoLeptonsToMet_corrected = Producer(
     name="PropagateTwoLeptonsToMet_corrected",
     call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
-    input=[q.met_p4_uncorrected, q.muon_leadingp4_H, q.muon_subleadingp4_H, q.muon_leadingp4_H_corrected, q.muon_subleadingp4_H_corrected],
+    input=[q.met_p4_uncorrected, q.muon_leadingp4_H, q.muon_subleadingp4_H, q.muon_leadingp4_H, q.muon_subleadingp4_H],
     output=[q.met_p4_leptoncorrected],
     scopes=["nnmm","fjmm"],
 )

@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "TRandom3.h"
 
+namespace KIT{
 class SeedSequence {
 public:
     explicit SeedSequence(std::initializer_list<uint32_t> seeds)
@@ -117,6 +118,68 @@ double invcdf(double u) const{
 }
 };
 
+struct Gaussian {
+    double pi = 3.141592653589793;
+    double sqrt2 = std::sqrt(2.0);
+    double sqrtPiOver2 = std::sqrt(pi / 2.0);
+
+    double m;   // mean
+    double s;   // sigma
+    double N;   // normalization
+
+    Gaussian(): m(0.0), s(1.0) {
+        init();
+    }
+
+    Gaussian(double mean, double sigma): m(mean), s(sigma) {
+        init();
+    }
+
+    void init() {
+        N = 1.0 / (s * std::sqrt(2.0 * pi));
+    }
+
+    // PDF
+    double pdf(double x) const {
+        double d = (x - m) / s;
+        return N * std::exp(-0.5 * d * d);
+    }
+
+    // CDF
+    double cdf(double x) const {
+        double d = (x - m) / (s * sqrt2);
+        return 0.5 * (1.0 + std::erf(d));
+    }
+
+    // inverse CDF
+    double invcdf(double u) const {
+        return m + s * sqrt2 * boost::math::erf_inv(2.0 * u - 1.0);
+    }
+};
+
+double get_random_nb(double phi, int evtNumber, int lumiNumber) {
+    int64_t phi_seed = static_cast<int64_t>((phi / M_PI) * ((1LL << 31) - 1)) & 0xFFF;
+    SeedSequence seq{static_cast<uint32_t>(evtNumber), static_cast<uint32_t>(lumiNumber), static_cast<uint32_t>(phi_seed)};
+    uint32_t seed;
+    seq.generate(&seed, &seed + 1);
+    TRandom3 rnd(seed);
+    double rndm = rnd.Rndm();
+    return rndm;
+}
+
+double get_rndm_gaus(double eta, double phi, float nL, int evtNumber, int lumiNumber, double mean, double sigma) {
+    // instantiate CB and get random number following the CB
+    Gaussian gaus(mean, sigma);
+    int64_t phi_seed = static_cast<int64_t>((phi / M_PI) * ((1LL << 31) - 1)) & 0xFFF;
+    SeedSequence seq{static_cast<uint32_t>(evtNumber), static_cast<uint32_t>(lumiNumber), static_cast<uint32_t>(phi_seed)};
+    uint32_t seed;
+    seq.generate(&seed, &seed + 1);
+
+    TRandom3 rnd(seed);
+    double rndm = rnd.Rndm();
+    return gaus.invcdf(rndm);
+}
+
 double get_rndm(double eta, double phi, float nL, int evtNumber, int lumiNumber, double mean, double sigma, double n, double alpha) {
     // instantiate CB and get random number following the CB
     CrystalBall cb(mean, sigma, alpha, n);
@@ -146,4 +209,5 @@ double get_k(double eta, std::string var, double k_data, double k_mc) {
     double k = 0;
     if (k_mc < k_data) k = sqrt(k_data*k_data - k_mc*k_mc);
     return k;
+}
 }

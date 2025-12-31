@@ -60,6 +60,9 @@ ROOT::RDF::RNode buildparticle(ROOT::RDF::RNode df,
                                                  default_float, default_float);
                 Logger::get("lorentzvectors")
                     ->debug("Index not found, retuning dummy vector !");
+                // auto log = Logger::get("Lorentzbuild");
+                // log->set_level(spdlog::level::debug);
+                // log->info("lorentzbuild default", default_float);
             }
             Logger::get("lorentzvectors")
                 ->debug("P4 - Particle {} : {}", position, p4);

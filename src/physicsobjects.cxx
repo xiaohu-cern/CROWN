@@ -476,8 +476,11 @@ ROOT::RDF::RNode HiggsToDiMuonPairCollection(ROOT::RDF::RNode df, const std::str
                                  const ROOT::RVec<int> &dimuons_index) {
                                  ROOT::Math::PtEtaPhiMVector p4_dimuon;
                                  std::vector<ROOT::Math::PtEtaPhiMVector> p4;
+                                //  auto log = Logger::get("Check index");
+                                // //  log->set_level(spdlog::level::debug);
                                  if ( dimuons_index.at(0) == -1 || dimuons_index.at(1) == -1 ) {
-                                    return ROOT::Math::PtEtaPhiMVector(default_float, default_float,default_float,default_float);
+                                    // log->info("{}", default_float);
+                                    return ROOT::Math::PtEtaPhiMVector(default_float, default_float, default_float, default_float);
                                  } else {
                                     // int leading    mu1 = dimuons_index[0];
                                     // int subleading mu2 = dimuons_index[1];
@@ -675,13 +678,16 @@ ROOT::RDF::RNode HiggsCandDiMuonPairCollection(ROOT::RDF::RNode df, const std::s
                                  for (unsigned int i = 0; i < p4_1.size(); ++i) {
                                      for (unsigned int j = i + 1; j < p4_2.size(); ++j) {
                                          if (p4_1[i].pt() < 0.0 || p4_2[j].pt() < 0.0)
+                
                                              continue; 
                                          /// need opposite sign dimuons
                                          if ( particle_charges[goodmuons_index[i]] + particle_charges[goodmuons_index[j]] != 0 ) {
+                                            
                                              continue;
                                          }
                                          /// Add dimuon mass window
                                          if ( (p4_1[i] + p4_2[j]).mass() < 110 || (p4_1[i] + p4_2[j]).mass() > 150 ) {
+                                            
                                              continue;
                                          }
                                          if ( p4_1[i].pt() + p4_2[j].pt() > ptsum) {
@@ -696,6 +702,9 @@ ROOT::RDF::RNode HiggsCandDiMuonPairCollection(ROOT::RDF::RNode df, const std::s
                                          }
                                      }
                                  }
+                                //  auto log = Logger::get("Candidate1");
+                                //  log->set_level(spdlog::level::debug);
+                                //  if (index1==-1 || index2 ==-1) log->info("Candidate1 collection default {}", default_float);
                                  ROOT::RVec<int> DiMuonPair = {index1, index2};
                                  return DiMuonPair;
                                  ///p4_dimuon = p4_dileptonsystem[0];
@@ -1351,6 +1360,9 @@ ROOT::RDF::RNode HiggsCandDiMuonGenPairCollection(ROOT::RDF::RNode df, const std
                                  index1 = Muon_indexToGen.at(dimuon_index[0]);
                                  index2 = Muon_indexToGen.at(dimuon_index[1]);
                                  ROOT::RVec<int> DiMuonGenPair = {index1, index2};
+                                //  auto log = Logger::get("KIT Muon Momentum Resolution");
+                                //  log->set_level(spdlog::level::debug);
+                                //  log->info("Index 1: {}", index1, "Index 2: {}", index2);
                                  return DiMuonGenPair; // Two gen muon index 
                              };
     auto df1 = 

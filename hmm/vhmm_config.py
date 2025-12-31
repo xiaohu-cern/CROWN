@@ -389,14 +389,22 @@ def build_config(
                     "2023postBPix": "data/muon_corrections/HLT/2023postBPix/ScaleFactors_Muon_Z_HLT_2023_BPix_abseta_pt_schemaV2.json.gz",
                 }
             ),
-            "KIT_sf_file": EraModifier(
-                {
-                    "2022preEE": "data/muon_corrections/KIT_Corr/2022_Summer22.json",
-                    "2022postEE": "data/muon_corrections/KIT_Corr/2022_Summer22EE.json",
-                    "2023preBPix": "data/muon_corrections/KIT_Corr/2023_Summer23.json",
-                    "2023postBPix": "data/muon_corrections/KIT_Corr/2023_Summer23BPix.json",
-                }
-            ),
+            # "KIT_sf_file": EraModifier(
+            #     {
+            #         "2022preEE": "data/muon_corrections/KIT_Corr/2022_Summer22.json",
+            #         "2022postEE": "data/muon_corrections/KIT_Corr/2022_Summer22EE.json",
+            #         "2023preBPix": "data/muon_corrections/KIT_Corr/2023_Summer23.json",
+            #         "2023postBPix": "data/muon_corrections/KIT_Corr/2023_Summer23BPix.json",
+            #     }
+            # ),
+            # "Rochester_sf_file": EraModifier(
+            #     {
+            #         "2022preEE": "data/muon_corrections/RoccoR/RoccoR2022.txt",
+            #         "2022postEE": "data/muon_corrections/RoccoR/RoccoR2022EE.txt",
+            #         "2023preBPix": "data/muon_corrections/RoccoR/RoccoR2023.txt",
+            #         "2023postBPix": "data/muon_corrections/RoccoR/RoccoR2023BPix.txt",
+            #     }
+            # ),
             "singlemuon_trigger_sf_mc": EraModifier(
                 {   
                     "2023preBPix": [
@@ -637,17 +645,17 @@ def build_config(
             "muon_reco_sf_name_HighPt": "NUM_GlobalMuons_DEN_TrackerMuonProbes",
             
             # below HighPt Momentum Scale, only for fjmm, nnmm and fjmm_cr
-            "muon_momentum_scale_name": "HighPtMuon_Momentum_Scale",
-            "muon_momentum_scale_variation": "nominal",
-            "muon_momentum_BSC_variation": "nominal",
-            "muon_momentum_scale_corr_file": EraModifier(
-                {
-                    "2022preEE": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2022preEE.json.gz",
-                    "2022postEE": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2022postEE.json.gz",
-                    "2023preBPix": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023preBPix.json.gz",
-                    "2023postBPix": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023postBPix.json.gz",
-                }
-            ),
+            # "muon_momentum_scale_name": "HighPtMuon_Momentum_Scale",
+            # "muon_momentum_scale_variation": "nominal",
+            # "muon_momentum_BSC_variation": "nominal",
+            # "muon_momentum_scale_corr_file": EraModifier(
+            #     {
+            #         "2022preEE": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2022preEE.json.gz",
+            #         "2022postEE": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2022postEE.json.gz",
+            #         "2023preBPix": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023preBPix.json.gz",
+            #         "2023postBPix": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023postBPix.json.gz",
+            #     }
+            # ),
             ######################
             ##### for HighPt #####
             ######################
@@ -680,6 +688,47 @@ def build_config(
             ),
             "muon_sf_varation_JPsi": "nominal",
         },
+    )
+    #################### KIT and Rochester Correction config parameters #####################
+    ## comments from Mingxuan: Doing this aims to set these parameters at "global" level #### 
+    ## separately from other parameters. If so, corrected muon pt can be used to select #####
+    ## good muons using the good muon mask. But there is something wrong existing which #####
+    ## results the minus mass calculated using different mass correction set. Debuging and ##
+    ## waiting to be fixed. #################################################################
+    configuration.add_config_parameters(
+        scopes,
+        {
+            "muon_momentum_BSC_variation": "nominal",
+            "muon_momentum_scale_variation": "nominal",
+            "muon_momentum_scale_name": "HighPtMuon_Momentum_Scale",
+            "KIT_Muon_Pt_Scale_variation": "none",
+            "KIT_Muon_Pt_Res_variation": "none",
+            "Rochester_Muon_Pt_Res_variation": "none",
+            "KIT_sf_file": EraModifier(
+                {
+                    "2022preEE": "data/muon_corrections/KIT_Corr/2022_Summer22.json",
+                    "2022postEE": "data/muon_corrections/KIT_Corr/2022_Summer22EE.json",
+                    "2023preBPix": "data/muon_corrections/KIT_Corr/2023_Summer23.json",
+                    "2023postBPix": "data/muon_corrections/KIT_Corr/2023_Summer23BPix.json",
+                }
+            ),
+            "muon_momentum_scale_corr_file": EraModifier(
+                {
+                    "2022preEE": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2022preEE.json.gz",
+                    "2022postEE": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2022postEE.json.gz",
+                    "2023preBPix": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023preBPix.json.gz",
+                    "2023postBPix": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023postBPix.json.gz",
+                }
+            ),
+            "Rochester_sf_file": EraModifier(
+                {
+                    "2022preEE": "data/muon_corrections/RoccoR/RoccoR2022.txt",
+                    "2022postEE": "data/muon_corrections/RoccoR/RoccoR2022EE.txt",
+                    "2023preBPix": "data/muon_corrections/RoccoR/RoccoR2023.txt",
+                    "2023postBPix": "data/muon_corrections/RoccoR/RoccoR2023BPix.txt",
+                }
+            ),
+        }
     )
     # electron scale factors configuration
     configuration.add_config_parameters(
@@ -1108,9 +1157,9 @@ def build_config(
             ),
             "btag_sf_variation": "central",## TODO: update to 2022 recommendation when available. These lines only for testing
             "BtagWeightVariation": "central",
-            "KIT_do_Var": "none",
-            "KIT_Muon_Pt_Scale_variation": "none",
-            "KIT_Muon_Pt_Res_variation": "none",
+            # "KIT_Muon_Pt_Scale_variation": "none",
+            # "KIT_Muon_Pt_Res_variation": "none",
+            # "Rochester_Muon_Pt_Res_variation": "none",
             "btag_corr_algo": EraModifier(
                 {
                     "2016preVFP": "deepJet_shape",
@@ -1326,6 +1375,7 @@ def build_config(
             muons.NumberOfBaseMuons,
             muons.NumberOfGoodMuons,
             muons.BaseMuonCollection, # collect ordered by pt
+            # muons.MC_KIT_MuonPt_ScaleRes,
             muons.MuonCollection, # collect the good muon
             # vh muon Rochester corr, FSR recovery, GeoFit? TODO
             # vh muon FSR recovery
@@ -1414,8 +1464,7 @@ def build_config(
         ["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
         [
             momentumscale.MuonPtCorrection,
-            momentumscale.MuonPtBSC_2l,
-            momentumscale.MuonPtCorrectionBSC,
+            # momentumscale.MuonPtPreCorrection,
         ]
     )
     configuration.add_producers(
@@ -1427,23 +1476,36 @@ def build_config(
             scalefactors.btagging_SF_2WPs_3l_4l, ###update btag sf by Mingxuan
             # scalefactors.btagging_SF_2WPs_3l_4l_dy,
             # scalefactors.btagging_SF_2WPs_3l_4l_vhmm,
-            momentumscale.MuonPtBSC_no2l,
+            # momentumscale.MuonPtPreCorrection,
         ]
     )
     configuration.add_producers(
-        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         [
-            momentumscale.MC_KIT_MuonPt_ScaleRes_no2l,
+            momentumscale.MuonPtPreCorrection,
         ]
     )
     configuration.add_producers(
-        ["nnmm", "fjmm", "fjmm_cr"],
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+        "nnmm_dycontrol","nnmm_topcontrol",
+        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         [
-            momentumscale.MC_KIT_MuonPt_ScaleRes_2l,
+            momentumscale.MC_KIT_MuonPt_ScaleRes,
         ]
     )
+    # configuration.add_producers(
+    #     ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    #         "nnmm_dycontrol","nnmm_topcontrol",
+    #         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    #     [
+    #         momentumscale.MC_Rochester_MuonPt_ScaleRes,
+    #     ]
+    # )
     configuration.add_producers(
         scopes,
         [
@@ -2514,7 +2576,7 @@ def build_config(
             event.Mask_DiMuonPair, # dimuonHiggs index
             event.Flag_DiMuonFromHiggs,
             event.HiggsToDiMuonPair_p4,
-            event.HiggsToDiMuonPair_p4_corrected, # select the dimuon pairs in [110,150] and order by pt
+            # event.HiggsToDiMuonPair_p4_corrected, # select the dimuon pairs in [110,150] and order by pt
             ###
             lepton.LeptonChargeSumVeto,
             ###
@@ -2529,13 +2591,8 @@ def build_config(
             muons.LVMu1,
             muons.LVMu2,
 
-            momentumscale.Mu1_H_corrected,
-            momentumscale.Mu2_H_corrected,
             momentumscale.Mu1_H_corrected_woKIT,
             momentumscale.Mu2_H_corrected_woKIT,
-            p4.mu1_fromH_pt_corrected,
-            p4.mu2_fromH_pt_corrected,
-            p4.H_pt_corrected,
 
             ##############################
             # met.MetCorrections,
@@ -2544,15 +2601,15 @@ def build_config(
             ##############################
 
             ###
-            event.mumuH_dR_corrected,
-            event.mumuH_dphi_corrected,
-            event.mumuH_deta_corrected,
+            event.mumuH_dR,
+            event.mumuH_dphi,
+            event.mumuH_deta,
             ###
-            event.mumuH_MHTALL_dphi_corrected,
-            event.mu1_MHTALL_dphi_corrected,
-            event.mu2_MHTALL_dphi_corrected,
+            event.mumuH_MHTALL_dphi,
+            event.mu1_MHTALL_dphi,
+            event.mu2_MHTALL_dphi,
             
-            event.mu1_mu2_dphi_corrected,
+            event.mu1_mu2_dphi,
             event.met_mmH_dphi_corrected,
             #
             #muons.LVMu3, # vh 
@@ -2612,7 +2669,7 @@ def build_config(
             event.Mask_DiMuonPair, # dimuonHiggs index
             event.Flag_DiMuonFromHiggs,
             event.HiggsToDiMuonPair_p4,
-            event.HiggsToDiMuonPair_p4_corrected, # select the dimuon pairs in [110,150] and order by pt
+            # event.HiggsToDiMuonPair_p4_corrected, # select the dimuon pairs in [110,150] and order by pt
             ###
             lepton.LeptonChargeSumVeto,
             ###
@@ -2627,13 +2684,8 @@ def build_config(
             muons.LVMu1,
             muons.LVMu2,
             
-            momentumscale.Mu1_H_corrected,
-            momentumscale.Mu2_H_corrected,
             momentumscale.Mu1_H_corrected_woKIT,
             momentumscale.Mu2_H_corrected_woKIT,
-            p4.mu1_fromH_pt_corrected,
-            p4.mu2_fromH_pt_corrected,
-            p4.H_pt_corrected,
             
             ##############################
             # met.MetCorrections,
@@ -2642,15 +2694,15 @@ def build_config(
             ##############################
 
             # ###
-            event.mumuH_dR_corrected,
-            event.mumuH_dphi_corrected,
-            event.mumuH_deta_corrected,
+            event.mumuH_dR,
+            event.mumuH_dphi,
+            event.mumuH_deta,
             # ###
-            event.mumuH_MHTALL_dphi_corrected,
-            event.mu1_MHTALL_dphi_corrected,
-            event.mu2_MHTALL_dphi_corrected,
+            event.mumuH_MHTALL_dphi,
+            event.mu1_MHTALL_dphi,
+            event.mu2_MHTALL_dphi,
             
-            event.mu1_mu2_dphi_corrected,
+            event.mu1_mu2_dphi,
             # event.met_mmH_dphi_corrected, # due to limited importance, drop it
             # #
             # #muons.LVMu3, # vh 
@@ -2737,14 +2789,12 @@ def build_config(
             cr.dimuonCR_phi,
             cr.dimuonCR_mass,
             
-            cr.DiMuonPairCR_p4_corrected,
-            momentumscale.Mu1_Z_CR_corrected,
-            momentumscale.Mu2_Z_CR_corrected,
+            cr.DiMuonPairCR_p4,
             momentumscale.Mu1_Z_CR_corrected_woKIT,
             momentumscale.Mu2_Z_CR_corrected_woKIT,
-            p4.mu1_fromZCR_pt_corrected,
-            p4.mu2_fromZCR_pt_corrected,
-            cr.dimuonCR_pt_corrected,
+            p4.mu1_fromZCR_pt,
+            p4.mu2_fromZCR_pt,
+            cr.dimuonCR_pt,
 
             ##############################
             # met.MetCorrections,
@@ -2883,6 +2933,7 @@ def build_config(
         # scopes,
         [electrons.ElectronPtCorrectionSmearing],
     )
+
     configuration.add_outputs(
         scopes,
         [
@@ -3092,15 +3143,6 @@ def build_config(
             # q.fatjet_tau3, # drop it
             # q.fatjet_tau4, # drop it
             q.pnet_wqcd_wgt,
-        ]
-    )
-    ### HighPt Momentum Scale
-    configuration.add_outputs(
-        ["nnmm","fjmm"],
-        [
-            q.mu1_fromH_pt_corrected,
-            q.mu2_fromH_pt_corrected,
-            q.H_pt_corrected,
         ]
     )
     ### HighPtMuon RECO SF 
@@ -3482,9 +3524,9 @@ def build_config(
             q.fatjet_PNet_withMass_WvsQCD,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
             
-            q.dimuonCR_pt_corrected,
-            q.mu1_fromZCR_pt_corrected,
-            q.mu2_fromZCR_pt_corrected,
+            q.dimuonCR_pt,
+            q.mu1_fromZCR_pt,
+            q.mu2_fromZCR_pt,
         ],
     )
     configuration.add_outputs(
@@ -3810,44 +3852,25 @@ def build_config(
         ),
     )
     configuration.add_modification_rule(
-        ["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
-        ReplaceProducer(
-            producers=[momentumscale.MuonPtBSC_2l,momentumscale.RenameMuonPtBSC_2l_partial],
-            samples=["data"],
-        ),
-    )
-    configuration.add_modification_rule(
-        ["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
-        ReplaceProducer(
-            producers=[momentumscale.MuonPtCorrectionBSC,momentumscale.RenameMuonPtBSC_2l],
-            samples=["data"],
-        ),
-    )
-    configuration.add_modification_rule(
-        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-        ReplaceProducer(
-            producers=[momentumscale.MuonPtBSC_no2l,momentumscale.RenameMuonPtBSC],
-            samples=["data"],
-        ),
-    )
-    configuration.add_modification_rule(
-        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+        "nnmm_dycontrol","nnmm_topcontrol",
         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         ReplaceProducer(
-            producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_no2l, momentumscale.Data_KIT_MuonPt_Scale],
+            producers=[momentumscale.MC_KIT_MuonPt_ScaleRes, momentumscale.Data_KIT_MuonPt_Scale],
             samples=["data"],
         ),
     )
-    configuration.add_modification_rule(
-        ["nnmm", "fjmm", "fjmm_cr"],
-        ReplaceProducer(
-            producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_2l, momentumscale.Data_KIT_MuonPt_Scale],
-            samples=["data"],
-        ),
-    )
+    # configuration.add_modification_rule(
+    #     ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    #         "nnmm_dycontrol","nnmm_topcontrol",
+    #         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    #     ReplaceProducer(
+    #         producers=[momentumscale.MC_Rochester_MuonPt_ScaleRes, momentumscale.Data_Rochester_MuonPt_ScaleRes],
+    #         samples=["data"],
+    #     ),
+    # )
     configuration.add_modification_rule(
         ["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
         ReplaceProducer(
@@ -3903,15 +3926,6 @@ def build_config(
                 samples=["vhmm", "singlehiggs"],
             ),
     )
-    # configuration.add_modification_rule(
-    #     ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-    #     "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-    #     "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-    #     RemoveProducer(
-    #         producers=[momentumscale.MC_KIT_MuonPt_Res],
-    #         samples=["data"],
-    #     ),
-    # )
     #### update btag sf by Mingxuan ####
     configuration.add_modification_rule(
         ["e2m","m2m", "eemm","mmmm","eemm_cr","mmmm_cr",
@@ -4299,113 +4313,144 @@ def build_config(
     #########################################
     ######  Muon BSC pt systematics   #######
     #########################################
-    configuration.add_shift(
-        SystematicShift(
-            name="MuonBSCpt_Up",
-            shift_config={
-                ("nnmm","fjmm"): {
-                    "muon_momentum_BSC_variation": "Up",
-                }
-            },
-            producers={
-                ("nnmm","fjmm"): [
-                    momentumscale.MuonPtBSC_2l,
-                ]
-            },
-        )
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="MuonBSCpt_Down",
-            shift_config={
-                ("nnmm","fjmm"): {
-                    "muon_momentum_BSC_variation": "Down",
-                }
-            },
-            producers={
-                ("nnmm","fjmm"): [
-                    momentumscale.MuonPtBSC_2l,
-                ]
-            },
-        )
-    )
-
-    configuration.add_shift(
-        SystematicShift(
-            name="MuonBSCpt_Up",
-            shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-                "nnmm_dycontrol","nnmm_topcontrol",
-                "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-                "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
-                    "muon_momentum_BSC_variation": "Up",
-                }
-            },
-            producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-                "nnmm_dycontrol","nnmm_topcontrol",
-                "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-                "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
-                    momentumscale.MuonPtBSC_no2l,
-                ]
-            },
-        )
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="MuonBSCpt_Down",
-            shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-                "nnmm_dycontrol","nnmm_topcontrol",
-                "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-                "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
-                    "muon_momentum_BSC_variation": "Down",
-                }
-            },
-            producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-                "nnmm_dycontrol","nnmm_topcontrol",
-                "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-                "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
-                    momentumscale.MuonPtBSC_no2l,
-                ]
-            },
-        )
-    )
+    # configuration.add_shift(
+    #     SystematicShift(
+    #         name="MuonBSCpt_Up",
+    #         shift_config={
+    #             ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    #         "nnmm_dycontrol","nnmm_topcontrol",
+    #         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+    #                 "muon_momentum_BSC_variation": "Up",
+    #                 "muon_momentum_scale_variation": "nominal",
+    #             }
+    #         },
+    #         producers={
+    #             ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    #         "nnmm_dycontrol","nnmm_topcontrol",
+    #         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+    #                 momentumscale.MuonPtPreCorrection,
+    #             ]
+    #         },
+    #     )
+    # )
+    # configuration.add_shift(
+    #     SystematicShift(
+    #         name="MuonBSCpt_Down",
+    #         shift_config={
+    #             ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    #         "nnmm_dycontrol","nnmm_topcontrol",
+    #         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+    #                 "muon_momentum_BSC_variation": "Down",
+    #                 "muon_momentum_scale_variation": "nominal",
+    #             }
+    #         },
+    #         producers={
+    #             ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    #         "nnmm_dycontrol","nnmm_topcontrol",
+    #         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+    #                 momentumscale.MuonPtPreCorrection,
+    #             ]
+    #         },
+    #     )
+    # )
 
     #########################################
     #### HighPtMuon Momentum Scale shift ####
     #########################################
     configuration.add_shift(
         SystematicShift(
-            name="MuonMomentumScaleUp",
+            name="MuonHighPtScaleUp",
             shift_config={
-                ("nnmm","fjmm"): {
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                    "muon_momentum_BSC_variation": "nominal",
                     "muon_momentum_scale_variation": "systup",
                 }
             },
             producers={
-                ("nnmm","fjmm"): [
-                    momentumscale.MuonPtCorrectionBSC,
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                    momentumscale.MuonPtPreCorrection,
                 ]
             },
         )
     )
     configuration.add_shift(
         SystematicShift(
-            name="MuonMomentumScaleDown",
+            name="MuonHighPtScaleDown",
             shift_config={
-                ("nnmm","fjmm"): {
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                    "muon_momentum_BSC_variation": "nominal",
                     "muon_momentum_scale_variation": "systdown",
                 }
             },
             producers={
-                ("nnmm","fjmm"): [
-                    momentumscale.MuonPtCorrectionBSC,
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                    momentumscale.MuonPtPreCorrection,
                 ]
             },
         )
     )
+    #########################################
+    ## RoccoR MuonPt Momentum Scale shift ###
+    #########################################
+    # configuration.add_shift(
+    #     SystematicShift(
+    #         name="RochesterMuonPtScaleUp",
+    #         shift_config={
+    #             ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    #         "nnmm_dycontrol","nnmm_topcontrol",
+    #         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+    #                 "Rochester_Muon_Pt_Res_variation": "Up",
+    #             }
+    #         },
+    #         producers={
+    #             ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    #         "nnmm_dycontrol","nnmm_topcontrol",
+    #         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+    #                 momentumscale.MC_Rochester_MuonPt_ScaleRes,
+    #             ]
+    #         },
+    #     )
+    # )
+    # configuration.add_shift(
+    #     SystematicShift(
+    #         name="RochesterMuonPtScaleDown",
+    #         shift_config={
+    #             ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    #         "nnmm_dycontrol","nnmm_topcontrol",
+    #         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+    #                 "Rochester_Muon_Pt_Res_variation": "Down",
+    #             }
+    #         },
+    #         producers={
+    #             ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    #         "nnmm_dycontrol","nnmm_topcontrol",
+    #         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+    #                 momentumscale.MC_Rochester_MuonPt_ScaleRes,
+    #             ]
+    #         },
+    #     )
+    # )
+
     #########################################
     #### KIT MuonPt Momentum Scale shift ####
     #########################################
@@ -4413,20 +4458,20 @@ def build_config(
         SystematicShift(
             name="KITMuonPtScaleUp",
             shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
-                    "KIT_do_Var": "variation",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+        "nnmm_dycontrol","nnmm_topcontrol",
+        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
                     "KIT_Muon_Pt_Scale_variation": "Up",
                     "KIT_Muon_Pt_Res_variation": "none",
                 }
             },
             producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
-                    momentumscale.MC_KIT_MuonPt_ScaleRes_no2l,
-                    # momentumscale.MC_KIT_MuonPt_Res,
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+        "nnmm_dycontrol","nnmm_topcontrol",
+        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                    momentumscale.MC_KIT_MuonPt_ScaleRes,
                 ]
             },
         )
@@ -4435,60 +4480,25 @@ def build_config(
         SystematicShift(
             name="KITMuonPtScaleDown",
             shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
-                    "KIT_do_Var": "variation",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+        "nnmm_dycontrol","nnmm_topcontrol",
+        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
                     "KIT_Muon_Pt_Scale_variation": "Down",
                     "KIT_Muon_Pt_Res_variation": "none",
                 }
             },
             producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
-                    momentumscale.MC_KIT_MuonPt_ScaleRes_no2l,
-                    # momentumscale.MC_KIT_MuonPt_Res,
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+        "nnmm_dycontrol","nnmm_topcontrol",
+        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                    momentumscale.MC_KIT_MuonPt_ScaleRes,
                 ]
             },
         )
     )
-    configuration.add_shift(
-        SystematicShift(
-            name="KITMuonPtScaleUp",
-            shift_config={
-                ("nnmm", "fjmm", "fjmm_cr"): {
-                    "KIT_do_Var": "variation",
-                    "KIT_Muon_Pt_Scale_variation": "Up",
-                    "KIT_Muon_Pt_Res_variation": "none",
-                }
-            },
-            producers={
-                ("nnmm", "fjmm", "fjmm_cr"): [
-                    momentumscale.MC_KIT_MuonPt_ScaleRes_2l,
-                    # momentumscale.MC_KIT_MuonPt_Res,
-                ]
-            },
-        )
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="KITMuonPtScaleDown",
-            shift_config={
-                ("nnmm", "fjmm", "fjmm_cr"): {
-                    "KIT_do_Var": "variation",
-                    "KIT_Muon_Pt_Scale_variation": "Down",
-                    "KIT_Muon_Pt_Res_variation": "none",
-                }
-            },
-            producers={
-                ("nnmm", "fjmm", "fjmm_cr"): [
-                    momentumscale.MC_KIT_MuonPt_ScaleRes_2l,
-                    # momentumscale.MC_KIT_MuonPt_Res,
-                ]
-            },
-        )
-    )
+    
     #########################################
     ## KIT MuonPt Momentum Resolution shift #
     #########################################
@@ -4496,19 +4506,20 @@ def build_config(
         SystematicShift(
             name="KITMuonResUp",
             shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
-                    "KIT_do_Var": "variation",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+        "nnmm_dycontrol","nnmm_topcontrol",
+        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
                     "KIT_Muon_Pt_Scale_variation": "none",
                     "KIT_Muon_Pt_Res_variation": "Up",
                 }
             },
             producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
-                    momentumscale.MC_KIT_MuonPt_ScaleRes_no2l,
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+        "nnmm_dycontrol","nnmm_topcontrol",
+        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                    momentumscale.MC_KIT_MuonPt_ScaleRes,
                 ]
             },
         )
@@ -4517,53 +4528,20 @@ def build_config(
         SystematicShift(
             name="KITMuonResDown",
             shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
-                    "KIT_do_Var": "variation",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+        "nnmm_dycontrol","nnmm_topcontrol",
+        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
                     "KIT_Muon_Pt_Scale_variation": "none",
                     "KIT_Muon_Pt_Res_variation": "Down",
                 }
             },
             producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
-                    momentumscale.MC_KIT_MuonPt_ScaleRes_no2l,
-                ]
-            },
-        )
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="KITMuonResUp",
-            shift_config={
-                ("nnmm", "fjmm", "fjmm_cr"): {
-                    "KIT_do_Var": "variation",
-                    "KIT_Muon_Pt_Scale_variation": "none",
-                    "KIT_Muon_Pt_Res_variation": "Up",
-                }
-            },
-            producers={
-                ("nnmm", "fjmm", "fjmm_cr"): [
-                    momentumscale.MC_KIT_MuonPt_ScaleRes_2l,
-                ]
-            },
-        )
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="KITMuonResDown",
-            shift_config={
-                ("nnmm", "fjmm", "fjmm_cr"): {
-                    "KIT_do_Var": "variation",
-                    "KIT_Muon_Pt_Scale_variation": "none",
-                    "KIT_Muon_Pt_Res_variation": "Down",
-                }
-            },
-            producers={
-                ("nnmm", "fjmm", "fjmm_cr"): [
-                    momentumscale.MC_KIT_MuonPt_ScaleRes_2l,
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+        "nnmm_dycontrol","nnmm_topcontrol",
+        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                    momentumscale.MC_KIT_MuonPt_ScaleRes,
                 ]
             },
         )
@@ -4633,7 +4611,7 @@ def build_config(
     ########################
     configuration.add_shift(
         SystematicShift(
-            name="Smear_Up",
+            name="ElectronSmearUp",
             scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
             shift_config={
                 ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): {"Smear_variation": "esmearUp"},
@@ -4647,7 +4625,7 @@ def build_config(
     )
     configuration.add_shift(
         SystematicShift(
-            name="Smear_Down",
+            name="ElectronSmearDown",
             scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
             shift_config={
                 ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): {"Smear_variation": "esmearDown"},
@@ -4661,7 +4639,7 @@ def build_config(
     )
     configuration.add_shift(
         SystematicShift(
-            name="Scale_Up",
+            name="ElectronScaleUp",
             scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
             shift_config={
                 ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): {"Smear_variation": "escaleUp"},
@@ -4675,7 +4653,7 @@ def build_config(
     )
     configuration.add_shift(
         SystematicShift(
-            name="Scale_Down",
+            name="ElectronScaleDown",
             scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
             shift_config={
                 ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): {"Smear_variation": "escaleDown"},

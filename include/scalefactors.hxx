@@ -3,23 +3,31 @@
 
 namespace scalefactor {
 namespace muon {
-ROOT::RDF::RNode KIT_MuonPtScale(ROOT::RDF::RNode df, const std::string &pt, 
+
+ROOT::RDF::RNode KIT_MuonPtScale(ROOT::RDF::RNode df, const std::string &pt, const std::string &pt_pre_corr,
                     const std::string &phi, const std::string &eta, 
                     const std::string &charge, const std::string &pt_corrected, 
                     const std::string &sf_file, const std::string &data_type, const std::string &channel);
-ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, 
+ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, const std::string &pt_pre_corr, 
                     const std::string &phi, const std::string &eta,
                     const std::string &nL, const std::string &evtNumber,
                     const std::string &lumiNumber, const std::string &charge, const std::string &pt_corrected,
-                    const std::string &sf_file, const std::string &do_var, const std::string &variation,
-                    const std::string &data_type, const std::string &channel, const std::string &s_variation);
+                    const std::string &sf_file, const std::string &variation,
+                    const std::string &data_type, const std::string &s_variation);
+ROOT::RDF::RNode Rochester_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, const std::string &pt_pre_corr, const std::string &indextoGen, const std::string &GenPt,
+                    const std::string &phi, const std::string &eta,
+                    const std::string &charge, const std::string &nL, const std::string &evtNumber,
+                    const std::string &lumiNumber, const std::string &pt_corrected,
+                    const std::string &sf_file, const std::string &variation,
+                    const std::string &data_type);
 
-ROOT::RDF::RNode Muonmomentumscale(ROOT::RDF::RNode df, const std::string &pt_uncorrected, 
+ROOT::RDF::RNode Muonmomentumscale(ROOT::RDF::RNode df, const std::string &pt_raw, const std::string &pt_BSC, const std::string &pt_ReltuneP, const std::string &pt_BSC_Err,
                     const std::string &phi, const std::string &eta, 
                     const std::string &charge, 
-                    const std::string &variation, const std::string &pt_corrected,
+                    const std::string &variation_BSC, const std::string &variation_tuneP, const std::string &pt_corrected, 
                     const std::string &sf_file,
                     const std::string &idAlgorithm);
+
 ROOT::RDF::RNode MuonmomentumBSC(ROOT::RDF::RNode df, const std::string &pt, const std::string &phi, const std::string &eta, 
                     const std::string &ptErr, const std::string &variation, const std::string &ptBSC);
 ROOT::RDF::RNode id_rooworkspace(ROOT::RDF::RNode df, const std::string &pt,
