@@ -2792,9 +2792,9 @@ def build_config(
             # cr.DiMuonPairCR_p4,
             momentumscale.Mu1_Z_CR_corrected_woKIT,
             momentumscale.Mu2_Z_CR_corrected_woKIT,
-            p4.mu1_fromZCR_pt,
-            p4.mu2_fromZCR_pt,
-            cr.dimuonCR_pt,
+            # p4.mu1_fromZCR_pt,
+            # p4.mu2_fromZCR_pt,
+            # cr.dimuonCR_pt,
 
             ##############################
             # met.MetCorrections,
