@@ -1,1 +1,1 @@
-WplusH_HtoZGto2LG_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23NanoAODv12-130X.yaml
+WplusH_HtoZGto2LG_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23NanoAODv12-130X
