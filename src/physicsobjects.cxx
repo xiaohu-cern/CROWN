@@ -1357,8 +1357,14 @@ ROOT::RDF::RNode HiggsCandDiMuonGenPairCollection(ROOT::RDF::RNode df, const std
     auto RecoToGen = [](const ROOT::RVec<int> &Muon_indexToGen,
                                const ROOT::RVec<int> &dimuon_index) {
                                  int index1 = -1,index2 = -1;
-                                 index1 = Muon_indexToGen.at(dimuon_index[0]);
-                                 index2 = Muon_indexToGen.at(dimuon_index[1]);
+                                 try {
+                                    index1 = Muon_indexToGen.at(dimuon_index[0]);
+                                    index2 = Muon_indexToGen.at(dimuon_index[1]);
+                                 }
+                                 catch (const std::out_of_range &e) {
+                                    index1 = -1, index2 = -1;
+                                 }
+                                 
                                  ROOT::RVec<int> DiMuonGenPair = {index1, index2};
                                 //  auto log = Logger::get("KIT Muon Momentum Resolution");
                                 //  log->set_level(spdlog::level::debug);
