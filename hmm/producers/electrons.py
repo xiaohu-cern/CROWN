@@ -205,6 +205,19 @@ LVEle1 = Producer(
     output=[q.lepton_leadingp4_Z],
     scopes=["eemm","eemm_cr"],
 )
+LVEle1_uncorrected = Producer(
+    name="LVEle1_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.dielectron_ZCand_collection,
+        nanoAOD.Electron_pt,
+        nanoAOD.Electron_eta,
+        nanoAOD.Electron_phi,
+        nanoAOD.Electron_mass,
+    ],
+    output=[q.lepton_leadingp4_Z_uncorrected],
+    scopes=["eemm","eemm_cr"],
+)
 LVEle2 = Producer(
     name="LVEle2",
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
@@ -216,6 +229,19 @@ LVEle2 = Producer(
         nanoAOD.Electron_mass,
     ],
     output=[q.lepton_subleadingp4_Z],
+    scopes=["eemm","eemm_cr"],
+)
+LVEle2_uncorrected = Producer(
+    name="LVEle2_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.dielectron_ZCand_collection,
+        nanoAOD.Electron_pt,
+        nanoAOD.Electron_eta,
+        nanoAOD.Electron_phi,
+        nanoAOD.Electron_mass,
+    ],
+    output=[q.lepton_subleadingp4_Z_uncorrected],
     scopes=["eemm","eemm_cr"],
 )
 

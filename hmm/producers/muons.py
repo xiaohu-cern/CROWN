@@ -236,6 +236,19 @@ BaseLVMu1 = Producer(
     output=[q.muon_p4_1],
     scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
 )
+BaseLVMu1_uncorrected = Producer(
+    name="BaseLVMu1_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.base_muon_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_p4_1_uncorrected],
+    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
+)
 LVMu1 = Producer(
     name="LVMu1",
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
@@ -247,6 +260,21 @@ LVMu1 = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_1],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+LVMu1_uncorrected = Producer(
+    name="LVMu1_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.good_muon_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_p4_1_uncorrected],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -264,6 +292,19 @@ BaseLVMu2 = Producer(
     output=[q.muon_p4_2],
     scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
 )
+BaseLVMu2_uncorrected = Producer(
+    name="BaseLVMu2_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.base_muon_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_p4_2_uncorrected],
+    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
+)
 LVMu2 = Producer(
     name="LVMu2",
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
@@ -275,6 +316,21 @@ LVMu2 = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_2],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+LVMu2_uncorrected = Producer(
+    name="LVMu2_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.good_muon_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_p4_2_uncorrected],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","nnmm","fjmm","fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -292,6 +348,19 @@ BaseLVMu3 = Producer(
     output=[q.muon_p4_3],
     scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
 )
+BaseLVMu3_uncorrected = Producer(
+    name="BaseLVMu3_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 2, {output})",
+    input=[
+        q.base_muon_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_p4_3_uncorrected],
+    scopes=["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
+)
 LVMu3 = Producer(
     name="LVMu3",
     call="lorentzvectors::build({df}, {input_vec}, 2, {output})",
@@ -303,6 +372,19 @@ LVMu3 = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_3],
+    scopes=["m2m", "mmmm","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+)
+LVMu3_uncorrected = Producer(
+    name="LVMu3_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 2, {output})",
+    input=[
+        q.good_muon_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_p4_3_uncorrected],
     scopes=["m2m", "mmmm","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 LVMu4 = Producer(
@@ -318,6 +400,19 @@ LVMu4 = Producer(
     output=[q.muon_p4_4],
     scopes=["mmmm"],
 )
+LVMu4_uncorrected = Producer(
+    name="LVMu4_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 3, {output})",
+    input=[
+        q.good_muon_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_p4_4_uncorrected],
+    scopes=["mmmm"],
+)
 BaseLVMu4 = Producer(
     name="BaseLVMu4",
     call="lorentzvectors::build({df}, {input_vec}, 3, {output})",
@@ -329,6 +424,19 @@ BaseLVMu4 = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_4],
+    scopes=["mmmm_cr"],
+)
+BaseLVMu4_uncorrected = Producer(
+    name="BaseLVMu4_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 3, {output})",
+    input=[
+        q.base_muon_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_p4_4_uncorrected],
     scopes=["mmmm_cr"],
 )
 ##### 
@@ -346,6 +454,19 @@ Mu1_H = Producer(
     output=[q.muon_leadingp4_H],
     scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
+Mu1_H_uncorrected = Producer(
+    name="Mu1_H_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.dimuon_HiggsCand_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_leadingp4_H_uncorrected],
+    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
 ##### The sub leading muon form Higgs
 Mu2_H = Producer(
     name="Mu2_H",
@@ -358,6 +479,19 @@ Mu2_H = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_subleadingp4_H],
+    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+Mu2_H_uncorrected = Producer(
+    name="Mu2_H_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.dimuon_HiggsCand_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_subleadingp4_H_uncorrected],
     scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 ##### The leading muon from Higgs in 4m channel
@@ -374,6 +508,19 @@ Mu1_H_4m = Producer(
     output=[q.muon_leadingp4_H],
     scopes=["mmmm","mmmm_cr"],
 )
+Mu1_H_4m_uncorrected = Producer(
+    name="Mu1_H_4m_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.quadmuon_HiggsZCand_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_leadingp4_H_uncorrected],
+    scopes=["mmmm","mmmm_cr"],
+)
 ##### The sub leading muon from Higgs in 4m channel
 Mu2_H_4m = Producer(
     name="Mu2_H_4m",
@@ -386,6 +533,19 @@ Mu2_H_4m = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_subleadingp4_H],
+    scopes=["mmmm","mmmm_cr"],
+)
+Mu2_H_4m_uncorrected = Producer(
+    name="Mu2_H_4m_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.quadmuon_HiggsZCand_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_subleadingp4_H_uncorrected],
     scopes=["mmmm","mmmm_cr"],
 )
 ##### The leading muon from Z Cand in 4m channel
@@ -402,6 +562,19 @@ Mu1_Z_4m = Producer(
     output=[q.lepton_leadingp4_Z],
     scopes=["mmmm","mmmm_cr"],
 )
+Mu1_Z_4m_uncorrected = Producer(
+    name="Mu1_Z_4m_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 2, {output})",
+    input=[
+        q.quadmuon_HiggsZCand_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.lepton_leadingp4_Z_uncorrected],
+    scopes=["mmmm","mmmm_cr"],
+)
 Mu2_Z_4m = Producer(
     name="Mu2_Z_4m",
     call="lorentzvectors::build({df}, {input_vec}, 3, {output})",
@@ -413,6 +586,19 @@ Mu2_Z_4m = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.lepton_subleadingp4_Z],
+    scopes=["mmmm","mmmm_cr"],
+)
+Mu2_Z_4m_uncorrected = Producer(
+    name="Mu2_Z_4m_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 3, {output})",
+    input=[
+        q.quadmuon_HiggsZCand_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.lepton_subleadingp4_Z_uncorrected],
     scopes=["mmmm","mmmm_cr"],
 )
 ##### The leading muon from Z Cand in Z_CR region (fjmm_cr, regionbd)
@@ -431,6 +617,21 @@ Mu1_Z_CR = Producer(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
 )
+Mu1_Z_CR_uncorrected = Producer(
+    name="Mu1_Z_CR_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.dimuon_ZControl_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_leadingp4_Z_CR_uncorrected],
+    scopes=["fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
 Mu2_Z_CR = Producer(
     name="Mu2_Z_CR",
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
@@ -442,6 +643,21 @@ Mu2_Z_CR = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_subleadingp4_Z_CR],
+    scopes=["fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+Mu2_Z_CR_uncorrected = Producer(
+    name="Mu2_Z_CR_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.dimuon_ZControl_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_subleadingp4_Z_CR_uncorrected],
     scopes=["fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],

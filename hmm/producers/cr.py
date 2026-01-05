@@ -130,7 +130,7 @@ TOP_EleMuPair_CR_corrected = Producer(
            nanoAOD.Muon_mass,
            nanoAOD.Muon_charge,
            q.good_muon_collection,
-           nanoAOD.Electron_pt,
+           q.Electron_pt_corrected,
            nanoAOD.Electron_eta, 
            nanoAOD.Electron_phi, 
            nanoAOD.Electron_mass,
@@ -153,7 +153,7 @@ EleMuPairCR_p4_corrected = Producer(
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
-           nanoAOD.Electron_pt,
+           q.Electron_pt_corrected,
            nanoAOD.Electron_eta, 
            nanoAOD.Electron_phi, 
            nanoAOD.Electron_mass,
@@ -164,11 +164,11 @@ EleMuPairCR_p4_corrected = Producer(
 EleMuPairCR_p4 = Producer(
     name="EleMuPairCR_p4",
     call='physicsobject::TopControlEleMuPairP4({df}, {output}, {input})',
-    input=[nanoAOD.Muon_pt,
+    input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
-           nanoAOD.Electron_pt,
+           q.Electron_pt_corrected,
            nanoAOD.Electron_eta, 
            nanoAOD.Electron_phi, 
            nanoAOD.Electron_mass,
@@ -235,7 +235,7 @@ Mu_Top_CR = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.elemu_TopControl_collection,
-        nanoAOD.Muon_pt,
+        q.Muon_pt_corrected,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
@@ -243,8 +243,34 @@ Mu_Top_CR = Producer(
     output=[q.muon_p4_1],
     scopes=["nnmm_topcontrol"],
 )
+Mu_Top_CR_uncorrected = Producer(
+    name="Mu_Top_CR_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.elemu_TopControl_collection,
+        q.Muon_pt_uncorrected,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_p4_1_uncorrected],
+    scopes=["nnmm_topcontrol"],
+)
 Ele_Top_CR = Producer(
     name="Ele_Top_CR",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.elemu_TopControl_collection,
+        q.Electron_pt_corrected,
+        nanoAOD.Electron_eta,
+        nanoAOD.Electron_phi,
+        nanoAOD.Electron_mass,
+    ],
+    output=[q.ele_Top_CR],
+    scopes=["nnmm_topcontrol"],
+)
+Ele_Top_CR_uncorrected = Producer(
+    name="Ele_Top_CR_uncorrected",
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
     input=[
         q.elemu_TopControl_collection,
@@ -253,6 +279,6 @@ Ele_Top_CR = Producer(
         nanoAOD.Electron_phi,
         nanoAOD.Electron_mass,
     ],
-    output=[q.ele_Top_CR],
+    output=[q.ele_Top_CR_uncorrected],
     scopes=["nnmm_topcontrol"],
 )

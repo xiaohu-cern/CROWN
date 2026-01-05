@@ -3,26 +3,13 @@ from ..quantities import nanoAOD as nanoAOD
 from code_generation.producer import Producer, ProducerGroup
 from code_generation.producer import ExtendedVectorProducer
 
-# MuonPtCorrection = Producer(
-#     name="MuonPtCorrection",
-#     call='scalefactor::muon::Muonmomentumscale({df}, {input}, "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
-#     input=[
-#         nanoAOD.Muon_pt,
-#         nanoAOD.Muon_phi,
-#         nanoAOD.Muon_eta,
-#         nanoAOD.Muon_charge,
-#     ],
-#     output=[q.Muon_pt_corrected_woKIT],
-#     scopes=["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
-#     # scopes=["global"],
-# )
 MuonPtCorrection = Producer(
     name="MuonPtCorrection",
     call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
     input=[
         nanoAOD.Muon_pt,
     ],
-    output=[q.Muon_pt_corrected_woKIT],
+    output=[q.Muon_pt_uncorrected],
     scopes=["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
     # scopes=["global"],
 )
@@ -32,7 +19,7 @@ RenameMuonPt = Producer(
     input=[
         nanoAOD.Muon_pt,
     ],
-    output=[q.Muon_pt_corrected_woKIT],
+    output=[q.Muon_pt_uncorrected],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
             "nnmm_dycontrol","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -152,72 +139,5 @@ Mu_Top_CR_corrected = Producer(
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_Top_CR_corrected],
-    scopes=["nnmm_topcontrol"],
-)
-
-##########feedback from discussion about the SF##################
-Mu1_H_corrected_woKIT = Producer(
-    name="Mu1_H_corrected_woKIT",
-    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
-    input=[
-        q.dimuon_HiggsCand_collection,
-        q.Muon_pt_corrected_woKIT,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_leadingp4_H_corrected_woKIT],
-    scopes=["nnmm","fjmm"],
-)
-Mu2_H_corrected_woKIT = Producer(
-    name="Mu2_H_corrected_woKIT",
-    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
-    input=[
-        q.dimuon_HiggsCand_collection,
-        q.Muon_pt_corrected_woKIT,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_subleadingp4_H_corrected_woKIT],
-    scopes=["nnmm","fjmm"],
-)
-Mu1_Z_CR_corrected_woKIT = Producer(
-    name="Mu1_Z_CR_corrected_woKIT",
-    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
-    input=[
-        q.dimuon_ZControl_collection,
-        q.Muon_pt_corrected_woKIT,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_leadingp4_Z_CR_corrected_woKIT],
-    scopes=["fjmm_cr"],
-)
-Mu2_Z_CR_corrected_woKIT = Producer(
-    name="Mu2_Z_CR_corrected_woKIT",
-    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
-    input=[
-        q.dimuon_ZControl_collection,
-        q.Muon_pt_corrected_woKIT,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_subleadingp4_Z_CR_corrected_woKIT],
-    scopes=["fjmm_cr"],
-)
-Mu_Top_CR_corrected_woKIT = Producer(
-    name="Mu_Top_CR_corrected_woKIT",
-    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
-    input=[
-        q.elemu_TopControl_collection,
-        q.Muon_pt_corrected_woKIT,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_Top_CR_corrected_woKIT],
     scopes=["nnmm_topcontrol"],
 )
