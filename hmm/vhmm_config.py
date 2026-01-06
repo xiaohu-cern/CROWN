@@ -2850,8 +2850,8 @@ def build_config(
             cr.dimuonCR_mass,
             
             # cr.DiMuonPairCR_p4,
-            muons.Mu1_Z_CR_uncorrected,
-            muons.Mu2_Z_CR_uncorrected,
+            # muons.Mu1_Z_CR_uncorrected,
+            # muons.Mu2_Z_CR_uncorrected,
             # p4.mu1_fromZCR_pt,
             # p4.mu2_fromZCR_pt,
             # cr.dimuonCR_pt,
