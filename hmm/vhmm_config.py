@@ -903,8 +903,8 @@ def build_config(
                     # "2022postEE": '"Summer22EEPrompt22_V1_MC"',
                     "2022preEE": '"Summer22_22Sep2023_V2_MC"', # just for testing (TBD) 2022_Prompt:  Winter22Run3_V2_MC
                     "2022postEE": '"Summer22EE_22Sep2023_V2_MC"', # just for testing (TBD) beforeCorr: Summer22EEPrompt22_V1_MC
-                    "2023preBPix": '"Summer23Prompt23_V1_MC"',
-                    "2023postBPix": '"Summer23BPixPrompt23_V1_MC"',
+                    "2023preBPix": '"Summer23Prompt23_V2_MC"',
+                    "2023postBPix": '"Summer23BPixPrompt23_V3_MC"',
                 }
             ),
             # "jet_jec_algo": '"AK4PFPuppi"', # AK4PFchs for run2?
@@ -1031,8 +1031,8 @@ def build_config(
                     # "2022postEE": '"Summer22EEPrompt22_V1_MC"', # just for testing (TBD)
                     "2022preEE": '"Summer22_22Sep2023_V2_MC"', # just for testing (TBD)
                     "2022postEE": '"Summer22EE_22Sep2023_V2_MC"', # just for testing (TBD)
-                    "2023preBPix": '"Summer23Prompt23_V1_MC"',
-                    "2023postBPix": '"Summer23BPixPrompt23_V1_MC"',
+                    "2023preBPix": '"Summer23Prompt23_V2_MC"',
+                    "2023postBPix": '"Summer23BPixPrompt23_V3_MC"',
                 }
             ),
             "fatjet_jec_algo": '"AK8PFPuppi"',
