@@ -1576,10 +1576,15 @@ def build_config(
             event.FilterFlagDiMuonZVeto,
             ###
             muons.LVMu1,
+            muons.LVMu1_uncorrected,
             muons.LVMu2,
+            muons.LVMu2_uncorrected,
             muons.LVMu3,
+            muons.LVMu3_uncorrected,
             muons.Mu1_H, # vh
+            muons.Mu1_H_uncorrected,
             muons.Mu2_H, # vh
+            muons.Mu2_H_uncorrected,
             ### extra muon in m2m
             lepton.Mu1_W_m2m_index, # extra muon index
             lepton.Mu1_W_m2m, # extra muon p4 (From W)
@@ -1689,8 +1694,11 @@ def build_config(
             cr.dimuonCR_mass,
             ###
             muons.LVMu1,
+            muons.LVMu1_uncorrected,
             muons.LVMu2,
+            muons.LVMu2_uncorrected,
             muons.LVMu3,
+            muons.LVMu3_uncorrected,
             ##############################
             # met.MetCorrections,
             ##############################
@@ -1720,7 +1728,9 @@ def build_config(
             # event.FilterFlagDiMuFromH,
             ###
             muons.Mu1_Z_CR,
+            muons.Mu1_Z_CR_uncorrected,
             muons.Mu2_Z_CR,
+            muons.Mu2_Z_CR_uncorrected,
             event.mumuZCR_dR,
             event.mumuZCR_dphi,
             event.mumuZCR_deta,
@@ -1779,13 +1789,18 @@ def build_config(
             event.FilterFlagDiMuFromH, # flag dimuon Higgs cut
             ###
             muons.Mu1_H,
+            muons.Mu1_H_uncorrected,
             muons.Mu2_H,
+            muons.Mu2_H_uncorrected,
             # muons.LVMu1,
             # muons.LVMu2,
             # muons.LVMu3,
             muons.BaseLVMu1,
+            muons.BaseLVMu1_uncorrected,
             muons.BaseLVMu2,
+            muons.BaseLVMu2_uncorrected,
             muons.BaseLVMu3,
+            muons.BaseLVMu3_uncorrected,
             
             ##############################
             # met.MetCorrections,
@@ -1892,8 +1907,11 @@ def build_config(
             lepton.Mu1_W_m2m_noCorr,
 
             muons.BaseLVMu1,
+            muons.BaseLVMu1_uncorrected,
             muons.BaseLVMu2,
+            muons.BaseLVMu2_uncorrected,
             muons.BaseLVMu3,
+            muons.BaseLVMu3_uncorrected,
 
             ##############################
             # met.MetCorrections,
@@ -1919,7 +1937,9 @@ def build_config(
             event.Calc_CosThStar_lep_muOS,
             event.Calc_CosThStar_lep_muSS,
             muons.Mu1_Z_CR,
+            muons.Mu1_Z_CR_uncorrected,
             muons.Mu2_Z_CR,
+            muons.Mu2_Z_CR_uncorrected,
             event.mumuZCR_dR,
             event.mumuZCR_dphi,
             event.mumuZCR_deta,
@@ -1971,12 +1991,16 @@ def build_config(
             event.PassFlagGoodEleVeto,
             ###
             muons.Mu1_H,
+            muons.Mu1_H_uncorrected,
             muons.Mu2_H,
+            muons.Mu2_H_uncorrected,
 
             lepton.Ele1_W_e2m, # output extra lep p4
             lepton.Ele1_W_e2m_noCorr,
             muons.LVMu1,
+            muons.LVMu1_uncorrected,
             muons.LVMu2,
+            muons.LVMu2_uncorrected,
             
             ##############################
             # met.MetCorrections,
@@ -2081,7 +2105,9 @@ def build_config(
             lepton.Ele1_W_e2m,
             lepton.Ele1_W_e2m_noCorr,
             muons.LVMu1,
+            muons.LVMu1_uncorrected,
             muons.LVMu2,
+            muons.LVMu2_uncorrected,
             
             ##############################
             # met.MetCorrections,
@@ -2109,7 +2135,9 @@ def build_config(
 
             ###
             muons.Mu1_Z_CR,
+            muons.Mu1_Z_CR_uncorrected,
             muons.Mu2_Z_CR,
+            muons.Mu2_Z_CR_uncorrected,
             event.mumuZCR_dR,
             event.mumuZCR_dphi,
             event.mumuZCR_deta,
@@ -2161,12 +2189,16 @@ def build_config(
             event.HiggsToDiMuonPair_p4, # make dimuon p4
             event.FilterFlagDiMuFromH, # flag dimuon Higgs cut
             muons.Mu1_H,
+            muons.Mu1_H_uncorrected,
             muons.Mu2_H,
+            muons.Mu2_H_uncorrected,
             ###
             lepton.Ele1_W_e2m_regioncd,
             lepton.Ele1_W_e2m_regioncd_noCorr,
             muons.LVMu1,
+            muons.LVMu1_uncorrected,
             muons.LVMu2,
+            muons.LVMu2_uncorrected,
             
             ##############################
             # met.MetCorrections,
@@ -2268,7 +2300,9 @@ def build_config(
             lepton.Ele1_W_e2m_regioncd,
             lepton.Ele1_W_e2m_regioncd_noCorr,
             muons.LVMu1,
+            muons.LVMu1_uncorrected,
             muons.LVMu2,
+            muons.LVMu2_uncorrected,
             
             ##############################
             # met.MetCorrections,
@@ -2296,7 +2330,9 @@ def build_config(
             
             ###
             muons.Mu1_Z_CR,
+            muons.Mu1_Z_CR_uncorrected,
             muons.Mu2_Z_CR,
+            muons.Mu2_Z_CR_uncorrected,
             event.mumuZCR_dR,
             event.mumuZCR_dphi,
             event.mumuZCR_deta,
@@ -2401,12 +2437,16 @@ def build_config(
             event.PassFlagZZVeto,
             #
             muons.Mu1_H,
+            muons.Mu1_H_uncorrected,
             muons.Mu2_H,
+            muons.Mu2_H_uncorrected,
             event.mumuH_dR,
             event.mumuH_dphi,
             event.mumuH_deta,
             electrons.LVEle1,  # leading lep from Z
+            electrons.LVEle1_uncorrected,
             electrons.LVEle2,  # subleading lep from Z
+            electrons.LVEle2_uncorrected,
             ###
             event.leplepZ_dR,
             lepton.RenameZlepID_eemm, # using pdgId to lep_ID
@@ -2415,7 +2455,9 @@ def build_config(
             event.Calc_CosThStar_Z_H,
             #
             muons.LVMu1,
+            muons.LVMu1_uncorrected,
             muons.LVMu2,
+            muons.LVMu2_uncorrected,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
 
             p4.mu1_fromH_pt,
@@ -2464,9 +2506,13 @@ def build_config(
             event.Mask_QuadMuonPair,
             lepton.LeptonChargeSumVeto,
             muons.LVMu1,
+            muons.LVMu1_uncorrected,
             muons.LVMu2,
+            muons.LVMu2_uncorrected,
             muons.LVMu3,
+            muons.LVMu3_uncorrected,
             muons.LVMu4,
+            muons.LVMu4_uncorrected,
             
         ]
     )
@@ -2481,9 +2527,13 @@ def build_config(
             event.Mask_QuadBaseMuonPair,
             lepton.BaseLeptonChargeSumVeto,
             muons.BaseLVMu1,
+            muons.BaseLVMu1_uncorrected,
             muons.BaseLVMu2,
+            muons.BaseLVMu2_uncorrected,
             muons.BaseLVMu3,
+            muons.BaseLVMu3_uncorrected,
             muons.BaseLVMu4,
+            muons.BaseLVMu4_uncorrected,
         ]
     )
     configuration.add_producers(
@@ -2507,12 +2557,16 @@ def build_config(
             event.FilterFlagGoodEleVeto,
             ###
             muons.Mu1_H_4m,
+            muons.Mu1_H_4m_uncorrected,
             muons.Mu2_H_4m,
+            muons.Mu2_H_4m_uncorrected,
             event.mumuH_dR,
             event.mumuH_dphi,
             event.mumuH_deta,
             muons.Mu1_Z_4m, # leading lep from Z
+            muons.Mu1_Z_4m_uncorrected,
             muons.Mu2_Z_4m, # subleading lep from Z
+            muons.Mu2_Z_4m_uncorrected,
             ###
             event.leplepZ_dR,
             lepton.RenameZlepID_mmmm, # using pdgId to lep_ID
@@ -2589,10 +2643,12 @@ def build_config(
             muons.Mu1_H, # vh
             muons.Mu2_H, # vh
             muons.LVMu1,
+            muons.LVMu1_uncorrected,
             muons.LVMu2,
+            muons.LVMu2_uncorrected,
 
-            momentumscale.Mu1_H_corrected_woKIT,
-            momentumscale.Mu2_H_corrected_woKIT,
+            muons.Mu1_H_uncorrected,
+            muons.Mu2_H_uncorrected,
 
             ##############################
             # met.MetCorrections,
@@ -2632,17 +2688,17 @@ def build_config(
             
             p4.genmet_pt,
             p4.genmet_phi,
-            genparticles.dimuon_gen_collection,
-            genparticles.genMu1_H,
-            genparticles.genMu2_H,
-            p4.genmu1_fromH_pt,
-            p4.genmu1_fromH_eta,
-            p4.genmu1_fromH_phi,
-            p4.genmu1_fromH_mass,
-            p4.genmu2_fromH_pt,
-            p4.genmu2_fromH_eta,
-            p4.genmu2_fromH_phi,
-            p4.genmu2_fromH_mass,
+            # genparticles.dimuon_gen_collection,
+            # genparticles.genMu1_H,
+            # genparticles.genMu2_H,
+            # p4.genmu1_fromH_pt,
+            # p4.genmu1_fromH_eta,
+            # p4.genmu1_fromH_phi,
+            # p4.genmu1_fromH_mass,
+            # p4.genmu2_fromH_pt,
+            # p4.genmu2_fromH_eta,
+            # p4.genmu2_fromH_phi,
+            # p4.genmu2_fromH_mass,
             # genparticles.BosonDecayMode,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
@@ -2682,10 +2738,12 @@ def build_config(
             muons.Mu1_H, # vh
             muons.Mu2_H, # vh
             muons.LVMu1,
+            muons.LVMu1_uncorrected,
             muons.LVMu2,
+            muons.LVMu2_uncorrected,
             
-            momentumscale.Mu1_H_corrected_woKIT,
-            momentumscale.Mu2_H_corrected_woKIT,
+            muons.Mu1_H_uncorrected,
+            muons.Mu2_H_uncorrected,
             
             ##############################
             # met.MetCorrections,
@@ -2781,7 +2839,9 @@ def build_config(
             event.FilterFlagLepChargeSum,
             event.FilterFlagGoodEleVeto,
             muons.LVMu1,
+            muons.LVMu1_uncorrected,
             muons.LVMu2,
+            muons.LVMu2_uncorrected,
 
             cr.DiMuonPairCR_p4,
             cr.dimuonCR_pt,
@@ -2790,8 +2850,8 @@ def build_config(
             cr.dimuonCR_mass,
             
             # cr.DiMuonPairCR_p4,
-            momentumscale.Mu1_Z_CR_corrected_woKIT,
-            momentumscale.Mu2_Z_CR_corrected_woKIT,
+            muons.Mu1_Z_CR_uncorrected,
+            muons.Mu2_Z_CR_uncorrected,
             # p4.mu1_fromZCR_pt,
             # p4.mu2_fromZCR_pt,
             # cr.dimuonCR_pt,
@@ -2813,7 +2873,9 @@ def build_config(
             event.met_mm_fromZCR_dphi,
 
             muons.Mu1_Z_CR,
+            muons.Mu1_Z_CR_uncorrected,
             muons.Mu2_Z_CR,
+            muons.Mu2_Z_CR_uncorrected,
             p4.mu1_fromZCR_pt,
             p4.mu1_fromZCR_eta,
             p4.mu1_fromZCR_phi,
@@ -2906,9 +2968,10 @@ def build_config(
             cr.EleMuPairCR_p4_corrected,
             
             cr.Mu_Top_CR,
+            cr.Mu_Top_CR_uncorrected,
             momentumscale.Mu_Top_CR_corrected,
-            momentumscale.Mu_Top_CR_corrected_woKIT,
             cr.Ele_Top_CR,
+            cr.Ele_Top_CR_uncorrected,
             
             cr.elemuCR_pt_corrected,
             cr.elemuCR_pt,
@@ -2938,7 +3001,7 @@ def build_config(
         scopes,
         [
             ########test unc############
-            # q.Muon_pt_corrected_woKIT,
+            # q.Muon_pt_uncorrected,
             ############################
             q.is_data,
             q.is_embedding,
@@ -3460,14 +3523,14 @@ def build_config(
             q.Flag_DiMuonFromHiggs,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
             
-            q.genmu1_fromH_pt,
-            q.genmu1_fromH_eta,
-            q.genmu1_fromH_phi,
-            q.genmu1_fromH_mass,
-            q.genmu2_fromH_pt,
-            q.genmu2_fromH_eta,
-            q.genmu2_fromH_phi,
-            q.genmu2_fromH_mass,
+            # q.genmu1_fromH_pt,
+            # q.genmu1_fromH_eta,
+            # q.genmu1_fromH_phi,
+            # q.genmu1_fromH_mass,
+            # q.genmu2_fromH_pt,
+            # q.genmu2_fromH_eta,
+            # q.genmu2_fromH_phi,
+            # q.genmu2_fromH_mass,
         ],
     )
     configuration.add_outputs(
@@ -3784,25 +3847,25 @@ def build_config(
             samples=["data"],
         ),
     )
-    configuration.add_modification_rule(
-        ["nnmm"],
-        RemoveProducer(
-            producers=[
-                genparticles.dimuon_gen_collection,
-                genparticles.genMu1_H,
-                genparticles.genMu2_H,
-                p4.genmu1_fromH_pt,
-                p4.genmu1_fromH_eta,
-                p4.genmu1_fromH_phi,
-                p4.genmu1_fromH_mass,
-                p4.genmu2_fromH_pt,
-                p4.genmu2_fromH_eta,
-                p4.genmu2_fromH_phi,
-                p4.genmu2_fromH_mass,
-            ],
-            samples=["data"],
-        ),
-    )
+    # configuration.add_modification_rule(
+    #     ["nnmm"],
+    #     RemoveProducer(
+    #         producers=[
+    #             genparticles.dimuon_gen_collection,
+    #             genparticles.genMu1_H,
+    #             genparticles.genMu2_H,
+    #             p4.genmu1_fromH_pt,
+    #             p4.genmu1_fromH_eta,
+    #             p4.genmu1_fromH_phi,
+    #             p4.genmu1_fromH_mass,
+    #             p4.genmu2_fromH_pt,
+    #             p4.genmu2_fromH_eta,
+    #             p4.genmu2_fromH_phi,
+    #             p4.genmu2_fromH_mass,
+    #         ],
+    #         samples=["data"],
+    #     ),
+    # )
     configuration.add_modification_rule(
         ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm","nnmm_topcontrol"],
         RemoveProducer(
