@@ -259,28 +259,56 @@ Flag_DiEleFromZ = Producer(
     scopes=["eemm","eemm_cr"],
 )
 ###
-HiggsToDiMuonPair_p4 = Producer(
-    name="HiggsToDiMuonPair_p4",
+HiggsToDiMuonPair_p4_noFSR = Producer(
+    name="HiggsToDiMuonPair_p4_noFSR",
     call='physicsobject::HiggsToDiMuonPairCollection({df}, {output}, {input})',
     input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
            q.dimuon_HiggsCand_collection],
-    output=[q.dimuon_p4_Higgs],
+    output=[q.dimuon_p4_Higgs_noFSR],
     scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
-HiggsToDiMuonPair_p4_4m = Producer(
-    name="HiggsToDiMuonPair_p4_4m",
+HiggsToDiMuonPair_p4_4m_noFSR = Producer(
+    name="HiggsToDiMuonPair_p4_4m_noFSR",
     call='physicsobject::HiggsToDiMuonPairCollection({df}, {output}, {input})',
     input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
            q.quadmuon_HiggsZCand_collection],
-    output=[q.dimuon_p4_Higgs],
+    output=[q.dimuon_p4_Higgs_noFSR],
     scopes=["mmmm","mmmm_cr"],
 )
+
+# HiggsToDiMuonPair_p4_4m_noFSR = Producer(
+#     name="HiggsToDiMuonPair_p4_4m_noFSR",
+#     call='physicsobject::HiggsToDiMuonPairCollection({df}, {output}, {input})',
+#     input=[q.Muon_pt_corrected,
+#            nanoAOD.Muon_eta, 
+#            nanoAOD.Muon_phi, 
+#            nanoAOD.Muon_mass,
+#            q.quadmuon_HiggsZCand_collection],
+#     output=[q.dimuon_p4_Higgs],
+#     scopes=["mmmm","mmmm_cr"],
+# )
+
+HiggsToDiMuonPair_p4 = Producer(
+    name="HiggsToDiMuonPair_p4",
+    call='physicsobject::FSR_Recovery_dimuon({df}, {output}, {input})',
+    input=[q.dimuon_p4_Higgs_noFSR,
+           q.FsrPhoton1_pt,
+           q.FsrPhoton1_eta,
+           q.FsrPhoton1_phi,
+           q.FsrPhoton2_pt,
+           q.FsrPhoton2_eta,
+           q.FsrPhoton2_phi],
+    output=[q.dimuon_p4_Higgs],
+    scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc", "mmmm", "mmmm_cr"],
+)
+
+
 ZToDiMuonPair_p4_4m = Producer(
     name="ZToDiMuonPair_p4_4m",
     call='physicsobject::ZToSecondMuonPairCollection({df}, {output}, {input})',

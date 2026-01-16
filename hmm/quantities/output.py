@@ -296,11 +296,14 @@ dielectron_p4_byPt = Quantity("dielectron_p4_byPt")
 quadmuon_HiggsZCand_collection = Quantity("quadmuon_HiggsZCand_collection")
 Flag_ZZVeto = Quantity("Flag_ZZVeto")
 dimuon_p4_Higgs = Quantity("dimuon_p4_Higgs")
+dimuon_p4_Higgs_noFSR = Quantity("dimuon_p4_Higgs_noFSR")
 dimuon_p4_Z = Quantity("dimuon_p4_Z")
 dilepton_p4_Z = Quantity("dilepton_p4_Z")
 ### 
 muon_leadingp4_H = Quantity("muon_leadingp4_H")
+muon_leadingp4_H_noFSR = Quantity("muon_leadingp4_H_noFSR")
 muon_subleadingp4_H = Quantity("muon_subleadingp4_H")
+muon_subleadingp4_H_noFSR = Quantity("muon_subleadingp4_H_noFSR")
 muon_leadingp4_Z = Quantity("muon_leadingp4_Z")
 muon_subleadingp4_Z = Quantity("muon_subleadingp4_Z")
 ###
@@ -748,3 +751,13 @@ muon_Top_CR_uncorrected = Quantity("muon_Top_CR_uncorrected")
 ##electron pt scale and smearing####
 Electron_pt_corrected = Quantity("Electron_pt_corrected")
 extra_lep_p4_noCorr = Quantity("extra_lep_p4_noCorr")
+
+## muon FSR recovery ##
+FsrPhotonIdx_1 = Quantity("FsrPhotonIdx_1")
+FsrPhotonIdx_2 = Quantity("FsrPhotonIdx_2")
+FsrPhoton1_pt = Quantity("FsrPhoton1_pt")
+FsrPhoton1_eta = Quantity("FsrPhoton1_eta")
+FsrPhoton1_phi = Quantity("FsrPhoton1_phi")
+FsrPhoton2_pt = Quantity("FsrPhoton2_pt")
+FsrPhoton2_eta = Quantity("FsrPhoton2_eta")
+FsrPhoton2_phi = Quantity("FsrPhoton2_phi")

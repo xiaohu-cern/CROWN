@@ -32,6 +32,42 @@
 /// multiple cuts can be combined by multiplying masks using
 /// physicsobject::CombineMasks.
 namespace physicsobject {
+ROOT::RDF::RNode FsrPhoton_idx (ROOT::RDF::RNode df, const std::string &fsrphoton_index, 
+                                const std::string &dimuons_index, const std::string &photon_index, 
+                                const std::string &photon_reliso, const std::string &photon_dROverEt2, 
+                                const std::string &photon_pt, const std::string &muon_pt, const int &position) {
+    auto select_fsrphoton = [position] (const ROOT::RVec<int> &dimuons_index,
+                                const ROOT::RVec<short> &photon_index,
+                                const ROOT::RVec<float> &photon_reliso,
+                                const ROOT::RVec<float> &photon_dROverEt2,
+                                const ROOT::RVec<float> &photon_pt,
+                                const ROOT::RVec<float> &muon_pt) {
+        const int muon_index = dimuons_index.at(position);
+        short fsr_index = -1;
+        double muonPt = 0.;
+        ///initial fsr photon index
+        try {
+            fsr_index = photon_index.at(muon_index);
+            muonPt = muon_pt.at(muon_index);
+        } catch (const std::out_of_range &e) {
+            fsr_index = -1;
+            muonPt = default_float;
+        }
+
+        if (fsr_index >= 0 && muonPt > 0) {
+            if (photon_reliso.at(fsr_index) < 1.8 && photon_dROverEt2.at(fsr_index) < 0.012 && photon_pt.at(fsr_index)/muonPt < 0.4) {
+                fsr_index = fsr_index;
+            }
+            else {
+                fsr_index = -1;
+            }
+        }
+        return static_cast<int>(fsr_index);
+    };
+    auto df1 = 
+        df.Define(fsrphoton_index, select_fsrphoton, {dimuons_index, photon_index, photon_reliso, photon_dROverEt2, photon_pt, muon_pt});
+    return df1;
+}
 /// ECal BadCalibration Filter (Flag_ecalBadCalibFilter) updates:
 /// https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#Run_3_2022_and_2023_data_and_MC
 ROOT::RDF::RNode update_Flag_ecalBadCalibFilter(ROOT::RDF::RNode df, const std::string &outputname,
@@ -499,6 +535,51 @@ ROOT::RDF::RNode HiggsToDiMuonPairCollection(ROOT::RDF::RNode df, const std::str
                              };
     auto df1 = 
         df.Define(outputname, dimuon_calc_p4byPt, {particle_pts, particle_etas, particle_phis, particle_masses, dimuons_index});
+    return df1;
+}
+ROOT::RDF::RNode FSR_Recovery_dimuon(ROOT::RDF::RNode df, const std::string &new_4vec, const std::string &ini_4vec,
+                              const std::string &photon1_pt, const std::string &photon1_eta, const std::string &photon1_phi,
+                              const std::string &photon2_pt, const std::string &photon2_eta, const std::string &photon2_phi) {
+    auto newP4_withFSR = [] (const ROOT::Math::PtEtaPhiMVector &ini_4vec,
+                             const float &photon1_pt, const float &photon1_eta, const float &photon1_phi,
+                             const float &photon2_pt, const float &photon2_eta, const float &photon2_phi) {
+        ROOT::Math::PtEtaPhiMVector photon1;
+        ROOT::Math::PtEtaPhiMVector photon2;
+        ROOT::Math::PtEtaPhiMVector newP4;
+        if (photon1_pt > 0 && photon2_pt > 0){
+            photon1 = ROOT::Math::PtEtaPhiMVector(photon1_pt, photon1_eta, photon1_phi, 0);
+            photon2 = ROOT::Math::PtEtaPhiMVector(photon2_pt, photon2_eta, photon2_phi, 0);
+        }
+        else{
+            photon1 = ROOT::Math::PtEtaPhiMVector(0, 0, 0, 0);
+            photon2 = ROOT::Math::PtEtaPhiMVector(0, 0, 0, 0);
+        }
+
+        newP4 = photon1 + photon2 + ini_4vec;
+        return newP4;
+    };
+    auto df1 = 
+        df.Define(new_4vec, newP4_withFSR, {ini_4vec, photon1_pt, photon1_eta, photon1_phi, photon2_pt, photon2_eta, photon2_phi});
+    return df1;
+}
+ROOT::RDF::RNode FSR_Recovery_singlemuon(ROOT::RDF::RNode df, const std::string &new_4vec, const std::string &ini_4vec,
+                              const std::string &photon_pt, const std::string &photon_eta, const std::string &photon_phi) {
+    auto newP4_withFSR = [] (const ROOT::Math::PtEtaPhiMVector &ini_4vec,
+                             const float &photon_pt, const float &photon_eta, const float &photon_phi) {
+        ROOT::Math::PtEtaPhiMVector photon;
+        ROOT::Math::PtEtaPhiMVector newP4;
+        if (photon_pt > 0 ){
+            photon = ROOT::Math::PtEtaPhiMVector(photon_pt, photon_eta, photon_phi, 0);
+        }
+        else{
+            photon = ROOT::Math::PtEtaPhiMVector(0, 0, 0, 0);
+        }
+
+        newP4 = photon + ini_4vec;
+        return newP4;
+    };
+    auto df1 = 
+        df.Define(new_4vec, newP4_withFSR, {ini_4vec, photon_pt, photon_eta, photon_phi});
     return df1;
 }
 ///

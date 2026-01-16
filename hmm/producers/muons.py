@@ -441,8 +441,8 @@ BaseLVMu4_uncorrected = Producer(
 )
 ##### 
 ##### The leading muon from Higgs
-Mu1_H = Producer(
-    name="Mu1_H",
+Mu1_H_noFSR = Producer(
+    name="Mu1_H_noFSR",
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.dimuon_HiggsCand_collection,
@@ -450,6 +450,18 @@ Mu1_H = Producer(
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_leadingp4_H_noFSR],
+    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+Mu1_H = Producer(
+    name="Mu1_H",
+    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
+    input=[
+        q.muon_leadingp4_H_noFSR,
+        q.FsrPhoton1_pt,
+        q.FsrPhoton1_eta,
+        q.FsrPhoton1_phi,
     ],
     output=[q.muon_leadingp4_H],
     scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
@@ -468,8 +480,8 @@ Mu1_H_uncorrected = Producer(
     scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 ##### The sub leading muon form Higgs
-Mu2_H = Producer(
-    name="Mu2_H",
+Mu2_H_noFSR = Producer(
+    name="Mu2_H_noFSR",
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
     input=[
         q.dimuon_HiggsCand_collection,
@@ -477,6 +489,18 @@ Mu2_H = Producer(
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_subleadingp4_H_noFSR],
+    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+Mu2_H = Producer(
+    name="Mu2_H",
+    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
+    input=[
+        q.muon_subleadingp4_H_noFSR,
+        q.FsrPhoton2_pt,
+        q.FsrPhoton2_eta,
+        q.FsrPhoton2_phi,
     ],
     output=[q.muon_subleadingp4_H],
     scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
@@ -495,8 +519,21 @@ Mu2_H_uncorrected = Producer(
     scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 ##### The leading muon from Higgs in 4m channel
-Mu1_H_4m = Producer(
-    name="Mu1_H_4m",
+# Mu1_H_4m = Producer(
+#     name="Mu1_H_4m",
+#     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+#     input=[
+#         q.quadmuon_HiggsZCand_collection,
+#         q.Muon_pt_corrected,
+#         nanoAOD.Muon_eta,
+#         nanoAOD.Muon_phi,
+#         nanoAOD.Muon_mass,
+#     ],
+#     output=[q.muon_leadingp4_H],
+#     scopes=["mmmm","mmmm_cr"],
+# )
+Mu1_H_4m_noFSR = Producer(
+    name="Mu1_H_4m_noFSR",
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.quadmuon_HiggsZCand_collection,
@@ -504,6 +541,18 @@ Mu1_H_4m = Producer(
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_leadingp4_H_noFSR],
+    scopes=["mmmm","mmmm_cr"],
+)
+Mu1_H_4m = Producer(
+    name="Mu1_H_4m",
+    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
+    input=[
+        q.muon_leadingp4_H_noFSR,
+        q.FsrPhoton1_pt,
+        q.FsrPhoton1_eta,
+        q.FsrPhoton1_phi,
     ],
     output=[q.muon_leadingp4_H],
     scopes=["mmmm","mmmm_cr"],
@@ -522,8 +571,21 @@ Mu1_H_4m_uncorrected = Producer(
     scopes=["mmmm","mmmm_cr"],
 )
 ##### The sub leading muon from Higgs in 4m channel
-Mu2_H_4m = Producer(
-    name="Mu2_H_4m",
+# Mu2_H_4m = Producer(
+#     name="Mu2_H_4m",
+#     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+#     input=[
+#         q.quadmuon_HiggsZCand_collection,
+#         q.Muon_pt_corrected,
+#         nanoAOD.Muon_eta,
+#         nanoAOD.Muon_phi,
+#         nanoAOD.Muon_mass,
+#     ],
+#     output=[q.muon_subleadingp4_H],
+#     scopes=["mmmm","mmmm_cr"],
+# )
+Mu2_H_4m_noFSR = Producer(
+    name="Mu2_H_4m_noFSR",
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
     input=[
         q.quadmuon_HiggsZCand_collection,
@@ -531,6 +593,18 @@ Mu2_H_4m = Producer(
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,
+    ],
+    output=[q.muon_subleadingp4_H_noFSR],
+    scopes=["mmmm","mmmm_cr"],
+)
+Mu2_H_4m = Producer(
+    name="Mu2_H_4m",
+    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
+    input=[
+        q.muon_subleadingp4_H_noFSR,
+        q.FsrPhoton2_pt,
+        q.FsrPhoton2_eta,
+        q.FsrPhoton2_phi,
     ],
     output=[q.muon_subleadingp4_H],
     scopes=["mmmm","mmmm_cr"],

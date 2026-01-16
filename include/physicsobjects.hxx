@@ -2,6 +2,10 @@
 #define GUARD_PHYSICSOBJECTS_H
 
 namespace physicsobject {
+ROOT::RDF::RNode FsrPhoton_idx (ROOT::RDF::RNode df, const std::string &fsrphoton_index, 
+                                const std::string &dimuons_index, const std::string &photon_index, 
+                                const std::string &photon_reliso, const std::string &photon_dROverEt2, 
+                                const std::string &photon_pt, const std::string &muon_pt, const int &position);
 ROOT::RDF::RNode update_Flag_ecalBadCalibFilter(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &jet_pts,
                                  const std::string &jet_etas,
@@ -113,6 +117,11 @@ ROOT::RDF::RNode HiggsAndZFourMuonsCollection(ROOT::RDF::RNode df, const std::st
                                  const std::string &particle_masses,
                                  const std::string &particle_charges,
                                  const std::string &goodmuons_index);
+ROOT::RDF::RNode FSR_Recovery_dimuon(ROOT::RDF::RNode df, const std::string &new_4vec, const std::string &ini_4vec,
+                              const std::string &photon1_pt, const std::string &photon1_eta, const std::string &photon1_phi,
+                              const std::string &photon2_pt, const std::string &photon2_eta, const std::string &photon2_phi);
+ROOT::RDF::RNode FSR_Recovery_singlemuon(ROOT::RDF::RNode df, const std::string &new_4vec, const std::string &ini_4vec,
+                              const std::string &photon_pt, const std::string &photon_eta, const std::string &photon_phi);
 ROOT::RDF::RNode QuadMuonFromZZVeto(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &quadmuons_index);
 ROOT::RDF::RNode ZToSecondMuonPairCollection(ROOT::RDF::RNode df, const std::string &outputname,

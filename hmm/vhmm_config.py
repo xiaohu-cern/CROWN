@@ -16,6 +16,7 @@ from .producers import p4 as p4
 from .producers import cr as cr
 from .producers import fatjets as fatjets
 from .producers import momentumscale as momentumscale
+from .producers import fsrphoton as fsrphoton
 # end 
 from .quantities import nanoAOD as nanoAOD
 from .quantities import output as q
@@ -1563,7 +1564,17 @@ def build_config(
             ###
             event.Mask_DiMuonPair, # dimuonHiggs index
             event.Flag_DiMuonFromHiggs,
-            event.HiggsToDiMuonPair_p4, # select the dimuon pairs in [110,150] and order by pt
+            event.HiggsToDiMuonPair_p4_noFSR, # select the dimuon pairs in [110,150] and order by pt
+            ###FSR###
+            fsrphoton.leadingmuon_FsrPhotonIdx,
+            fsrphoton.subleadingmuon_FsrPhotonIdx,
+            fsrphoton.leadingmuon_FsrPhoton_pt,
+            fsrphoton.leadingmuon_FsrPhoton_eta,
+            fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_pt,
+            fsrphoton.subleadingmuon_FsrPhoton_eta,
+            fsrphoton.subleadingmuon_FsrPhoton_phi,
+            event.HiggsToDiMuonPair_p4,
             ###
             event.DiMuonMassFromZVeto,  # has dimuon from Z return mask equal to 0, otherwise return 1
             lepton.LeptonChargeSumVeto,
@@ -1582,8 +1593,10 @@ def build_config(
             muons.LVMu3,
             muons.LVMu3_uncorrected,
             muons.Mu1_H, # vh
+            muons.Mu1_H_noFSR,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H, # vh
+            muons.Mu2_H_noFSR,
             muons.Mu2_H_uncorrected,
             ### extra muon in m2m
             lepton.Mu1_W_m2m_index, # extra muon index
@@ -1783,14 +1796,26 @@ def build_config(
             event.FilterFlagDiMuonZVeto,
             ###
             event.Mask_DiMuonPair, # select the dimuon index in [110,150]
+            ####FSR#####
+            fsrphoton.leadingmuon_FsrPhotonIdx,
+            fsrphoton.subleadingmuon_FsrPhotonIdx,
+            fsrphoton.leadingmuon_FsrPhoton_pt,
+            fsrphoton.leadingmuon_FsrPhoton_eta,
+            fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_pt,
+            fsrphoton.subleadingmuon_FsrPhoton_eta,
+            fsrphoton.subleadingmuon_FsrPhoton_phi,
+            event.HiggsToDiMuonPair_p4,
             # event.Mask_BaseDiMuonPair, # select the dimuon index in [110,150]
             event.Flag_DiMuonFromHiggs, # create the flag
-            event.HiggsToDiMuonPair_p4, # make dimuon p4
+            event.HiggsToDiMuonPair_p4_noFSR, # make dimuon p4
             event.FilterFlagDiMuFromH, # flag dimuon Higgs cut
             ###
             muons.Mu1_H,
+            muons.Mu1_H_noFSR,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H,
+            muons.Mu2_H_noFSR,
             muons.Mu2_H_uncorrected,
             # muons.LVMu1,
             # muons.LVMu2,
@@ -1980,7 +2005,17 @@ def build_config(
             ###
             event.Mask_DiMuonPair,
             event.Flag_DiMuonFromHiggs,
-            event.HiggsToDiMuonPair_p4, # select the first dimuon pairs in [110,150] that ordered by pt
+            event.HiggsToDiMuonPair_p4_noFSR, # select the first dimuon pairs in [110,150] that ordered by pt
+            ###FSR####
+            fsrphoton.leadingmuon_FsrPhotonIdx,
+            fsrphoton.subleadingmuon_FsrPhotonIdx,
+            fsrphoton.leadingmuon_FsrPhoton_pt,
+            fsrphoton.leadingmuon_FsrPhoton_eta,
+            fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_pt,
+            fsrphoton.subleadingmuon_FsrPhoton_eta,
+            fsrphoton.subleadingmuon_FsrPhoton_phi,
+            event.HiggsToDiMuonPair_p4,
             ###
             lepton.LeptonChargeSumVeto_elemu, # only in e2m and 2e2m channel
             # flag cut
@@ -1991,8 +2026,10 @@ def build_config(
             event.PassFlagGoodEleVeto,
             ###
             muons.Mu1_H,
+            muons.Mu1_H_noFSR,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H,
+            muons.Mu2_H_noFSR,
             muons.Mu2_H_uncorrected,
 
             lepton.Ele1_W_e2m, # output extra lep p4
@@ -2186,12 +2223,24 @@ def build_config(
             ###
             event.Mask_DiMuonPair, # select the dimuon index in [110,150]
             event.Flag_DiMuonFromHiggs, # create the flag
-            event.HiggsToDiMuonPair_p4, # make dimuon p4
+            event.HiggsToDiMuonPair_p4_noFSR, # make dimuon p4
             event.FilterFlagDiMuFromH, # flag dimuon Higgs cut
             muons.Mu1_H,
+            muons.Mu1_H_noFSR,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H,
+            muons.Mu2_H_noFSR,
             muons.Mu2_H_uncorrected,
+            ###FSR####
+            fsrphoton.leadingmuon_FsrPhotonIdx,
+            fsrphoton.subleadingmuon_FsrPhotonIdx,
+            fsrphoton.leadingmuon_FsrPhoton_pt,
+            fsrphoton.leadingmuon_FsrPhoton_eta,
+            fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_pt,
+            fsrphoton.subleadingmuon_FsrPhoton_eta,
+            fsrphoton.subleadingmuon_FsrPhoton_phi,
+            event.HiggsToDiMuonPair_p4,
             ###
             lepton.Ele1_W_e2m_regioncd,
             lepton.Ele1_W_e2m_regioncd_noCorr,
@@ -2423,11 +2472,20 @@ def build_config(
             ###
             event.Mask_DiMuonPair,
             event.Flag_DiMuonFromHiggs,
-            event.HiggsToDiMuonPair_p4, # select the first dimuon pairs in [110,150] that ordered by pt
+            event.HiggsToDiMuonPair_p4_noFSR, # select the first dimuon pairs in [110,150] that ordered by pt
             ###
             event.Flag_DiEleFromZ,  ### need ZCand m(ee) in [70,110]
             event.ZToDiElectronPair_p4,
-            ###
+            ###FSR####
+            fsrphoton.leadingmuon_FsrPhotonIdx,
+            fsrphoton.subleadingmuon_FsrPhotonIdx,
+            fsrphoton.leadingmuon_FsrPhoton_pt,
+            fsrphoton.leadingmuon_FsrPhoton_eta,
+            fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_pt,
+            fsrphoton.subleadingmuon_FsrPhoton_eta,
+            fsrphoton.subleadingmuon_FsrPhoton_phi,
+            event.HiggsToDiMuonPair_p4,
             # flag cut
             event.FilterFlagDiMuFromH,
             event.FilterFlagLepChargeSum,
@@ -2437,8 +2495,10 @@ def build_config(
             event.PassFlagZZVeto,
             #
             muons.Mu1_H,
+            muons.Mu1_H_noFSR,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H,
+            muons.Mu2_H_noFSR,
             muons.Mu2_H_uncorrected,
             event.mumuH_dR,
             event.mumuH_dphi,
@@ -2513,7 +2573,6 @@ def build_config(
             muons.LVMu3_uncorrected,
             muons.LVMu4,
             muons.LVMu4_uncorrected,
-            
         ]
     )
     configuration.add_producers(
@@ -2545,7 +2604,7 @@ def build_config(
             
             event.Flag_ZZVeto,
             # Higgs p4
-            event.HiggsToDiMuonPair_p4_4m,
+            event.HiggsToDiMuonPair_p4_4m_noFSR,
             event.ZToDiMuonPair_p4_4m,
             # Z p4
             ###
@@ -2557,8 +2616,10 @@ def build_config(
             event.FilterFlagGoodEleVeto,
             ###
             muons.Mu1_H_4m,
+            muons.Mu1_H_4m_noFSR,
             muons.Mu1_H_4m_uncorrected,
             muons.Mu2_H_4m,
+            muons.Mu2_H_4m_noFSR,
             muons.Mu2_H_4m_uncorrected,
             event.mumuH_dR,
             event.mumuH_dphi,
@@ -2614,6 +2675,17 @@ def build_config(
             scalefactors.MuonIso_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             p4.FourLepQuantities, # hackathon
+
+            ###FSR###
+            fsrphoton.leadingmuon_FsrPhotonIdx_4m,
+            fsrphoton.subleadingmuon_FsrPhotonIdx_4m,
+            fsrphoton.leadingmuon_FsrPhoton_pt,
+            fsrphoton.leadingmuon_FsrPhoton_eta,
+            fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_pt,
+            fsrphoton.subleadingmuon_FsrPhoton_eta,
+            fsrphoton.subleadingmuon_FsrPhoton_phi,
+            event.HiggsToDiMuonPair_p4,
         ],
     )
     configuration.add_producers(
@@ -2629,8 +2701,18 @@ def build_config(
             ###
             event.Mask_DiMuonPair, # dimuonHiggs index
             event.Flag_DiMuonFromHiggs,
-            event.HiggsToDiMuonPair_p4,
+            event.HiggsToDiMuonPair_p4_noFSR,
             # event.HiggsToDiMuonPair_p4_corrected, # select the dimuon pairs in [110,150] and order by pt
+            ###FSR###
+            fsrphoton.leadingmuon_FsrPhotonIdx,
+            fsrphoton.subleadingmuon_FsrPhotonIdx,
+            fsrphoton.leadingmuon_FsrPhoton_pt,
+            fsrphoton.leadingmuon_FsrPhoton_eta,
+            fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_pt,
+            fsrphoton.subleadingmuon_FsrPhoton_eta,
+            fsrphoton.subleadingmuon_FsrPhoton_phi,
+            event.HiggsToDiMuonPair_p4,
             ###
             lepton.LeptonChargeSumVeto,
             ###
@@ -2641,7 +2723,9 @@ def build_config(
             event.FilterFlagGoodEleVeto,
             ###
             muons.Mu1_H, # vh
+            muons.Mu1_H_noFSR,
             muons.Mu2_H, # vh
+            muons.Mu2_H_noFSR,
             muons.LVMu1,
             muons.LVMu1_uncorrected,
             muons.LVMu2,
@@ -2724,8 +2808,18 @@ def build_config(
             ###
             event.Mask_DiMuonPair, # dimuonHiggs index
             event.Flag_DiMuonFromHiggs,
-            event.HiggsToDiMuonPair_p4,
+            event.HiggsToDiMuonPair_p4_noFSR,
             # event.HiggsToDiMuonPair_p4_corrected, # select the dimuon pairs in [110,150] and order by pt
+            ###FSR###
+            fsrphoton.leadingmuon_FsrPhotonIdx,
+            fsrphoton.subleadingmuon_FsrPhotonIdx,
+            fsrphoton.leadingmuon_FsrPhoton_pt,
+            fsrphoton.leadingmuon_FsrPhoton_eta,
+            fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_pt,
+            fsrphoton.subleadingmuon_FsrPhoton_eta,
+            fsrphoton.subleadingmuon_FsrPhoton_phi,
+            event.HiggsToDiMuonPair_p4,
             ###
             lepton.LeptonChargeSumVeto,
             ###
@@ -2736,7 +2830,9 @@ def build_config(
             event.FilterFlagGoodEleVeto,
             ###
             muons.Mu1_H, # vh
+            muons.Mu1_H_noFSR,
             muons.Mu2_H, # vh
+            muons.Mu2_H_noFSR,
             muons.LVMu1,
             muons.LVMu1_uncorrected,
             muons.LVMu2,
@@ -3633,6 +3729,22 @@ def build_config(
 
         ],
     )
+    ### FSR ###
+    configuration.add_outputs(
+        ["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc", "mmmm", "mmmm_cr"],
+        [
+            q.FsrPhotonIdx_1,
+            q.FsrPhotonIdx_2,
+        ]
+    )
+    # configuration.add_outputs(
+    #     ["mmmm", "mmmm_cr"],
+    #     [
+    #         q.FsrPhoton1_pt,
+    #         q.FsrPhoton1_eta,
+    #         q.FsrPhoton1_phi,
+    #     ]
+    # )
     # add genWeight for everything but data
     if sample != "data":
         configuration.add_outputs(

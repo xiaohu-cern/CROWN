@@ -193,3 +193,11 @@ FatJet_tau1 = NanoAODQuantity("FatJet_tau1")
 FatJet_tau2 = NanoAODQuantity("FatJet_tau2")
 FatJet_tau3 = NanoAODQuantity("FatJet_tau3")
 FatJet_tau4 = NanoAODQuantity("FatJet_tau4")
+
+##### Muon FSR recovery #####
+Muon_fsrPhotonIdx = NanoAODQuantity("Muon_fsrPhotonIdx")
+FsrPhoton_pt = NanoAODQuantity("FsrPhoton_pt")
+FsrPhoton_eta = NanoAODQuantity("FsrPhoton_eta")
+FsrPhoton_phi = NanoAODQuantity("FsrPhoton_phi")
+FsrPhoton_dROverEt2 = NanoAODQuantity("FsrPhoton_dROverEt2")
+FsrPhoton_relIso03 = NanoAODQuantity("FsrPhoton_relIso03")
