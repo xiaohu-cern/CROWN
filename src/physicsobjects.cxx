@@ -546,12 +546,17 @@ ROOT::RDF::RNode FSR_Recovery_dimuon(ROOT::RDF::RNode df, const std::string &new
         ROOT::Math::PtEtaPhiMVector photon1;
         ROOT::Math::PtEtaPhiMVector photon2;
         ROOT::Math::PtEtaPhiMVector newP4;
-        if (photon1_pt > 0 && photon2_pt > 0){
+        if (photon1_pt > 0){
             photon1 = ROOT::Math::PtEtaPhiMVector(photon1_pt, photon1_eta, photon1_phi, 0);
-            photon2 = ROOT::Math::PtEtaPhiMVector(photon2_pt, photon2_eta, photon2_phi, 0);
         }
         else{
             photon1 = ROOT::Math::PtEtaPhiMVector(0, 0, 0, 0);
+        }
+
+        if (photon2_pt > 0) {
+            photon2 = ROOT::Math::PtEtaPhiMVector(photon2_pt, photon2_eta, photon2_phi, 0);
+        }
+        else {
             photon2 = ROOT::Math::PtEtaPhiMVector(0, 0, 0, 0);
         }
 
