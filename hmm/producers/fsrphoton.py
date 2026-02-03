@@ -80,6 +80,20 @@ leadingmuon_FsrPhoton_phi = Producer(
     output=[q.FsrPhoton1_phi],
     scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc", "mmmm", "mmmm_cr"],
 )
+leadingmuon_FsrPhoton_dROverEt2 = Producer(
+    name="leadingmuon_FsrPhoton_dROverEt2",
+    call="basefunctions::getvar<float>({df}, {output}, {input})",
+    input=[q.FsrPhotonIdx_1, nanoAOD.FsrPhoton_dROverEt2],
+    output=[q.FsrPhoton1_dROverEt2],
+    scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc", "mmmm", "mmmm_cr"],
+)
+leadingmuon_FsrPhoton_relIso03 = Producer(
+    name="leadingmuon_FsrPhoton_relIso03",
+    call="basefunctions::getvar<float>({df}, {output}, {input})",
+    input=[q.FsrPhotonIdx_1, nanoAOD.FsrPhoton_relIso03],
+    output=[q.FsrPhoton1_relIso03],
+    scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc", "mmmm", "mmmm_cr"],
+)
 
 subleadingmuon_FsrPhoton_pt = Producer(
     name="subleadingmuon_FsrPhoton_pt",
@@ -100,5 +114,19 @@ subleadingmuon_FsrPhoton_phi = Producer(
     call="basefunctions::getvar<float>({df}, {output}, {input})",
     input=[q.FsrPhotonIdx_2, nanoAOD.FsrPhoton_phi],
     output=[q.FsrPhoton2_phi],
+    scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc", "mmmm", "mmmm_cr"],
+)
+subleadingmuon_FsrPhoton_dROverEt2 = Producer(
+    name="subleadingmuon_FsrPhoton_dROverEt2",
+    call="basefunctions::getvar<float>({df}, {output}, {input})",
+    input=[q.FsrPhotonIdx_2, nanoAOD.FsrPhoton_dROverEt2],
+    output=[q.FsrPhoton2_dROverEt2],
+    scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc", "mmmm", "mmmm_cr"],
+)
+subleadingmuon_FsrPhoton_relIso03 = Producer(
+    name="subleadingmuon_FsrPhoton_relIso03",
+    call="basefunctions::getvar<float>({df}, {output}, {input})",
+    input=[q.FsrPhotonIdx_2, nanoAOD.FsrPhoton_relIso03],
+    output=[q.FsrPhoton2_relIso03],
     scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc", "mmmm", "mmmm_cr"],
 )

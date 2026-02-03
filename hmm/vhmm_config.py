@@ -1571,9 +1571,13 @@ def build_config(
             fsrphoton.leadingmuon_FsrPhoton_pt,
             fsrphoton.leadingmuon_FsrPhoton_eta,
             fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.leadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.leadingmuon_FsrPhoton_relIso03,
             fsrphoton.subleadingmuon_FsrPhoton_pt,
             fsrphoton.subleadingmuon_FsrPhoton_eta,
             fsrphoton.subleadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.subleadingmuon_FsrPhoton_relIso03,
             event.HiggsToDiMuonPair_p4,
             ###
             event.DiMuonMassFromZVeto,  # has dimuon from Z return mask equal to 0, otherwise return 1
@@ -1802,9 +1806,13 @@ def build_config(
             fsrphoton.leadingmuon_FsrPhoton_pt,
             fsrphoton.leadingmuon_FsrPhoton_eta,
             fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.leadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.leadingmuon_FsrPhoton_relIso03,
             fsrphoton.subleadingmuon_FsrPhoton_pt,
             fsrphoton.subleadingmuon_FsrPhoton_eta,
             fsrphoton.subleadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.subleadingmuon_FsrPhoton_relIso03,
             event.HiggsToDiMuonPair_p4,
             # event.Mask_BaseDiMuonPair, # select the dimuon index in [110,150]
             event.Flag_DiMuonFromHiggs, # create the flag
@@ -2012,9 +2020,13 @@ def build_config(
             fsrphoton.leadingmuon_FsrPhoton_pt,
             fsrphoton.leadingmuon_FsrPhoton_eta,
             fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.leadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.leadingmuon_FsrPhoton_relIso03,
             fsrphoton.subleadingmuon_FsrPhoton_pt,
             fsrphoton.subleadingmuon_FsrPhoton_eta,
             fsrphoton.subleadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.subleadingmuon_FsrPhoton_relIso03,
             event.HiggsToDiMuonPair_p4,
             ###
             lepton.LeptonChargeSumVeto_elemu, # only in e2m and 2e2m channel
@@ -2237,9 +2249,13 @@ def build_config(
             fsrphoton.leadingmuon_FsrPhoton_pt,
             fsrphoton.leadingmuon_FsrPhoton_eta,
             fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.leadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.leadingmuon_FsrPhoton_relIso03,
             fsrphoton.subleadingmuon_FsrPhoton_pt,
             fsrphoton.subleadingmuon_FsrPhoton_eta,
             fsrphoton.subleadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.subleadingmuon_FsrPhoton_relIso03,
             event.HiggsToDiMuonPair_p4,
             ###
             lepton.Ele1_W_e2m_regioncd,
@@ -2482,9 +2498,13 @@ def build_config(
             fsrphoton.leadingmuon_FsrPhoton_pt,
             fsrphoton.leadingmuon_FsrPhoton_eta,
             fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.leadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.leadingmuon_FsrPhoton_relIso03,
             fsrphoton.subleadingmuon_FsrPhoton_pt,
             fsrphoton.subleadingmuon_FsrPhoton_eta,
             fsrphoton.subleadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.subleadingmuon_FsrPhoton_relIso03,
             event.HiggsToDiMuonPair_p4,
             # flag cut
             event.FilterFlagDiMuFromH,
@@ -2682,9 +2702,13 @@ def build_config(
             fsrphoton.leadingmuon_FsrPhoton_pt,
             fsrphoton.leadingmuon_FsrPhoton_eta,
             fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.leadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.leadingmuon_FsrPhoton_relIso03,
             fsrphoton.subleadingmuon_FsrPhoton_pt,
             fsrphoton.subleadingmuon_FsrPhoton_eta,
             fsrphoton.subleadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.subleadingmuon_FsrPhoton_relIso03,
             event.HiggsToDiMuonPair_p4,
         ],
     )
@@ -2709,9 +2733,13 @@ def build_config(
             fsrphoton.leadingmuon_FsrPhoton_pt,
             fsrphoton.leadingmuon_FsrPhoton_eta,
             fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.leadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.leadingmuon_FsrPhoton_relIso03,
             fsrphoton.subleadingmuon_FsrPhoton_pt,
             fsrphoton.subleadingmuon_FsrPhoton_eta,
             fsrphoton.subleadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.subleadingmuon_FsrPhoton_relIso03,
             event.HiggsToDiMuonPair_p4,
             ###
             lepton.LeptonChargeSumVeto,
@@ -2816,9 +2844,13 @@ def build_config(
             fsrphoton.leadingmuon_FsrPhoton_pt,
             fsrphoton.leadingmuon_FsrPhoton_eta,
             fsrphoton.leadingmuon_FsrPhoton_phi,
+            fsrphoton.leadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.leadingmuon_FsrPhoton_relIso03,
             fsrphoton.subleadingmuon_FsrPhoton_pt,
             fsrphoton.subleadingmuon_FsrPhoton_eta,
             fsrphoton.subleadingmuon_FsrPhoton_phi,
+            fsrphoton.subleadingmuon_FsrPhoton_dROverEt2,
+            fsrphoton.subleadingmuon_FsrPhoton_relIso03,
             event.HiggsToDiMuonPair_p4,
             ###
             lepton.LeptonChargeSumVeto,
@@ -3737,6 +3769,21 @@ def build_config(
             q.FsrPhotonIdx_2,
         ]
     )
+    # configuration.add_outputs(
+    #     ["e2m","m2m","eemm","nnmm","fjmm","mmmm"],
+    #     [
+    #         q.FsrPhoton1_pt,
+    #         q.FsrPhoton1_eta,
+    #         q.FsrPhoton1_phi,
+    #         q.FsrPhoton1_dROverEt2,
+    #         q.FsrPhoton1_relIso03,
+    #         q.FsrPhoton2_pt,
+    #         q.FsrPhoton2_eta,
+    #         q.FsrPhoton2_phi,
+    #         q.FsrPhoton2_dROverEt2,
+    #         q.FsrPhoton2_relIso03,
+    #     ]
+    # )
     # configuration.add_outputs(
     #     ["mmmm", "mmmm_cr"],
     #     [
