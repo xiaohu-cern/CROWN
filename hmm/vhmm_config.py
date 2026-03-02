@@ -1496,6 +1496,8 @@ def build_config(
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         [
             momentumscale.MC_KIT_MuonPt_ScaleRes,
+            # momentumscale.MC_KIT_MuonPt_ScaleRes_pureBSC,
+            # momentumscale.MC_KIT_MuonPt_ScaleRes_raw,
         ]
     )
     # configuration.add_producers(
@@ -1597,10 +1599,18 @@ def build_config(
             muons.LVMu3,
             muons.LVMu3_uncorrected,
             muons.Mu1_H, # vh
+            # muons.Mu1_H_pureBSC,
+            # muons.Mu1_H_raw,
             muons.Mu1_H_noFSR,
+            # muons.Mu1_H_noFSR_pureBSC,
+            # muons.Mu1_H_noFSR_raw,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H, # vh
+            # muons.Mu2_H_pureBSC,
+            # muons.Mu2_H_raw,
             muons.Mu2_H_noFSR,
+            # muons.Mu2_H_noFSR_pureBSC,
+            # muons.Mu2_H_noFSR_raw,
             muons.Mu2_H_uncorrected,
             ### extra muon in m2m
             lepton.Mu1_W_m2m_index, # extra muon index
@@ -1650,9 +1660,13 @@ def build_config(
             
             #
             p4.mu1_fromH_pt,
+            # p4.mu1_fromH_pt_pureBSC,
+            # p4.mu1_fromH_pt_raw,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
             p4.mu2_fromH_pt,
+            # p4.mu2_fromH_pt_pureBSC,
+            # p4.mu2_fromH_pt_raw,
             p4.mu2_fromH_eta,
             p4.mu2_fromH_phi,
             p4.mu1_fromH_mass,
@@ -1820,10 +1834,18 @@ def build_config(
             event.FilterFlagDiMuFromH, # flag dimuon Higgs cut
             ###
             muons.Mu1_H,
+            # muons.Mu1_H_pureBSC,
+            # muons.Mu1_H_raw,
             muons.Mu1_H_noFSR,
+            # muons.Mu1_H_noFSR_pureBSC,
+            # muons.Mu1_H_noFSR_raw,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H,
+            # muons.Mu2_H_pureBSC,
+            # muons.Mu2_H_raw,
             muons.Mu2_H_noFSR,
+            # muons.Mu2_H_noFSR_pureBSC,
+            # muons.Mu2_H_noFSR_raw,
             muons.Mu2_H_uncorrected,
             # muons.LVMu1,
             # muons.LVMu2,
@@ -1873,9 +1895,13 @@ def build_config(
             event.Calc_CosThStar_lep_muSS,
             ###
             p4.mu1_fromH_pt,
+            # p4.mu1_fromH_pt_pureBSC,
+            # p4.mu1_fromH_pt_raw,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
             p4.mu2_fromH_pt,
+            # p4.mu2_fromH_pt_pureBSC,
+            # p4.mu2_fromH_pt_raw,
             p4.mu2_fromH_eta,
             p4.mu2_fromH_phi,
             p4.mu1_fromH_mass,
@@ -2038,10 +2064,18 @@ def build_config(
             event.PassFlagGoodEleVeto,
             ###
             muons.Mu1_H,
+            # muons.Mu1_H_pureBSC,
+            # muons.Mu1_H_raw,
             muons.Mu1_H_noFSR,
+            # muons.Mu1_H_noFSR_pureBSC,
+            # muons.Mu1_H_noFSR_raw,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H,
+            # muons.Mu2_H_pureBSC,
+            # muons.Mu2_H_raw,
             muons.Mu2_H_noFSR,
+            # muons.Mu2_H_noFSR_pureBSC,
+            # muons.Mu2_H_noFSR_raw,
             muons.Mu2_H_uncorrected,
 
             lepton.Ele1_W_e2m, # output extra lep p4
@@ -2091,9 +2125,13 @@ def build_config(
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
 
             p4.mu1_fromH_pt,
+            # p4.mu1_fromH_pt_pureBSC,
+            # p4.mu1_fromH_pt_raw,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
             p4.mu2_fromH_pt,
+            # p4.mu2_fromH_pt_pureBSC,
+            # p4.mu2_fromH_pt_raw,
             p4.mu2_fromH_eta,
             p4.mu2_fromH_phi,
             p4.mu1_fromH_mass,
@@ -2238,10 +2276,18 @@ def build_config(
             event.HiggsToDiMuonPair_p4_noFSR, # make dimuon p4
             event.FilterFlagDiMuFromH, # flag dimuon Higgs cut
             muons.Mu1_H,
+            # muons.Mu1_H_pureBSC,
+            # muons.Mu1_H_raw,
             muons.Mu1_H_noFSR,
+            # muons.Mu1_H_noFSR_pureBSC,
+            # muons.Mu1_H_noFSR_raw,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H,
+            # muons.Mu2_H_pureBSC,
+            # muons.Mu2_H_raw,
             muons.Mu2_H_noFSR,
+            # muons.Mu2_H_noFSR_pureBSC,
+            # muons.Mu2_H_noFSR_raw,
             muons.Mu2_H_uncorrected,
             ###FSR####
             fsrphoton.leadingmuon_FsrPhotonIdx,
@@ -2301,9 +2347,13 @@ def build_config(
             event.Calc_CosThStar_lep_muSS,
             
             p4.mu1_fromH_pt,
+            # p4.mu1_fromH_pt_pureBSC,
+            # p4.mu1_fromH_pt_raw,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
             p4.mu2_fromH_pt,
+            # p4.mu2_fromH_pt_pureBSC,
+            # p4.mu2_fromH_pt_raw,
             p4.mu2_fromH_eta,
             p4.mu2_fromH_phi,
             p4.mu1_fromH_mass,
@@ -2515,10 +2565,18 @@ def build_config(
             event.PassFlagZZVeto,
             #
             muons.Mu1_H,
+            # muons.Mu1_H_pureBSC,
+            # muons.Mu1_H_raw,
             muons.Mu1_H_noFSR,
+            # muons.Mu1_H_noFSR_pureBSC,
+            # muons.Mu1_H_noFSR_raw,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H,
+            # muons.Mu2_H_pureBSC,
+            # muons.Mu2_H_raw,
             muons.Mu2_H_noFSR,
+            # muons.Mu2_H_noFSR_pureBSC,
+            # muons.Mu2_H_noFSR_raw,
             muons.Mu2_H_uncorrected,
             event.mumuH_dR,
             event.mumuH_dphi,
@@ -2541,9 +2599,13 @@ def build_config(
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
 
             p4.mu1_fromH_pt,
+            # p4.mu1_fromH_pt_pureBSC,
+            # p4.mu1_fromH_pt_raw,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
             p4.mu2_fromH_pt,
+            # p4.mu2_fromH_pt_pureBSC,
+            # p4.mu2_fromH_pt_raw,
             p4.mu2_fromH_eta,
             p4.mu2_fromH_phi,
             p4.mu1_fromH_mass,
@@ -2636,10 +2698,18 @@ def build_config(
             event.FilterFlagGoodEleVeto,
             ###
             muons.Mu1_H_4m,
+            # muons.Mu1_H_4m_pureBSC,
+            # muons.Mu1_H_4m_raw,
             muons.Mu1_H_4m_noFSR,
+            # muons.Mu1_H_4m_noFSR_pureBSC,
+            # muons.Mu1_H_4m_noFSR_raw,
             muons.Mu1_H_4m_uncorrected,
             muons.Mu2_H_4m,
+            # muons.Mu2_H_4m_pureBSC,
+            # muons.Mu2_H_4m_raw,
             muons.Mu2_H_4m_noFSR,
+            # muons.Mu2_H_4m_noFSR_pureBSC,
+            # muons.Mu2_H_4m_noFSR_raw,
             muons.Mu2_H_4m_uncorrected,
             event.mumuH_dR,
             event.mumuH_dphi,
@@ -2662,9 +2732,13 @@ def build_config(
             triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel,
             
             p4.mu1_fromH_pt,
+            # p4.mu1_fromH_pt_pureBSC,
+            # p4.mu1_fromH_pt_raw,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
             p4.mu2_fromH_pt,
+            # p4.mu2_fromH_pt_pureBSC,
+            # p4.mu2_fromH_pt_raw,
             p4.mu2_fromH_eta,
             p4.mu2_fromH_phi,
             p4.mu1_fromH_mass,
@@ -2751,9 +2825,17 @@ def build_config(
             event.FilterFlagGoodEleVeto,
             ###
             muons.Mu1_H, # vh
+            # muons.Mu1_H_pureBSC,
+            # muons.Mu1_H_raw,
             muons.Mu1_H_noFSR,
+            # muons.Mu1_H_noFSR_pureBSC,
+            # muons.Mu1_H_noFSR_raw,
             muons.Mu2_H, # vh
+            # muons.Mu2_H_pureBSC,
+            # muons.Mu2_H_raw,
             muons.Mu2_H_noFSR,
+            # muons.Mu2_H_noFSR_pureBSC,
+            # muons.Mu2_H_noFSR_raw,
             muons.LVMu1,
             muons.LVMu1_uncorrected,
             muons.LVMu2,
@@ -2784,9 +2866,13 @@ def build_config(
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
             p4.mu1_fromH_pt,
+            # p4.mu1_fromH_pt_pureBSC,
+            # p4.mu1_fromH_pt_raw,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
             p4.mu2_fromH_pt,
+            # p4.mu2_fromH_pt_pureBSC,
+            # p4.mu2_fromH_pt_raw,
             p4.mu2_fromH_eta,
             p4.mu2_fromH_phi,
             p4.mu1_fromH_mass,
@@ -2862,9 +2948,17 @@ def build_config(
             event.FilterFlagGoodEleVeto,
             ###
             muons.Mu1_H, # vh
+            # muons.Mu1_H_pureBSC,
+            # muons.Mu1_H_raw,
             muons.Mu1_H_noFSR,
+            # muons.Mu1_H_noFSR_pureBSC,
+            # muons.Mu1_H_noFSR_raw,
             muons.Mu2_H, # vh
+            # muons.Mu2_H_pureBSC,
+            # muons.Mu2_H_raw,
             muons.Mu2_H_noFSR,
+            # muons.Mu2_H_noFSR_pureBSC,
+            # muons.Mu2_H_noFSR_raw,
             muons.LVMu1,
             muons.LVMu1_uncorrected,
             muons.LVMu2,
@@ -2895,9 +2989,13 @@ def build_config(
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             # # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
             p4.mu1_fromH_pt,
+            # p4.mu1_fromH_pt_pureBSC,
+            # p4.mu1_fromH_pt_raw,
             p4.mu1_fromH_eta,
             p4.mu1_fromH_phi,
             p4.mu2_fromH_pt,
+            # p4.mu2_fromH_pt_pureBSC,
+            # p4.mu2_fromH_pt_raw,
             p4.mu2_fromH_eta,
             p4.mu2_fromH_phi,
             p4.mu1_fromH_mass,
@@ -3349,11 +3447,15 @@ def build_config(
         ["e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
         [
             q.mu1_fromH_pt,
+            # q.mu1_fromH_pt_pureBSC,
+            # q.mu1_fromH_pt_raw,
             q.mu1_fromH_eta,
             q.mu1_fromH_phi,
             q.mu1_fromH_mass,
 
             q.mu2_fromH_pt,
+            # q.mu2_fromH_pt_pureBSC,
+            # q.mu2_fromH_pt_raw,
             q.mu2_fromH_eta,
             q.mu2_fromH_phi,
             q.mu2_fromH_mass,
@@ -4083,6 +4185,26 @@ def build_config(
             samples=["data"],
         ),
     )
+    # configuration.add_modification_rule(
+    #     ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    #     "nnmm_dycontrol","nnmm_topcontrol",
+    #     "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #     "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    #     ReplaceProducer(
+    #         producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_pureBSC, momentumscale.Data_KIT_MuonPt_Scale_pureBSC],
+    #         samples=["data"],
+    #     ),
+    # )
+    # configuration.add_modification_rule(
+    #     ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+    #     "nnmm_dycontrol","nnmm_topcontrol",
+    #     "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #     "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    #     ReplaceProducer(
+    #         producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_raw, momentumscale.Data_KIT_MuonPt_Scale_raw],
+    #         samples=["data"],
+    #     ),
+    # )
     # configuration.add_modification_rule(
     #     ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
     #         "nnmm_dycontrol","nnmm_topcontrol",
