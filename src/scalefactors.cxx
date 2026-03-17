@@ -290,16 +290,20 @@ ROOT::RDF::RNode Muonmomentumscale(ROOT::RDF::RNode df, const std::string &pt_ra
                     // q/pt_corr = q/pt + kappa(TeV^-1)
                     float tuneP_pt = pt_values.at(i) * pt_ReltuneP_values.at(i);
                     float kappa = 0;
-                    
-                    if (variation_tuneP == "systup") {
-                        kappa = evaluator->evaluate(
-                            {phi_values.at(i), eta_values.at(i), variation_tuneP});
-                        corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * kappa * 0.001);
-                    }
-                    else if (variation_tuneP == "systdown") {
-                        kappa = evaluator->evaluate(
-                            {phi_values.at(i), eta_values.at(i), variation_tuneP});
-                        corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * kappa * 0.001);
+                    if (std::abs(eta_values.at(i)) < 2.1){
+                        if (variation_tuneP == "systup") {
+                            kappa = evaluator->evaluate(
+                                {phi_values.at(i), eta_values.at(i), variation_tuneP});
+                            corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * kappa * 0.001);
+                        }
+                        else if (variation_tuneP == "systdown") {
+                            kappa = evaluator->evaluate(
+                                {phi_values.at(i), eta_values.at(i), variation_tuneP});
+                            corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * kappa * 0.001);
+                        }
+                        else {
+                            corrected_pt_values[i] = tuneP_pt;
+                        }
                     }
                     else {
                         corrected_pt_values[i] = tuneP_pt;
