@@ -26,13 +26,13 @@ JSONFilter = BaseFilter(
     scopes=["global"],
 )
 
-PrefireWeight = Producer(
-    name="PrefireWeight",
-    call="basefunctions::rename<Float_t>({df}, {input}, {output})",
-    input=[nanoAOD.prefireWeight],
-    output=[q.prefireweight],
-    scopes=["global"],
-)
+# PrefireWeight = Producer(
+#     name="PrefireWeight",
+#     call="basefunctions::rename<Float_t>({df}, {input}, {output})",
+#     input=[nanoAOD.prefireWeight],
+#     output=[q.prefireweight],
+#     scopes=["global"],
+# )
 
 is_data = Producer(
     name="isData",
@@ -329,7 +329,7 @@ ZToDiElectronPair_p4 = Producer(
            nanoAOD.Electron_mass,
            q.dielectron_ZCand_collection],
     output=[q.dilepton_p4_Z],
-    scopes=["e2m","m2m","eemm","eemm_cr","mmmm"],
+    scopes=["eemm","eemm_cr"],
 )
 DiMuonMassFromZVeto = Producer(
     name="DiMuonMassFromZVeto",
@@ -1418,51 +1418,51 @@ fatjetSoftDropMass = Producer(
     scopes=["fjmm","fjmm_cr"],
 )
 ### return deepTag
-fatjet_deepTag_WvsQCD = Producer(
-    name="fatjet_deepTag_WvsQCD",
-    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
-    input=[ 
-           nanoAOD.FatJet_deepTag_WvsQCD,
-           q.good_fatjet_collection],
-    output=[q.fatjet_deepTag_WvsQCD],
-    scopes=["fjmm"],
-)
-fatjet_deepTag_ZvsQCD = Producer(
-    name="fatjet_deepTag_ZvsQCD",
-    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
-    input=[ 
-           nanoAOD.FatJet_deepTag_ZvsQCD,
-           q.good_fatjet_collection],
-    output=[q.fatjet_deepTag_ZvsQCD],
-    scopes=["fjmm"],
-)
-fatjet_deepTag_QCD = Producer(
-    name="fatjet_deepTag_QCD",
-    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
-    input=[ 
-           nanoAOD.FatJet_deepTag_QCD,
-           q.good_fatjet_collection],
-    output=[q.fatjet_deepTag_QCD],
-    scopes=["fjmm"],
-)
-fatjet_deepTagMD_WvsQCD = Producer(
-    name="fatjet_deepTagMD_WvsQCD",
-    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
-    input=[ 
-           nanoAOD.FatJet_deepTagMD_WvsQCD,
-           q.good_fatjet_collection],
-    output=[q.fatjet_deepTagMD_WvsQCD],
-    scopes=["fjmm"],
-)
-fatjet_deepTagMD_ZvsQCD = Producer(
-    name="fatjet_deepTagMD_ZvsQCD",
-    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
-    input=[ 
-           nanoAOD.FatJet_deepTagMD_ZvsQCD,
-           q.good_fatjet_collection],
-    output=[q.fatjet_deepTagMD_ZvsQCD],
-    scopes=["fjmm"],
-)
+# fatjet_deepTag_WvsQCD = Producer(
+#     name="fatjet_deepTag_WvsQCD",
+#     call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+#     input=[ 
+#            nanoAOD.FatJet_deepTag_WvsQCD,
+#            q.good_fatjet_collection],
+#     output=[q.fatjet_deepTag_WvsQCD],
+#     scopes=["fjmm"],
+# )
+# fatjet_deepTag_ZvsQCD = Producer(
+#     name="fatjet_deepTag_ZvsQCD",
+#     call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+#     input=[ 
+#            nanoAOD.FatJet_deepTag_ZvsQCD,
+#            q.good_fatjet_collection],
+#     output=[q.fatjet_deepTag_ZvsQCD],
+#     scopes=["fjmm"],
+# )
+# fatjet_deepTag_QCD = Producer(
+#     name="fatjet_deepTag_QCD",
+#     call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+#     input=[ 
+#            nanoAOD.FatJet_deepTag_QCD,
+#            q.good_fatjet_collection],
+#     output=[q.fatjet_deepTag_QCD],
+#     scopes=["fjmm"],
+# )
+# fatjet_deepTagMD_WvsQCD = Producer(
+#     name="fatjet_deepTagMD_WvsQCD",
+#     call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+#     input=[ 
+#            nanoAOD.FatJet_deepTagMD_WvsQCD,
+#            q.good_fatjet_collection],
+#     output=[q.fatjet_deepTagMD_WvsQCD],
+#     scopes=["fjmm"],
+# )
+# fatjet_deepTagMD_ZvsQCD = Producer(
+#     name="fatjet_deepTagMD_ZvsQCD",
+#     call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+#     input=[ 
+#            nanoAOD.FatJet_deepTagMD_ZvsQCD,
+#            q.good_fatjet_collection],
+#     output=[q.fatjet_deepTagMD_ZvsQCD],
+#     scopes=["fjmm"],
+# )
 ### FatJet PNet in Nano v12
 fatjet_PNet_QCD = Producer(
     name="fatjet_PNet_QCD",
@@ -1511,42 +1511,42 @@ fatjet_PNet_withMass_TvsQCD = Producer(
 )
 
 ### FatJet PNet in Nano v9
-fatjet_PNet_withMass_QCD_Nanov9 = Producer(
-    name="fatjet_PNet_withMass_QCD_Nanov9",
-    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
-    input=[ 
-           nanoAOD.FatJet_particleNet_QCD_Nanov9,
-           q.good_fatjet_collection],
-    output=[q.fatjet_PNet_withMass_QCD],
-    scopes=["fjmm","fjmm_cr"],
-)
-fatjet_PNet_withMass_WvsQCD_Nanov9 = Producer(
-    name="fatjet_PNet_withMass_WvsQCD_Nanov9",
-    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
-    input=[ 
-           nanoAOD.FatJet_particleNet_WvsQCD_Nanov9,
-           q.good_fatjet_collection],
-    output=[q.fatjet_PNet_withMass_WvsQCD],
-    scopes=["fjmm","fjmm_cr"],
-)
-fatjet_PNet_withMass_ZvsQCD_Nanov9 = Producer(
-    name="fatjet_PNet_withMass_ZvsQCD_Nanov9",
-    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
-    input=[ 
-           nanoAOD.FatJet_particleNet_ZvsQCD_Nanov9,
-           q.good_fatjet_collection],
-    output=[q.fatjet_PNet_withMass_ZvsQCD],
-    scopes=["fjmm","fjmm_cr"],
-)
-fatjet_PNet_withMass_TvsQCD_Nanov9 = Producer(
-    name="fatjet_PNet_withMass_TvsQCD_Nanov9",
-    call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
-    input=[ 
-           nanoAOD.FatJet_particleNet_TvsQCD_Nanov9,
-           q.good_fatjet_collection],
-    output=[q.fatjet_PNet_withMass_TvsQCD],
-    scopes=["fjmm","fjmm_cr"],
-)
+# fatjet_PNet_withMass_QCD_Nanov9 = Producer(
+#     name="fatjet_PNet_withMass_QCD_Nanov9",
+#     call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+#     input=[ 
+#            nanoAOD.FatJet_particleNet_QCD_Nanov9,
+#            q.good_fatjet_collection],
+#     output=[q.fatjet_PNet_withMass_QCD],
+#     scopes=["fjmm","fjmm_cr"],
+# )
+# fatjet_PNet_withMass_WvsQCD_Nanov9 = Producer(
+#     name="fatjet_PNet_withMass_WvsQCD_Nanov9",
+#     call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+#     input=[ 
+#            nanoAOD.FatJet_particleNet_WvsQCD_Nanov9,
+#            q.good_fatjet_collection],
+#     output=[q.fatjet_PNet_withMass_WvsQCD],
+#     scopes=["fjmm","fjmm_cr"],
+# )
+# fatjet_PNet_withMass_ZvsQCD_Nanov9 = Producer(
+#     name="fatjet_PNet_withMass_ZvsQCD_Nanov9",
+#     call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+#     input=[ 
+#            nanoAOD.FatJet_particleNet_ZvsQCD_Nanov9,
+#            q.good_fatjet_collection],
+#     output=[q.fatjet_PNet_withMass_ZvsQCD],
+#     scopes=["fjmm","fjmm_cr"],
+# )
+# fatjet_PNet_withMass_TvsQCD_Nanov9 = Producer(
+#     name="fatjet_PNet_withMass_TvsQCD_Nanov9",
+#     call='physicsobject::LeadingFatJetVar({df}, {output}, {input})',
+#     input=[ 
+#            nanoAOD.FatJet_particleNet_TvsQCD_Nanov9,
+#            q.good_fatjet_collection],
+#     output=[q.fatjet_PNet_withMass_TvsQCD],
+#     scopes=["fjmm","fjmm_cr"],
+# )
 
 ZPtMassReweighting = Producer(
     name="ZPtMassReweighting",

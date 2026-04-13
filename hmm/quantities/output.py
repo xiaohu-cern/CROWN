@@ -475,6 +475,7 @@ good_fatjet_collection = Quantity("good_fatjet_collection")
 fatjet_p4_1 = Quantity("fatjet_p4_1")
 Flag_MaxMetCut = Quantity("Flag_MaxMetCut") # Max MET in fjmm is 150
 good_FatJet_particleNet_massCorr = Quantity("good_FatJet_particleNet_massCorr")
+good_FatJet_rawfactor = Quantity("good_FatJet_rawfactor")
 
 fatjet_pt = Quantity("fatjet_pt")
 fatjet_eta = Quantity("fatjet_eta")
@@ -714,6 +715,23 @@ Muon_pt_corrected = Quantity("Muon_pt_corrected")
 Muon_ptBSC = Quantity("Muon_ptBSC")
 Muon_ptBSC_partial = Quantity("Muon_ptBSC_partial")
 
+############### check different types of muon pt distribution ###################
+Muon_pt_corrected_raw = Quantity("Muon_pt_corrected_raw")
+Muon_pt_corrected_pureBSC = Quantity("Muon_pt_corrected_pureBSC")
+muon_leadingp4_H_noFSR_pureBSC = Quantity("muon_leadingp4_H_noFSR_pureBSC")
+muon_leadingp4_H_noFSR_raw = Quantity("muon_leadingp4_H_noFSR_raw")
+muon_subleadingp4_H_noFSR_pureBSC = Quantity("muon_subleadingp4_H_noFSR_pureBSC")
+muon_subleadingp4_H_noFSR_raw = Quantity("muon_subleadingp4_H_noFSR_raw")
+muon_leadingp4_H_pureBSC = Quantity("muon_leadingp4_H_pureBSC")
+muon_leadingp4_H_raw = Quantity("muon_leadingp4_H_raw")
+muon_subleadingp4_H_pureBSC = Quantity("muon_subleadingp4_H_pureBSC")
+muon_subleadingp4_H_raw = Quantity("muon_subleadingp4_H_raw")
+mu1_fromH_pt_pureBSC = Quantity("mu1_fromH_pt_pureBSC")
+mu1_fromH_pt_raw = Quantity("mu1_fromH_pt_raw")
+mu2_fromH_pt_pureBSC = Quantity("mu2_fromH_pt_pureBSC")
+mu2_fromH_pt_raw = Quantity("mu2_fromH_pt_raw")
+############### check different types of muon pt distribution ###################
+
 muon_leadingp4_Z_CR_corrected = Quantity("muon_leadingp4_Z_CR_corrected")
 muon_subleadingp4_Z_CR_corrected = Quantity("muon_subleadingp4_Z_CR_corrected")
 
@@ -765,3 +783,9 @@ FsrPhoton2_eta = Quantity("FsrPhoton2_eta")
 FsrPhoton2_phi = Quantity("FsrPhoton2_phi")
 FsrPhoton2_dROverEt2 = Quantity("FsrPhoton2_dROverEt2")
 FsrPhoton2_relIso03 = Quantity("FsrPhoton2_relIso03")
+
+############# for v15 ###############
+jetTightID = Quantity("jetTightID")
+jetTightLepVetoID = Quantity("jetTightLepVetoID")
+fatjetTightID = Quantity("fatjetTightID")
+fatjetTightLepVetoID = Quantity("fatjetTightLepVetoID")

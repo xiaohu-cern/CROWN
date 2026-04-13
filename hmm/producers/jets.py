@@ -9,23 +9,84 @@ from code_generation.producer import Producer, ProducerGroup, Filter
 ### energy corrections
 # vh these pT corrections are copied from Htautau
 # TODO check if L1FastJet L2L3 and residual corrections are consistent with hmm
+Create_JetTightID_v15 = Producer( ############# This producer is used to create JetTightID for NANOAODv15 ###############################
+    name="Create_JetTightID_v15",
+    call="physicsobject::jet::Cal_JetTightID_v15({df}, {output}, {input})",
+    input=[
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_neEmEF,
+        nanoAOD.Jet_neHEF,
+        nanoAOD.Jet_chEmEF,
+        nanoAOD.Jet_chHEF,
+        nanoAOD.Jet_chMultiplicity,
+        nanoAOD.Jet_neMultiplicity,
+    ],
+    output=[q.jetTightID],
+    scopes=["global"],
+)
+Create_JetTightID_v12 = Producer( ############# This producer is used to create JetTightID for NANOAODv15 ###############################
+    name="Create_JetTightID_v12",
+    call="physicsobject::jet::Cal_JetTightID_v12({df}, {output}, {input})",
+    input=[
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_neEmEF,
+        nanoAOD.Jet_neHEF,
+        nanoAOD.Jet_ID,
+    ],
+    output=[q.jetTightID],
+    scopes=["global"],
+)
+Create_JetTightLepVetoID = Producer( ############# This producer is used to create JetTightLepVetoID for NANOAODv15 ###############################
+    name="Create_JetTightLepVetoID",
+    call="physicsobject::jet::Cal_JetTightLepVetoID({df}, {output}, {input})",
+    input=[
+        nanoAOD.Jet_eta,
+        q.jetTightID,
+        nanoAOD.Jet_muEF,
+        nanoAOD.Jet_chEmEF,
+    ],
+    output=[q.jetTightLepVetoID],
+    scopes=["global"],
+)
+
+# JetPtCorrection = Producer(
+#     name="JetPtCorrection",
+#     call="physicsobject::jet::JetPtCorrection({df}, {output}, {input}, {jet_reapplyJES}, {jet_jes_sources}, {jet_jes_shift}, {jet_jer_shift}, {jet_jec_file}, {jet_jer_tag}, {jet_jes_tag}, {jet_jec_algo}, {jet_veto_map}, {jet_veto_tag})",
+#     input=[
+#         nanoAOD.Jet_pt,
+#         nanoAOD.Jet_eta,
+#         nanoAOD.Jet_phi,
+#         nanoAOD.Jet_area,
+#         nanoAOD.Jet_rawFactor,
+#         nanoAOD.Jet_ID,
+#         nanoAOD.GenJet_pt,
+#         nanoAOD.GenJet_eta,
+#         nanoAOD.GenJet_phi,
+#         nanoAOD.rho,
+#         nanoAOD.Jet_chEmEF,
+#         nanoAOD.Jet_neEmEF,
+#         nanoAOD.Jet_neHEF,
+#         nanoAOD.Jet_muEF,
+#     ],
+#     output=[q.Jet_pt_corrected],
+#     scopes=["global"],
+# )
 JetPtCorrection = Producer(
     name="JetPtCorrection",
-    call="physicsobject::jet::JetPtCorrection({df}, {output}, {input}, {jet_reapplyJES}, {jet_jes_sources}, {jet_jes_shift}, {jet_jer_shift}, {jet_jec_file}, {jet_jer_tag}, {jet_jes_tag}, {jet_jec_algo}, {jet_veto_map}, {jet_veto_tag})",
+    call="physicsobject::jet::JetPtCorrection_v15({df}, {output}, {input}, {jet_reapplyJES}, {jet_jes_sources}, {jet_jes_shift}, {jet_jer_shift}, {jet_jec_file}, {jet_jer_tag}, {jet_jes_tag}, {jet_jec_algo}, {jet_veto_map}, {jet_veto_tag})",
     input=[
         nanoAOD.Jet_pt,
         nanoAOD.Jet_eta,
         nanoAOD.Jet_phi,
         nanoAOD.Jet_area,
         nanoAOD.Jet_rawFactor,
-        nanoAOD.Jet_ID,
+        q.jetTightLepVetoID,
         nanoAOD.GenJet_pt,
         nanoAOD.GenJet_eta,
         nanoAOD.GenJet_phi,
         nanoAOD.rho,
         nanoAOD.Jet_chEmEF,
         nanoAOD.Jet_neEmEF,
-        nanoAOD.Jet_neHEF,
     ],
     output=[q.Jet_pt_corrected],
     scopes=["global"],
@@ -59,6 +120,14 @@ JetMassCorrection = Producer(
     output=[q.Jet_mass_corrected],
     scopes=["global"],
 )
+# JetEnergyCorrection = ProducerGroup(
+#     name="JetEnergyCorrection",
+#     call=None,
+#     input=None,
+#     output=None,
+#     scopes=["global"],
+#     subproducers=[JetPtCorrection, JetMassCorrection],
+# )
 JetEnergyCorrection = ProducerGroup(
     name="JetEnergyCorrection",
     call=None,
@@ -98,6 +167,21 @@ RenameJetPt = Producer(
     output=[q.Jet_pt_corrected],
     scopes=["global"],
 )
+RenameJetPt_v15 = Producer(
+    name="RenameJetPt_v15",
+    call="physicsobject::jet::JetVetoMap_v15({df}, {output}, {input}, {jet_veto_map}, {jet_veto_tag})",
+    input=[
+        nanoAOD.Jet_pt,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        q.jetTightLepVetoID,
+        nanoAOD.Jet_chEmEF,
+        nanoAOD.Jet_neEmEF,
+    ],
+    output=[q.Jet_pt_corrected],
+    scopes=["global"],
+)
+
 RenameJetMass = Producer(
     name="RenameJetMass",
     call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
@@ -112,6 +196,14 @@ RenameJetsData = ProducerGroup(
     output=None,
     scopes=["global"],
     subproducers=[RenameJetPt, RenameJetMass],
+)
+RenameJetsData_v15 = ProducerGroup(
+    name="RenameJetsData_v15",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["global"],
+    subproducers=[RenameJetPt_v15, RenameJetMass],
 )
 ### 
 cutsomized_Flag_ecalBadCalibFilter = Producer(
@@ -184,6 +276,16 @@ JetIDCut = Producer(
     name="JetIDCut",
     call="physicsobject::jet::CutID({df}, {output}, {input}, {jet_id})",
     input=[nanoAOD.Jet_ID],
+    output=[q.jet_id_mask],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb",
+            "m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb",
+            "e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+JetIDCut_Bool = Producer(
+    name="JetIDCut_Bool",
+    call="physicsobject::jet::CutBoolID({df}, {output}, {input})",
+    input=[q.jetTightID],
     output=[q.jet_id_mask],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
             "nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb",
@@ -297,7 +399,7 @@ GoodJets_2022_GoodMu_GoodEle = ProducerGroup(
     input=[],
     output=[q.good_jets_mask],
     scopes=["m2m","e2m","mmmm","eemm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb","fjmm_cr"],
-    subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar,VetoOverlappingJets_GoodMuon, VetoOverlappingJets_GoodEle],
+    subproducers=[JetPtCut, JetEtaCut, JetIDCut_Bool, VetoOverlappingJets_GoodMuon, VetoOverlappingJets_GoodEle],
 )
 GoodJets_2022_BaseMu = ProducerGroup(
     name="GoodJets_2022_BaseMu",
@@ -305,7 +407,7 @@ GoodJets_2022_BaseMu = ProducerGroup(
     input=[],
     output=[q.good_jets_mask],
     scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
-    subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar,VetoOverlappingJets_BaseMuon],
+    subproducers=[JetPtCut, JetEtaCut, JetIDCut_Bool, VetoOverlappingJets_BaseMuon],
 )
 GoodJets_2022_BaseEle_GoodMu = ProducerGroup(
     name="GoodJets_2022_BaseEle_GoodMu",
@@ -313,8 +415,35 @@ GoodJets_2022_BaseEle_GoodMu = ProducerGroup(
     input=[],
     output=[q.good_jets_mask],
     scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm_cr"],
-    subproducers=[JetPtCut, JetEtaCut, JetIDCut_UChar,VetoOverlappingJets_BaseEle, VetoOverlappingJets_GoodMuon],
+    subproducers=[JetPtCut, JetEtaCut, JetIDCut_Bool, VetoOverlappingJets_BaseEle, VetoOverlappingJets_GoodMuon],
 )
+################# For 2024 #####################################
+# GoodJets_2024_GoodMu_GoodEle = ProducerGroup(
+#     name="GoodJets_2024_GoodMu_GoodEle",
+#     call="physicsobject::CombineMasks({df}, {output}, {input})",
+#     input=[],
+#     output=[q.good_jets_mask],
+#     scopes=["m2m","e2m","mmmm","eemm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb","fjmm_cr"],
+#     subproducers=[JetPtCut, JetEtaCut, JetIDCut_Bool, VetoOverlappingJets_GoodMuon, VetoOverlappingJets_GoodEle],
+# )
+# GoodJets_2024_BaseMu = ProducerGroup(
+#     name="GoodJets_2024_BaseMu",
+#     call="physicsobject::CombineMasks({df}, {output}, {input})",
+#     input=[],
+#     output=[q.good_jets_mask],
+#     scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
+#     subproducers=[JetPtCut, JetEtaCut, JetIDCut_Bool, VetoOverlappingJets_BaseMuon],
+# )
+# GoodJets_2024_BaseEle_GoodMu = ProducerGroup(
+#     name="GoodJets_2024_BaseEle_GoodMu",
+#     call="physicsobject::CombineMasks({df}, {output}, {input})",
+#     input=[],
+#     output=[q.good_jets_mask],
+#     scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm_cr"],
+#     subproducers=[JetPtCut, JetEtaCut, JetIDCut_Bool, VetoOverlappingJets_BaseEle, VetoOverlappingJets_GoodMuon],
+# )
+################# END END For 2024 tmeporarily END END #####################################
+
 ########################
 # Jet_jetid -> jet_id UChar_t in v12, Int_t in v9
 ########################

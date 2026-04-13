@@ -14,6 +14,16 @@ bool matchParticle(const ROOT::Math::PtEtaPhiMVector &particle,
                    const float &pt_cut, const float &eta_cut,
                    const unsigned short &trigger_particle_id_cut,
                    const int &triggerbit_cut);
+bool matchParticle_v15(const ROOT::Math::PtEtaPhiMVector &particle,
+                   ROOT::RVec<float> &triggerobject_pts,
+                   ROOT::RVec<float> &triggerobject_etas,
+                   ROOT::RVec<float> &triggerobject_phis,
+                   ROOT::RVec<int> &triggerobject_bits,
+                   ROOT::RVec<unsigned short> &triggerobject_ids, const float &matchDeltaR,
+                   const float &pt_cut, const float &eta_cut,
+                   const unsigned short &trigger_particle_id_cut,
+                   const int &triggerbit_cut);
+
 bool matchParticle_run2(const ROOT::Math::PtEtaPhiMVector &particle,
                    ROOT::RVec<float> &triggerobject_pts,
                    ROOT::RVec<float> &triggerobject_etas,
@@ -71,6 +81,16 @@ ROOT::RDF::RNode GenerateTripleTriggerORFlag(
     const float &p2_eta_cut, const float &p3_eta_cut, const unsigned short &p1_trigger_particle_id_cut,
     const unsigned short &p2_trigger_particle_id_cut, const unsigned short &p3_trigger_particle_id_cut, const int &p1_triggerbit_cut,
     const int &p2_triggerbit_cut, const int &p3_triggerbit_cut, const float &DeltaR_threshold);
+ROOT::RDF::RNode GenerateTripleTriggerORFlag_v15(
+    ROOT::RDF::RNode df, const std::string &triggerflag_name,
+    const std::string &particle1_p4, const std::string &particle2_p4, const std::string &particle3_p4,
+    const std::string &triggerobject_bits, const std::string &triggerobject_id,
+    const std::string &triggerobject_pt, const std::string &triggerobject_eta,
+    const std::string &triggerobject_phi, const std::string &hltpath,
+    const float &p1_pt_cut, const float &p2_pt_cut, const float &p3_pt_cut, const float &p1_eta_cut,
+    const float &p2_eta_cut, const float &p3_eta_cut, const unsigned short &p1_trigger_particle_id_cut,
+    const unsigned short &p2_trigger_particle_id_cut, const unsigned short &p3_trigger_particle_id_cut, const int &p1_triggerbit_cut,
+    const int &p2_triggerbit_cut, const int &p3_triggerbit_cut, const float &DeltaR_threshold);
 ROOT::RDF::RNode GenerateTripleTriggerORFlag_run2(
     ROOT::RDF::RNode df, const std::string &triggerflag_name,
     const std::string &particle1_p4, const std::string &particle2_p4, const std::string &particle3_p4,
@@ -92,6 +112,17 @@ ROOT::RDF::RNode GenerateDoubleTriggerORFlag(
     const float &p2_eta_cut,  const unsigned short &p1_trigger_particle_id_cut,
     const unsigned short &p2_trigger_particle_id_cut,  const int &p1_triggerbit_cut,
     const int &p2_triggerbit_cut, const float &DeltaR_threshold);
+ROOT::RDF::RNode GenerateDoubleTriggerORFlag_v15(
+    ROOT::RDF::RNode df, const std::string &triggerflag_name,
+    const std::string &particle1_p4, const std::string &particle2_p4,
+    const std::string &triggerobject_bits, const std::string &triggerobject_id,
+    const std::string &triggerobject_pt, const std::string &triggerobject_eta,
+    const std::string &triggerobject_phi, const std::string &hltpath,
+    const float &p1_pt_cut, const float &p2_pt_cut, const float &p1_eta_cut,
+    const float &p2_eta_cut, const unsigned short &p1_trigger_particle_id_cut,
+    const unsigned short &p2_trigger_particle_id_cut, const int &p1_triggerbit_cut,
+    const int &p2_triggerbit_cut, const float &DeltaR_threshold);
+
 ROOT::RDF::RNode GenerateDoubleTriggerORFlag_run2(
     ROOT::RDF::RNode df, const std::string &triggerflag_name,
     const std::string &particle1_p4, const std::string &particle2_p4, 
@@ -113,6 +144,17 @@ ROOT::RDF::RNode GenerateQuadTriggerORFlag(
     const float &p1_eta_cut, const float &p2_eta_cut, const float &p3_eta_cut, const float &p4_eta_cut,
     const unsigned short &p1_trigger_particle_id_cut, const unsigned short &p2_trigger_particle_id_cut, const unsigned short &p3_trigger_particle_id_cut, const unsigned short &p4_trigger_particle_id_cut,
     const int &p1_triggerbit_cut, const int &p2_triggerbit_cut, const int &p3_triggerbit_cut, const int &p4_triggerbit_cut, const float &DeltaR_threshold);
+ROOT::RDF::RNode GenerateQuadTriggerORFlag_v15(
+    ROOT::RDF::RNode df, const std::string &triggerflag_name,
+    const std::string &particle1_p4, const std::string &particle2_p4, const std::string &particle3_p4,
+    const std::string &particle4_p4, const std::string &triggerobject_bits, const std::string &triggerobject_id,
+    const std::string &triggerobject_pt, const std::string &triggerobject_eta,
+    const std::string &triggerobject_phi, const std::string &hltpath,
+    const float &p1_pt_cut, const float &p2_pt_cut, const float &p3_pt_cut, const float &p4_pt_cut,
+    const float &p1_eta_cut, const float &p2_eta_cut, const float &p3_eta_cut, const float &p4_eta_cut,
+    const unsigned short &p1_trigger_particle_id_cut, const unsigned short &p2_trigger_particle_id_cut, const unsigned short &p3_trigger_particle_id_cut, const unsigned short &p4_trigger_particle_id_cut,
+    const int &p1_triggerbit_cut, const int &p2_triggerbit_cut, const int &p3_triggerbit_cut, const int &p4_triggerbit_cut, const float &DeltaR_threshold);
+
 ROOT::RDF::RNode GenerateQuadTriggerORFlag_run2(
     ROOT::RDF::RNode df, const std::string &triggerflag_name,
     const std::string &particle1_p4, const std::string &particle2_p4, const std::string &particle3_p4,

@@ -1320,27 +1320,27 @@ PNetWvsQCD_SF = Producer(
 #########################
 # Electron ID/ISO SF
 #########################
-Ele_1_IDWP80_SF_e2m = Producer(
-    name="Ele_1_IDWP80_SF_e2m",
-    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp80noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
-    input=[q.extra_lep_p4_noCorr],
-    output=[q.id_wgt_ele_wp80nonIso_1],
-    scopes=["e2m"],
-)
-Ele_1_IDWP80_SF_eemm = Producer(
-    name="Ele_1_IDWP80_SF_eemm",
-    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp80noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
-    input=[q.lepton_leadingp4_Z_uncorrected],
-    output=[q.id_wgt_ele_wp80nonIso_1],
-    scopes=["eemm"],
-)
-Ele_2_IDWP80_SF = Producer(
-    name="Ele_2_IDWP80_SF",
-    call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp80noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
-    input=[q.lepton_subleadingp4_Z_uncorrected],
-    output=[q.id_wgt_ele_wp80nonIso_2],
-    scopes=["eemm"],
-)
+# Ele_1_IDWP80_SF_e2m = Producer(
+#     name="Ele_1_IDWP80_SF_e2m",
+#     call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp80noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+#     input=[q.extra_lep_p4_noCorr],
+#     output=[q.id_wgt_ele_wp80nonIso_1],
+#     scopes=["e2m"],
+# )
+# Ele_1_IDWP80_SF_eemm = Producer(
+#     name="Ele_1_IDWP80_SF_eemm",
+#     call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp80noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+#     input=[q.lepton_leadingp4_Z_uncorrected],
+#     output=[q.id_wgt_ele_wp80nonIso_1],
+#     scopes=["eemm"],
+# )
+# Ele_2_IDWP80_SF = Producer(
+#     name="Ele_2_IDWP80_SF",
+#     call='scalefactor::electron::id_e_vhmm({df}, {input}, "{ele_sf_year_id}", "wp80noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+#     input=[q.lepton_subleadingp4_Z_uncorrected],
+#     output=[q.id_wgt_ele_wp80nonIso_2],
+#     scopes=["eemm"],
+# )
 
 #################### id SF for ele ####################
 Ele_1_Loose_SF_e2m = Producer(
@@ -1713,7 +1713,7 @@ btaggingloose_SF_run2 = Producer(
 ########### ttbar sample ################
 btagging_SF_2WPs_3l_4l = Producer(
     name="btagging_SF_2WPs_3l_4l",
-    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_ttbar}", "{medium_btag_eff_file_ttbar}", "{era_name}", "3l_4l", {btag_cut_loose}, {btag_cut_medium})',
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_ttbar}", "{medium_btag_eff_file_ttbar}", "{era_name}", "3l_4l", {btag_cut_loose}, {btag_cut_medium}, "{btag_sf_label}")',
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -1731,7 +1731,7 @@ btagging_SF_2WPs_3l_4l = Producer(
 
 btagging_SF_2WPs_fjmm = Producer(
     name="btagging_SF_2WPs_fjmm",
-    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_ttbar}", "{medium_btag_eff_file_ttbar}", "{era_name}", "fjmm", {btag_cut_loose}, {btag_cut_medium})',
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_ttbar}", "{medium_btag_eff_file_ttbar}", "{era_name}", "fjmm", {btag_cut_loose}, {btag_cut_medium}, "{btag_sf_label}")',
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -1747,7 +1747,7 @@ btagging_SF_2WPs_fjmm = Producer(
 
 btagging_SF_2WPs_met = Producer(
     name="btagging_SF_2WPs_met",
-    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_ttbar}", "{medium_btag_eff_file_ttbar}", "{era_name}", "met", {btag_cut_loose}, {btag_cut_medium})',
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_ttbar}", "{medium_btag_eff_file_ttbar}", "{era_name}", "met", {btag_cut_loose}, {btag_cut_medium}, "{btag_sf_label}")',
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -1763,7 +1763,7 @@ btagging_SF_2WPs_met = Producer(
 ########### DY sample ################
 btagging_SF_2WPs_3l_4l_dy = Producer(
     name="btagging_SF_2WPs_3l_4l_dy",
-    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_dy}", "{medium_btag_eff_file_dy}", "{era_name}", "3l_4l", {btag_cut_loose}, {btag_cut_medium})',
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_dy}", "{medium_btag_eff_file_dy}", "{era_name}", "3l_4l", {btag_cut_loose}, {btag_cut_medium}, "{btag_sf_label}")',
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -1781,7 +1781,7 @@ btagging_SF_2WPs_3l_4l_dy = Producer(
 
 btagging_SF_2WPs_fjmm_dy = Producer(
     name="btagging_SF_2WPs_fjmm_dy",
-    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_dy}", "{medium_btag_eff_file_dy}", "{era_name}", "fjmm", {btag_cut_loose}, {btag_cut_medium})',
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_dy}", "{medium_btag_eff_file_dy}", "{era_name}", "fjmm", {btag_cut_loose}, {btag_cut_medium}, "{btag_sf_label}")',
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -1797,7 +1797,7 @@ btagging_SF_2WPs_fjmm_dy = Producer(
 
 btagging_SF_2WPs_met_dy = Producer(
     name="btagging_SF_2WPs_met_dy",
-    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_dy}", "{medium_btag_eff_file_dy}", "{era_name}", "met", {btag_cut_loose}, {btag_cut_medium})',
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_dy}", "{medium_btag_eff_file_dy}", "{era_name}", "met", {btag_cut_loose}, {btag_cut_medium}, "{btag_sf_label}")',
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -1813,7 +1813,7 @@ btagging_SF_2WPs_met_dy = Producer(
 ########### VHmm sample ################
 btagging_SF_2WPs_3l_4l_vhmm = Producer(
     name="btagging_SF_2WPs_3l_4l_vhmm",
-    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_vhmm}", "{medium_btag_eff_file_vhmm}", "{era_name}", "3l_4l", {btag_cut_loose}, {btag_cut_medium})',
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_vhmm}", "{medium_btag_eff_file_vhmm}", "{era_name}", "3l_4l", {btag_cut_loose}, {btag_cut_medium}, "{btag_sf_label}")',
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -1831,7 +1831,7 @@ btagging_SF_2WPs_3l_4l_vhmm = Producer(
 
 btagging_SF_2WPs_fjmm_vhmm = Producer(
     name="btagging_SF_2WPs_fjmm_vhmm",
-    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_vhmm}", "{medium_btag_eff_file_vhmm}", "{era_name}", "fjmm", {btag_cut_loose}, {btag_cut_medium})',
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_vhmm}", "{medium_btag_eff_file_vhmm}", "{era_name}", "fjmm", {btag_cut_loose}, {btag_cut_medium}, "{btag_sf_label}")',
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -1847,7 +1847,7 @@ btagging_SF_2WPs_fjmm_vhmm = Producer(
 
 btagging_SF_2WPs_met_vhmm = Producer(
     name="btagging_SF_2WPs_met_vhmm",
-    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_vhmm}", "{medium_btag_eff_file_vhmm}", "{era_name}", "met", {btag_cut_loose}, {btag_cut_medium})',
+    call='scalefactor::jet::btagSF_2WPs({df}, {input}, "{BtagWeightVariation}", {output}, "{btag_sf_file}", "{loose_btag_eff_file_vhmm}", "{medium_btag_eff_file_vhmm}", "{era_name}", "met", {btag_cut_loose}, {btag_cut_medium}, "{btag_sf_label}")',
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,

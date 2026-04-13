@@ -9,6 +9,46 @@ from code_generation.producer import Producer, ProducerGroup, Filter
 ### energy corrections
 # vh these pT corrections are copied from Htautau
 # TODO check if L1FastJet L2L3 and residual corrections are consistent with hmm
+Create_FatJetTightID_v15 = Producer( ############# This producer is used to create FatJetTightID for NANOAODv15 ###############################
+    name="Create_FatJetTightID_v15",
+    call="physicsobject::jet::Cal_JetTightID_v15({df}, {output}, {input})",
+    input=[
+        nanoAOD.FatJet_eta,
+        nanoAOD.FatJet_neEmEF,
+        nanoAOD.FatJet_neHEF,
+        nanoAOD.FatJet_chEmEF,
+        nanoAOD.FatJet_chHEF,
+        nanoAOD.FatJet_chMultiplicity,
+        nanoAOD.FatJet_neMultiplicity,
+    ],
+    output=[q.fatjetTightID],
+    scopes=["global"],
+)
+# Create_FatJetTightID_v12 = Producer( ############# This producer is used to create FatJetTightID for NANOAODv15 ###############################
+#     name="Create_FatJetTightID_v12",
+#     call="physicsobject::jet::Cal_JetTightID_v12({df}, {output}, {input})",
+#     input=[
+#         nanoAOD.FatJet_eta,
+#         nanoAOD.FatJet_neEmEF,
+#         nanoAOD.FatJet_neHEF,
+#         nanoAOD.FatJet_ID,
+#     ],
+#     output=[q.fatjetTightID],
+#     scopes=["global"],
+# )
+# Create_FatJetTightLepVetoID = Producer( ############# This producer is used to create FatJetTightLepVetoID for NANOAODv15 ###############################
+#     name="Create_FatJetTightLepVetoID",
+#     call="physicsobject::jet::Cal_JetTightLepVetoID({df}, {output}, {input})",
+#     input=[
+#         nanoAOD.FatJet_eta,
+#         q.fatjetTightID,
+#         nanoAOD.FatJet_muEF,
+#         nanoAOD.FatJet_chEmEF,
+#     ],
+#     output=[q.fatjetTightLepVetoID],
+#     scopes=["global"],
+# )
+
 FatJetPtCorrection = Producer(
     name="FatJetPtCorrection",
     call="physicsobject::jet::FatJetPtCorrection({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jes_sources}, {fatjet_jes_shift}, {fatjet_jer_shift}, {fatjet_jec_file}, {fatjet_jer_tag}, {fatjet_jes_tag}, {fatjet_jec_algo}, {fatjet_veto_map}, {fatjet_veto_tag})",
@@ -19,6 +59,23 @@ FatJetPtCorrection = Producer(
         nanoAOD.FatJet_area,
         nanoAOD.FatJet_rawFactor,
         nanoAOD.FatJet_ID,
+        nanoAOD.GenJetAK8_pt,
+        nanoAOD.GenJetAK8_eta,
+        nanoAOD.GenJetAK8_phi,
+        nanoAOD.rho,
+    ],
+    output=[q.FatJet_pt_corrected],
+    scopes=["global"],
+)
+FatJetPtCorrection_v15 = Producer(
+    name="FatJetPtCorrection_v15",
+    call="physicsobject::jet::FatJetPtCorrection_v15({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jes_sources}, {fatjet_jes_shift}, {fatjet_jer_shift}, {fatjet_jec_file}, {fatjet_jer_tag}, {fatjet_jes_tag}, {fatjet_jec_algo}, {fatjet_veto_map}, {fatjet_veto_tag})",
+    input=[
+        nanoAOD.FatJet_pt,
+        nanoAOD.FatJet_eta,
+        nanoAOD.FatJet_phi,
+        nanoAOD.FatJet_area,
+        nanoAOD.FatJet_rawFactor,
         nanoAOD.GenJetAK8_pt,
         nanoAOD.GenJetAK8_eta,
         nanoAOD.GenJetAK8_phi,
@@ -63,6 +120,14 @@ FatJetEnergyCorrection = ProducerGroup(
     output=None,
     scopes=["global"],
     subproducers=[FatJetPtCorrection, FatJetMassCorrection],
+)
+FatJetEnergyCorrection_v15 = ProducerGroup(
+    name="FatJetEnergyCorrection_v15",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["global"],
+    subproducers=[FatJetPtCorrection_v15, FatJetMassCorrection],
 )
 FatJetEnergyCorrection_run2 = ProducerGroup(
     name="FatJetEnergyCorrection_run2",
@@ -150,6 +215,13 @@ FatJetIDCut = Producer(
     output=[q.fatjet_id_mask],
     scopes=["fjmm","fjmm_cr","nnmm"],
 )
+FatJetIDCut_Bool = Producer( ######## for v15 and v12
+    name="FatJetIDCut_Bool",
+    call="physicsobject::jet::CutBoolID({df}, {output}, {input})",
+    input=[q.fatjetTightID],
+    output=[q.fatjet_id_mask],
+    scopes=["fjmm","fjmm_cr","nnmm"],
+)
 ## 2022preEE fatjet id UChar_t 
 FatJetIDCut_UChar = Producer(
     name="FatJetIDCut_UChar",
@@ -173,6 +245,14 @@ GoodFatJets = ProducerGroup(
     output=[q.good_fatjets_mask],
     scopes=["fjmm","fjmm_cr","nnmm"],
     subproducers=[FatJetPtCut, FatJetEtaCut, FatJetSDMassCut, FatJetIDCut_UChar, VetoOverlappingFatJetsWithMuons],
+)
+GoodFatJets_v15 = ProducerGroup(
+    name="GoodFatJets_v15",
+    call="physicsobject::CombineMasks({df}, {output}, {input})",
+    input=[],
+    output=[q.good_fatjets_mask],
+    scopes=["fjmm","fjmm_cr","nnmm"],
+    subproducers=[FatJetPtCut, FatJetEtaCut, FatJetSDMassCut, FatJetIDCut_Bool, VetoOverlappingFatJetsWithMuons],
 )
 GoodFatJets_run2 = ProducerGroup(
     name="GoodFatJets_run2",
@@ -234,5 +314,15 @@ Pnet_Fatjet_Mass_Corr = Producer(
         nanoAOD.FatJet_particleNet_massCorr,
     ],
     output=[q.good_FatJet_particleNet_massCorr],
+    scopes=["fjmm", "fjmm_cr"],
+)
+GoodFatjet_RawFactor = Producer(
+    name="GoodFatjet_RawFactor",
+    call="lorentzvectors::buildVar({df}, {input_vec}, {output}, 0)",
+    input=[
+        q.good_fatjet_collection,
+        nanoAOD.FatJet_rawFactor,
+    ],
+    output=[q.good_FatJet_rawfactor],
     scopes=["fjmm", "fjmm_cr"],
 )

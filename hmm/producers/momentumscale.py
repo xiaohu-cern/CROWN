@@ -30,7 +30,7 @@ RenameMuonPt = Producer(
 ######################################## BSC and tuneP ################################################
 MuonPtPreCorrection = Producer(
     name="MuonPtPreCorrection",
-    call='scalefactor::muon::Muonmomentumscale({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
+    call='scalefactor::muon::HighPtScale({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
     input=[
         nanoAOD.Muon_pt,
         nanoAOD.Muon_bsConstrainedPt,
@@ -39,6 +39,23 @@ MuonPtPreCorrection = Producer(
         nanoAOD.Muon_phi,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_charge,
+    ],
+    output=[q.Muon_ptBSC_partial],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+MuonPtPreSmear = Producer(
+    name="MuonPtPreSmear",
+    call="scalefactor::muon::HighPtSmear({df}, {input}, {output}, {a_barrel}, {b_barrel}, {c_barrel}, {d_barrel}, {a_endcap}, {b_endcap}, {c_endcap}, {d_endcap})",
+    input=[
+        q.Muon_ptBSC_partial,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_nTrackerLayers,
+        nanoAOD.event,
+        nanoAOD.luminosityBlock,
     ],
     output=[q.Muon_ptBSC],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",

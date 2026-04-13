@@ -425,6 +425,14 @@ inline auto FilterJetUCharID(const unsigned char &index) {
         return mask;
     };
 }
+inline auto FilterJetBoolID() {
+    return [](const ROOT::RVec<bool> &IDs) {
+        ROOT::RVec<int> mask = IDs;  // bool → int (true=1, false=0)
+        Logger::get("FilterJetBoolID")->debug("IDs: {}", IDs);
+        Logger::get("FilterJetBoolID")->debug("Mask: {}", mask);
+        return mask;
+    };
+}
 /// Function to filter the Jet pileup ID in NanoAOD. This ID is applied on jets
 /// below a given pt threshold. The jet pileup ID has 4 possible values:
 /// 0==fail, 4==pass loose, 6==pass loose and medium, 7==pass loose, medium and

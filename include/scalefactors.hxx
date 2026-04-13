@@ -20,16 +20,19 @@ ROOT::RDF::RNode Rochester_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt,
                     const std::string &lumiNumber, const std::string &pt_corrected,
                     const std::string &sf_file, const std::string &variation,
                     const std::string &data_type);
-
-ROOT::RDF::RNode Muonmomentumscale(ROOT::RDF::RNode df, const std::string &pt_raw, const std::string &pt_BSC, const std::string &pt_ReltuneP, const std::string &pt_BSC_Err,
+ROOT::RDF::RNode HighPtSmear(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta, const std::string &phi, 
+                             const std::string &nL, const std::string &evtNumber, const std::string &lumiNumber, const std::string &pt_smeared, 
+                             const double a_barrel, const double b_barrel, const double c_barrel, const double d_barrel,
+                             const double a_endcap, const double b_endcap, const double c_endcap, const double d_endcap);
+ROOT::RDF::RNode HighPtScale(ROOT::RDF::RNode df, const std::string &pt_raw, const std::string &pt_BSC, const std::string &pt_ReltuneP, const std::string &pt_BSC_Err,
                     const std::string &phi, const std::string &eta, 
                     const std::string &charge, 
                     const std::string &variation_BSC, const std::string &variation_tuneP, const std::string &pt_corrected, 
                     const std::string &sf_file,
                     const std::string &idAlgorithm);
 
-ROOT::RDF::RNode MuonmomentumBSC(ROOT::RDF::RNode df, const std::string &pt, const std::string &phi, const std::string &eta, 
-                    const std::string &ptErr, const std::string &variation, const std::string &ptBSC);
+// ROOT::RDF::RNode MuonmomentumBSC(ROOT::RDF::RNode df, const std::string &pt, const std::string &phi, const std::string &eta, 
+//                     const std::string &ptErr, const std::string &variation, const std::string &ptBSC);
 ROOT::RDF::RNode id_rooworkspace(ROOT::RDF::RNode df, const std::string &pt,
                                  const std::string &eta,
                                  const std::string &id_output,
@@ -170,7 +173,8 @@ btagSF_2WPs(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
             const std::string &sf_output, const std::string &sf_file,
             const std::string &loose_eff_file, const std::string &medium_eff_file,
             const std::string &year, const std::string &channel, 
-            const float &loose_cut, const float &medium_cut);
+            const float &loose_cut, const float &medium_cut, const std::string &btag_label);
+
 ROOT::RDF::RNode
 btagSF(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta,
        const std::string &btag_discr, const std::string &flavor,
