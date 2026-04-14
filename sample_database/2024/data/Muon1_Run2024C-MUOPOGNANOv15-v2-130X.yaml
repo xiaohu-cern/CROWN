@@ -1,5 +1,5 @@
 dbs: /Muon1/Run2024C-MUOPOGNANOv15-v2/NANOAOD
-era: 2023postBPix
+era: 2024
 filelist:
 - root://xrootd-cms.infn.it//store/data/Run2024C/Muon1/NANOAOD/MUOPOGNANOv15-v2/130000/9b0714b8-65df-4f7a-85b1-fe201d500eaf.root
 - root://xrootd-cms.infn.it//store/data/Run2024C/Muon1/NANOAOD/MUOPOGNANOv15-v2/130000/8338feac-c050-4b6a-b267-4053d549f65f.root

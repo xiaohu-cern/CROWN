@@ -1,5 +1,5 @@
 dbs: /ZZZ-5F_TuneCP5_13p6TeV_amcatnlo-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM
-era: 2023postBPix
+era: 2024
 filelist:
 - root://xrootd-cms.infn.it//store/mc/RunIII2024Summer24NanoAODv15/ZZZ-5F_TuneCP5_13p6TeV_amcatnlo-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v2/2550000/c761421d-1df7-4cf5-90ac-d38d6a0b8ebe.root
 - root://xrootd-cms.infn.it//store/mc/RunIII2024Summer24NanoAODv15/ZZZ-5F_TuneCP5_13p6TeV_amcatnlo-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v2/2550000/3dc7da13-226d-4b07-8447-3ceeaefba23e.root

@@ -1,5 +1,5 @@
 dbs: /TTLNu-EWK_TuneCP5_13p6TeV_amcatnlo-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM
-era: 2023postBPix
+era: 2024
 filelist:
 - root://xrootd-cms.infn.it//store/mc/RunIII2024Summer24NanoAODv15/TTLNu-EWK_TuneCP5_13p6TeV_amcatnlo-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v2/2560000/a2bc4409-e59e-41a5-9c0c-45cfeffa00dd.root
 - root://xrootd-cms.infn.it//store/mc/RunIII2024Summer24NanoAODv15/TTLNu-EWK_TuneCP5_13p6TeV_amcatnlo-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v2/2560000/dadbbd52-054d-47da-b7f7-4d9de1e68abc.root
