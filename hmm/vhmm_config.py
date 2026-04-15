@@ -553,7 +553,7 @@ def build_config(
     configuration.add_config_parameters(
         "global",
         {
-            "min_muon_pt": 5, # vh change muon min pt 20 to 5
+            "min_muon_pt": 20, # vh change muon min pt 20 to 5
             "max_muon_eta": 2.4, # vh
             "max_muon_dxy": 0.05, # vh
             "max_muon_dz": 0.10, # vh
