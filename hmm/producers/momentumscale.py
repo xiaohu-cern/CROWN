@@ -69,7 +69,7 @@ Data_KIT_MuonPt_Scale = Producer(
     call='scalefactor::muon::KIT_MuonPtScale({df}, {input}, {output}, "{KIT_sf_file}", "data")',
     input=[
         nanoAOD.Muon_pt,
-        q.Muon_ptBSC,
+        q.Muon_ptBSC_partial,
         nanoAOD.Muon_phi, 
         nanoAOD.Muon_eta,
         nanoAOD.Muon_charge,

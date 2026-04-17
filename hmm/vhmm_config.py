@@ -4992,7 +4992,12 @@ def build_config(
                     momentumscale.MuonPtPreCorrection,
                 ]
             },
-        )
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data"]
+        ],
     )
     configuration.add_shift(
         SystematicShift(
@@ -5014,7 +5019,12 @@ def build_config(
                     momentumscale.MuonPtPreCorrection,
                 ]
             },
-        )
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data"]
+        ],
     )
     #########################################
     ## RoccoR MuonPt Momentum Scale shift ###
