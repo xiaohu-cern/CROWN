@@ -3082,19 +3082,27 @@ PtCorrection_scaling(ROOT::RDF::RNode df, const std::string &corrected_pt,
     auto evaluator = correction::CorrectionSet::from_file(sf_file)->compound().at(jsonESname);
     auto electron_pt_correction_lambda =
     // usage of unsigned int is critical, the lenght of data_run is not the same as the other column
-        [evaluator](const unsigned int &data_run, 
+        [evaluator, jsonESname](const unsigned int &data_run, 
                    const ROOT::RVec<float> &deltaEtaSC, const ROOT::RVec<float> &eta,
                    const ROOT::RVec<float> &r9, const ROOT::RVec<float> &pt,
                    const ROOT::RVec<unsigned char> &seedGain) {
             ROOT::RVec<float> corrected_pt_values(pt.size());
             for (int i = 0; i < pt.size(); i++) {
                 auto ScEta = deltaEtaSC.at(i) + eta.at(i); 
+                // std::vector<correction::Variable::Type> inputs = {
+                //     "scale",                        // string
+                //     static_cast<double>(data_run),  // double
+                //     ScEta,                          // double
+                //     static_cast<double>(r9[i]),     // double
+                //     std::abs(ScEta),                // double
+                //     static_cast<double>(pt[i]),     // double
+                //     static_cast<double>(seedGain[i]) // double
+                // };
                 std::vector<correction::Variable::Type> inputs = {
                     "scale",                        // string
                     static_cast<double>(data_run),  // double
                     ScEta,                          // double
                     static_cast<double>(r9[i]),     // double
-                    std::abs(ScEta),                // double
                     static_cast<double>(pt[i]),     // double
                     static_cast<double>(seedGain[i]) // double
                 };

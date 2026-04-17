@@ -869,29 +869,23 @@ def build_config(
             "Smear_variation": "smear",
             "electron_SS_file" : EraModifier(
                 {
-                    "2022preEE": "data/jsonpog-integration/POG/EGM/2022_Summer22/electronSS_EtDependent.json.gz",
-                    "2022postEE": "data/jsonpog-integration/POG/EGM/2022_Summer22EE/electronSS_EtDependent.json.gz",
-                    "2023preBPix": "data/jsonpog-integration/POG/EGM/2023_Summer23/electronSS_EtDependent.json.gz",
-                    "2023postBPix": "data/jsonpog-integration/POG/EGM/2023_Summer23BPix/electronSS_EtDependent.json.gz",
+                    "2022preEE": "data/data/22-23_correction_new/EGM/2022preEE/electronSS_EtDependent.json.gz",
+                    "2022postEE": "data/data/22-23_correction_new/EGM/2022postEE/electronSS_EtDependent.json.gz",
+                    "2023preBPix": "data/data/22-23_correction_new/EGM/2023preBPix/electronSS_EtDependent.json.gz",
+                    "2023postBPix": "data/data/22-23_correction_new/EGM/2023postBPix/electronSS_EtDependent.json.gz",
                     "2024": "data/2024_correction/EGM/electronSS_EtDependent.json.gz",
+                    # "2024": "data/jsonpog-integration/POG/EGM/2023_Summer23BPix/electronSS_EtDependent.json.gz",
                 }
             ),
-            "electron_SS_scale_name": EraModifier(
-                {
-                    "2022preEE": "EGMScale_Compound_Ele_2022preEE",
-                    "2022postEE": "EGMScale_Compound_Ele_2022postEE",
-                    "2023preBPix": "EGMScale_Compound_Ele_2023preBPIX",
-                    "2023postBPix": "EGMScale_Compound_Ele_2023postBPIX",
-                    "2024": "Scale",
-                },
-            ),
+            "electron_SS_scale_name": "Scale",
             "electron_SS_smear_name": EraModifier(
                 {
-                    "2022preEE": "EGMSmearAndSyst_ElePTsplit_2022preEE",
-                    "2022postEE": "EGMSmearAndSyst_ElePTsplit_2022postEE",
-                    "2023preBPix": "EGMSmearAndSyst_ElePTsplit_2023preBPIX",
-                    "2023postBPix": "EGMSmearAndSyst_ElePTsplit_2023postBPIX",
+                    "2022preEE": "EGMSmearAndSyst_ElePT_2022",
+                    "2022postEE": "EGMSmearAndSyst_ElePT_2022",
+                    "2023preBPix": "EGMSmearAndSyst_ElePT_2023",
+                    "2023postBPix": "EGMSmearAndSyst_ElePT_2023",
                     "2024": "EGMSmearAndSyst_ElePT_2024",
+                    # "2024": "EGMSmearAndSyst_ElePTsplit_2023postBPIX",
                 },  
             ),
             "ele_sf_file": EraModifier(
@@ -2418,7 +2412,7 @@ def build_config(
     )
     # Region B: pass 2 medium muons, 1 ele and fail m(mm) in [110,150], actually in [70,110]
     configuration.add_producers(
-        "e2m_dyfakeinge_regionb",
+        "e2m_dyfakeinge_regionb", #####maybe
         [
             event.FilterNGoodMuons, # nmuons == 2
             event.FilterNGoodElectrons, # nelectrons == 1
