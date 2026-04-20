@@ -440,11 +440,19 @@ ROOT::RDF::RNode PtCorrection_scaling(ROOT::RDF::RNode df, const std::string &co
                      const std::string &r9, const std::string &pt, 
                      const std::string &seedGain);
 
-ROOT::RDF::RNode PtCorrection_smearing(ROOT::RDF::RNode df, const std::string &corrected_pt,
+// ROOT::RDF::RNode PtCorrection_smearing(ROOT::RDF::RNode df, const std::string &corrected_pt,
+//                     const std::string &sf_file, const std::string &jsonESname, 
+//                     const std::string &Smear_variation,
+//                     const std::string &pt, const std::string &r9,
+//                     const std::string &deltaEtaSC, const std::string &eta);
+
+ROOT::RDF::RNode
+PtCorrection_smearing(ROOT::RDF::RNode df, const std::string &corrected_pt,
                     const std::string &sf_file, const std::string &jsonESname, 
                     const std::string &Smear_variation,
                     const std::string &pt, const std::string &r9,
-                    const std::string &deltaEtaSC, const std::string &eta);
+                    const std::string &deltaEtaSC, const std::string &eta, const std::string &phi,
+                    const std::string &event, const std::string &luminosityBlock);
 
 } // end namespace electron
 } // namespace physicsobject

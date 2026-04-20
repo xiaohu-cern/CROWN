@@ -869,10 +869,10 @@ def build_config(
             "Smear_variation": "smear",
             "electron_SS_file" : EraModifier(
                 {
-                    "2022preEE": "data/data/22-23_correction_new/EGM/2022preEE/electronSS_EtDependent.json.gz",
-                    "2022postEE": "data/data/22-23_correction_new/EGM/2022postEE/electronSS_EtDependent.json.gz",
-                    "2023preBPix": "data/data/22-23_correction_new/EGM/2023preBPix/electronSS_EtDependent.json.gz",
-                    "2023postBPix": "data/data/22-23_correction_new/EGM/2023postBPix/electronSS_EtDependent.json.gz",
+                    "2022preEE": "data/22-23_correction_new/EGM/2022preEE/electronSS_EtDependent.json.gz",
+                    "2022postEE": "data/22-23_correction_new/EGM/2022postEE/electronSS_EtDependent.json.gz",
+                    "2023preBPix": "data/22-23_correction_new/EGM/2023preBPix/electronSS_EtDependent.json.gz",
+                    "2023postBPix": "data/22-23_correction_new/EGM/2023postBPix/electronSS_EtDependent.json.gz",
                     "2024": "data/2024_correction/EGM/electronSS_EtDependent.json.gz",
                     # "2024": "data/jsonpog-integration/POG/EGM/2023_Summer23BPix/electronSS_EtDependent.json.gz",
                 }
@@ -5236,15 +5236,7 @@ def build_config(
             scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
             shift_config={
                 ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): {
-                    "Smear_variation": EraModifier(
-                    {
-                        "2024": "smear_up",
-                        "2022preEE": "esmearUp",
-                        "2022postEE": "esmearUp",
-                        "2023preBPix": "esmearUp",
-                        "2023postBPix": "esmearUp",
-                    }
-                )},
+                    "Smear_variation": "esmearUp"},
             },
             producers={
                 ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): [
@@ -5259,15 +5251,7 @@ def build_config(
             scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
             shift_config={
                 ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): {
-                    "Smear_variation": EraModifier(
-                    {
-                        "2024": "smear_down",
-                        "2022preEE": "esmearDown",
-                        "2022postEE": "esmearDown",
-                        "2023preBPix": "esmearDown",
-                        "2023postBPix": "esmearDown",
-                    }
-                )},
+                    "Smear_variation": "esmearDown"},
             },
             producers={
                 ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): [
@@ -5282,15 +5266,7 @@ def build_config(
             scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
             shift_config={
                 ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): {
-                    "Smear_variation": EraModifier(
-                    {
-                        "2024": "scale_up",
-                        "2022preEE": "escaleUp",
-                        "2022postEE": "escaleUp",
-                        "2023preBPix": "escaleUp",
-                        "2023postBPix": "escaleUp",
-                    }
-                )},
+                    "Smear_variation": "escaleUp"},
             },
             producers={
                 ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): [
@@ -5305,15 +5281,7 @@ def build_config(
             scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
             shift_config={
                 ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): {
-                    "Smear_variation": EraModifier(
-                    {
-                        "2024": "scale_down",
-                        "2022preEE": "escaleDown",
-                        "2022postEE": "escaleDown",
-                        "2023preBPix": "escaleDown",
-                        "2023postBPix": "escaleDown",
-                    }
-                )},
+                    "Smear_variation": "escaleDown"},
             },
             producers={
                 ("e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"): [

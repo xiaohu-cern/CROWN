@@ -7,43 +7,77 @@
 #include "TRandom3.h"
 
 namespace KIT{
+// class SeedSequence {
+// public:
+//     explicit SeedSequence(std::initializer_list<uint32_t> seeds)
+//         : m_seeds(seeds) {}
+
+//     template <typename Iter>
+//     void generate(Iter begin, Iter end) const {
+//         const size_t n = std::distance(begin, end);
+// 	if (n == 0) return;
+
+// 	const uint32_t mult = 0x9e3779b9;
+// 	const uint32_t mix_const = 0x85ebca6b;
+
+// 	std::vector<uint32_t> buffer(n, 0x8b8b8b8b);
+
+// 	size_t s = m_seeds.size();
+// 	size_t t = (n >= s) ? n - s : 0;
+
+//         size_t i = 0;
+
+// 	for(; i < std::min(n, s); ++i) {
+//             buffer[i] = buffer[i] ^ (m_seeds[i] + mult * i);
+// 	}
+// 	for(; i < n; ++i) {
+//             buffer[i] = buffer[i] ^ (mult * i);
+//         }
+
+// 	for (size_t k = 0; k < n; ++k) {
+//             uint32_t z = buffer[(k + n - 1) % n] ^ (buffer[k] >> 27);
+// 	    buffer[k] = (z * mix_const) ^ (buffer[k] << 13);
+//         }
+
+// 	std::copy(buffer.begin(), buffer.end(), begin);
+//     }
+
+// private:
+//     std::vector<uint32_t> m_seeds;
+// };
+
 class SeedSequence {
 public:
-    explicit SeedSequence(std::initializer_list<uint32_t> seeds)
-        : m_seeds(seeds) {}
-
-    template <typename Iter>
-    void generate(Iter begin, Iter end) const {
-        const size_t n = std::distance(begin, end);
-	if (n == 0) return;
-
-	const uint32_t mult = 0x9e3779b9;
-	const uint32_t mix_const = 0x85ebca6b;
-
-	std::vector<uint32_t> buffer(n, 0x8b8b8b8b);
-
-	size_t s = m_seeds.size();
-	size_t t = (n >= s) ? n - s : 0;
-
-        size_t i = 0;
-
-	for(; i < std::min(n, s); ++i) {
-            buffer[i] = buffer[i] ^ (m_seeds[i] + mult * i);
-	}
-	for(; i < n; ++i) {
-            buffer[i] = buffer[i] ^ (mult * i);
+    explicit SeedSequence(std::initializer_list<uint64_t> seeds)
+        : m_seed(0) {
+        for (auto s : seeds) {
+            m_seed = hash_combine(m_seed, s);
         }
+    }
 
-	for (size_t k = 0; k < n; ++k) {
-            uint32_t z = buffer[(k + n - 1) % n] ^ (buffer[k] >> 27);
-	    buffer[k] = (z * mix_const) ^ (buffer[k] << 13);
-        }
-
-	std::copy(buffer.begin(), buffer.end(), begin);
+    uint64_t get() const {
+        return splitmix64(m_seed);
     }
 
 private:
-    std::vector<uint32_t> m_seeds;
+    uint64_t m_seed;
+
+    static uint64_t hash_combine(uint64_t lhs, uint64_t rhs) {
+        rhs += 0x9e3779b97f4a7c15ULL;
+        rhs = (rhs ^ (rhs >> 30)) * 0xbf58476d1ce4e5b9ULL;
+        rhs = (rhs ^ (rhs >> 27)) * 0x94d049bb133111ebULL;
+        rhs = rhs ^ (rhs >> 31);
+
+        lhs ^= rhs + 0x9e3779b97f4a7c15ULL + (lhs << 6) + (lhs >> 2);
+        return lhs;
+    }
+
+    static uint64_t splitmix64(uint64_t x) {
+        x += 0x9e3779b97f4a7c15ULL;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111ebULL;
+        return x ^ (x >> 31);
+    }
 };
 
 struct CrystalBall{
@@ -157,44 +191,147 @@ struct Gaussian {
     }
 };
 
-double get_random_nb(double phi, int evtNumber, int lumiNumber) {
-    int64_t phi_seed = static_cast<int64_t>((phi / M_PI) * ((1LL << 31) - 1)) & 0xFFF;
-    SeedSequence seq{static_cast<uint32_t>(evtNumber), static_cast<uint32_t>(lumiNumber), static_cast<uint32_t>(phi_seed)};
-    uint32_t seed;
-    seq.generate(&seed, &seed + 1);
-    TRandom3 rnd(seed);
-    double rndm = rnd.Rndm();
-    return rndm;
+// double get_random_nb(double phi, int evtNumber, int lumiNumber) {
+//     int64_t phi_seed = static_cast<int64_t>((phi / M_PI) * ((1LL << 31) - 1)) & 0xFFF;
+//     SeedSequence seq{static_cast<uint32_t>(evtNumber), static_cast<uint32_t>(lumiNumber), static_cast<uint32_t>(phi_seed)};
+//     uint32_t seed;
+//     seq.generate(&seed, &seed + 1);
+//     TRandom3 rnd(seed);
+//     double rndm = rnd.Rndm();
+//     return rndm;
+// }
+
+inline double get_random_nb(double phi, int evtNumber, int lumiNumber) {
+
+    uint64_t phi_bits;
+    std::memcpy(&phi_bits, &phi, sizeof(phi));
+
+    SeedSequence seq{
+        static_cast<uint64_t>(evtNumber),
+        static_cast<uint64_t>(lumiNumber),
+        phi_bits
+    };
+
+    uint64_t seed64 = seq.get();
+
+    TRandom3 rnd(static_cast<UInt_t>(seed64));
+
+    rnd.Rndm();
+    rnd.Rndm();
+
+    return rnd.Rndm();
 }
 
-double get_rndm_gaus(double eta, double phi, float nL, int evtNumber, int lumiNumber, double mean, double sigma) {
-    // instantiate CB and get random number following the CB
-    Gaussian gaus(mean, sigma);
-    int64_t phi_seed = static_cast<int64_t>((phi / M_PI) * ((1LL << 31) - 1)) & 0xFFF;
-    SeedSequence seq{static_cast<uint32_t>(evtNumber), static_cast<uint32_t>(lumiNumber), static_cast<uint32_t>(phi_seed)};
-    uint32_t seed;
-    seq.generate(&seed, &seed + 1);
+// double get_rndm_gaus(double eta, double phi, float nL, int evtNumber, int lumiNumber, double mean, double sigma) {
+//     // instantiate CB and get random number following the CB
+//     Gaussian gaus(mean, sigma);
+//     int64_t phi_seed = static_cast<int64_t>((phi / M_PI) * ((1LL << 31) - 1)) & 0xFFF;
+//     SeedSequence seq{static_cast<uint32_t>(evtNumber), static_cast<uint32_t>(lumiNumber), static_cast<uint32_t>(phi_seed)};
+//     uint32_t seed;
+//     seq.generate(&seed, &seed + 1);
 
-    TRandom3 rnd(seed);
+//     TRandom3 rnd(seed);
+//     double rndm = rnd.Rndm();
+//     return gaus.invcdf(rndm);
+// }
+
+inline double get_rndm_gaus_e(double eta, double phi,
+                     int evtNumber, int lumiNumber,
+                     double mean, double sigma) {
+
+    Gaussian gaus(mean, sigma);
+
+    uint64_t phi_bits;
+    std::memcpy(&phi_bits, &phi, sizeof(phi));
+
+    SeedSequence seq{
+        static_cast<uint64_t>(evtNumber),
+        static_cast<uint64_t>(lumiNumber),
+        phi_bits
+    };
+
+    uint64_t seed64 = seq.get();
+
+    TRandom3 rnd(static_cast<UInt_t>(seed64));  
+    rnd.Rndm();
+    rnd.Rndm();
+
     double rndm = rnd.Rndm();
     return gaus.invcdf(rndm);
 }
 
-double get_rndm(double eta, double phi, float nL, int evtNumber, int lumiNumber, double mean, double sigma, double n, double alpha) {
-    // instantiate CB and get random number following the CB
-    CrystalBall cb(mean, sigma, alpha, n);
-    int64_t phi_seed = static_cast<int64_t>((phi / M_PI) * ((1LL << 31) - 1)) & 0xFFF;
-    SeedSequence seq{static_cast<uint32_t>(evtNumber), static_cast<uint32_t>(lumiNumber), static_cast<uint32_t>(phi_seed)};
-    uint32_t seed;
-    seq.generate(&seed, &seed + 1);
+inline double get_rndm_gaus(double eta, double phi, float nL,
+                     int evtNumber, int lumiNumber,
+                     double mean, double sigma) {
 
-    TRandom3 rnd(seed);
+    Gaussian gaus(mean, sigma);
+
+    uint64_t phi_bits;
+    std::memcpy(&phi_bits, &phi, sizeof(phi));
+
+    SeedSequence seq{
+        static_cast<uint64_t>(evtNumber),
+        static_cast<uint64_t>(lumiNumber),
+        phi_bits
+    };
+
+    uint64_t seed64 = seq.get();
+
+    TRandom3 rnd(static_cast<UInt_t>(seed64));  
+    rnd.Rndm();
+    rnd.Rndm();
+
+    double rndm = rnd.Rndm();
+    return gaus.invcdf(rndm);
+}
+
+// double get_rndm(double eta, double phi, float nL, int evtNumber, int lumiNumber, double mean, double sigma, double n, double alpha) {
+//     // instantiate CB and get random number following the CB
+//     CrystalBall cb(mean, sigma, alpha, n);
+//     int64_t phi_seed = static_cast<int64_t>((phi / M_PI) * ((1LL << 31) - 1)) & 0xFFF;
+//     SeedSequence seq{static_cast<uint32_t>(evtNumber), static_cast<uint32_t>(lumiNumber), static_cast<uint32_t>(phi_seed)};
+//     uint32_t seed;
+//     seq.generate(&seed, &seed + 1);
+
+//     TRandom3 rnd(seed);
+//     double rndm = rnd.Rndm();
+//     return cb.invcdf(rndm);
+// }
+
+
+inline double get_rndm(double eta, double phi, float nL,
+                int evtNumber, int lumiNumber,
+                double mean, double sigma,
+                double n, double alpha) {
+
+    CrystalBall cb(mean, sigma, alpha, n);
+
+    uint64_t phi_bits;
+    std::memcpy(&phi_bits, &phi, sizeof(phi));
+
+    uint64_t eta_bits;
+    std::memcpy(&eta_bits, &eta, sizeof(eta));
+
+    SeedSequence seq{
+        static_cast<uint64_t>(evtNumber),
+        static_cast<uint64_t>(lumiNumber),
+        phi_bits,
+        eta_bits
+    };
+
+    uint64_t seed64 = seq.get();
+
+    TRandom3 rnd(static_cast<UInt_t>(seed64));
+
+    // 🔥 burn-in
+    rnd.Rndm();
+    rnd.Rndm();
+
     double rndm = rnd.Rndm();
     return cb.invcdf(rndm);
 }
 
-
-double get_std(double pt, double eta, float nL, double param_0, double param_1, double param_2) {
+inline double get_std(double pt, double eta, float nL, double param_0, double param_1, double param_2) {
 
     // calculate value and return max(0, val)
     double sigma = param_0 + param_1 * pt + param_2 * pt*pt;
@@ -203,7 +340,7 @@ double get_std(double pt, double eta, float nL, double param_0, double param_1, 
 }
 
 
-double get_k(double eta, std::string var, double k_data, double k_mc) {
+inline double get_k(double eta, std::string var, double k_data, double k_mc) {
     // calculate residual smearing factor
     // return 0 if smearing in MC already larger than in data
     double k = 0;

@@ -21,6 +21,7 @@
 #include "TLorentzVector.h"
 #include "TLorentzRotation.h"
 #include <Math/Boost.h>
+#include "../include/KIT_Corr.hxx"
 /// Namespace containing function to apply cuts on physics objects. The
 /// cut results are typically stored within a mask, which is represented by
 /// an `ROOT::RVec<int>`.
@@ -3108,7 +3109,12 @@ PtCorrection_scaling(ROOT::RDF::RNode df, const std::string &corrected_pt,
                 };
                 
                 double sf = evaluator->evaluate(inputs);
-                corrected_pt_values[i] = pt[i] * sf;
+                if (pt[i] > 20 && pt[i] < 100) { // only applying scale correction to electrons in the pt range of 20 to 200 GeV, as recommended by the EGamma POG
+                    corrected_pt_values[i] = pt[i] * sf;
+                }
+                else {
+                    corrected_pt_values[i] = pt[i];
+                }
             }
             return corrected_pt_values;
         };
@@ -3135,85 +3141,96 @@ PtCorrection_smearing(ROOT::RDF::RNode df, const std::string &corrected_pt,
                     const std::string &sf_file, const std::string &jsonESname, 
                     const std::string &Smear_variation,
                     const std::string &pt, const std::string &r9,
-                    const std::string &deltaEtaSC, const std::string &eta) {
+                    const std::string &deltaEtaSC, const std::string &eta, const std::string &phi,
+                    const std::string &event, const std::string &luminosityBlock) {
 
     // Load the correction evaluator
     auto evaluator = correction::CorrectionSet::from_file(sf_file)->at(jsonESname);
     
     // Create a random number generator with fixed seed for reproducibility
-    TRandom3 rng(12345);
+    // TRandom3 rng(0);
 
     auto electron_pt_correction_lambda =
-        [evaluator, rng, Smear_variation](const ROOT::RVec<float> &pt,  
+        [evaluator, Smear_variation](const ROOT::RVec<float> &pt,  
                                         const ROOT::RVec<float> &r9, 
                                         const ROOT::RVec<float> &deltaEtaSC,
-                                        const ROOT::RVec<float> &eta) mutable {
+                                        const ROOT::RVec<float> &eta,
+                                        const ROOT::RVec<float> &phi,
+                                        ULong64_t event, UInt_t luminosityBlock) {
             ROOT::RVec<float> corrected_pt_values(pt.size());
             
             for (size_t i = 0; i < pt.size(); i++) {
-                // Calculate supercluster eta
-                double ScEta = deltaEtaSC[i] + eta[i];
-                
-                // Get nominal smearing factor
-                std::vector<correction::Variable::Type> nominal_inputs = {
-                    "smear",                        // string
-                    static_cast<double>(pt[i]),     // double
-                    static_cast<double>(r9[i]),     // double
-                    std::abs(ScEta)                 // double
-                };
-                double smear_factor = evaluator->evaluate(nominal_inputs);
-                
-                // Generate random number from normal distribution
-                double random_gauss = rng.Gaus(0.0, 1.0);
-                
-                // Handle systematic variations
-                if (Smear_variation.find("esmear") != std::string::npos) {
-                    // Get systematic uncertainty
-                    std::vector<correction::Variable::Type> syst_inputs = {
-                        "esmear",                   // string
-                        static_cast<double>(pt[i]),  // double
-                        static_cast<double>(r9[i]),  // double
-                        std::abs(ScEta)             // double
-                    };
-                    double unc_smear = evaluator->evaluate(syst_inputs);
+                if (pt[i] > 20 && pt[i] < 100) { // only applying smearing to electrons in the pt range of 20 to 200 GeV, as recommended by the EGamma POG
                     
-                    // Apply variation
-                    if (Smear_variation.find("Up") != std::string::npos) {
-                        corrected_pt_values[i] = pt[i] * (1.0 + (smear_factor + unc_smear) * random_gauss);
-                    } 
-                    else if (Smear_variation.find("Down") != std::string::npos) {
-                        corrected_pt_values[i] = pt[i] * (1.0 + (smear_factor - unc_smear) * random_gauss);
-                    }
-                } 
-                else if (Smear_variation.find("escale") != std::string::npos) {
-                    // Get systematic uncertainty
-                    std::vector<correction::Variable::Type> syst_inputs = {
-                        "escale",                   // string
-                        static_cast<double>(pt[i]),  // double
-                        static_cast<double>(r9[i]),  // double
-                        std::abs(ScEta)             // double
+                    // Calculate supercluster eta
+                    double ScEta = deltaEtaSC[i] + eta[i];
+                    
+                    // Get nominal smearing factor
+                    std::vector<correction::Variable::Type> nominal_inputs = {
+                        "smear",                        // string
+                        static_cast<double>(pt[i]),     // double
+                        static_cast<double>(r9[i]),     // double
+                        std::abs(ScEta)                 // double
                     };
-                    double unc_smear = evaluator->evaluate(syst_inputs);
-                   
-                    // Apply variation
-                    if (Smear_variation.find("Up") != std::string::npos) {
-                        // scaling based on smeared pt, mc_pt_corrected_scale_up   = (1 + unc_scale) * mc_pt_corrected_nominal
-                        corrected_pt_values[i] = pt[i] * (1.0 + smear_factor * random_gauss) * (1 + unc_smear )  ; 
+                    double smear_factor = evaluator->evaluate(nominal_inputs);
+                    
+                    // Generate random number from normal distribution
+                    // double random_gauss = rng.Gaus(0.0, 1.0);
+
+                    double random_gauss = (double) KIT::get_rndm_gaus_e(eta[i], phi[i], event, luminosityBlock, 0.0, 1.0);
+                    
+                    // Handle systematic variations
+                    if (Smear_variation.find("esmear") != std::string::npos) {
+                        // Get systematic uncertainty
+                        std::vector<correction::Variable::Type> syst_inputs = {
+                            "esmear",                   // string
+                            static_cast<double>(pt[i]),  // double
+                            static_cast<double>(r9[i]),  // double
+                            std::abs(ScEta)             // double
+                        };
+                        double unc_smear = evaluator->evaluate(syst_inputs);
+                        
+                        // Apply variation
+                        if (Smear_variation.find("Up") != std::string::npos) {
+                            corrected_pt_values[i] = pt[i] * (1.0 + (smear_factor + unc_smear) * random_gauss);
+                        } 
+                        else if (Smear_variation.find("Down") != std::string::npos) {
+                            corrected_pt_values[i] = pt[i] * (1.0 + (smear_factor - unc_smear) * random_gauss);
+                        }
                     } 
-                    else if (Smear_variation.find("Down") != std::string::npos) {
-                        corrected_pt_values[i] = pt[i] * (1.0 + smear_factor * random_gauss) * (1 - unc_smear )  ; 
+                    else if (Smear_variation.find("escale") != std::string::npos) {
+                        // Get systematic uncertainty
+                        std::vector<correction::Variable::Type> syst_inputs = {
+                            "escale",                   // string
+                            static_cast<double>(pt[i]),  // double
+                            static_cast<double>(r9[i]),  // double
+                            std::abs(ScEta)             // double
+                        };
+                        double unc_smear = evaluator->evaluate(syst_inputs);
+                    
+                        // Apply variation
+                        if (Smear_variation.find("Up") != std::string::npos) {
+                            // scaling based on smeared pt, mc_pt_corrected_scale_up   = (1 + unc_scale) * mc_pt_corrected_nominal
+                            corrected_pt_values[i] = pt[i] * (1.0 + smear_factor * random_gauss) * (1 + unc_smear )  ; 
+                        } 
+                        else if (Smear_variation.find("Down") != std::string::npos) {
+                            corrected_pt_values[i] = pt[i] * (1.0 + smear_factor * random_gauss) * (1 - unc_smear )  ; 
+                        }
+                    } 
+                    else {
+                        // Nominal case
+                        corrected_pt_values[i] = pt[i] * (1.0 + smear_factor * random_gauss);
                     }
-                } 
+                }
                 else {
-                    // Nominal case
-                    corrected_pt_values[i] = pt[i] * (1.0 + smear_factor * random_gauss);
+                    corrected_pt_values[i] = pt[i];
                 }
             }
             return corrected_pt_values;
         };
 
     // Apply the correction
-    auto df1 = df.Define(corrected_pt, electron_pt_correction_lambda, {pt, r9, deltaEtaSC, eta});
+    auto df1 = df.Define(corrected_pt, electron_pt_correction_lambda, {pt, r9, deltaEtaSC, eta, phi, event, luminosityBlock});
     return df1;
 }
 
