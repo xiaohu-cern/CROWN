@@ -179,7 +179,7 @@ ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, const
                     }
                 }
                 else {
-                    s_pt_values[i] = pt_pre_corr_values.at(i);
+                    corrected_pt_values[i] = s_pt_values.at(i);
                 }
             }
             else {
