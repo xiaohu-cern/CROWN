@@ -328,35 +328,36 @@ ROOT::RDF::RNode HighPtScale(ROOT::RDF::RNode df, const std::string &pt_raw, con
             for (int i = 0; i < pt_values.size(); i++) {
                 Logger::get("muon momentum scale file:")->debug("{}", sf_file);
                 // apply scale for muon pt > 200 using HighPt file
-                if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && pt_values.at(i) >= 200 && eta_values.at(i) > -2.4 && eta_values.at(i) < 2.4) {
-                    // q/pt_corr = q/pt + kappa(TeV^-1)
-                    float tuneP_pt = pt_values.at(i) * pt_ReltuneP_values.at(i);
-                    float kappa = 0;
-                    if (std::abs(eta_values.at(i)) < 2.1){
-                        if (variation_tuneP == "systup") {
-                            kappa = evaluator->evaluate(
-                                {phi_values.at(i), eta_values.at(i), variation_tuneP});
-                            corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * kappa * 0.001);
-                        }
-                        else if (variation_tuneP == "systdown") {
-                            kappa = evaluator->evaluate(
-                                {phi_values.at(i), eta_values.at(i), variation_tuneP});
-                            corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * kappa * 0.001);
-                        }
-                        else if (variation_tuneP == "nominal") {
-                            kappa = evaluator->evaluate(
-                                {phi_values.at(i), eta_values.at(i), variation_tuneP});
-                            corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * kappa * 0.001);
+                if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && eta_values.at(i) > -2.4 && eta_values.at(i) < 2.4) {
+                    if (pt_values.at(i) >= 200) {
+                        // q/pt_corr = q/pt + kappa(TeV^-1)
+                        float tuneP_pt = pt_values.at(i) * pt_ReltuneP_values.at(i);
+                        float kappa = 0;
+                        if (std::abs(eta_values.at(i)) < 2.1){
+                            if (variation_tuneP == "systup") {
+                                kappa = evaluator->evaluate(
+                                    {phi_values.at(i), eta_values.at(i), variation_tuneP});
+                                corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * kappa * 0.001);
+                            }
+                            else if (variation_tuneP == "systdown") {
+                                kappa = evaluator->evaluate(
+                                    {phi_values.at(i), eta_values.at(i), variation_tuneP});
+                                corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * kappa * 0.001);
+                            }
+                            else if (variation_tuneP == "nominal") {
+                                kappa = evaluator->evaluate(
+                                    {phi_values.at(i), eta_values.at(i), variation_tuneP});
+                                corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * kappa * 0.001);
+                            }
+                            else {
+                                corrected_pt_values[i] = tuneP_pt;
+                            }
                         }
                         else {
                             corrected_pt_values[i] = tuneP_pt;
                         }
                     }
                     else {
-                        corrected_pt_values[i] = tuneP_pt;
-                    }
-                } 
-                else {
                     if (variation_BSC == "Up") {
                         corrected_pt_values[i] = pt_BSC_values.at(i) + pt_BSC_Err_values.at(i);
                     }
@@ -366,7 +367,11 @@ ROOT::RDF::RNode HighPtScale(ROOT::RDF::RNode df, const std::string &pt_raw, con
                     else {
                         corrected_pt_values[i] = pt_BSC_values.at(i);
                     }
+                    }
                 }
+                else {
+                    corrected_pt_values[i] = pt_values.at(i);
+                } 
             }
             return corrected_pt_values;
         },
