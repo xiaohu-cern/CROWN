@@ -343,6 +343,11 @@ ROOT::RDF::RNode HighPtScale(ROOT::RDF::RNode df, const std::string &pt_raw, con
                                 {phi_values.at(i), eta_values.at(i), variation_tuneP});
                             corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * kappa * 0.001);
                         }
+                        else if (variation_tuneP == "nominal") {
+                            kappa = evaluator->evaluate(
+                                {phi_values.at(i), eta_values.at(i), variation_tuneP});
+                            corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * kappa * 0.001);
+                        }
                         else {
                             corrected_pt_values[i] = tuneP_pt;
                         }
