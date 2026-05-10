@@ -28,6 +28,24 @@ RenameMuonPt = Producer(
 )
 
 ######################################## BSC and tuneP ################################################
+MuonPtPreCorrectionData = Producer(
+    name="MuonPtPreCorrectionData",
+    call='scalefactor::muon::HighPtScaleData({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
+    input=[
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_bsConstrainedPt,
+        nanoAOD.Muon_tunepRelPt,
+        nanoAOD.Muon_bsConstrainedPtErr,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_charge,
+    ],
+    output=[q.Muon_ptBSC_partial],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+            "nnmm_dycontrol","nnmm_topcontrol",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
 MuonPtPreCorrection = Producer(
     name="MuonPtPreCorrection",
     call='scalefactor::muon::HighPtScale({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',

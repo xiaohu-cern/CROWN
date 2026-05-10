@@ -1697,7 +1697,6 @@ def build_config(
         ["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
         [
             momentumscale.MuonPtCorrection,
-            # momentumscale.MuonPtPreCorrection,
         ]
     )
     configuration.add_producers(
@@ -1709,7 +1708,6 @@ def build_config(
             scalefactors.btagging_SF_2WPs_3l_4l, ###update btag sf by Mingxuan
             # scalefactors.btagging_SF_2WPs_3l_4l_dy,
             # scalefactors.btagging_SF_2WPs_3l_4l_vhmm,
-            # momentumscale.MuonPtPreCorrection,
         ]
     )
     configuration.add_producers(
@@ -4449,6 +4447,16 @@ def build_config(
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         ReplaceProducer(
             producers=[momentumscale.MC_KIT_MuonPt_ScaleRes, momentumscale.Data_KIT_MuonPt_Scale],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+        "nnmm_dycontrol","nnmm_topcontrol",
+        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        ReplaceProducer(
+            producers=[momentumscale.MuonPtPreCorrection, momentumscale.MuonPtPreCorrectionData],
             samples=["data"],
         ),
     )
