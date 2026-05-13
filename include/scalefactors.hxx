@@ -23,7 +23,7 @@ ROOT::RDF::RNode Rochester_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt,
 ROOT::RDF::RNode HighPtSmear(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta, const std::string &phi, 
                              const std::string &nL, const std::string &evtNumber, const std::string &lumiNumber, const std::string &pt_smeared, 
                              const double a_barrel, const double b_barrel, const double c_barrel, const double d_barrel,
-                             const double a_endcap, const double b_endcap, const double c_endcap, const double d_endcap);
+                             const double a_endcap, const double b_endcap, const double c_endcap, const double d_endcap, const double factor, const std::string &sf_file);
 
 ROOT::RDF::RNode HighPtScaleData(ROOT::RDF::RNode df, const std::string &pt_raw, const std::string &pt_BSC, const std::string &pt_ReltuneP, const std::string &pt_BSC_Err,
                     const std::string &phi, const std::string &eta, 

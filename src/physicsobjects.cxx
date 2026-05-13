@@ -560,9 +560,15 @@ ROOT::RDF::RNode FSR_Recovery_dimuon(ROOT::RDF::RNode df, const std::string &new
         else {
             photon2 = ROOT::Math::PtEtaPhiMVector(0, 0, 0, 0);
         }
-
-        newP4 = photon1 + photon2 + ini_4vec;
-        return newP4;
+        
+        if (ini_4vec.pt() < 0) {
+            return ini_4vec;
+        }
+        else {
+            newP4 = photon1 + photon2 + ini_4vec;
+            return newP4;
+        }
+        
     };
     auto df1 = 
         df.Define(new_4vec, newP4_withFSR, {ini_4vec, photon1_pt, photon1_eta, photon1_phi, photon2_pt, photon2_eta, photon2_phi});
@@ -2400,6 +2406,11 @@ ROOT::RDF::RNode CutID(ROOT::RDF::RNode df, const std::string &maskname,
         {nameID});
     return df1;
 }
+ROOT::RDF::RNode CutUCharID(ROOT::RDF::RNode df, const std::string &maskname,
+                       const std::string &nameID, const unsigned char &idxID) {
+    auto df1 = df.Define(maskname, basefunctions::FilterJetUCharID(idxID), {nameID});
+    return df1;
+}
 /// Function to cut on muons based on the muon isolation using
 /// basefunctions::FilterMax
 ///
@@ -3142,16 +3153,17 @@ PtCorrection_smearing(ROOT::RDF::RNode df, const std::string &corrected_pt,
                     const std::string &Smear_variation,
                     const std::string &pt, const std::string &r9,
                     const std::string &deltaEtaSC, const std::string &eta, const std::string &phi,
-                    const std::string &event, const std::string &luminosityBlock) {
+                    const std::string &event, const std::string &luminosityBlock, const std::string &sf_file_random) {
 
     // Load the correction evaluator
     auto evaluator = correction::CorrectionSet::from_file(sf_file)->at(jsonESname);
+    auto cset_rndmseed = correction::CorrectionSet::from_file(sf_file_random)->at("RandomSmearing");
     
     // Create a random number generator with fixed seed for reproducibility
     // TRandom3 rng(0);
 
     auto electron_pt_correction_lambda =
-        [evaluator, Smear_variation](const ROOT::RVec<float> &pt,  
+        [evaluator, Smear_variation, cset_rndmseed](const ROOT::RVec<float> &pt,  
                                         const ROOT::RVec<float> &r9, 
                                         const ROOT::RVec<float> &deltaEtaSC,
                                         const ROOT::RVec<float> &eta,
@@ -3160,7 +3172,7 @@ PtCorrection_smearing(ROOT::RDF::RNode df, const std::string &corrected_pt,
             ROOT::RVec<float> corrected_pt_values(pt.size());
             
             for (size_t i = 0; i < pt.size(); i++) {
-                if (pt[i] > 20 && pt[i] < 100) { // only applying smearing to electrons in the pt range of 20 to 200 GeV, as recommended by the EGamma POG
+                if (pt[i] > 20 && pt[i] < 100) { // only applying smearing to electrons in the pt range of 20 to 100 GeV, as recommended by the EGamma POG
                     
                     // Calculate supercluster eta
                     double ScEta = deltaEtaSC[i] + eta[i];
@@ -3177,7 +3189,8 @@ PtCorrection_smearing(ROOT::RDF::RNode df, const std::string &corrected_pt,
                     // Generate random number from normal distribution
                     // double random_gauss = rng.Gaus(0.0, 1.0);
 
-                    double random_gauss = (double) KIT::get_rndm_gaus_e(eta[i], phi[i], event, luminosityBlock, 0.0, 1.0);
+                    double rndmseed = cset_rndmseed->evaluate({(int)event, (int)luminosityBlock, phi[i]});
+                    double random_gauss = (double) KIT::get_rndm_gaus(0.0, 1.0, rndmseed);
                     
                     // Handle systematic variations
                     if (Smear_variation.find("esmear") != std::string::npos) {

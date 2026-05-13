@@ -196,6 +196,20 @@ FilterNGoodMuons = Filter(
             "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
     subproducers=[ExactTwoGoodMuons]
 )
+Veto2lTriGoodMuons = Producer(
+    name="Veto2lTriGoodMuons",
+    call='physicsobject::flagQuantity({df}, {output}, {input}, {vh_2l_veto_nmuons}, "<")',
+    input=[q.nvetomuons],
+    output=[],
+    scopes=["nnmm","fjmm","fjmm_cr"],
+)
+Filter2lTriGoodMuons = Filter(
+    name="Filter2lTriGoodMuons",
+    call='basefunctions::FilterFlagsAny({df}, "Veto 3 muons", {input})',
+    input=[],
+    scopes=["nnmm","fjmm","fjmm_cr"],
+    subproducers=[Veto2lTriGoodMuons]
+)
 FilterNBaseMuons = Producer(
     name="FilterNBaseMuons",
     call='basefunctions::FilterThreshold({df}, {input}, {vh_base_nmuons}, "==", "Number of base muons {vh_base_nmuons}, mvaTTH > -1 ")',
@@ -1200,14 +1214,14 @@ Flag_MaxMetCut = Producer(
       q.met_p4_jetcorrected,
     ],
     output=[q.Flag_MaxMetCut],
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm","fjmm_cr","e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
 )
 FilterFlagMaxMetCut = Producer(
     name="FilterFlagMaxMetCut",
     call='basefunctions::FilterThreshold({df}, {input}, {flag_MaxMetCut}, "==", "MET <= 150 GeV")',
     input=[q.Flag_MaxMetCut],
     output=None,
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm","fjmm_cr","e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
 )
 ##################################
 ################## fatjet and Higgs

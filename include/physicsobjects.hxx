@@ -342,6 +342,8 @@ ROOT::RDF::RNode CheckForDiLeptonPairs(
 namespace muon {
 ROOT::RDF::RNode CutID(ROOT::RDF::RNode df, const std::string &maskname,
                        const std::string &nameID);
+ROOT::RDF::RNode CutUCharID(ROOT::RDF::RNode df, const std::string &maskname,
+                       const std::string &nameID, const unsigned char &idxID);
 ROOT::RDF::RNode CutIsolation(ROOT::RDF::RNode df, const std::string &maskname,
                               const std::string &isolationName,
                               const float &Threshold);
@@ -452,7 +454,7 @@ PtCorrection_smearing(ROOT::RDF::RNode df, const std::string &corrected_pt,
                     const std::string &Smear_variation,
                     const std::string &pt, const std::string &r9,
                     const std::string &deltaEtaSC, const std::string &eta, const std::string &phi,
-                    const std::string &event, const std::string &luminosityBlock);
+                    const std::string &event, const std::string &luminosityBlock, const std::string &sf_file_random);
 
 } // end namespace electron
 } // namespace physicsobject

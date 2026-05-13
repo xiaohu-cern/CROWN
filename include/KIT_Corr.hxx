@@ -191,16 +191,6 @@ struct Gaussian {
     }
 };
 
-// double get_random_nb(double phi, int evtNumber, int lumiNumber) {
-//     int64_t phi_seed = static_cast<int64_t>((phi / M_PI) * ((1LL << 31) - 1)) & 0xFFF;
-//     SeedSequence seq{static_cast<uint32_t>(evtNumber), static_cast<uint32_t>(lumiNumber), static_cast<uint32_t>(phi_seed)};
-//     uint32_t seed;
-//     seq.generate(&seed, &seed + 1);
-//     TRandom3 rnd(seed);
-//     double rndm = rnd.Rndm();
-//     return rndm;
-// }
-
 inline double get_random_nb(double phi, int evtNumber, int lumiNumber) {
 
     uint64_t phi_bits;
@@ -222,112 +212,16 @@ inline double get_random_nb(double phi, int evtNumber, int lumiNumber) {
     return rnd.Rndm();
 }
 
-// double get_rndm_gaus(double eta, double phi, float nL, int evtNumber, int lumiNumber, double mean, double sigma) {
-//     // instantiate CB and get random number following the CB
-//     Gaussian gaus(mean, sigma);
-//     int64_t phi_seed = static_cast<int64_t>((phi / M_PI) * ((1LL << 31) - 1)) & 0xFFF;
-//     SeedSequence seq{static_cast<uint32_t>(evtNumber), static_cast<uint32_t>(lumiNumber), static_cast<uint32_t>(phi_seed)};
-//     uint32_t seed;
-//     seq.generate(&seed, &seed + 1);
-
-//     TRandom3 rnd(seed);
-//     double rndm = rnd.Rndm();
-//     return gaus.invcdf(rndm);
-// }
-
-inline double get_rndm_gaus_e(double eta, double phi,
-                     int evtNumber, int lumiNumber,
-                     double mean, double sigma) {
+inline double get_rndm_gaus(double mean, double sigma, double rndm) {
 
     Gaussian gaus(mean, sigma);
-
-    uint64_t phi_bits;
-    std::memcpy(&phi_bits, &phi, sizeof(phi));
-
-    SeedSequence seq{
-        static_cast<uint64_t>(evtNumber),
-        static_cast<uint64_t>(lumiNumber),
-        phi_bits
-    };
-
-    uint64_t seed64 = seq.get();
-
-    TRandom3 rnd(static_cast<UInt_t>(seed64));  
-    rnd.Rndm();
-    rnd.Rndm();
-
-    double rndm = rnd.Rndm();
     return gaus.invcdf(rndm);
 }
 
-inline double get_rndm_gaus(double eta, double phi, float nL,
-                     int evtNumber, int lumiNumber,
-                     double mean, double sigma) {
-
-    Gaussian gaus(mean, sigma);
-
-    uint64_t phi_bits;
-    std::memcpy(&phi_bits, &phi, sizeof(phi));
-
-    SeedSequence seq{
-        static_cast<uint64_t>(evtNumber),
-        static_cast<uint64_t>(lumiNumber),
-        phi_bits
-    };
-
-    uint64_t seed64 = seq.get();
-
-    TRandom3 rnd(static_cast<UInt_t>(seed64));  
-    rnd.Rndm();
-    rnd.Rndm();
-
-    double rndm = rnd.Rndm();
-    return gaus.invcdf(rndm);
-}
-
-// double get_rndm(double eta, double phi, float nL, int evtNumber, int lumiNumber, double mean, double sigma, double n, double alpha) {
-//     // instantiate CB and get random number following the CB
-//     CrystalBall cb(mean, sigma, alpha, n);
-//     int64_t phi_seed = static_cast<int64_t>((phi / M_PI) * ((1LL << 31) - 1)) & 0xFFF;
-//     SeedSequence seq{static_cast<uint32_t>(evtNumber), static_cast<uint32_t>(lumiNumber), static_cast<uint32_t>(phi_seed)};
-//     uint32_t seed;
-//     seq.generate(&seed, &seed + 1);
-
-//     TRandom3 rnd(seed);
-//     double rndm = rnd.Rndm();
-//     return cb.invcdf(rndm);
-// }
-
-
-inline double get_rndm(double eta, double phi, float nL,
-                int evtNumber, int lumiNumber,
-                double mean, double sigma,
-                double n, double alpha) {
+inline double get_rndm(double mean, double sigma, double n, double alpha, double rndm) {
 
     CrystalBall cb(mean, sigma, alpha, n);
 
-    uint64_t phi_bits;
-    std::memcpy(&phi_bits, &phi, sizeof(phi));
-
-    uint64_t eta_bits;
-    std::memcpy(&eta_bits, &eta, sizeof(eta));
-
-    SeedSequence seq{
-        static_cast<uint64_t>(evtNumber),
-        static_cast<uint64_t>(lumiNumber),
-        phi_bits,
-        eta_bits
-    };
-
-    uint64_t seed64 = seq.get();
-
-    TRandom3 rnd(static_cast<UInt_t>(seed64));
-
-    // 🔥 burn-in
-    rnd.Rndm();
-    rnd.Rndm();
-
-    double rndm = rnd.Rndm();
     return cb.invcdf(rndm);
 }
 

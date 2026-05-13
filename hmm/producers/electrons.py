@@ -265,7 +265,7 @@ ElectronPtCorrectionScaling = Producer(
 
 ElectronPtCorrectionSmearing = Producer(
     name="ElectronPtCorrectionSmearing",
-    call='physicsobject::electron::PtCorrection_smearing({df}, {output}, "{electron_SS_file}", "{electron_SS_smear_name}", "{Smear_variation}", {input})',
+    call='physicsobject::electron::PtCorrection_smearing({df}, {output}, "{electron_SS_file}", "{electron_SS_smear_name}", "{Smear_variation}", {input}, "{RandomSeed_file}")',
     input=[
         nanoAOD.Electron_pt,
         nanoAOD.Electron_r9,

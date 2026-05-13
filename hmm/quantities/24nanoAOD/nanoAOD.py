@@ -45,6 +45,7 @@ Muon_pfRelIso04_all = NanoAODQuantity("Muon_pfRelIso04_all") # vh
 Muon_mvaTTH = NanoAODQuantity("Muon_promptMVA")
 ######
 Muon_nTrackerLayers = NanoAODQuantity("Muon_nTrackerLayers")
+Muon_highPtId = NanoAODQuantity("Muon_highPtId")
 
 Electron_pt = NanoAODQuantity("Electron_pt")
 Electron_r9 = NanoAODQuantity("Electron_r9")

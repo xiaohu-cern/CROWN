@@ -69,7 +69,7 @@ ROOT::RDF::RNode calc_Mct(ROOT::RDF::RNode df, const std::string &outputname,
         float muon_mass = 0.1056583755;
         Et1 = sqrt(px1*px1 + py1*py1 + muon_mass*muon_mass);
         Et2 = sqrt(px2*px2 + py2*py2 + muon_mass*muon_mass);
-        Mct = sqrt((Et2+Et2)*(Et1+Et1) - ((px1-px2)*(px1-px2) + (py1-py2)*(py1-py2)));
+        Mct = sqrt(std::abs((Et2+Et2)*(Et1+Et1) - ((px1-px2)*(px1-px2) + (py1-py2)*(py1-py2))));
 
         if ( !std::isnan(Mct) && !std::isinf(Mct) ) {
             return Mct;

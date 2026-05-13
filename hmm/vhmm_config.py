@@ -244,7 +244,7 @@ def build_config(
                         {
                             "flagname": "trg_single_mu24",
                             "hlt_path": "HLT_IsoMu24",
-                            "ptcut": 25,
+                            "ptcut": 26,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -253,7 +253,34 @@ def build_config(
                         {
                             "flagname": "trg_single_mu27",
                             "hlt_path": "HLT_IsoMu27",
-                            "ptcut": 28,
+                            "ptcut": 29,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_mu50",
+                            "hlt_path": "HLT_Mu50",
+                            "ptcut": 52,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_tkmu100",
+                            "hlt_path": "HLT_HighPtTkMu100",
+                            "ptcut": 102,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_casmu100",
+                            "hlt_path": "HLT_CascadeMu100",
+                            "ptcut": 102,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -264,7 +291,7 @@ def build_config(
                         {
                             "flagname": "trg_single_mu24",
                             "hlt_path": "HLT_IsoMu24",
-                            "ptcut": 25,
+                            "ptcut": 26,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -273,7 +300,34 @@ def build_config(
                         {
                             "flagname": "trg_single_mu27",
                             "hlt_path": "HLT_IsoMu27",
-                            "ptcut": 28,
+                            "ptcut": 29,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_mu50",
+                            "hlt_path": "HLT_Mu50",
+                            "ptcut": 52,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_tkmu100",
+                            "hlt_path": "HLT_HighPtTkMu100",
+                            "ptcut": 102,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_casmu100",
+                            "hlt_path": "HLT_CascadeMu100",
+                            "ptcut": 102,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -284,7 +338,7 @@ def build_config(
                         {
                             "flagname": "trg_single_mu24",
                             "hlt_path": "HLT_IsoMu24",
-                            "ptcut": 25,
+                            "ptcut": 26,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -293,7 +347,34 @@ def build_config(
                         {
                             "flagname": "trg_single_mu27",
                             "hlt_path": "HLT_IsoMu27",
-                            "ptcut": 28,
+                            "ptcut": 29,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_mu50",
+                            "hlt_path": "HLT_Mu50",
+                            "ptcut": 52,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_tkmu100",
+                            "hlt_path": "HLT_HighPtTkMu100",
+                            "ptcut": 102,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_casmu100",
+                            "hlt_path": "HLT_CascadeMu100",
+                            "ptcut": 102,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -304,7 +385,7 @@ def build_config(
                         {
                             "flagname": "trg_single_mu24",
                             "hlt_path": "HLT_IsoMu24",
-                            "ptcut": 25,
+                            "ptcut": 26,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -313,7 +394,34 @@ def build_config(
                         {
                             "flagname": "trg_single_mu27",
                             "hlt_path": "HLT_IsoMu27",
-                            "ptcut": 28,
+                            "ptcut": 29,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_mu50",
+                            "hlt_path": "HLT_Mu50",
+                            "ptcut": 52,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_tkmu100",
+                            "hlt_path": "HLT_HighPtTkMu100",
+                            "ptcut": 102,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_casmu100",
+                            "hlt_path": "HLT_CascadeMu100",
+                            "ptcut": 102,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -324,7 +432,7 @@ def build_config(
                         {
                             "flagname": "trg_single_mu24",
                             "hlt_path": "HLT_IsoMu24",
-                            "ptcut": 25,
+                            "ptcut": 26,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -333,7 +441,34 @@ def build_config(
                         {
                             "flagname": "trg_single_mu27",
                             "hlt_path": "HLT_IsoMu27",
-                            "ptcut": 28,
+                            "ptcut": 29,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_mu50",
+                            "hlt_path": "HLT_Mu50",
+                            "ptcut": 52,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_tkmu100",
+                            "hlt_path": "HLT_HighPtTkMu100",
+                            "ptcut": 102,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_casmu100",
+                            "hlt_path": "HLT_CascadeMu100",
+                            "ptcut": 102,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -451,7 +586,7 @@ def build_config(
                             "mc_trigger_sf": "NUM_IsoMu24_DEN_CutBasedIdMedium_and_PFIsoMedium",
                             "mc_muon_sf_correctiontype": "nominal",
                             "mc_muon_trg_extrapolation": 1.0,  # for nominal case
-                        }
+                        },
                     ],
                     "2023preBPix": [
                         {
@@ -542,7 +677,51 @@ def build_config(
                         },
                     ],
                 }
-            )
+            ),
+            "singlemuon_trigger_sf_mc_highPt": EraModifier(
+                {   
+                    "2024": [
+                        {
+                            "flagname": "trg_wgt_single_mu50",
+                            "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        }
+                    ],
+                    "2023preBPix": [
+                        {
+                            "flagname": "trg_wgt_single_mu50",
+                            "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        }
+                    ],
+                    "2023postBPix": [
+                        {
+                            "flagname": "trg_wgt_single_mu50",
+                            "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        }
+                    ],
+                    "2022preEE": [
+                        {
+                            "flagname": "trg_wgt_single_mu50",
+                            "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        }
+                    ],
+                    "2022postEE": [
+                        {
+                            "flagname": "trg_wgt_single_mu50",
+                            "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        }
+                    ],
+                }
+            ),
             
             # "mc_muon_id_extrapolation": 1.0,  # for nominal case
             # "mc_muon_iso_extrapolation": 1.0,  # for nominal case
@@ -551,7 +730,9 @@ def build_config(
 
     # muon base selection:
     configuration.add_config_parameters(
-        "global",
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         {
             "min_muon_pt": 20, # vh change muon min pt 20 to 5
             "max_muon_eta": 2.4, # vh
@@ -563,7 +744,9 @@ def build_config(
             
             # for good muon
             "min_goodmuon_mvaTTH" : 0.4,
-            "good_muon_id": "Muon_mediumId", # vh cut-based atm https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Medium_Muon
+            "good_muon_id_medium": "Muon_mediumId", # vh cut-based atm https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Medium_Muon
+            "good_muon_id_highpt": "Muon_highPtId", # vh high pt muon ID
+            "good_muon_id_highpt_bit": 1, #### 1 tracker high pt, 2 global high pt. require >=1
             "good_muon_iso_cut": 0.25, # vh PFIsoLoose dR=0.4 https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Particle_Flow_isolation
         },
     )
@@ -666,6 +849,7 @@ def build_config(
                 }
             ),
             "muon_id_sf_name": "NUM_MediumID_DEN_TrackerMuons",
+            "muon_highptid_sf_name": "NUM_HighPtID_DEN_TrackerMuons",
             "muon_id_sf_name_mvaTTH": "NUM_goodMuon_DEN_goodMuon_others",
             "muon_id_sf_name_dxydz3dsip": "NUM_baseMuon_3Dcut_DEN_baseMuon",
             # "muon_iso_sf_name": "NUM_TightRelIso_DEN_MediumID", # for run2?
@@ -684,6 +868,21 @@ def build_config(
                     "2024": "NUM_TightPFIso_DEN_MediumID",
                 }
             ),
+            "muon_highpt_iso_sf_name": EraModifier(
+                {
+                    # Z file has id and Iso type
+                    "2016preVFP": "NUM_TightRelIso_DEN_HighPtID",
+                    "2016postVFP": "NUM_TightRelIso_DEN_HighPtID",
+                    "2017": "NUM_TightRelIso_DEN_HighPtID",
+                    "2018": "NUM_TightRelIso_DEN_HighPtID",
+                    
+                    "2022preEE": "NUM_TightRelTkIso_DEN_HighPtID",
+                    "2022postEE": "NUM_TightRelTkIso_DEN_HighPtID",
+                    "2023preBPix": "NUM_TightRelTkIso_DEN_HighPtID",
+                    "2023postBPix": "NUM_TightRelTkIso_DEN_HighPtID",
+                    "2024": "NUM_TightRelTkIso_DEN_HighPtID",
+                }
+            ),
             # JPsi file only has id type, no Iso, add a id name and apply the JPsi SF's value = 1.
             # now remove this Iso type at low pt, 2025-04-07
             # "muon_iso_sf_name_JPsi": "NUM_MediumID_DEN_TrackerMuons",
@@ -691,9 +890,10 @@ def build_config(
             ######################
             ##### for HighPt #####
             ######################
-            # only for fjmm, nnmm and fjmm_cr scope
-            "muon_id_sf_name_HighPt": "NUM_MediumID_DEN_GlobalMuonProbes",
+            "muon_id_sf_name_HighPt": "NUM_MediumID_DEN_GlobalMuonProbes", 
+            "muon_highptid_sf_name_HighPt": "NUM_HighPtID_DEN_GlobalMuonProbes",
             "muon_iso_sf_name_HighPt": "NUM_probe_TightRelTkIso_DEN_MediumIDProbes",
+            "muon_highpt_iso_sf_name_HighPt": "NUM_probe_TightRelTkIso_DEN_HighPtProbes",
             "muon_sf_varation_HighPt": "nominal",
             "muon_reco_sf_name_HighPt": "NUM_GlobalMuons_DEN_TrackerMuonProbes",
             
@@ -814,6 +1014,15 @@ def build_config(
                     "2024": 3.42e-12,
                 }
             ),
+            "highpt_smear_factor" : EraModifier(
+                {
+                    "2022preEE": 0.32,
+                    "2022postEE": 0.32,
+                    "2023preBPix": 0.32,
+                    "2023postBPix": 0.568,
+                    "2024": 0.568,
+                }
+            ),
         },
     )
     #################### KIT and Rochester Correction config parameters #####################
@@ -831,22 +1040,23 @@ def build_config(
             "KIT_Muon_Pt_Scale_variation": "none",
             "KIT_Muon_Pt_Res_variation": "none",
             "Rochester_Muon_Pt_Res_variation": "none",
-            "KIT_sf_file": EraModifier(
+            "KIT_sf_file": EraModifier( #########this is for BSC pt, if you want to use json file for pt, change JSON_VXBS to JSON
                 {
-                    "2022preEE": "data/muon_corrections/KIT_Corr/2022_Summer22.json",
-                    "2022postEE": "data/muon_corrections/KIT_Corr/2022_Summer22EE.json",
-                    "2023preBPix": "data/muon_corrections/KIT_Corr/2023_Summer23.json",
-                    "2023postBPix": "data/muon_corrections/KIT_Corr/2023_Summer23BPix.json",
-                    "2024": "data/muon_corrections/KIT_Corr/2024_Summer24.json",
+                    "2022preEE": "data/muon_corrections/KIT_Corr/JSON_VXBS/2022_Summer22/schemaV2.json",
+                    "2022postEE": "data/muon_corrections/KIT_Corr/JSON_VXBS/2022_Summer22EE/schemaV2.json",
+                    "2023preBPix": "data/muon_corrections/KIT_Corr/JSON_VXBS/2023_Summer23/schemaV2.json",
+                    "2023postBPix": "data/muon_corrections/KIT_Corr/JSON_VXBS/2023_Summer23BPix/schemaV2.json",
+                    "2024": "data/muon_corrections/KIT_Corr/JSON_VXBS/2024/schemaV2.json",
                 }
             ),
+            "RandomSeed_file": "data/muon_corrections/KIT_Corr/RandomSeed.json",
             "muon_momentum_scale_corr_file": EraModifier(
                 {
                     "2022preEE": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2022preEE.json.gz",
                     "2022postEE": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2022postEE.json.gz",
                     "2023preBPix": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023preBPix.json.gz",
-                    "2023postBPix": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023postBPix.json.gz", ### TODO contact MUO to calculate!!!!!!!!
-                    "2024": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023postBPix.json.gz", ########### no such file for 2024, maybe use 2023postBPix first?
+                    "2023postBPix": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023postBPix.json.gz", 
+                    "2024": "data/2024_correction/MUO/HighPt_2024.json.gz", ########### no such file for 2026, maybe use 2025 first?
                 }
             ),
             ### Rochester is not recommended by MUO POG now
@@ -1466,6 +1676,12 @@ def build_config(
         }
     )
     configuration.add_config_parameters(
+        ["nnmm","fjmm","fjmm_cr"],
+        {
+            "vh_2l_veto_nmuons" : 3, # 2 good muons
+        }
+    )
+    configuration.add_config_parameters(
         ["m2m","m2m_dyfakeingmu_regionb"],
         {
             "vh_good_nmuons" : 3,
@@ -1533,7 +1749,15 @@ def build_config(
         }
     )
     configuration.add_config_parameters(
-        ["fjmm","fjmm_cr",],
+        ["fjmm","fjmm_cr"],
+        {
+            "vh_good_nfatjets" : 1,
+            "max_met" : 150.0,
+            "flag_MaxMetCut" : 1,
+        }
+    )
+    configuration.add_config_parameters(
+        ["e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
         {
             "vh_good_nfatjets" : 1,
             "max_met" : 150.0,
@@ -1564,13 +1788,13 @@ def build_config(
             event.PUweights,
             event.Lumi,
             event.MetFilter,
-            muons.BaseMuons, # vh
-            muons.GoodMuons, # vh tighter selections on muons
-            muons.NumberOfBaseMuons,
-            muons.NumberOfGoodMuons,
-            muons.BaseMuonCollection, # collect ordered by pt
+            # muons.BaseMuons, # vh
+            # muons.GoodMuons, # vh tighter selections on muons
+            # muons.NumberOfBaseMuons,
+            # muons.NumberOfGoodMuons,
+            # muons.BaseMuonCollection, # collect ordered by pt
             # muons.MC_KIT_MuonPt_ScaleRes,
-            muons.MuonCollection, # collect the good muon
+            # muons.MuonCollection, # collect the good muon
             # vh muon Rochester corr, FSR recovery, GeoFit? TODO
             # vh muon FSR recovery
             
@@ -1586,6 +1810,29 @@ def build_config(
 
             met.MetBasics, # build met vector for calculation
             met.BuildGenMetVector,
+        ],
+    )
+    configuration.add_producers(
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        [
+            muons.BaseMuons,
+            muons.GoodMuons,
+            muons.NumberOfBaseMuons,
+            muons.NumberOfGoodMuons,
+            muons.BaseMuonCollection,
+            muons.MuonCollection,
+        ],
+    )
+    configuration.add_producers(
+        ["fjmm_cr", "fjmm", "nnmm"],
+        [
+            muons.BaseMuons_HighPt,
+            muons.GoodMuons_HighPt,
+            muons.NumberOfBaseMuons,
+            muons.NumberOfGoodMuons,
+            muons.BaseMuonCollection,
+            muons.MuonCollection,
         ],
     )
     # as different lepton in final state, so need to overlap at each scope
@@ -1711,24 +1958,26 @@ def build_config(
         ]
     )
     configuration.add_producers(
-        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-            "nnmm_dycontrol","nnmm_topcontrol",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        ["nnmm","fjmm","fjmm_cr"],
         [
             momentumscale.MuonPtPreCorrection,
             momentumscale.MuonPtPreSmear,
         ]
     )
     configuration.add_producers(
-        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-        "nnmm_dycontrol","nnmm_topcontrol",
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm_dycontrol","nnmm_topcontrol",
         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         [
             momentumscale.MC_KIT_MuonPt_ScaleRes,
             # momentumscale.MC_KIT_MuonPt_ScaleRes_pureBSC,
             # momentumscale.MC_KIT_MuonPt_ScaleRes_raw,
+        ]
+    )
+    configuration.add_producers(
+        ["nnmm","fjmm","fjmm_cr"],
+        [
+            momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt,
         ]
     )
     # configuration.add_producers(
@@ -1765,12 +2014,12 @@ def build_config(
     )
     if era == "2022preEE" or era == "2022postEE" or era =="2023preBPix" or era == "2023postBPix":
         configuration.add_producers(
-            ["fjmm","fjmm_cr","nnmm"],
+            ["fjmm","fjmm_cr","nnmm","e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
             fatjets.GoodFatJets,
         )
     if era == "2024":
         configuration.add_producers(
-            ["fjmm","fjmm_cr","nnmm"],
+            ["fjmm","fjmm_cr","nnmm","e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
             fatjets.GoodFatJets_v15,
         )
     configuration.add_producers(
@@ -1785,6 +2034,13 @@ def build_config(
             # scalefactors.btagging_SF_2WPs_fjmm_vhmm,
             fatjets.Pnet_Fatjet_Mass_Corr,
             fatjets.GoodFatjet_RawFactor,
+        ]
+    )
+    configuration.add_producers(
+        ["e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
+        [
+            fatjets.NumberOfGoodFatJets,
+            fatjets.FilterVetoNFatjets_fjmm, ### use to be othorgnal with fjmm
         ]
     )
     configuration.add_producers(
@@ -2052,6 +2308,8 @@ def build_config(
             event.FilterFlagLepChargeSum,
             event.FilterFlagGoodEleVeto,
             event.FilterFlagDiMuonZVeto,
+            event.Flag_MaxMetCut,
+            event.FilterFlagMaxMetCut,
             ###
             event.Mask_DiMuonPair, # select the dimuon index in [110,150]
             ####FSR#####
@@ -2515,6 +2773,8 @@ def build_config(
             event.Flag_DiMuonFromHiggs, # create the flag
             event.HiggsToDiMuonPair_p4_noFSR, # make dimuon p4
             event.FilterFlagDiMuFromH, # flag dimuon Higgs cut
+            event.Flag_MaxMetCut,
+            event.FilterFlagMaxMetCut,
             muons.Mu1_H,
             # muons.Mu1_H_pureBSC,
             # muons.Mu1_H_raw,
@@ -3030,6 +3290,9 @@ def build_config(
         "nnmm",
         [
             event.FilterNGoodMuons, # vh nnmm ==2 muons
+            muons.Muons_use_for_Veto,
+            muons.NumberOfVetoMuons,
+            event.Filter2lTriGoodMuons,
             # event.Flag_MetCut,
             # event.FilterFlagMetCut, # MET >= 50
             event.LowMetCut, # FlagsAny MET >= 150
@@ -3143,6 +3406,7 @@ def build_config(
             # add HighPtMuon RECO SF here
             scalefactors.MuonRECO_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+            scalefactors.GenerateSingleMuonTriggerSF_MC_highPt,
             p4.METMuMuQuantities, # hackathon
         ],
     )
@@ -3151,6 +3415,9 @@ def build_config(
         [
             event.FilterNGoodMuons, # vh fjmm ==2 muons
             # event.FilterNFatjets_fjmm, # vh fjmm >=1 fatjet
+            muons.Muons_use_for_Veto,
+            muons.NumberOfVetoMuons,
+            event.Filter2lTriGoodMuons,
             
             event.HighMetCut, # keep MET < 150 events
             # event.Flag_MaxMetCut,
@@ -3281,6 +3548,7 @@ def build_config(
             # add PNet WvsQCD SF here
             scalefactors.PNetWvsQCD_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+            scalefactors.GenerateSingleMuonTriggerSF_MC_highPt,
             p4.FatJetMuMuQuantities, # hackathon
             # event.FatJetQuantities, # tau1,2,3,4...
         ],
@@ -3290,6 +3558,9 @@ def build_config(
         [
             event.FilterNGoodMuons, # vh fjmm ==2 muons
             # event.FilterNFatjets_fjmm, # vh fjmm >=1 fatjet
+            muons.NumberOfVetoMuons,
+            muons.Muons_use_for_Veto,
+            event.Filter2lTriGoodMuons,
             event.Flag_MaxMetCut,
             event.FilterFlagMaxMetCut, # MET <= 150
             lepton.CalcSmallestDiMuonMass,  # SFOS, m2m only has m
@@ -3378,6 +3649,7 @@ def build_config(
             # add PNet WvsQCD SF here
             scalefactors.PNetWvsQCD_SF,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+            scalefactors.GenerateSingleMuonTriggerSF_MC_highPt,
             # event.FatJetQuantities, # tau1,2,3,4... # drop it
         ],
     )    
@@ -3447,6 +3719,7 @@ def build_config(
             # genparticles.BosonDecayMode,
             triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
+            scalefactors.GenerateSingleMuonTriggerSF_MC_highPt,
             
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
@@ -3716,9 +3989,6 @@ def build_config(
             q.iso_wgt_mu_1,
             q.iso_wgt_mu_2,
             
-            q.id_wgt_mu_1_below15,
-            q.id_wgt_mu_2_below15,
-            
             q.id_wgt_mu_1_above200,
             q.id_wgt_mu_2_above200,
             q.iso_wgt_mu_1_above200,
@@ -3730,6 +4000,15 @@ def build_config(
             # q.iso_wgt_mu_2_below15,
             q.id_wgt_mu_dxydz3dsip_1,
             q.id_wgt_mu_dxydz3dsip_2,
+        ],
+    )
+    configuration.add_outputs(
+        ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+         "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+         "eemm","eemm_cr","mmmm","mmmm_cr"],
+        [
+            q.id_wgt_mu_1_below15,
+            q.id_wgt_mu_2_below15,
         ],
     )
     configuration.add_outputs(
@@ -4113,21 +4392,21 @@ def build_config(
             q.FsrPhotonIdx_2,
         ]
     )
-    # configuration.add_outputs(
-    #     ["e2m","m2m","eemm","nnmm","fjmm","mmmm"],
-    #     [
-    #         q.FsrPhoton1_pt,
-    #         q.FsrPhoton1_eta,
-    #         q.FsrPhoton1_phi,
-    #         q.FsrPhoton1_dROverEt2,
-    #         q.FsrPhoton1_relIso03,
-    #         q.FsrPhoton2_pt,
-    #         q.FsrPhoton2_eta,
-    #         q.FsrPhoton2_phi,
-    #         q.FsrPhoton2_dROverEt2,
-    #         q.FsrPhoton2_relIso03,
-    #     ]
-    # )
+    configuration.add_outputs(
+        ["e2m","m2m","eemm","nnmm","fjmm","mmmm"],
+        [
+            q.FsrPhoton1_pt,
+            q.FsrPhoton1_eta,
+            q.FsrPhoton1_phi,
+            q.FsrPhoton1_dROverEt2,
+            q.FsrPhoton1_relIso03,
+            q.FsrPhoton2_pt,
+            q.FsrPhoton2_eta,
+            q.FsrPhoton2_phi,
+            q.FsrPhoton2_dROverEt2,
+            q.FsrPhoton2_relIso03,
+        ]
+    )
     # configuration.add_outputs(
     #     ["mmmm", "mmmm_cr"],
     #     [
@@ -4441,8 +4720,7 @@ def build_config(
         ),
     )
     configuration.add_modification_rule(
-        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-        "nnmm_dycontrol","nnmm_topcontrol",
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         ReplaceProducer(
@@ -4451,10 +4729,14 @@ def build_config(
         ),
     )
     configuration.add_modification_rule(
-        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-        "nnmm_dycontrol","nnmm_topcontrol",
-        "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-        "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        ["nnmm","fjmm","fjmm_cr",],
+        ReplaceProducer(
+            producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt, momentumscale.Data_KIT_MuonPt_Scale_HighPt],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm","fjmm","fjmm_cr"],
         ReplaceProducer(
             producers=[momentumscale.MuonPtPreCorrection, momentumscale.MuonPtPreCorrectionData],
             samples=["data"],
@@ -4984,19 +5266,13 @@ def build_config(
         SystematicShift(
             name="MuonHighPtScaleUp",
             shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-            "nnmm_dycontrol","nnmm_topcontrol",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                ("nnmm","fjmm","fjmm_cr"): {
                     "muon_momentum_BSC_variation": "nominal",
                     "muon_momentum_scale_variation": "systup",
                 }
             },
             producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-            "nnmm_dycontrol","nnmm_topcontrol",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                ("nnmm","fjmm","fjmm_cr"): [
                     momentumscale.MuonPtPreCorrection,
                 ]
             },
@@ -5011,20 +5287,43 @@ def build_config(
         SystematicShift(
             name="MuonHighPtScaleDown",
             shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-            "nnmm_dycontrol","nnmm_topcontrol",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
+                ("nnmm","fjmm","fjmm_cr"): {
                     "muon_momentum_BSC_variation": "nominal",
                     "muon_momentum_scale_variation": "systdown",
                 }
             },
             producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-            "nnmm_dycontrol","nnmm_topcontrol",
-            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
+                ("nnmm","fjmm","fjmm_cr"): [
                     momentumscale.MuonPtPreCorrection,
+                ]
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data"]
+        ],
+    )
+
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonHighPtSmearSyst",
+            shift_config={
+                ("nnmm","fjmm","fjmm_cr"): {
+                    "highpt_smear_factor" : EraModifier(
+                        {
+                            "2022preEE": 0.46,
+                            "2022postEE": 0.46,
+                            "2023preBPix": 0.46,
+                            "2023postBPix": 0.46,
+                            "2024": 0.46,
+                        }
+                    ),
+                }
+            },
+            producers={
+                ("nnmm","fjmm","fjmm_cr"): [
+                    momentumscale.MuonPtPreSmear,
                 ]
             },
         ),
@@ -5087,8 +5386,7 @@ def build_config(
         SystematicShift(
             name="KITMuonPtScaleUp",
             shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-        "nnmm_dycontrol","nnmm_topcontrol",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
                     "KIT_Muon_Pt_Scale_variation": "Up",
@@ -5096,8 +5394,7 @@ def build_config(
                 }
             },
             producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-        "nnmm_dycontrol","nnmm_topcontrol",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
                     momentumscale.MC_KIT_MuonPt_ScaleRes,
@@ -5109,8 +5406,7 @@ def build_config(
         SystematicShift(
             name="KITMuonPtScaleDown",
             shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-        "nnmm_dycontrol","nnmm_topcontrol",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
                     "KIT_Muon_Pt_Scale_variation": "Down",
@@ -5118,11 +5414,75 @@ def build_config(
                 }
             },
             producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-        "nnmm_dycontrol","nnmm_topcontrol",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
                     momentumscale.MC_KIT_MuonPt_ScaleRes,
+                ]
+            },
+        )
+    )
+
+    configuration.add_shift(
+        SystematicShift(
+            name="KITMuonPtScaleHighPtUp",
+            shift_config={
+                ("nnmm","fjmm","fjmm_cr"): {
+                    "KIT_Muon_Pt_Scale_variation": "Up",
+                    "KIT_Muon_Pt_Res_variation": "none",
+                }
+            },
+            producers={
+                ("nnmm","fjmm","fjmm_cr"): [
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="KITMuonPtScaleHighPtDown",
+            shift_config={
+                ("nnmm","fjmm","fjmm_cr"): {
+                    "KIT_Muon_Pt_Scale_variation": "Down",
+                    "KIT_Muon_Pt_Res_variation": "none",
+                }
+            },
+            producers={
+                ("nnmm","fjmm","fjmm_cr"): [
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="KITMuonPtResHighPtUp",
+            shift_config={
+                ("nnmm","fjmm","fjmm_cr"): {
+                    "KIT_Muon_Pt_Scale_variation": "none",
+                    "KIT_Muon_Pt_Res_variation": "Up",
+                }
+            },
+            producers={
+                ("nnmm","fjmm","fjmm_cr"): [
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="KITMuonPtResHighPtDown",
+            shift_config={
+                ("nnmm","fjmm","fjmm_cr"): {
+                    "KIT_Muon_Pt_Scale_variation": "none",
+                    "KIT_Muon_Pt_Res_variation": "Down",
+                }
+            },
+            producers={
+                ("nnmm","fjmm","fjmm_cr"): [
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt,
                 ]
             },
         )
@@ -5135,8 +5495,7 @@ def build_config(
         SystematicShift(
             name="KITMuonResUp",
             shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-        "nnmm_dycontrol","nnmm_topcontrol",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
                     "KIT_Muon_Pt_Scale_variation": "none",
@@ -5144,8 +5503,7 @@ def build_config(
                 }
             },
             producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-        "nnmm_dycontrol","nnmm_topcontrol",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
                     momentumscale.MC_KIT_MuonPt_ScaleRes,
@@ -5157,8 +5515,7 @@ def build_config(
         SystematicShift(
             name="KITMuonResDown",
             shift_config={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-        "nnmm_dycontrol","nnmm_topcontrol",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): {
                     "KIT_Muon_Pt_Scale_variation": "none",
@@ -5166,8 +5523,7 @@ def build_config(
                 }
             },
             producers={
-                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
-        "nnmm_dycontrol","nnmm_topcontrol",
+                ("e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"): [
                     momentumscale.MC_KIT_MuonPt_ScaleRes,
@@ -5550,6 +5906,125 @@ def build_config(
             producers={("m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
                         "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
                         "eemm","mmmm","nnmm","fjmm","fjmm_cr"): scalefactors.GenerateSingleMuonTriggerSF_MC},
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data"]
+        ],
+    )
+
+    configuration.add_shift(
+        SystematicShift(
+            name="singleMuonTriggerSFhighPtUp",
+            shift_config={
+                ("nnmm","fjmm","fjmm_cr"): {
+                    "singlemuon_trigger_sf_mc_highPt": EraModifier(
+                        {   
+                            "2024": [
+                                {
+                                    "flagname": "trg_wgt_single_mu50",
+                                    "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                                    "mc_muon_sf_correctiontype": "systup",
+                                    "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                                },
+                            ],
+                            "2023preBPix": [
+                                {
+                                    "flagname": "trg_wgt_single_mu50",
+                                    "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                                    "mc_muon_sf_correctiontype": "systup",
+                                    "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                                },
+                            ],
+                             "2023postBPix": [
+                                {
+                                    "flagname": "trg_wgt_single_mu50",
+                                    "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                                    "mc_muon_sf_correctiontype": "systup",
+                                    "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                                },
+                            ],
+                            "2022preEE": [
+                                {
+                                    "flagname": "trg_wgt_single_mu50",
+                                    "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                                    "mc_muon_sf_correctiontype": "systup",
+                                    "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                                },
+                            ],
+                             "2022postEE": [
+                                {
+                                    "flagname": "trg_wgt_single_mu50",
+                                    "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                                    "mc_muon_sf_correctiontype": "systup",
+                                    "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                                },
+                            ],
+                        }
+                    )
+                }
+            },
+            producers={("nnmm","fjmm","fjmm_cr"): scalefactors.GenerateSingleMuonTriggerSF_MC_highPt},
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="singleMuonTriggerSFDown",
+            shift_config={
+                ("nnmm","fjmm","fjmm_cr"): {
+                    "singlemuon_trigger_sf_mc_highPt": EraModifier(
+                        {   
+                            "2024": [
+                                {
+                                    "flagname": "trg_wgt_single_mu50",
+                                    "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                                    "mc_muon_sf_correctiontype": "systdown",
+                                    "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                                },
+                            ],
+                            "2023preBPix": [
+                                {
+                                    "flagname": "trg_wgt_single_mu50",
+                                    "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                                    "mc_muon_sf_correctiontype": "systdown",
+                                    "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                                },
+                            ],
+                            "2023postBPix": [
+                                {
+                                    "flagname": "trg_wgt_single_mu50",
+                                    "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                                    "mc_muon_sf_correctiontype": "systdown",
+                                    "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                                },
+                            ],
+                            "2022preEE": [
+                                {
+                                    "flagname": "trg_wgt_single_mu50",
+                                    "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                                    "mc_muon_sf_correctiontype": "systdown",
+                                    "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                                },
+                            ],
+                            "2022postEE": [
+                                {
+                                    "flagname": "trg_wgt_single_mu50",
+                                    "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                                    "mc_muon_sf_correctiontype": "systdown",
+                                    "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                                },
+                            ],
+                        }
+                    )
+                }
+            },
+            producers={("nnmm","fjmm","fjmm_cr"): scalefactors.GenerateSingleMuonTriggerSF_MC_highPt},
         ),
         samples=[
             sample

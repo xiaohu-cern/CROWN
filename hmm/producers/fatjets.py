@@ -192,35 +192,35 @@ FatJetPtCut = Producer(
     call="physicsobject::CutPt({df}, {input}, {output}, {min_fatjet_pt})",
     input=[q.FatJet_pt_corrected],
     output=[],
-    scopes=["fjmm","fjmm_cr","nnmm"],
+    scopes=["fjmm","fjmm_cr","nnmm", "e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
 )
 FatJetEtaCut = Producer(
     name="FatJetEtaCut",
     call="physicsobject::CutEta({df}, {input}, {output}, {max_fatjet_eta})",
     input=[nanoAOD.FatJet_eta],
     output=[],
-    scopes=["fjmm","fjmm_cr","nnmm"],
+    scopes=["fjmm","fjmm_cr","nnmm", "e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
 )
 FatJetSDMassCut = Producer(
     name="FatJetSDMassCut",
     call="physicsobject::CutVarMin({df}, {input}, {output}, {min_fatjet_MSD})",
     input=[nanoAOD.FatJet_msoftdrop],
     output=[],
-    scopes=["fjmm","fjmm_cr","nnmm"],
+    scopes=["fjmm","fjmm_cr","nnmm", "e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
 )
 FatJetIDCut = Producer(
     name="FatJetIDCut",
     call="physicsobject::jet::CutID({df}, {output}, {input}, {fatjet_id})",
     input=[nanoAOD.FatJet_ID],
     output=[q.fatjet_id_mask],
-    scopes=["fjmm","fjmm_cr","nnmm"],
+    scopes=["fjmm","fjmm_cr","nnmm", "e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
 )
 FatJetIDCut_Bool = Producer( ######## for v15 and v12
     name="FatJetIDCut_Bool",
     call="physicsobject::jet::CutBoolID({df}, {output}, {input})",
     input=[q.fatjetTightID],
     output=[q.fatjet_id_mask],
-    scopes=["fjmm","fjmm_cr","nnmm"],
+    scopes=["fjmm","fjmm_cr","nnmm", "e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
 )
 ## 2022preEE fatjet id UChar_t 
 FatJetIDCut_UChar = Producer(
@@ -228,7 +228,7 @@ FatJetIDCut_UChar = Producer(
     call="physicsobject::jet::CutUCharID({df}, {output}, {input}, {fatjet_id})",
     input=[nanoAOD.FatJet_ID],
     output=[q.fatjet_id_mask],
-    scopes=["fjmm","fjmm_cr","nnmm"],
+    scopes=["fjmm","fjmm_cr","nnmm", "e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
 )
 # in fjmm, 2 good muons and 0 good electron, no need to do dR with ele
 VetoOverlappingFatJetsWithMuons = Producer(
@@ -236,14 +236,14 @@ VetoOverlappingFatJetsWithMuons = Producer(
     call="jet::VetoOverlappingJets({df}, {output}, {input}, {deltaR_fatjet_veto})",
     input=[nanoAOD.FatJet_eta, nanoAOD.FatJet_phi, nanoAOD.Muon_eta, nanoAOD.Muon_phi, q.good_muon_collection], # vh base or good muon?
     output=[q.fatjet_overlap_veto_mask],
-    scopes=["fjmm","fjmm_cr","nnmm"],
+    scopes=["fjmm","fjmm_cr","nnmm", "e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
 )
 GoodFatJets = ProducerGroup(
     name="GoodFatJets",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.good_fatjets_mask],
-    scopes=["fjmm","fjmm_cr","nnmm"],
+    scopes=["fjmm","fjmm_cr","nnmm", "e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
     subproducers=[FatJetPtCut, FatJetEtaCut, FatJetSDMassCut, FatJetIDCut_UChar, VetoOverlappingFatJetsWithMuons],
 )
 GoodFatJets_v15 = ProducerGroup(
@@ -251,7 +251,7 @@ GoodFatJets_v15 = ProducerGroup(
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.good_fatjets_mask],
-    scopes=["fjmm","fjmm_cr","nnmm"],
+    scopes=["fjmm","fjmm_cr","nnmm", "e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
     subproducers=[FatJetPtCut, FatJetEtaCut, FatJetSDMassCut, FatJetIDCut_Bool, VetoOverlappingFatJetsWithMuons],
 )
 GoodFatJets_run2 = ProducerGroup(
@@ -267,7 +267,7 @@ NumberOfGoodFatJets = Producer(
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
     input=[q.good_fatjets_mask],
     output=[q.nfatjets],
-    scopes=["fjmm","fjmm_cr","nnmm"],
+    scopes=["fjmm","fjmm_cr","nnmm","e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
 )
 NFatjetFlag = Producer(
     name="NFatjetFlag",
@@ -276,6 +276,13 @@ NFatjetFlag = Producer(
     output=[],
     scopes=["fjmm","fjmm_cr"],
 )
+VetoNFatjetFlag = Producer(
+    name="VetoNFatjetFlag",
+    call='physicsobject::flagNumObject({df}, {output}, {input}, {vh_good_nfatjets}, "<")',
+    input=[q.nfatjets],
+    output=[],
+    scopes=["e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
+)
 # call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nfatjets}, ">=", "Number of fatjets >= 1")',
 FilterNFatjets_fjmm = Filter(
     name="FilterNFatjets_fjmm",
@@ -283,6 +290,13 @@ FilterNFatjets_fjmm = Filter(
     input=[],
     scopes=["fjmm","fjmm_cr"],
     subproducers=[NFatjetFlag]
+)
+FilterVetoNFatjets_fjmm = Filter(
+    name="FilterVetoNFatjets_fjmm",
+    call='basefunctions::FilterFlagsAny({df}, "Number of fatjets < 1", {input})',
+    input=[],
+    scopes=["e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
+    subproducers=[VetoNFatjetFlag]
 )
 
 # fatjet collection

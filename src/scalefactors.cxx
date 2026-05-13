@@ -73,9 +73,10 @@ ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, const
     auto cset_poly_params = correction::CorrectionSet::from_file(sf_file)->at("poly_params");
     auto cset_k_data = correction::CorrectionSet::from_file(sf_file)->at("k_data");
     auto cset_k_mc = correction::CorrectionSet::from_file(sf_file)->at("k_mc");
+    auto cset_rndmseed = correction::CorrectionSet::from_file(sf_file)->at("RandomSmearing");
     auto df1 = df.Define(
         pt_corrected,
-        [cset_a, cset_m, cset_cb_params, cset_poly_params, cset_k_data, cset_k_mc, variation, data_type, s_variation](
+        [cset_a, cset_m, cset_cb_params, cset_poly_params, cset_k_data, cset_k_mc, cset_rndmseed, variation, data_type, s_variation](
            const ROOT::RVec<float> &pt_values,
            const ROOT::RVec<float> &pt_pre_corr_values,
            const ROOT::RVec<float> &phi_values,
@@ -133,7 +134,8 @@ ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, const
                     double k_data = cset_k_data->evaluate({std::abs(eta_values.at(i)), "nom"});
                     double k_mc = cset_k_mc->evaluate({std::abs(eta_values.at(i)), "nom"});
                     
-                    double rndm = (double) KIT::get_rndm(eta_values.at(i), phi_values.at(i), nL_values.at(i), evtNumber, lumiNumber, mean, sigma, n, alpha);
+                    double rndmseed = cset_rndmseed->evaluate({(int)evtNumber, (int)lumiNumber, phi_values.at(i)}); 
+                    double rndm = (double) KIT::get_rndm(mean, sigma, n, alpha, rndmseed);
                     double std = (double) KIT::get_std(pt_values.at(i), eta_values.at(i), nL_values.at(i), param_0, param_1, param_2);
                     // double rndm = (double) KIT::get_rndm_gaus(eta_values.at(i), phi_values.at(i), nL_values.at(i), evtNumber, lumiNumber, mean, sigma);
                     // double std = 0.02;
@@ -266,10 +268,11 @@ ROOT::RDF::RNode Rochester_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt,
 ROOT::RDF::RNode HighPtSmear(ROOT::RDF::RNode df, const std::string &pt, const std::string &eta, const std::string &phi, 
                              const std::string &nL, const std::string &evtNumber, const std::string &lumiNumber, const std::string &pt_smeared, 
                              const double a_barrel, const double b_barrel, const double c_barrel, const double d_barrel,
-                             const double a_endcap, const double b_endcap, const double c_endcap, const double d_endcap) {
+                             const double a_endcap, const double b_endcap, const double c_endcap, const double d_endcap, const double factor, const std::string &sf_file) {
+    auto cset_rndmseed = correction::CorrectionSet::from_file(sf_file)->at("RandomSmearing");
     auto df1 = df.Define(
         pt_smeared,
-        [a_barrel, b_barrel, c_barrel, d_barrel, a_endcap, b_endcap, c_endcap, d_endcap]
+        [a_barrel, b_barrel, c_barrel, d_barrel, a_endcap, b_endcap, c_endcap, d_endcap, factor, cset_rndmseed]
         (const ROOT::RVec<float> &pt_values,
         const ROOT::RVec<float> &eta_values,
         const ROOT::RVec<float> &phi_values,
@@ -287,7 +290,8 @@ ROOT::RDF::RNode HighPtSmear(ROOT::RDF::RNode df, const std::string &pt, const s
                     else {
                         sigma = a_endcap + b_endcap*pt_values.at(i) + c_endcap*pt_values.at(i)*pt_values.at(i) + d_endcap*pt_values.at(i)*pt_values.at(i)*pt_values.at(i);
                     }
-                    double rndm = (double) KIT::get_rndm_gaus(eta_values.at(i), phi_values.at(i), nL_values.at(i), evtNumber, lumiNumber, 0, 0.32*sigma);
+                    double rndmseed = cset_rndmseed->evaluate({(int)evtNumber, (int)lumiNumber, phi_values.at(i)});
+                    double rndm = (double) KIT::get_rndm_gaus(0, factor*sigma, rndmseed);
                     smeared_pt_values[i] = pt_values.at(i) * (1 + rndm);
                 }
                 else {
