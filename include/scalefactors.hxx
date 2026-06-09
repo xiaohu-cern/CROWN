@@ -83,6 +83,12 @@ ROOT::RDF::RNode muon_sf_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                          const std::string correctiontype,
                          const std::string &idAlgorithm,
                          const float &extrapolation_factor = 1.0);
+ROOT::RDF::RNode muon_sf_vhmm_highpt(ROOT::RDF::RNode df, const std::string &p4,
+                         const std::string &output,
+                         const std::string &sf_file,
+                         const std::string correctiontype,
+                         const std::string &idAlgorithm,
+                         const float &extrapolation_factor = 1.0);
 ROOT::RDF::RNode reco_mu_vhmm(ROOT::RDF::RNode df, const std::string &p4, 
                     const std::string &year_id,
                     const std::string &variation, const std::string &id_output,

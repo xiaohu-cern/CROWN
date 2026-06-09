@@ -1876,7 +1876,7 @@ GenerateSingleMuonTriggerSF_MC = ExtendedVectorProducer(
 )
 GenerateSingleMuonTriggerSF_MC_highPt = ExtendedVectorProducer(
     name="GenerateSingleMuonTriggerSF_MC_highPt",
-    call='scalefactor::muon::muon_sf_vhmm({df}, {input}, {output}, "{mc_muon_sf_file}", "{mc_muon_sf_correctiontype}", "{mc_trigger_sf}", {mc_muon_trg_extrapolation})',
+    call='scalefactor::muon::muon_sf_vhmm_highpt({df}, {input}, {output}, "{mc_muon_sf_file}", "{mc_muon_sf_correctiontype}", "{mc_trigger_sf}", {mc_muon_trg_extrapolation})',
     input=[q.muon_p4_1], # using leading muon
     output="flagname",
     scope=["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],

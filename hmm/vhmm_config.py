@@ -3782,6 +3782,7 @@ def build_config(
             q.genmet_pt,
             q.genmet_phi,
             scalefactors.GenerateSingleMuonTriggerSF_MC.output_group,
+            scalefactors.GenerateSingleMuonTriggerSF_MC_highPt.output_group, ##### scale factors for high pt muon trigger SF, add by mingxuan
         ],
     )
     configuration.add_outputs(
@@ -5307,7 +5308,36 @@ def build_config(
 
     configuration.add_shift(
         SystematicShift(
-            name="MuonHighPtSmearSyst",
+            name="MuonHighPtSmearSystUp",
+            shift_config={
+                ("nnmm","fjmm","fjmm_cr"): {
+                    "highpt_smear_factor" : EraModifier(
+                        {
+                            "2022preEE": 0.46,
+                            "2022postEE": 0.46,
+                            "2023preBPix": 0.46,
+                            "2023postBPix": 0.46,
+                            "2024": 0.46,
+                        }
+                    ),
+                }
+            },
+            producers={
+                ("nnmm","fjmm","fjmm_cr"): [
+                    momentumscale.MuonPtPreSmear,
+                ]
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data"]
+        ],
+    )
+
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonHighPtSmearSystDown",
             shift_config={
                 ("nnmm","fjmm","fjmm_cr"): {
                     "highpt_smear_factor" : EraModifier(

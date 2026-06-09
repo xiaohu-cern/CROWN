@@ -832,6 +832,38 @@ ROOT::RDF::RNode muon_sf_vhmm(ROOT::RDF::RNode df, const std::string &p4,
         {p4});
     return df1;
 }
+
+ROOT::RDF::RNode muon_sf_vhmm_highpt(ROOT::RDF::RNode df, const std::string &p4,
+                         const std::string &output,
+                         const std::string &sf_file,
+                         const std::string correctiontype,
+                         const std::string &idAlgorithm,
+                         const float &extrapolation_factor = 1.0) {
+
+    Logger::get("MuonTriggerSF")->debug("Correction - Name {}", idAlgorithm);
+    auto evaluator =
+        correction::CorrectionSet::from_file(sf_file)->at(idAlgorithm);
+    auto df1 = df.Define(
+        output,
+        [evaluator, correctiontype, extrapolation_factor](ROOT::Math::PtEtaPhiMVector &p4) {
+            const float &pt = p4.Pt();
+            const float &eta = p4.Eta();
+            Logger::get("MuonTriggerSF")
+                ->debug(" pt {}, eta {}, correctiontype {}, extrapolation "
+                        "factor {}",
+                        pt, eta, correctiontype, extrapolation_factor);
+            double sf = 1.;
+            auto pt_tmp = pt;
+            if (pt < 52.0 ) pt_tmp = 52.0;
+            sf = extrapolation_factor *
+                 evaluator->evaluate({std::abs(eta), pt_tmp, correctiontype});
+            Logger::get("MuonTriggerSF")->debug("sf {}", sf);
+            return sf;
+        },
+        {p4});
+    return df1;
+}
+
 ///////////
 /// below for reco vhmm High Pt
 ROOT::RDF::RNode reco_mu_vhmm(ROOT::RDF::RNode df, const std::string &p4, 
