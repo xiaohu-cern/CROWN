@@ -3782,7 +3782,6 @@ def build_config(
             q.genmet_pt,
             q.genmet_phi,
             scalefactors.GenerateSingleMuonTriggerSF_MC.output_group,
-            scalefactors.GenerateSingleMuonTriggerSF_MC_highPt.output_group, ##### scale factors for high pt muon trigger SF, add by mingxuan
         ],
     )
     configuration.add_outputs(
@@ -4272,6 +4271,7 @@ def build_config(
             q.Flag_GoodEle_Veto,
             q.Flag_DiMuonFromHiggs,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
+            scalefactors.GenerateSingleMuonTriggerSF_MC_highPt.output_group,
             
             # q.genmu1_fromH_pt,
             # q.genmu1_fromH_eta,
@@ -4303,6 +4303,7 @@ def build_config(
             q.Flag_GoodEle_Veto,
             q.Flag_DiMuonFromHiggs,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
+            scalefactors.GenerateSingleMuonTriggerSF_MC_highPt.output_group,
             
             q.fatjet_msoftdrop,
             q.fatjet_pt,
@@ -4338,6 +4339,7 @@ def build_config(
             q.good_FatJet_rawfactor,
             q.fatjet_PNet_withMass_WvsQCD,
             triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
+            scalefactors.GenerateSingleMuonTriggerSF_MC_highPt.output_group,
             
             q.dimuonCR_pt,
             q.mu1_fromZCR_pt,
