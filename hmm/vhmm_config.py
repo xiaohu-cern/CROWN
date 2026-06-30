@@ -4586,7 +4586,7 @@ def build_config(
         configuration.add_modification_rule(
             "global",
             RemoveProducer(
-                producers=[event.PUweights, jets.JetEnergyCorrection, fatjets.FatJetEnergyCorrection, met.BuildGenMetVector,],
+                producers=[event.PUweights, jets.JetEnergyCorrection, fatjets.FatJetEnergyCorrection_v15, met.BuildGenMetVector,],
                 samples=["data"],
             ),
         )
