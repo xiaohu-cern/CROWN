@@ -831,10 +831,10 @@ JetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                 }
             }
             pt_values_corrected.at(i) *= pt_scale_sf;
-            Logger::get("JetEnergyScaleShift")
-                ->debug("Shifting jet pt from {} to {} ",
-                        pt_values_corrected.at(i) / pt_scale_sf,
-                        pt_values_corrected.at(i));
+            // Logger::get("JetEnergyScaleShift")
+            //     ->debug("Shifting jet pt from {} to {} ",
+            //             pt_values_corrected.at(i) / pt_scale_sf,
+            //             pt_values_corrected.at(i));
 
             // if (pt_values_corrected.at(i)>15.0), this
             // correction should be propagated to MET
@@ -846,8 +846,8 @@ JetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
         // Loop to check if any non-zero jet_veto_sf_value exists
         for (int i = 0; i < pt_values.size(); i++) {
             float jet_veto_sf_value = 0 ;
-            Logger::get("JetEnergyResolution")
-                ->debug("checking jet veto map for index {} ", i);
+            // Logger::get("JetEnergyResolution")
+            //     ->debug("checking jet veto map for index {} ", i);
             // https://cms-jerc.web.cern.ch/Recommendations/#2024
             if (pt_values.at(i) > 15 && (chEmEF_values.at(i) + neEmEF_values.at(i) < 0.9) && (passJetIdTightLepVeto_values.at(i) == true)) {
                 jet_veto_sf_value = jet_veto_SF(eta_values.at(i), phi_values.at(i));
@@ -876,15 +876,16 @@ JetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                 bool reapplyJES,
                 const std::vector<std::string> &jes_shift_sources,
                 const int &jes_shift, const std::string &jer_shift,
-                const std::string &jec_file, const std::string &jer_tag,
+                const std::string &jec_file1, const std::string &jer_tag,
                 const std::string &jes_tag, const std::string &jec_algo,
-                const std::string &jet_veto_map, const std::string &jet_veto_tag) {
+                const std::string &jet_veto_map, const std::string &jet_veto_tag, const std::string &year_id, bool include_phi) {
     // identifying jet radius from algorithm
     float jet_dR = 0.4;
     if (jec_algo.find("AK8") != std::string::npos) {
         jet_dR = 0.8;
     }
     // loading JES variations
+    std::string jec_file = jec_file1;
     std::vector<std::shared_ptr<const correction::Correction>>
         JetEnergyScaleShifts;
     for (const auto &source : jes_shift_sources) {
@@ -897,19 +898,36 @@ JetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
         }
     };
     // loading jet energy correction scale factor evaluation function
-    auto JES_evaluator =
-        correction::CorrectionSet::from_file(jec_file)->compound().at(
-            jes_tag + "_L1L2L3Res_" + jec_algo); /// Following previous era, L1L2L3Res is used.
-    auto JetEnergyScaleSF = [JES_evaluator, jes_tag](const float area, const float eta,
+    auto JES_evaluator_L1FastJet =
+        correction::CorrectionSet::from_file(jec_file)->at(jes_tag + "_L1FastJet_" + jec_algo);
+    auto JetEnergyScaleSF_L1FastJet = [JES_evaluator_L1FastJet, jes_tag](const float area, const float eta,
                                             const float pt, const float rho) {
         if (std::abs(eta) < 4.7) {
             if (jes_tag.find("Summer24") != std::string::npos) {
                 if (std::abs(eta) < 2.5 && std::abs(eta) > 2 && pt < 30) {
-                    return JES_evaluator->evaluate({area, eta, 30, rho});
+                    return JES_evaluator_L1FastJet->evaluate({area, eta, 30.f, rho});
                 }
-                else return JES_evaluator->evaluate({area, eta, pt, rho});
+                else return JES_evaluator_L1FastJet->evaluate({area, eta, pt, rho});
             }
-            else return JES_evaluator->evaluate({area, eta, pt, rho});
+            else return JES_evaluator_L1FastJet->evaluate({area, eta, pt, rho});
+        } else {
+            return 1.0;
+        }
+    };
+    auto JES_evaluator_L2Relative =
+        correction::CorrectionSet::from_file(jec_file)->at(jes_tag + "_L2Relative_" + jec_algo); 
+    auto JetEnergyScaleSF_L2Relative = [JES_evaluator_L2Relative, jes_tag, include_phi](const float eta, const float phi, const float pt) {
+        if (std::abs(eta) < 4.7) {
+            if (include_phi) {
+                if (jes_tag.find("Summer24") != std::string::npos) {
+                    if (std::abs(eta) < 2.5 && std::abs(eta) > 2 && pt < 30) {
+                        return JES_evaluator_L2Relative->evaluate({eta, phi, 30.f});
+                    }
+                    else return JES_evaluator_L2Relative->evaluate({eta, phi, pt});
+                }
+                else return JES_evaluator_L2Relative->evaluate({eta, phi, pt});
+            }
+            else return JES_evaluator_L2Relative->evaluate({eta, pt});
         } else {
             return 1.0;
         }
@@ -931,21 +949,16 @@ JetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
     auto JER_SF_evaluator = correction::CorrectionSet::from_file(jec_file)->at(
         jer_tag + "_ScaleFactor_" + jec_algo);
     auto JetEnergyResolutionSF =
-        [JER_SF_evaluator](const float eta, float pt, const std::string jer_shift) {
-            try{ 
-                // annoyingly the 2022 EE has 3 inputs?
-                if (std::abs(eta) < 4.7) {
-                    return JER_SF_evaluator->evaluate({eta, jer_shift});
-                } else {
-                    return 1.0;
-                }
-            }
-            catch (const std::exception&) {
-            if (std::abs(eta) < 4.7) {
-                return JER_SF_evaluator->evaluate({eta, pt, jer_shift});
-            } else {
-                return 1.0;
-            }
+        [JER_SF_evaluator, year_id]
+        (float eta,float pt,const std::string& jer_shift)
+    {
+        if (std::abs(eta) >= 4.7)
+            return 1.0;
+        else {
+            // if (year_id == "2025")
+            return JER_SF_evaluator->evaluate({eta, pt});
+
+            // return JER_SF_evaluator->evaluate({eta, pt, jer_shift});
         }
     };
     // loading jet veto maps
@@ -965,10 +978,9 @@ JetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                 return 0.0;
             }
     };
-
     // lambda run with dataframe
     auto JetEnergyCorrectionLambda = [reapplyJES, JetEnergyScaleShifts,
-                                      JetEnergyScaleSF, JetEnergyResolution,
+                                      JetEnergyScaleSF_L1FastJet, JetEnergyScaleSF_L2Relative, JetEnergyResolution,
                                       JetEnergyResolutionSF, jes_shift_sources,
                                       jes_shift, jer_shift, jet_dR, jet_veto_SF](
                                          const ROOT::RVec<float> &pt_values,
@@ -998,13 +1010,14 @@ JetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
             if (reapplyJES) {
                 // reapplying the JES correction
                 float raw_pt = pt_values.at(i) * (1 - rawFactor_values.at(i));
-                float corr = JetEnergyScaleSF(
-                    area_values.at(i), eta_values.at(i), raw_pt, rho_value);
-                corr_pt = raw_pt * corr;
-                Logger::get("JetEnergyScale")
-                    ->debug("reapplying JE scale: orig. jet pt {} to raw "
-                            "jet pt {} to recorr. jet pt {}",
-                            pt_values.at(i), raw_pt, corr_pt);
+                float corr1 = JetEnergyScaleSF_L1FastJet(area_values.at(i), eta_values.at(i), raw_pt, rho_value);
+                corr_pt = raw_pt * corr1;
+                float corr2 = JetEnergyScaleSF_L2Relative(eta_values.at(i), phi_values.at(i), corr_pt);
+                corr_pt = corr_pt * corr2;
+                // Logger::get("JetEnergyScale")
+                //     ->debug("reapplying JE scale: orig. jet pt {} to raw "
+                //             "jet pt {} to recorr. jet pt {}",
+                //             pt_values.at(i), raw_pt, corr_pt);
             }
             pt_values_corrected.push_back(corr_pt);
 
@@ -1012,25 +1025,27 @@ JetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
             // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
             float reso = JetEnergyResolution(
                 eta_values.at(i), pt_values_corrected.at(i), rho_value);
-            float resoSF = JetEnergyResolutionSF(eta_values.at(i), pt_values.at(i), jer_shift);
-            Logger::get("JetEnergyResolution")
-                ->debug("Calculate JER {}:  SF: {} resolution: {} ", jer_shift,
-                        resoSF, reso);
+
+            float resoSF = JetEnergyResolutionSF(eta_values.at(i), pt_values_corrected.at(i), jer_shift);
+
+            // Logger::get("JetEnergyResolution")
+            //     ->debug("Calculate JER {}:  SF: {} resolution: {} ", jer_shift,
+            //             resoSF, reso);
             // gen jet matching algorithm for JER
             ROOT::Math::RhoEtaPhiVectorF jet(
                 pt_values_corrected.at(i), eta_values.at(i), phi_values.at(i));
             float genjetpt = -1.0;
-            Logger::get("JetEnergyResolution")
-                ->debug("Going to smear jet:  Eta: {} Phi: {} ", jet.Eta(),
-                        jet.Phi());
+            // Logger::get("JetEnergyResolution")
+            //     ->debug("Going to smear jet:  Eta: {} Phi: {} ", jet.Eta(),
+            //             jet.Phi());
             double min_dR = std::numeric_limits<double>::infinity();
             for (int j = 0; j < gen_pt_values.size(); j++) {
                 ROOT::Math::RhoEtaPhiVectorF genjet(gen_pt_values.at(j),
                                                     gen_eta_values.at(j),
                                                     gen_phi_values.at(j));
-                Logger::get("JetEnergyResolution")
-                    ->debug("Checking gen Jet:  Eta: {} Phi: {}", genjet.Eta(),
-                            genjet.Phi());
+                // Logger::get("JetEnergyResolution")
+                //     ->debug("Checking gen Jet:  Eta: {} Phi: {}", genjet.Eta(),
+                //             genjet.Phi());
                 auto deltaR = ROOT::Math::VectorUtil::DeltaR(jet, genjet);
                 if (deltaR > min_dR)
                     continue;
@@ -1044,23 +1059,23 @@ JetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
             // if jet matches a gen jet scaling method is applied,
             // otherwise stochastic method
             if (genjetpt > 0.0) {
-                Logger::get("JetEnergyResolution")
-                    ->debug("Found gen jet for hybrid smearing method");
+                // Logger::get("JetEnergyResolution")
+                //     ->debug("Found gen jet for hybrid smearing method");
                 double shift = (resoSF - 1.0) *
                                (pt_values_corrected.at(i) - genjetpt) /
                                pt_values_corrected.at(i);
                 pt_values_corrected.at(i) *= std::max(0.0, 1.0 + shift);
             } else {
-                Logger::get("JetEnergyResolution")
-                    ->debug("No gen jet found. Applying stochastic smearing.");
+                // Logger::get("JetEnergyResolution")
+                //     ->debug("No gen jet found. Applying stochastic smearing.");
                 double shift = randm.Gaus(0, reso) *
                                std::sqrt(std::max(resoSF * resoSF - 1., 0.0));
                 // if need, turn off the random for shift
                 pt_values_corrected.at(i) *= std::max(0.0, 1.0 + shift);
             }
-            Logger::get("JetEnergyResolution")
-                ->debug("Shifting jet pt from {} to {} ", corr_pt,
-                        pt_values_corrected.at(i));
+            // Logger::get("JetEnergyResolution")
+            //     ->debug("Shifting jet pt from {} to {} ", corr_pt,
+            //             pt_values_corrected.at(i));
 
             // apply uncertainty shifts related to the jet energy scale
             // mostly following
@@ -1076,10 +1091,10 @@ JetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                             jes_shift * JetEnergyScaleShifts.at(0)->evaluate(
                                             {eta_values.at(i),
                                              pt_values_corrected.at(i)});
-                        Logger::get("JetEnergyScaleShift")
-                            ->debug("Shifting jet pt by {} for single source "
-                                    "with SF {}",
-                                    jes_shift, pt_scale_sf);
+                        // Logger::get("JetEnergyScaleShift")
+                        //     ->debug("Shifting jet pt by {} for single source "
+                        //             "with SF {}",
+                        //             jes_shift, pt_scale_sf);
                     } else {
                         float quad_sum = 0.;
                         for (const auto &evaluator : JetEnergyScaleShifts) {
@@ -1090,22 +1105,14 @@ JetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                                          2.0);
                         }
                         pt_scale_sf = 1. + jes_shift * std::sqrt(quad_sum);
-                        Logger::get("JetEnergyScaleShift")
-                            ->debug("Shifting jet pt by {} for multiple "
-                                    "sources with SF {}",
-                                    jes_shift, pt_scale_sf);
+                        // Logger::get("JetEnergyScaleShift")
+                        //     ->debug("Shifting jet pt by {} for multiple "
+                        //             "sources with SF {}",
+                        //             jes_shift, pt_scale_sf);
                     }
                 }
             }
             pt_values_corrected.at(i) *= pt_scale_sf;
-            Logger::get("JetEnergyScaleShift")
-                ->debug("Shifting jet pt from {} to {} ",
-                        pt_values_corrected.at(i) / pt_scale_sf,
-                        pt_values_corrected.at(i));
-
-            // if (pt_values_corrected.at(i)>15.0), this
-            // correction should be propagated to MET
-            // (requirement for type I corrections)
         }
         // // apply jet veto map. If any jet lies within jet veto map, reject the events (jet?). 
         // // at the object level it's not straightforward to veto the events, so we return a RVec of pt -999 for all jets 
@@ -1129,6 +1136,163 @@ JetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
     auto df1 = df.Define(corrected_jet_pt, JetEnergyCorrectionLambda,
                          {jet_pt, jet_eta, jet_phi, jet_area, jet_rawFactor,
                           jetTightLepVetoID, gen_jet_pt, gen_jet_eta, gen_jet_phi, rho, jet_chEmEF, jet_neEmEF});
+    return df1;
+}
+
+
+ROOT::RDF::RNode
+JetPtCorrection_v15_data(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
+                const std::string &jet_pt, const std::string &jet_eta,
+                const std::string &jet_phi, const std::string &jet_area,
+                const std::string &jet_rawFactor, const std::string &jetTightLepVetoID,
+                const std::string &jet_chEmEF, const std::string &jet_neEmEF, const std::string &rho, const std::string &data_run,
+                bool reapplyJES,
+                const std::string &jec_file1,
+                const std::string &jes_tag, const std::string &jec_algo,
+                const std::string &jet_veto_map, const std::string &jet_veto_tag, const std::string &year_id, bool include_phi) {
+    // identifying jet radius from algorithm
+    float jet_dR = 0.4;
+    if (jec_algo.find("AK8") != std::string::npos) {
+        jet_dR = 0.8;
+    }
+    // loading JES variations
+    std::string jec_file = jec_file1;
+    // loading jet energy correction scale factor evaluation function
+
+    auto JES_evaluator_L1FastJet =
+        correction::CorrectionSet::from_file(jec_file)->at(jes_tag + "_L1FastJet_" + jec_algo);
+    auto JetEnergyScaleSF_L1FastJet = [JES_evaluator_L1FastJet, jes_tag](const float area, const float eta,
+                                            const float pt, const float rho) {
+        if (std::abs(eta) < 4.7) {
+            if (jes_tag.find("Summer24") != std::string::npos) {
+                if (std::abs(eta) < 2.5 && std::abs(eta) > 2 && pt < 30) {
+                    return JES_evaluator_L1FastJet->evaluate({area, eta, 30.f, rho});
+                }
+                else return JES_evaluator_L1FastJet->evaluate({area, eta, pt, rho});
+            }
+            else return JES_evaluator_L1FastJet->evaluate({area, eta, pt, rho});
+        } else {
+            return 1.0;
+        }
+    };
+
+    auto JES_evaluator_L2Relative =
+        correction::CorrectionSet::from_file(jec_file)->at(
+            jes_tag + "_L2Relative_" + jec_algo); /// Following previous era, L1L2L3Res is used.
+    auto JetEnergyScaleSF_L2Relative = [JES_evaluator_L2Relative, jes_tag, include_phi](const float eta, const float phi, const float pt) {
+        if (std::abs(eta) < 4.7) {
+            if (include_phi) {
+                if (jes_tag.find("Summer24") != std::string::npos) {
+                    if (std::abs(eta) < 2.5 && std::abs(eta) > 2 && pt < 30) {
+                        return JES_evaluator_L2Relative->evaluate({eta, phi, 30.f});
+                    }
+                    else return JES_evaluator_L2Relative->evaluate({eta, phi, pt});
+                }
+                else return JES_evaluator_L2Relative->evaluate({eta, phi, pt});
+            }
+            else return JES_evaluator_L2Relative->evaluate({eta, pt});
+        } else {
+            return 1.0;
+        }
+    };
+
+    auto JES_evaluator_L2L3Residual =
+        correction::CorrectionSet::from_file(jec_file)->at(
+            jes_tag + "_L2L3Residual_" + jec_algo); /// Following previous era, L1L2L3Res is used.
+    auto JetEnergyScaleSF_L2L3Residual = [JES_evaluator_L2L3Residual, jes_tag](const int run, const float eta, const float pt) {
+        if (std::abs(eta) < 4.7) {
+            if (jes_tag.find("Summer24") != std::string::npos) {
+                if (std::abs(eta) < 2.5 && std::abs(eta) > 2 && pt < 30) {
+                    return JES_evaluator_L2L3Residual->evaluate({run, eta, 30.f});
+                }
+                else return JES_evaluator_L2L3Residual->evaluate({run, eta, pt});
+            }
+            else return JES_evaluator_L2L3Residual->evaluate({run, eta, pt});
+        } else {
+            return 1.0;
+        }
+    };
+    
+    // loading jet veto maps
+    auto jet_veto_map_evaluator = correction::CorrectionSet::from_file(jet_veto_map)->at(
+        jet_veto_tag);
+    auto jet_veto_SF =
+        [jet_veto_map_evaluator](const float eta, const float phi) {
+            if (std::abs(eta) <= 5.191) { // 5.191 is the bin dege of the veto map
+                auto tmp_phi  = phi;
+                if (phi > 3.141592653589793) tmp_phi = phi - (3.141592653589793 * 2);
+                if (phi < -3.141592653589793) tmp_phi = phi + (3.141592653589793 * 2);
+                // Non-zero value for (eta, phi) indicates that the region is vetoed.
+                // link: https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
+                return jet_veto_map_evaluator->evaluate({ "jetvetomap", eta, tmp_phi});
+            } else {
+                // if the jet eta out of the bin edge, no need to do the veto
+                return 0.0;
+            }
+    };
+
+    // lambda run with dataframe
+    auto JetEnergyCorrectionLambda = [reapplyJES, JetEnergyScaleSF_L1FastJet, JetEnergyScaleSF_L2L3Residual, JetEnergyScaleSF_L2Relative, jet_veto_SF](
+                                         const ROOT::RVec<float> &pt_values,
+                                         const ROOT::RVec<float> &eta_values,
+                                         const ROOT::RVec<float> &phi_values,
+                                         const ROOT::RVec<float> &area_values,
+                                         const ROOT::RVec<float>
+                                             &rawFactor_values,
+                                         const ROOT::RVec<bool> &jetTightLepVetoID_values,
+                                         const ROOT::RVec<float> &chEmEF_values,
+                                         const ROOT::RVec<float> &neEmEF_values,
+                                         const float &rho_value,
+                                         const unsigned int &data_run) {
+        // jetID bug in run3
+        // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetID13p6TeV#nanoAOD_Flags 
+        /// Mingxuan added to fix bug: ATTENTION! JetVeto should use JetTightLepVeto instead of JetTight. Another loop to do this. Details at: https://cms-jerc.web.cern.ch/Recommendations/#run-3
+        
+        // random value generator for jet smearing
+        TRandom3 randm = TRandom3(12345);
+        ROOT::RVec<float> pt_values_corrected;
+        for (int i = 0; i < pt_values.size(); i++) {
+            float corr_pt = pt_values.at(i);
+            if (reapplyJES) {
+                // reapplying the JES correction
+                float raw_pt = pt_values.at(i) * (1 - rawFactor_values.at(i));
+                float corr1 = JetEnergyScaleSF_L1FastJet(area_values.at(i), eta_values.at(i), raw_pt, rho_value);
+                corr_pt = raw_pt * corr1;
+                float corr2 = JetEnergyScaleSF_L2Relative(eta_values.at(i), phi_values.at(i), corr_pt);
+                corr_pt = corr_pt * corr2;
+                float corr3 = JetEnergyScaleSF_L2L3Residual(data_run, eta_values.at(i), corr_pt);
+                corr_pt = corr_pt * corr3;
+                Logger::get("JetEnergyScale")
+                    ->debug("reapplying JE scale: orig. jet pt {} to raw "
+                            "jet pt {} to recorr. jet pt {}",
+                            pt_values.at(i), raw_pt, corr_pt);
+            }
+            pt_values_corrected.push_back(corr_pt);
+
+            ROOT::Math::RhoEtaPhiVectorF jet(
+                pt_values_corrected.at(i), eta_values.at(i), phi_values.at(i));
+            // if jet matches a gen jet scaling method is applied,
+            // otherwise stochastic method
+        }
+        // // apply jet veto map. If any jet lies within jet veto map, reject the events (jet?). 
+        // // at the object level it's not straightforward to veto the events, so we return a RVec of pt -999 for all jets 
+        float pt_veto = -999.0;
+        // Loop to check if any non-zero jet_veto_sf_value exists
+        for (int i = 0; i < pt_values.size(); i++) {
+            float jet_veto_sf_value = 0 ;
+            if (pt_values.at(i) > 15 && (chEmEF_values.at(i) + neEmEF_values.at(i) < 0.9) && (jetTightLepVetoID_values.at(i) == true)) {
+                jet_veto_sf_value = jet_veto_SF(eta_values.at(i), phi_values.at(i));
+            }
+            if (jet_veto_sf_value != 0) {
+                // find a non-zero value, since the jet in the veto regions, enforce the jet pt == -999.0
+                pt_values_corrected.at(i) = pt_veto;
+            }
+        }
+        return pt_values_corrected;
+    };
+    auto df1 = df.Define(corrected_jet_pt, JetEnergyCorrectionLambda,
+                         {jet_pt, jet_eta, jet_phi, jet_area, jet_rawFactor,
+                          jetTightLepVetoID, jet_chEmEF, jet_neEmEF, rho, data_run});
     return df1;
 }
 
@@ -1165,13 +1329,23 @@ FatJetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
         }
     };
     // loading jet energy correction scale factor evaluation function
-    auto JES_evaluator =
+    auto JES_evaluator_L1FastJet =
         correction::CorrectionSet::from_file(jec_file)->compound().at(
-            jes_tag + "_L1L2L3Res_" + jec_algo);
-    auto JetEnergyScaleSF = [JES_evaluator](const float area, const float eta,
+            jes_tag + "_L1FastJet_" + jec_algo);
+    auto JetEnergyScaleSF_L1FastJet = [JES_evaluator_L1FastJet](const float area, const float eta,
                                             const float pt, const float rho) {
         if (std::abs(eta) < 4.7) {
-            return JES_evaluator->evaluate({area, eta, pt, rho});
+            return JES_evaluator_L1FastJet->evaluate({area, eta, pt, rho});
+        } else {
+            return 1.0;
+        }
+    };
+    auto JES_evaluator_L2Relative =
+        correction::CorrectionSet::from_file(jec_file)->compound().at(
+            jes_tag + "_L2Relative_" + jec_algo);
+    auto JetEnergyScaleSF_L2Relative = [JES_evaluator_L2Relative](const float eta, const float phi, const float pt) {
+        if (std::abs(eta) < 4.7) {
+            return JES_evaluator_L2Relative->evaluate({eta, phi, pt});
         } else {
             return 1.0;
         }
@@ -1230,7 +1404,7 @@ FatJetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
 
     // lambda run with dataframe
     auto JetEnergyCorrectionLambda = [reapplyJES, JetEnergyScaleShifts,
-                                      JetEnergyScaleSF, JetEnergyResolution,
+                                      JetEnergyScaleSF_L1FastJet, JetEnergyScaleSF_L2Relative, JetEnergyResolution,
                                       JetEnergyResolutionSF, jes_shift_sources,
                                       jes_shift, jer_shift, jet_dR, jet_veto_SF](
                                          const ROOT::RVec<float> &pt_values,
@@ -1254,13 +1428,11 @@ FatJetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
             if (reapplyJES) {
                 // reapplying the JES correction
                 float raw_pt = pt_values.at(i) * (1 - rawFactor_values.at(i));
-                float corr = JetEnergyScaleSF(
+                float corr1 = JetEnergyScaleSF_L1FastJet(
                     area_values.at(i), eta_values.at(i), raw_pt, rho_value);
-                corr_pt = raw_pt * corr;
-                Logger::get("JetEnergyScale")
-                    ->debug("reapplying JE scale: orig. jet pt {} to raw "
-                            "jet pt {} to recorr. jet pt {}",
-                            pt_values.at(i), raw_pt, corr_pt);
+                float corr2 = JetEnergyScaleSF_L2Relative(
+                    eta_values.at(i), phi_values.at(i), corr_pt);
+                corr_pt = corr_pt * corr2;
             }
             pt_values_corrected.push_back(corr_pt);
 
@@ -1268,7 +1440,7 @@ FatJetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
             // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
             float reso = JetEnergyResolution(
                 eta_values.at(i), pt_values_corrected.at(i), rho_value);
-            float resoSF = JetEnergyResolutionSF(eta_values.at(i), pt_values.at(i), jer_shift);
+            float resoSF = JetEnergyResolutionSF(eta_values.at(i), pt_values_corrected.at(i), jer_shift);
             Logger::get("JetEnergyResolution")
                 ->debug("Calculate JER {}:  SF: {} resolution: {} ", jer_shift,
                         resoSF, reso);
@@ -1410,15 +1582,16 @@ FatJetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                 bool reapplyJES,
                 const std::vector<std::string> &jes_shift_sources,
                 const int &jes_shift, const std::string &jer_shift,
-                const std::string &jec_file, const std::string &jer_tag,
+                const std::string &jec_file1, const std::string &jer_tag,
                 const std::string &jes_tag, const std::string &jec_algo,
-                const std::string &jet_veto_map, const std::string &jet_veto_tag) {
+                const std::string &jet_veto_map, const std::string &jet_veto_tag, const std::string &year_id, bool include_phi) {
     // identifying jet radius from algorithm
     float jet_dR = 0.4;
     if (jec_algo.find("AK8") != std::string::npos) {
         jet_dR = 0.8;
     }
     // loading JES variations
+    std::string jec_file = jec_file1;
     std::vector<std::shared_ptr<const correction::Correction>>
         JetEnergyScaleShifts;
     for (const auto &source : jes_shift_sources) {
@@ -1431,19 +1604,38 @@ FatJetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
         }
     };
     // loading jet energy correction scale factor evaluation function
-    auto JES_evaluator =
-        correction::CorrectionSet::from_file(jec_file)->compound().at(
-            jes_tag + "_L1L2L3Res_" + jec_algo); /// Following previous era, L1L2L3Res is used.
-    auto JetEnergyScaleSF = [JES_evaluator, jes_tag](const float area, const float eta,
+    auto JES_evaluator_L1FastJet =
+        correction::CorrectionSet::from_file(jec_file)->at(
+            jes_tag + "_L1FastJet_" + jec_algo); /// Following previous era, L1L2L3Res is used.
+    auto JetEnergyScaleSF_L1FastJet = [JES_evaluator_L1FastJet, jes_tag, include_phi](const float area, const float eta,
                                             const float pt, const float rho) {
         if (std::abs(eta) < 4.7) {
             if (jes_tag.find("Summer24") != std::string::npos) {
                 if (std::abs(eta) < 2.5 && std::abs(eta) > 2 && pt < 30) {
-                    return JES_evaluator->evaluate({area, eta, 30, rho});
+                    return JES_evaluator_L1FastJet->evaluate({area, eta, 30.f, rho});
                 }
-                else return JES_evaluator->evaluate({area, eta, pt, rho});
+                else return JES_evaluator_L1FastJet->evaluate({area, eta, pt, rho});
             }
-            else return JES_evaluator->evaluate({area, eta, pt, rho});
+            else return JES_evaluator_L1FastJet->evaluate({area, eta, pt, rho});
+        } else {
+            return 1.0;
+        }
+    };
+    auto JES_evaluator_L2Relative =
+        correction::CorrectionSet::from_file(jec_file)->at(
+            jes_tag + "_L2Relative_" + jec_algo); /// Following previous era, L1L2L3Res is used.
+    auto JetEnergyScaleSF_L2Relative = [JES_evaluator_L2Relative, jes_tag, include_phi](const float eta, const float phi, const float pt) {
+        if (std::abs(eta) < 4.7) {
+            if (include_phi) {
+                if (jes_tag.find("Summer24") != std::string::npos) {
+                    if (std::abs(eta) < 2.5 && std::abs(eta) > 2 && pt < 30) {
+                        return JES_evaluator_L2Relative->evaluate({eta, phi, 30.f});
+                    }
+                    else return JES_evaluator_L2Relative->evaluate({eta, phi, pt});
+                }
+                else return JES_evaluator_L2Relative->evaluate({eta, phi, pt});
+            }
+            else return JES_evaluator_L2Relative->evaluate({eta, pt});
         } else {
             return 1.0;
         }
@@ -1465,21 +1657,18 @@ FatJetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
     auto JER_SF_evaluator = correction::CorrectionSet::from_file(jec_file)->at(
         jer_tag + "_ScaleFactor_" + jec_algo);
     auto JetEnergyResolutionSF =
-        [JER_SF_evaluator](const float eta, float pt, const std::string jer_shift) {
-            try{ 
-                // annoyingly the 2022 EE has 3 inputs?
-                if (std::abs(eta) < 4.7) {
-                    return JER_SF_evaluator->evaluate({eta, jer_shift});
-                } else {
-                    return 1.0;
-                }
-            }
-            catch (const std::exception&) {
-            if (std::abs(eta) < 4.7) {
-                return JER_SF_evaluator->evaluate({eta, pt, jer_shift});
-            } else {
-                return 1.0;
-            }
+        [JER_SF_evaluator, year_id]
+        (float eta,
+        float pt,
+        const std::string& jer_shift)
+    {
+        if (std::abs(eta) >= 4.7)
+            return 1.0;
+        else {
+            // if (year_id == "2025")
+            return JER_SF_evaluator->evaluate({eta, pt});
+
+            // return JER_SF_evaluator->evaluate({eta, pt, jer_shift});
         }
     };
     // loading jet veto maps
@@ -1502,7 +1691,7 @@ FatJetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
 
     // lambda run with dataframe
     auto JetEnergyCorrectionLambda = [reapplyJES, JetEnergyScaleShifts,
-                                      JetEnergyScaleSF, JetEnergyResolution,
+                                      JetEnergyScaleSF_L1FastJet, JetEnergyScaleSF_L2Relative, JetEnergyResolution,
                                       JetEnergyResolutionSF, jes_shift_sources,
                                       jes_shift, jer_shift, jet_dR, jet_veto_SF](
                                          const ROOT::RVec<float> &pt_values,
@@ -1525,13 +1714,12 @@ FatJetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
             if (reapplyJES) {
                 // reapplying the JES correction
                 float raw_pt = pt_values.at(i) * (1 - rawFactor_values.at(i));
-                float corr = JetEnergyScaleSF(
+                float corr1 = JetEnergyScaleSF_L1FastJet(
                     area_values.at(i), eta_values.at(i), raw_pt, rho_value);
-                corr_pt = raw_pt * corr;
-                Logger::get("JetEnergyScale")
-                    ->debug("reapplying JE scale: orig. jet pt {} to raw "
-                            "jet pt {} to recorr. jet pt {}",
-                            pt_values.at(i), raw_pt, corr_pt);
+                corr_pt = raw_pt * corr1;
+                float corr2 = JetEnergyScaleSF_L2Relative(
+                    eta_values.at(i), phi_values.at(i), corr_pt);
+                corr_pt = corr_pt * corr2;
             }
             pt_values_corrected.push_back(corr_pt);
 
@@ -1539,7 +1727,7 @@ FatJetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
             // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
             float reso = JetEnergyResolution(
                 eta_values.at(i), pt_values_corrected.at(i), rho_value);
-            float resoSF = JetEnergyResolutionSF(eta_values.at(i), pt_values.at(i), jer_shift);
+            float resoSF = JetEnergyResolutionSF(eta_values.at(i), pt_values_corrected.at(i), jer_shift);
             Logger::get("JetEnergyResolution")
                 ->debug("Calculate JER {}:  SF: {} resolution: {} ", jer_shift,
                         resoSF, reso);
@@ -1643,7 +1831,9 @@ FatJetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
             Logger::get("JetEnergyResolution")
                 ->debug("checking jet veto map for index {} ", i);
             // https://cms-jerc.web.cern.ch/Recommendations/#2024
-            jet_veto_sf_value = jet_veto_SF(eta_values.at(i), phi_values.at(i));
+            if (pt_values.at(i) > 15) { /////////// a set of "minimal selection" is defined in wiki, however, though our selection is not exactly the same, our selection is more strict.
+                jet_veto_sf_value = jet_veto_SF(eta_values.at(i), phi_values.at(i));
+            }
             if (jet_veto_sf_value != 0) {
                 // find a non-zero value, since the jet in the veto regions, enforce the jet pt == -999.0
                 pt_values_corrected.at(i) = pt_veto;
@@ -1654,6 +1844,147 @@ FatJetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
     auto df1 = df.Define(corrected_jet_pt, JetEnergyCorrectionLambda,
                          {jet_pt, jet_eta, jet_phi, jet_area, jet_rawFactor,
                           gen_jet_pt, gen_jet_eta, gen_jet_phi, rho});
+    return df1;
+}
+
+ROOT::RDF::RNode
+FatJetPtCorrection_v15_data(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
+                const std::string &jet_pt, const std::string &jet_eta,
+                const std::string &jet_phi, const std::string &jet_area,
+                const std::string &jet_rawFactor, const std::string &rho, const std::string &data_run,
+                bool reapplyJES,
+                const std::string &jec_file1,
+                const std::string &jes_tag, const std::string &jec_algo,
+                const std::string &jet_veto_map, const std::string &jet_veto_tag, const std::string &year_id, bool include_phi) {
+    // identifying jet radius from algorithm
+    float jet_dR = 0.4;
+    if (jec_algo.find("AK8") != std::string::npos) {
+        jet_dR = 0.8;
+    }
+    // loading JES variations
+    std::string jec_file = jec_file1;
+    // loading jet energy correction scale factor evaluation function
+
+    auto JES_evaluator_L1FastJet =
+        correction::CorrectionSet::from_file(jec_file)->at(
+            jes_tag + "_L1FastJet_" + jec_algo); /// Following previous era, L1L2L3Res is used.
+    auto JetEnergyScaleSF_L1FastJet = [JES_evaluator_L1FastJet, jes_tag, include_phi](const float area, const float eta,
+                                            const float pt, const float rho) {
+        if (std::abs(eta) < 4.7) {
+            if (jes_tag.find("Summer24") != std::string::npos) {
+                if (std::abs(eta) < 2.5 && std::abs(eta) > 2 && pt < 30) {
+                    return JES_evaluator_L1FastJet->evaluate({area, eta, 30.f, rho});
+                }
+                else return JES_evaluator_L1FastJet->evaluate({area, eta, pt, rho});
+            }
+            else return JES_evaluator_L1FastJet->evaluate({area, eta, pt, rho});
+        } else {
+            return 1.0;
+        }
+    };
+
+    auto JES_evaluator_L2Relative =
+        correction::CorrectionSet::from_file(jec_file)->at(
+            jes_tag + "_L2Relative_" + jec_algo); /// Following previous era, L1L2L3Res is used.
+    auto JetEnergyScaleSF_L2Relative = [JES_evaluator_L2Relative, jes_tag, include_phi](const float eta, const float phi, const float pt) {
+        if (std::abs(eta) < 4.7) {
+            if (include_phi) {
+                if (jes_tag.find("Summer24") != std::string::npos) {
+                    if (std::abs(eta) < 2.5 && std::abs(eta) > 2 && pt < 30) {
+                        return JES_evaluator_L2Relative->evaluate({eta, phi, 30.f});
+                    }
+                    else return JES_evaluator_L2Relative->evaluate({eta, phi, pt});
+                }
+                else return JES_evaluator_L2Relative->evaluate({eta, phi, pt});
+            }
+            else return JES_evaluator_L2Relative->evaluate({eta, pt});
+        } else {
+            return 1.0;
+        }
+    };
+
+    auto JES_evaluator_L2L3Residual =
+        correction::CorrectionSet::from_file(jec_file)->at(
+            jes_tag + "_L2L3Residual_" + jec_algo); /// Following previous era, L1L2L3Res is used.
+    auto JetEnergyScaleSF_L2L3Residual = [JES_evaluator_L2L3Residual, jes_tag](const int run, const float eta, const float pt) {
+        if (std::abs(eta) < 4.7) {
+            if (jes_tag.find("Summer24") != std::string::npos) {
+                if (std::abs(eta) < 2.5 && std::abs(eta) > 2 && pt < 30) {
+                    return JES_evaluator_L2L3Residual->evaluate({run, eta, 30.f});
+                }
+                else return JES_evaluator_L2L3Residual->evaluate({run, eta, pt});
+            }
+            else return JES_evaluator_L2L3Residual->evaluate({run, eta, pt});
+        } else {
+            return 1.0;
+        }
+    };
+    // loading jet veto maps
+    auto jet_veto_map_evaluator = correction::CorrectionSet::from_file(jet_veto_map)->at(
+        jet_veto_tag);
+    auto jet_veto_SF =
+        [jet_veto_map_evaluator](const float eta, const float phi) {
+            if (std::abs(eta) <= 5.191) { // 5.191 is the bin dege of the veto map
+                auto tmp_phi  = phi;
+                if (phi > 3.141592653589793) tmp_phi = phi - (3.141592653589793 * 2);
+                if (phi < -3.141592653589793) tmp_phi = phi + (3.141592653589793 * 2);
+                // Non-zero value for (eta, phi) indicates that the region is vetoed.
+                // link: https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
+                return jet_veto_map_evaluator->evaluate({ "jetvetomap", eta, tmp_phi});
+            } else {
+                // if the jet eta out of the bin edge, no need to do the veto
+                return 0.0;
+            }
+    };
+
+    // lambda run with dataframe
+    auto JetEnergyCorrectionLambda = [reapplyJES,JetEnergyScaleSF_L1FastJet, JetEnergyScaleSF_L2Relative, JetEnergyScaleSF_L2L3Residual, jet_veto_SF](
+                                         const ROOT::RVec<float> &pt_values,
+                                         const ROOT::RVec<float> &eta_values,
+                                         const ROOT::RVec<float> &phi_values,
+                                         const ROOT::RVec<float> &area_values,
+                                         const ROOT::RVec<float>
+                                             &rawFactor_values,
+                                         const float &rho_values,
+                                         const unsigned int &data_run) {        
+        // random value generator for jet smearing
+        TRandom3 randm = TRandom3(12345);
+        ROOT::RVec<float> pt_values_corrected;
+        for (int i = 0; i < pt_values.size(); i++) {
+            float corr_pt = pt_values.at(i);
+            if (reapplyJES) {
+                // reapplying the JES correction
+                float raw_pt = pt_values.at(i) * (1 - rawFactor_values.at(i));
+                float corr1 = JetEnergyScaleSF_L1FastJet(area_values.at(i), eta_values.at(i), raw_pt, rho_values);
+                corr_pt = raw_pt * corr1;
+                float corr2 = JetEnergyScaleSF_L2Relative(eta_values.at(i), phi_values.at(i), corr_pt);
+                corr_pt = corr_pt * corr2;
+                float corr3 = JetEnergyScaleSF_L2L3Residual(data_run, eta_values.at(i), corr_pt);
+                corr_pt = corr_pt * corr3;
+            }
+            pt_values_corrected.push_back(corr_pt);
+        }
+
+        // // apply jet veto map. If any jet lies within jet veto map, reject the events (jet?). 
+        // // at the object level it's not straightforward to veto the events, so we return a RVec of pt -999 for all jets 
+        float pt_veto = -999.0;
+        // Loop to check if any non-zero jet_veto_sf_value exists
+        for (int i = 0; i < pt_values.size(); i++) {
+            float jet_veto_sf_value = 0 ;
+            Logger::get("JetEnergyResolution")
+                ->debug("checking jet veto map for index {} ", i);
+            // https://cms-jerc.web.cern.ch/Recommendations/#2024
+            if (pt_values.at(i) > 15) {/////////// a set of "minimal selection" is defined in wiki, however, though our selection is not exactly the same, our selection is more strict.
+                jet_veto_sf_value = jet_veto_SF(eta_values.at(i), phi_values.at(i));
+            }
+            if (jet_veto_sf_value != 0) {
+                // find a non-zero value, since the jet in the veto regions, enforce the jet pt == -999.0
+                pt_values_corrected.at(i) = pt_veto;
+            }
+        }
+        return pt_values_corrected;
+    };
+    auto df1 = df.Define(corrected_jet_pt, JetEnergyCorrectionLambda, {jet_pt, jet_eta, jet_phi, jet_area, jet_rawFactor, rho, data_run});
     return df1;
 }
 //////

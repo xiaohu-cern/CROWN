@@ -650,8 +650,8 @@ ROOT::RDF::RNode mvatth_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                     const std::string &sf_file,
                     const std::string &idAlgorithm) {
 
-    Logger::get("muonIdSF")->debug("Setting up functions for muon id sf");
-    Logger::get("muonIdSF")->debug("ID - Name {}", idAlgorithm);
+    // Logger::get("muonIdSF")->debug("Setting up functions for muon id sf");
+    // Logger::get("muonIdSF")->debug("ID - Name {}", idAlgorithm);
     auto evaluator =
         correction::CorrectionSet::from_file(sf_file)->at(idAlgorithm);
     auto df1 = df.Define(

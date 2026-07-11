@@ -97,9 +97,19 @@ JetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                 bool reapplyJES,
                 const std::vector<std::string> &jes_shift_sources,
                 const int &jes_shift, const std::string &jer_shift,
-                const std::string &jec_file, const std::string &jer_tag,
+                const std::string &jec_file1, const std::string &jer_tag,
                 const std::string &jes_tag, const std::string &jec_algo,
-                const std::string &jet_veto_map, const std::string &jet_veto_tag);
+                const std::string &jet_veto_map, const std::string &jet_veto_tag, const std::string &year_id, bool include_phi);
+ROOT::RDF::RNode
+JetPtCorrection_v15_data(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
+                const std::string &jet_pt, const std::string &jet_eta,
+                const std::string &jet_phi, const std::string &jet_area,
+                const std::string &jet_rawFactor, const std::string &jetTightLepVetoID,
+                const std::string &jet_chEmEF, const std::string &jet_neEmEF, const std::string &rho, const std::string &data_run,
+                bool reapplyJES,
+                const std::string &jec_file1,
+                const std::string &jes_tag, const std::string &jec_algo,
+                const std::string &jet_veto_map, const std::string &jet_veto_tag, const std::string &year_id, bool include_phi);
 ROOT::RDF::RNode
 FatJetPtCorrection(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                 const std::string &jet_pt, const std::string &jet_eta,
@@ -123,9 +133,18 @@ FatJetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                 bool reapplyJES,
                 const std::vector<std::string> &jes_shift_sources,
                 const int &jes_shift, const std::string &jer_shift,
-                const std::string &jec_file, const std::string &jer_tag,
+                const std::string &jec_file1, const std::string &jer_tag,
                 const std::string &jes_tag, const std::string &jec_algo,
-                const std::string &jet_veto_map, const std::string &jet_veto_tag);
+                const std::string &jet_veto_map, const std::string &jet_veto_tag, const std::string &year_id, bool include_phi);
+ROOT::RDF::RNode
+FatJetPtCorrection_v15_data(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
+                const std::string &jet_pt, const std::string &jet_eta,
+                const std::string &jet_phi, const std::string &jet_area,
+                const std::string &jet_rawFactor, const std::string &rho, const std::string &data_run,
+                bool reapplyJES,
+                const std::string &jec_file1,
+                const std::string &jes_tag, const std::string &jec_algo,
+                const std::string &jet_veto_map, const std::string &jet_veto_tag, const std::string &year_id, bool include_phi);
 ROOT::RDF::RNode
 JetPtCorrection_run2(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
                 const std::string &jet_pt, const std::string &jet_eta,
