@@ -49,16 +49,33 @@ Create_FatJetTightID_v15 = Producer( ############# This producer is used to crea
 #     scopes=["global"],
 # )
 
-FatJetPtCorrection = Producer(
-    name="FatJetPtCorrection",
-    call="physicsobject::jet::FatJetPtCorrection({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jes_sources}, {fatjet_jes_shift}, {fatjet_jer_shift}, {fatjet_jec_file}, {fatjet_jer_tag}, {fatjet_jes_tag}, {fatjet_jec_algo}, {fatjet_veto_map}, {fatjet_veto_tag})",
+# FatJetPtCorrection = Producer(
+#     name="FatJetPtCorrection",
+#     call="physicsobject::jet::FatJetPtCorrection({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jes_sources}, {fatjet_jes_shift}, {fatjet_jer_shift}, {fatjet_jec_file}, {fatjet_jer_tag}, {fatjet_jes_tag}, {fatjet_jec_algo}, {fatjet_veto_map}, {fatjet_veto_tag})",
+#     input=[
+#         nanoAOD.FatJet_pt,
+#         nanoAOD.FatJet_eta,
+#         nanoAOD.FatJet_phi,
+#         nanoAOD.FatJet_area,
+#         nanoAOD.FatJet_rawFactor,
+#         nanoAOD.FatJet_ID,
+#         nanoAOD.GenJetAK8_pt,
+#         nanoAOD.GenJetAK8_eta,
+#         nanoAOD.GenJetAK8_phi,
+#         nanoAOD.rho,
+#     ],
+#     output=[q.FatJet_pt_corrected],
+#     scopes=["global"],
+# )
+FatJetPtCorrection_v15 = Producer(
+    name="FatJetPtCorrection_v15",
+    call="physicsobject::jet::FatJetPtCorrection_v15({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jes_sources}, {fatjet_jes_shift}, {fatjet_jer_shift}, {fatjet_jec_file}, {fatjet_jer_tag}, {fatjet_jes_tag}, {fatjet_jec_algo}, {fatjet_veto_map}, {fatjet_veto_tag}, {year_id}, {Phi_in_L2Relative})",
     input=[
         nanoAOD.FatJet_pt,
         nanoAOD.FatJet_eta,
         nanoAOD.FatJet_phi,
         nanoAOD.FatJet_area,
         nanoAOD.FatJet_rawFactor,
-        nanoAOD.FatJet_ID,
         nanoAOD.GenJetAK8_pt,
         nanoAOD.GenJetAK8_eta,
         nanoAOD.GenJetAK8_phi,
@@ -67,19 +84,17 @@ FatJetPtCorrection = Producer(
     output=[q.FatJet_pt_corrected],
     scopes=["global"],
 )
-FatJetPtCorrection_v15 = Producer(
-    name="FatJetPtCorrection_v15",
-    call="physicsobject::jet::FatJetPtCorrection_v15({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jes_sources}, {fatjet_jes_shift}, {fatjet_jer_shift}, {fatjet_jec_file}, {fatjet_jer_tag}, {fatjet_jes_tag}, {fatjet_jec_algo}, {fatjet_veto_map}, {fatjet_veto_tag})",
+FatJetPtCorrection_v15_data = Producer(
+    name="FatJetPtCorrection_v15_data",
+    call="physicsobject::jet::FatJetPtCorrection_v15_data({df}, {output}, {input}, {fatjet_reapplyJES}, {fatjet_jec_file}, {fatjet_jes_tag_data}, {fatjet_jec_algo}, {fatjet_veto_map}, {fatjet_veto_tag}, {year_id}, {Phi_in_L2Relative})",
     input=[
         nanoAOD.FatJet_pt,
         nanoAOD.FatJet_eta,
         nanoAOD.FatJet_phi,
         nanoAOD.FatJet_area,
         nanoAOD.FatJet_rawFactor,
-        nanoAOD.GenJetAK8_pt,
-        nanoAOD.GenJetAK8_eta,
-        nanoAOD.GenJetAK8_phi,
         nanoAOD.rho,
+        nanoAOD.run,
     ],
     output=[q.FatJet_pt_corrected],
     scopes=["global"],
@@ -113,21 +128,29 @@ FatJetMassCorrection = Producer(
     output=[q.FatJet_mass_corrected],
     scopes=["global"],
 )
+# FatJetEnergyCorrection = ProducerGroup(
+#     name="FatJetEnergyCorrection",
+#     call=None,
+#     input=None,
+#     output=None,
+#     scopes=["global"],
+#     subproducers=[FatJetPtCorrection, FatJetMassCorrection],
+# )
 FatJetEnergyCorrection = ProducerGroup(
     name="FatJetEnergyCorrection",
     call=None,
     input=None,
     output=None,
     scopes=["global"],
-    subproducers=[FatJetPtCorrection, FatJetMassCorrection],
+    subproducers=[FatJetPtCorrection_v15, FatJetMassCorrection],
 )
-FatJetEnergyCorrection_v15 = ProducerGroup(
-    name="FatJetEnergyCorrection_v15",
+FatJetEnergyCorrection_data = ProducerGroup(
+    name="FatJetEnergyCorrection_data",
     call=None,
     input=None,
     output=None,
     scopes=["global"],
-    subproducers=[FatJetPtCorrection_v15, FatJetMassCorrection],
+    subproducers=[FatJetPtCorrection_v15_data, FatJetMassCorrection],
 )
 FatJetEnergyCorrection_run2 = ProducerGroup(
     name="FatJetEnergyCorrection_run2",
@@ -171,14 +194,14 @@ FatJetEnergyCorrection_2017_noPtCorr = ProducerGroup(
     scopes=["global"],
     subproducers=[RenameFatJetPt, FatJetMassCorrection],
 )
-RenameFatJetsData = ProducerGroup(
-    name="RenameFatJetsData",
-    call=None,
-    input=None,
-    output=None,
-    scopes=["global"],
-    subproducers=[RenameFatJetPt, RenameFatJetMass],
-)
+# RenameFatJetsData = ProducerGroup(
+#     name="RenameFatJetsData",
+#     call=None,
+#     input=None,
+#     output=None,
+#     scopes=["global"],
+#     subproducers=[RenameFatJetPt, RenameFatJetMass],
+# )
 ### discard the event if any Jet_pt_corrected == -999
 FlagFatJetVetoMap = Producer(
     name="FlagFatJetVetoMap",

@@ -65,6 +65,7 @@ def build_config(
                     "2023preBPix": "data/jsonpog-integration/POG/LUM/2023_Summer23/puWeights.json.gz",
                     "2023postBPix": "data/jsonpog-integration/POG/LUM/2023_Summer23BPix/puWeights.json.gz",
                     "2024": "data/2024_correction/puWeights_BCDEFGHI.json.gz",
+                    "2025": "data/2025_correction/puWeights_2025pp_Golden_Summer24_25ns_69200ub.json.gz",
                 }
             ),
             "PU_reweighting_era": EraModifier(
@@ -78,6 +79,7 @@ def build_config(
                     "2023preBPix": "Collisions2023_366403_369802_eraBC_GoldenJson",
                     "2023postBPix": "Collisions2023_369803_370790_eraD_GoldenJson",
                     "2024": "Collisions24_BCDEFGHI_goldenJSON",
+                    "2025": "Collisions25_goldenJSON",
                 }
             ),
             "PU_reweighting_variation": "nominal",
@@ -103,6 +105,7 @@ def build_config(
                     "2023preBPix": "data/golden_json/Cert_Collisions2023_366442_370790_Golden.txt",
                     "2023postBPix": "data/golden_json/Cert_Collisions2023_366442_370790_Golden.txt",
                     "2024": "data/golden_json/Cert_Collisions2024_378981_386951_Golden.txt",
+                    "2025": "data/golden_json/Cert_Collisions2025_391658_398903_Golden.txt",
                 }
             ),
             "PU_reweighting_hist": "pileup",
@@ -204,6 +207,16 @@ def build_config(
                         "Flag_eeBadScFilter",
                         "Flag_ecalBadCalibFilter",
                     ],
+                    "2025": [
+                        "Flag_goodVertices",
+                        "Flag_globalSuperTightHalo2016Filter",
+                        "Flag_EcalDeadCellTriggerPrimitiveFilter",
+                        "Flag_BadPFMuonFilter",
+                        "Flag_BadPFMuonDzFilter",
+                        "Flag_hfNoisyHitsFilter",
+                        "Flag_eeBadScFilter",
+                        # "Flag_ecalBadCalibFilter", ### work in progress, under construction
+                    ],
                 }
             ),
         },
@@ -223,6 +236,7 @@ def build_config(
                     "2023preBPix": "data/zpt/DY_pTll_weights_2023preBPix_v5.json.gz", 
                     "2023postBPix": "data/zpt/DY_pTll_weights_2023postBPix_v5.json.gz", ### still not found for 2024
                     "2024": "data/zpt/DY_pTll_weights_2024_v5.json.gz",
+                    "2025": "data/zpt/DY_pTll_weights_2024_v5.json.gz", ### TODO need to update for 2025
                 }
             ),
             # "zptmass_functor": "zptmass_weight_nom",
@@ -240,6 +254,53 @@ def build_config(
                 {
                 # vh TODO update pT threshold in trigger matching
                 ### Mingxuan added for 2024 TODO need to check the exact number and name
+                    "2025": [
+                        {
+                            "flagname": "trg_single_mu24",
+                            "hlt_path": "HLT_IsoMu24",
+                            "ptcut": 26,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_mu27",
+                            "hlt_path": "HLT_IsoMu27",
+                            "ptcut": 29,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_mu50",
+                            "hlt_path": "HLT_Mu50",
+                            "ptcut": 52,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_tkmu100",
+                            "hlt_path": "HLT_HighPtTkMu100",
+                            "ptcut": 102,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_casmu100",
+                            "hlt_path": "HLT_CascadeMu100",
+                            "ptcut": 102,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                    ],
                     "2024": [
                         {
                             "flagname": "trg_single_mu24",
@@ -560,6 +621,7 @@ def build_config(
                     "2023preBPix": "data/muon_corrections/HLT/2023preBPix/ScaleFactors_Muon_Z_HLT_2023_abseta_pt_schemaV2.json.gz",
                     "2023postBPix": "data/muon_corrections/HLT/2023postBPix/ScaleFactors_Muon_Z_HLT_2023_BPix_abseta_pt_schemaV2.json.gz",
                     "2024": "data/muon_corrections/HLT/2024/ScaleFactors_Muon_Z_HLT_2024_eta_pt_schemaV2.json.gz",
+                    "2025": "data/muon_corrections/HLT/2025/ScaleFactors_Muon_Z_HLT_2025_eta_pt_schemaV2.json.gz",
                 }
             ),
             # "KIT_sf_file": EraModifier(
@@ -580,6 +642,14 @@ def build_config(
             # ),
             "singlemuon_trigger_sf_mc": EraModifier(
                 {   
+                    "2025": [
+                        {
+                            "flagname": "trg_wgt_single_mu24",
+                            "mc_trigger_sf": "NUM_IsoMu24_DEN_CutBasedIdMedium_and_PFIsoMedium",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        },
+                    ],
                     "2024": [
                         {
                             "flagname": "trg_wgt_single_mu24",
@@ -680,6 +750,14 @@ def build_config(
             ),
             "singlemuon_trigger_sf_mc_highPt": EraModifier(
                 {   
+                    "2025": [
+                        {
+                            "flagname": "trg_wgt_single_mu50",
+                            "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                            "mc_muon_sf_correctiontype": "nominal",
+                            "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                        }
+                    ],
                     "2024": [
                         {
                             "flagname": "trg_wgt_single_mu50",
@@ -782,6 +860,7 @@ def build_config(
                     "2023preBPix": "Electron_mvaIso_WP90",
                     "2023postBPix": "Electron_mvaIso_WP90",
                     "2024": "Electron_mvaIso_WP90",
+                    "2025": "Electron_mvaIso_WP90",
                 }
             ),
         }
@@ -804,6 +883,7 @@ def build_config(
                     "2023preBPix": "data/jsonpog-integration/POG/MUO/2023_Summer23/muon_Z.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
                     "2023postBPix": "data/jsonpog-integration/POG/MUO/2023_Summer23BPix/muon_Z.json.gz",
                     "2024": "data/2024_correction/MUO/muon_Z.json.gz",
+                    "2025": "data/2025_correction/MUO/muon_Z.json.gz",
                 }
             ),
             "muon_sf_file_JPsi": EraModifier(
@@ -819,6 +899,7 @@ def build_config(
                     "2023preBPix": "data/jsonpog-integration/POG/MUO/2023_Summer23/muon_JPsi.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
                     "2023postBPix": "data/jsonpog-integration/POG/MUO/2023_Summer23BPix/muon_JPsi.json.gz",
                     "2024": "data/2024_correction/MUO/muon_JPsi.json.gz",
+                    "2025": "data/2024_correction/MUO/muon_JPsi.json.gz", ### no such file for 2025, using 2024 version first
                 }
             ),
             "muon_sf_file_HighPt": EraModifier(
@@ -828,6 +909,7 @@ def build_config(
                     "2023preBPix": "data/jsonpog-integration/POG/MUO/2023_Summer23/muon_HighPt.json.gz", # muon_JPsi for pt < 30, muon_Z.json.gz for 15-200, both needed
                     "2023postBPix": "data/jsonpog-integration/POG/MUO/2023_Summer23BPix/muon_HighPt.json.gz", # HighPt for 200+
                     "2024": "data/2024_correction/MUO/muon_HighPt.json.gz",
+                    "2025": "data/2025_correction/MUO/muon_HighPt.json.gz",
                 }
             ),
             "muon_sf_file_mvaTTH": EraModifier(
@@ -837,6 +919,7 @@ def build_config(
                     "2023preBPix": "data/muon_corrections/mvaTTH/Run2023_mvaTTH_SF.json.gz",
                     "2023postBPix": "data/muon_corrections/mvaTTH/Run2023_BPix_mvaTTH_SF.json.gz", ### TODO waiting to be calculated for 2024
                     "2024": "data/muon_corrections/mvaTTH/Run2023_BPix_mvaTTH_SF.json.gz", #### !!!!effect is small, using 2023 version first!!!
+                    "2025": "data/muon_corrections/mvaTTH/Run2023_BPix_mvaTTH_SF.json.gz", #### !!!!effect is small, using 2023 version first!!!
                 }
             ),
             "muon_sf_file_dxydz3dsip": EraModifier(
@@ -846,6 +929,7 @@ def build_config(
                     "2023preBPix": "data/muon_corrections/dxydz3dsipCut/Run2023_dxydz3dsip_SF.json.gz", 
                     "2023postBPix": "data/muon_corrections/dxydz3dsipCut/Run2023_BPix_dxydz3dsip_SF.json.gz", ### TODO waiting to be calculated for 2024
                     "2024": "data/muon_corrections/dxydz3dsipCut/Run2023_BPix_dxydz3dsip_SF.json.gz", #### !!!!effect is small, using 2023 version first!!!
+                    "2025": "data/muon_corrections/dxydz3dsipCut/Run2023_BPix_dxydz3dsip_SF.json.gz", #### !!!!effect is small, using 2023 version first!!!
                 }
             ),
             "muon_id_sf_name": "NUM_MediumID_DEN_TrackerMuons",
@@ -866,6 +950,7 @@ def build_config(
                     "2023preBPix": "NUM_TightPFIso_DEN_MediumID",
                     "2023postBPix": "NUM_TightPFIso_DEN_MediumID",
                     "2024": "NUM_TightPFIso_DEN_MediumID",
+                    "2025": "NUM_TightPFIso_DEN_MediumID",
                 }
             ),
             "muon_highpt_iso_sf_name": EraModifier(
@@ -881,6 +966,7 @@ def build_config(
                     "2023preBPix": "NUM_TightRelTkIso_DEN_HighPtID",
                     "2023postBPix": "NUM_TightRelTkIso_DEN_HighPtID",
                     "2024": "NUM_TightRelTkIso_DEN_HighPtID",
+                    "2025": "NUM_TightRelTkIso_DEN_HighPtID",
                 }
             ),
             # JPsi file only has id type, no Iso, add a id name and apply the JPsi SF's value = 1.
@@ -923,6 +1009,7 @@ def build_config(
                     "2023preBPix": "2023preBPix", # 2022 year_id no need
                     "2023postBPix": "2023postBPix",
                     "2024": "2024",
+                    "2025": "2025",
                 }
             ),
             # "muon_sf_varation": "sf",  # "sf" is nominal, "systup"/"systdown" are up/down variations
@@ -939,6 +1026,7 @@ def build_config(
                     "2023preBPix": "nominal",
                     "2023postBPix": "nominal",
                     "2024": "nominal",
+                    "2025": "nominal",
                 }
             ),
             "muon_sf_varation_JPsi": "nominal",
@@ -948,7 +1036,8 @@ def build_config(
                     "2022postEE": 0.0126,
                     "2023preBPix": 0.0172,
                     "2023postBPix": 0.0118,
-                    "2024": 0.0118,
+                    "2024": 0.0104,
+                    "2025": 0.0104,
                 }
             ),
             "b_barrel" : EraModifier(
@@ -957,7 +1046,8 @@ def build_config(
                     "2022postEE": 5.89e-05,
                     "2023preBPix": 6.15e-05,
                     "2023postBPix": 6.14e-05,
-                    "2024": 6.14e-05,
+                    "2024": 6.653e-05,
+                    "2025": 6.653e-05,
                 }
             ),
             "c_barrel" : EraModifier(
@@ -966,7 +1056,8 @@ def build_config(
                     "2022postEE": -2.85e-08,
                     "2023preBPix": -3.14e-08,
                     "2023postBPix": -3.12e-08,
-                    "2024": -3.12e-08,
+                    "2024": -3.635e-08,
+                    "2025": -3.635e-08,
                 }
             ),
             "d_barrel" : EraModifier(
@@ -975,7 +1066,8 @@ def build_config(
                     "2022postEE": 4.92e-12,
                     "2023preBPix": 5.82e-12,
                     "2023postBPix": 5.74e-12,
-                    "2024": 5.74e-12,
+                    "2024": 7.15e-12,
+                    "2025": 7.15e-12,
                 }
             ),
             "a_endcap" : EraModifier(
@@ -984,7 +1076,8 @@ def build_config(
                     "2022postEE": 0.0150,
                     "2023preBPix": 0.01424,
                     "2023postBPix": 0.0141,
-                    "2024": 0.0141,
+                    "2024": 0.000689,
+                    "2025": 0.000689,
                 }
             ),
             "b_endcap" : EraModifier(
@@ -993,7 +1086,8 @@ def build_config(
                     "2022postEE": 4.81e-05,
                     "2023preBPix": 5.31e-05,
                     "2023postBPix": 5.38e-05,
-                    "2024": 5.38e-05,
+                    "2024": 10.12e-05,
+                    "2025": 10.12e-05,
                 }
             ),
             "c_endcap" : EraModifier(
@@ -1002,7 +1096,8 @@ def build_config(
                     "2022postEE": -1.42e-08,
                     "2023preBPix": -1.92e-08,
                     "2023postBPix": -2.0e-08,
-                    "2024": -2.0e-08,
+                    "2024": -5.361e-08,
+                    "2025": -5.361e-08,
                 }
             ),
             "d_endcap" : EraModifier(
@@ -1011,7 +1106,8 @@ def build_config(
                     "2022postEE": 1.95e-12,
                     "2023preBPix": 3.21e-12,
                     "2023postBPix": 3.42e-12,
-                    "2024": 3.42e-12,
+                    "2024": 1.268e-12,
+                    "2025": 1.268e-12,
                 }
             ),
             "highpt_smear_factor" : EraModifier(
@@ -1021,6 +1117,7 @@ def build_config(
                     "2023preBPix": 0.32,
                     "2023postBPix": 0.568,
                     "2024": 0.568,
+                    "2025": 0.75,
                 }
             ),
         },
@@ -1047,6 +1144,7 @@ def build_config(
                     "2023preBPix": "data/muon_corrections/KIT_Corr/JSON_VXBS/2023_Summer23/schemaV2.json",
                     "2023postBPix": "data/muon_corrections/KIT_Corr/JSON_VXBS/2023_Summer23BPix/schemaV2.json",
                     "2024": "data/muon_corrections/KIT_Corr/JSON_VXBS/2024/schemaV2.json",
+                    "2025": "data/muon_corrections/KIT_Corr/JSON_VXBS/2025/schemaV2.json",
                 }
             ),
             "RandomSeed_file": "data/muon_corrections/KIT_Corr/RandomSeed.json",
@@ -1057,6 +1155,7 @@ def build_config(
                     "2023preBPix": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023preBPix.json.gz",
                     "2023postBPix": "data/muon_corrections/HighPtMuonMomentumScale/HighPt_2023postBPix.json.gz", 
                     "2024": "data/2024_correction/MUO/HighPt_2024.json.gz", ########### no such file for 2026, maybe use 2025 first?
+                    "2025": "data/2025_correction/MUO/HighPt_2025.json.gz",
                 }
             ),
             ### Rochester is not recommended by MUO POG now
@@ -1066,8 +1165,9 @@ def build_config(
                     "2022postEE": "data/muon_corrections/RoccoR/RoccoR2022EE.txt",
                     "2023preBPix": "data/muon_corrections/RoccoR/RoccoR2023.txt",
                     "2023postBPix": "data/muon_corrections/RoccoR/RoccoR2023BPix.txt",
-                    ######## no such file for 2024, 
+                    ######## no such file for 2024,2025,2026 
                     "2024": "data/muon_corrections/RoccoR/RoccoR2023BPix.txt",
+                    "2025": "data/muon_corrections/RoccoR/RoccoR2023BPix.txt",
                 }
             ),
         }
@@ -1084,6 +1184,7 @@ def build_config(
                     "2023preBPix": "data/22-23_correction_new/EGM/2023preBPix/electronSS_EtDependent.json.gz",
                     "2023postBPix": "data/22-23_correction_new/EGM/2023postBPix/electronSS_EtDependent.json.gz",
                     "2024": "data/2024_correction/EGM/electronSS_EtDependent.json.gz",
+                    "2025": "data/2025_correction/EGM/electronSS_EtDependent.json.gz",
                     # "2024": "data/jsonpog-integration/POG/EGM/2023_Summer23BPix/electronSS_EtDependent.json.gz",
                 }
             ),
@@ -1095,6 +1196,7 @@ def build_config(
                     "2023preBPix": "EGMSmearAndSyst_ElePT_2023",
                     "2023postBPix": "EGMSmearAndSyst_ElePT_2023",
                     "2024": "EGMSmearAndSyst_ElePT_2024",
+                    "2025": "EGMSmearAndSyst_ElePT_2025",
                     # "2024": "EGMSmearAndSyst_ElePTsplit_2023postBPIX",
                 },  
             ),
@@ -1109,6 +1211,7 @@ def build_config(
                     "2023preBPix": "data/jsonpog-integration/POG/EGM/2023_Summer23/electron.json.gz", # correction for pt >= 10
                     "2023postBPix": "data/jsonpog-integration/POG/EGM/2023_Summer23BPix/electron.json.gz",
                     "2024": "data/2024_correction/EGM/electron.json.gz",
+                    "2025": "data/2025_correction/EGM/electron.json.gz",
                 }
             ),
             "custom_ele_sf_file": EraModifier(
@@ -1118,6 +1221,7 @@ def build_config(
                     "2023preBPix": "data/ele_corrections/custom_ele_sf/2023preBPix/electron.json.gz", # correction for pt >= 10
                     "2023postBPix": "data/ele_corrections/custom_ele_sf/2023postBPix/electron.json.gz", ### TODO waiting to be calculated for 2024
                     "2024": "data/ele_corrections/custom_ele_sf/2023postBPix/electron.json.gz", ###### using 2023postBPix first
+                    "2025": "data/ele_corrections/custom_ele_sf/2023postBPix/electron.json.gz", ###### using 2023postBPix first
                 }
             ),
             # "ele_id_sf_name": "UL-Electron-ID-SF",
@@ -1132,6 +1236,7 @@ def build_config(
                     "2023preBPix": "Electron-ID-SF",
                     "2023postBPix": "Electron-ID-SF",
                     "2024": "Electron-ID-SF",
+                    "2025": "Electron-ID-SF",
                 }
             ),
             "ele_sf_year_id": EraModifier(
@@ -1145,6 +1250,7 @@ def build_config(
                     "2023preBPix": "2023PromptC",
                     "2023postBPix": "2023PromptD",
                     "2024": "2024Prompt",
+                    "2025": "2025Prompt",
                 }
             ),
             "custom_ele_sf_year_id": EraModifier(
@@ -1154,6 +1260,7 @@ def build_config(
                     "2023preBPix": "2023preBPix",
                     "2023postBPix": "2023postBPix",
                     "2024": "2023postBPix", ###### using 2023postBPix first
+                    "2025": "2023postBPix", ###### using 2023postBPix first
                 }
             ),
             "ele_sf_varation": "sf",  # "sf" is nominal, "sfup"/"sfdown" are up/down variations
@@ -1180,21 +1287,32 @@ def build_config(
     configuration.add_config_parameters(
         "global",
         {
-            "jet_reapplyJES": False,
+            "jet_reapplyJES": True,
             "jet_jes_sources": '{""}',
             "jet_jes_shift": 0,
             "jet_jer_shift": '"nom"',  # or '"up"', '"down"'
+            "year_id": EraModifier(
+                {
+                    "2022preEE": '"2022preEE"', # 2022 year_id no need
+                    "2022postEE": '"2022postEE"',
+                    "2023preBPix": '"2023preBPix"', # 2022 year_id no need
+                    "2023postBPix": '"2023postBPix"',
+                    "2024": '"2024"',
+                    "2025": '"2025"',
+                }
+            ),
             "jet_veto_map": EraModifier(
                 {
                     "2016preVFP" : '"data/jsonpog-integration/POG/JME/2016preVFP_UL/jetvetomaps.json.gz"',
                     "2016postVFP" : '"data/jsonpog-integration/POG/JME/2016postVFP_UL/jetvetomaps.json.gz"',
                     "2017" : '"data/jsonpog-integration/POG/JME/2017_UL/jetvetomaps.json.gz"',
                     "2018" : '"data/jsonpog-integration/POG/JME/2018_UL/jetvetomaps.json.gz"',
-                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Summer22/jetvetomaps.json.gz"', 
-                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/jetvetomaps.json.gz"',
-                    "2023preBPix": '"data/jsonpog-integration/POG/JME/2023_Summer23/jetvetomaps.json.gz"',
-                    "2023postBPix": '"data/jsonpog-integration/POG/JME/2023_Summer23BPix/jetvetomaps.json.gz"',
+                    "2022preEE": '"data/22-23_correction_new/JME/2022preEE/jetvetomaps.json.gz"', 
+                    "2022postEE": '"data/22-23_correction_new/JME/2022postEE/jetvetomaps.json.gz"',
+                    "2023preBPix": '"data/22-23_correction_new/JME/2023preBPix/jetvetomaps.json.gz"',
+                    "2023postBPix": '"data/22-23_correction_new/JME/2023postBPix/jetvetomaps.json.gz"',
                     "2024": '"data/2024_correction/JME/jetvetomaps.json.gz"',
+                    "2025": '"data/2025_correction/JME/jetvetomaps.json.gz"',
                 }
             ),
             "jet_veto_tag": EraModifier(
@@ -1208,6 +1326,7 @@ def build_config(
                     "2023preBPix": '"Summer23Prompt23_RunC_V1"',
                     "2023postBPix": '"Summer23BPixPrompt23_RunD_V1"',
                     "2024": '"Summer24Prompt24_RunBCDEFGHI_V1"',
+                    "2025": '"Summer24Prompt25_RunCDEFG_V1"',
                 }
             ),
             "jet_jec_file": EraModifier(
@@ -1218,11 +1337,12 @@ def build_config(
                     "2018": '"data/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz"',
                     # "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/jet_jerc.json.gz"',
                     # "2022postEE": '"data/jsonpog-integration-beforeCorr/POG/JME/2022_Summer22EE-zhiyuan/jet_jerc.json.gz"',
-                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Summer22/jet_jerc.json.gz"',
-                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/jet_jerc.json.gz"',
-                    "2023preBPix": '"data/jsonpog-integration/POG/JME/2023_Summer23/jet_jerc.json.gz"',
-                    "2023postBPix": '"data/jsonpog-integration/POG/JME/2023_Summer23BPix/jet_jerc.json.gz"',
+                    "2022preEE": '"data/22-23_correction_new/JME/2022preEE/jet_jerc.json.gz"',
+                    "2022postEE": '"data/22-23_correction_new/JME/2022postEE/jet_jerc.json.gz"',
+                    "2023preBPix": '"data/22-23_correction_new/JME/2023preBPix/jet_jerc.json.gz"',
+                    "2023postBPix": '"data/22-23_correction_new/JME/2023postBPix/jet_jerc.json.gz"',
                     "2024": '"data/2024_correction/JME/jet_jerc.json.gz"',
+                    "2025": '"data/2025_correction/JME/jet_jerc.json.gz"', ### for 2025, JEC should use Summer24Prompt24_V3_MC
                 }
             ),
             "jet_jer_tag": EraModifier(
@@ -1233,14 +1353,34 @@ def build_config(
                     "2018": '"Summer19UL18_JRV2_MC"',
                     # "2022preEE": '"JR_Winter22Run3_V1_MC"',
                     # "2022postEE": '"Summer22EEPrompt22_JRV1_MC"',
-                    "2022preEE": '"Summer22_22Sep2023_JRV1_MC"', # just for testing (TBD) 2022_Prompt: JR_Winter22Run3_V1_MC
-                    "2022postEE": '"Summer22EE_22Sep2023_JRV1_MC"', # just for testing (TBD) beforeCorr: Summer22EEPrompt22_JRV1_MC
-                    "2023preBPix": '"Summer23Prompt23_RunCv123_JRV1_MC"',
-                    "2023postBPix": '"Summer23BPixPrompt23_RunD_JRV1_MC"',
-                    "2024": '"Summer23BPixPrompt23_RunD_JRV1_MC"', ## TODO JER for 2024 will be announced soon
+                    "2022preEE": '"Summer22_22Sep2023_JRV2_MC"', # just for testing (TBD) 2022_Prompt: JR_Winter22Run3_V1_MC
+                    "2022postEE": '"Summer22EE_22Sep2023_JRV2_MC"', # just for testing (TBD) beforeCorr: Summer22EEPrompt22_JRV1_MC
+                    "2023preBPix": '"Summer23Prompt23_RunCv123_JRV2_MC"',
+                    "2023postBPix": '"Summer23BPixPrompt23_RunD_JRV2_MC"',
+                    "2024": '"Summer24Prompt24_JRV1_MC"', ## TODO JER for 2024 will be announced soon
+                    "2025": '"Summer24Prompt25_JRV1_MC"',
                 }
             ),
-            "jet_jes_tag_data": '""',
+            "jet_jes_tag_data": EraModifier(
+                {
+                    "2022preEE": '"Summer22_22Sep2023_V4_DATA"', # just for testing (TBD) 2022_Prompt:  Winter22Run3_V2_MC
+                    "2022postEE": '"Summer22EE_22Sep2023_V4_DATA"', # just for testing (TBD) beforeCorr: Summer22EEPrompt22_V1_MC
+                    "2023preBPix": '"Summer23Prompt23_V4_DATA"',
+                    "2023postBPix": '"Summer23BPixPrompt23_V4_DATA"',
+                    "2024": '"Summer24Prompt24_V3_DATA"',
+                    "2025": '"Summer24Prompt25_V1_DATA"',
+                }
+            ),
+            "Phi_in_L2Relative": EraModifier(
+                {
+                    "2022preEE": False, # just for testing (TBD) 2022_Prompt:  Winter22Run3_V2_MC
+                    "2022postEE": False, # just for testing (TBD) beforeCorr: Summer22EEPrompt22_V1_MC
+                    "2023preBPix": False,
+                    "2023postBPix": True,
+                    "2024": True,
+                    "2025": True,
+                }
+            ),
             "jet_jes_tag": EraModifier(
                 {
                     "2016preVFP": '"Summer19UL16APV_V7_MC"',
@@ -1249,11 +1389,12 @@ def build_config(
                     "2018": '"Summer19UL18_V5_MC"',
                     # "2022preEE": '"Winter22Run3_V2_MC"',
                     # "2022postEE": '"Summer22EEPrompt22_V1_MC"',
-                    "2022preEE": '"Summer22_22Sep2023_V2_MC"', # just for testing (TBD) 2022_Prompt:  Winter22Run3_V2_MC
-                    "2022postEE": '"Summer22EE_22Sep2023_V2_MC"', # just for testing (TBD) beforeCorr: Summer22EEPrompt22_V1_MC
-                    "2023preBPix": '"Summer23Prompt23_V2_MC"',
-                    "2023postBPix": '"Summer23BPixPrompt23_V3_MC"',
-                    "2024": '"Summer24Prompt24_V2_MC"', ###### Following previous era, L1L2L3Res is used.
+                    "2022preEE": '"Summer22_22Sep2023_V4_MC"', # just for testing (TBD) 2022_Prompt:  Winter22Run3_V2_MC
+                    "2022postEE": '"Summer22EE_22Sep2023_V4_MC"', # just for testing (TBD) beforeCorr: Summer22EEPrompt22_V1_MC
+                    "2023preBPix": '"Summer23Prompt23_V4_MC"',
+                    "2023postBPix": '"Summer23BPixPrompt23_V4_MC"',
+                    "2024": '"Summer24Prompt24_V3_MC"', ###### Following previous era, L1L2L3Res is used.
+                    "2025": '"Summer24Prompt25_V1_MC"', ###### Following previous era, L1L2L3Res is used.
                 }
             ),
             # "jet_jec_algo": '"AK4PFPuppi"', # AK4PFchs for run2?
@@ -1268,6 +1409,7 @@ def build_config(
                     "2023preBPix": '"AK4PFPuppi"',
                     "2023postBPix": '"AK4PFPuppi"',
                     "2024": '"AK4PFPuppi"',
+                    "2025": '"AK4PFPuppi"',
                 }    
             )
         },
@@ -1290,6 +1432,7 @@ def build_config(
                     "2023preBPix": 2,  # 2==pass(tight)
                     "2023postBPix": 2,  # 2==pass(tight)
                     "2024": 2, ###### FAKE ID, because we calculate it by hand!!!!!! DON'T USE IT !!!!!!!! Will not be used in the producer
+                    "2025": 2, ###### FAKE ID, because we calculate it by hand!!!!!! DON'T USE IT !!!!!!!! Will not be used in the producer
                 }
             ),
             "jet_puid": EraModifier(
@@ -1303,6 +1446,7 @@ def build_config(
                     "2023preBPix": 4,
                     "2023postBPix": 4,
                     "2024": 4, ##### also FAKE ID, DON'T USE IT!!!!!!! Will not be used in the producer!!!!!!!!!!!!
+                    "2025": 4, ##### also FAKE ID, DON'T USE IT!!!!!!! Will not be used in the producer!!!!!!!!!!!!
                 }
             ),
             "jet_puid_max_pt": 50,  # recommended to apply puID only for jets below 50 GeV
@@ -1316,7 +1460,7 @@ def build_config(
     configuration.add_config_parameters(
         "global",
         {
-            "fatjet_reapplyJES": False,
+            "fatjet_reapplyJES": True,
             "fatjet_jes_sources": '{""}',
             "fatjet_jes_shift": 0,
             "fatjet_jer_shift": '"nom"',  # or '"up"', '"down"'
@@ -1326,11 +1470,12 @@ def build_config(
                     "2016postVFP" : '"data/jsonpog-integration/POG/JME/2016postVFP_UL/jetvetomaps.json.gz"',
                     "2017" : '"data/jsonpog-integration/POG/JME/2017_UL/jetvetomaps.json.gz"',
                     "2018" : '"data/jsonpog-integration/POG/JME/2018_UL/jetvetomaps.json.gz"',
-                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Summer22/jetvetomaps.json.gz"', 
-                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/jetvetomaps.json.gz"',
-                    "2023preBPix": '"data/jsonpog-integration/POG/JME/2023_Summer23/jetvetomaps.json.gz"',
-                    "2023postBPix": '"data/jsonpog-integration/POG/JME/2023_Summer23BPix/jetvetomaps.json.gz"',
+                    "2022preEE": '"data/22-23_correction_new/JME/2022preEE/jetvetomaps.json.gz"', 
+                    "2022postEE": '"data/22-23_correction_new/JME/2022postEE/jetvetomaps.json.gz"',
+                    "2023preBPix": '"data/22-23_correction_new/JME/2023preBPix/jetvetomaps.json.gz"',
+                    "2023postBPix": '"data/22-23_correction_new/JME/2023postBPix/jetvetomaps.json.gz"',
                     "2024": '"data/2024_correction/JME/jetvetomaps.json.gz"',
+                    "2025": '"data/2025_correction/JME/jetvetomaps.json.gz"',
                 }
             ),
             "fatjet_veto_tag": EraModifier(
@@ -1344,6 +1489,7 @@ def build_config(
                     "2023preBPix": '"Summer23Prompt23_RunC_V1"',
                     "2023postBPix": '"Summer23BPixPrompt23_RunD_V1"',
                     "2024": '"Summer24Prompt24_RunBCDEFGHI_V1"',
+                    "2025": '"Summer24Prompt25_RunCDEFG_V1"',
                 }
             ),
             "fatjet_jec_file": EraModifier(
@@ -1354,11 +1500,12 @@ def build_config(
                     "2018": '"data/jsonpog-integration/POG/JME/2018_UL/fatJet_jerc.json.gz"',
                     # "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/fatJet_jerc.json.gz"',
                     # "2022postEE": '"data/jsonpog-integration-beforeCorr/POG/JME/2022_Summer22EE-zhiyuan/fatJet_jerc.json.gz"',
-                    "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Summer22/fatJet_jerc.json.gz"',
-                    "2022postEE": '"data/jsonpog-integration/POG/JME/2022_Summer22EE/fatJet_jerc.json.gz"',
-                    "2023preBPix": '"data/jsonpog-integration/POG/JME/2023_Summer23/fatJet_jerc.json.gz"',
-                    "2023postBPix": '"data/jsonpog-integration/POG/JME/2023_Summer23BPix/fatJet_jerc.json.gz"',
+                    "2022preEE": '"data/22-23_correction_new/JME/2022_Summer22/fatJet_jerc.json.gz"',
+                    "2022postEE": '"data/22-23_correction_new/JME/2022_Summer22EE/fatJet_jerc.json.gz"',
+                    "2023preBPix": '"data/22-23_correction_new/JME/2023_Summer23/fatJet_jerc.json.gz"',
+                    "2023postBPix": '"data/22-23_correction_new/JME/2023_Summer23BPix/fatJet_jerc.json.gz"',
                     "2024": '"data/2024_correction/JME/fatJet_jerc.json.gz"',
+                    "2025": '"data/2025_correction/JME/fatJet_jerc.json.gz"', ####### waiting to be changed
                 }
             ),
             "fatjet_jer_tag": EraModifier(
@@ -1369,14 +1516,24 @@ def build_config(
                     "2018": '"Summer19UL18_JRV2_MC"',
                     # "2022preEE": '"JR_Winter22Run3_V1_MC"', # just for testing (TBD)
                     # "2022postEE": '"Summer22EEPrompt22_JRV1_MC"', # just for testing (TBD)
-                    "2022preEE": '"Summer22_22Sep2023_JRV1_MC"', # just for testing (TBD)
-                    "2022postEE": '"Summer22EE_22Sep2023_JRV1_MC"', # just for testing (TBD)
-                    "2023preBPix": '"Summer23Prompt23_RunCv123_JRV1_MC"',
-                    "2023postBPix": '"Summer23BPixPrompt23_RunD_JRV1_MC"',
-                    "2024": '"Summer23BPixPrompt23_RunD_JRV1_MC"', ######## TODO JER for 2024 will be announced soon
+                    "2022preEE": '"Summer22_22Sep2023_JRV2_MC"', # just for testing (TBD)
+                    "2022postEE": '"Summer22EE_22Sep2023_JRV2_MC"', # just for testing (TBD)
+                    "2023preBPix": '"Summer23Prompt23_RunCv123_JRV2_MC"',
+                    "2023postBPix": '"Summer23BPixPrompt23_RunD_JRV2_MC"',
+                    "2024": '"Summer24Prompt24_JRV1_MC"', 
+                    "2025": '"Summer24Prompt25_JRV1_MC"',
                 }
             ),
-            "fatjet_jes_tag_data": '""',
+            "fatjet_jes_tag_data": EraModifier(
+                {
+                    "2022preEE": '"Summer22_22Sep2023_V4_DATA"', # just for testing (TBD)
+                    "2022postEE": '"Summer22EE_22Sep2023_V4_DATA"', # just for testing (TBD)
+                    "2023preBPix": '"Summer23Prompt23_V4_DATA"',
+                    "2023postBPix": '"Summer23BPixPrompt23_V4_DATA"',
+                    "2024": '"Summer24Prompt24_V3_DATA"',
+                    "2025": '"Summer24Prompt25_V1_DATA"',
+                }
+            ),
             "fatjet_jes_tag": EraModifier(
                 {
                     "2016preVFP": '"Summer19UL16APV_V7_MC"', # TODO JES tag
@@ -1385,11 +1542,12 @@ def build_config(
                     "2018": '"Summer19UL18_V5_MC"',
                     # "2022preEE": '"Winter22Run3_V2_MC"', # just for testing (TBD)
                     # "2022postEE": '"Summer22EEPrompt22_V1_MC"', # just for testing (TBD)
-                    "2022preEE": '"Summer22_22Sep2023_V2_MC"', # just for testing (TBD)
-                    "2022postEE": '"Summer22EE_22Sep2023_V2_MC"', # just for testing (TBD)
-                    "2023preBPix": '"Summer23Prompt23_V2_MC"',
-                    "2023postBPix": '"Summer23BPixPrompt23_V3_MC"',
-                    "2024": '"Summer24Prompt24_V2_MC"',
+                    "2022preEE": '"Summer22_22Sep2023_V4_MC"', # just for testing (TBD)
+                    "2022postEE": '"Summer22EE_22Sep2023_V4_MC"', # just for testing (TBD)
+                    "2023preBPix": '"Summer23Prompt23_V4_MC"',
+                    "2023postBPix": '"Summer23BPixPrompt23_V4_MC"',
+                    "2024": '"Summer24Prompt24_V3_MC"',
+                    "2025": '"Summer24Prompt25_V1_MC"',
                 }
             ),
             "fatjet_jec_algo": '"AK8PFPuppi"',
@@ -1415,6 +1573,7 @@ def build_config(
                     "2023preBPix": 2,  # 2==pass(tight)
                     "2023postBPix": 2,  # 2==pass(tight)
                     "2024": 2, ###### also FAKE ID, DON'T USE IT!!!!!!!!!!!! Will not be used in the Producer!!!!!!!!
+                    "2025": 2, ###### also FAKE ID, DON'T USE IT!!!!!!!!!!!! Will not be used in the Producer!!!!!!!!
                 }
             ),
             # may no need fatjet_puid
@@ -1434,6 +1593,7 @@ def build_config(
                     "2023preBPix": "data/muon_corrections/WvsQCD/PNet_LooseWP_2023preBPix.json.gz",
                     "2023postBPix": "data/muon_corrections/WvsQCD/PNet_LooseWP_2023postBPix.json.gz",
                     "2024": "data/muon_corrections/WvsQCD/PNet_LooseWP_2023postBPix.json.gz", ######## TODO For 2024, GloParT calibration files are needed. Using 2023postBPix first!!!!!!!
+                    "2025": "data/muon_corrections/WvsQCD/PNet_LooseWP_2023postBPix.json.gz", ######## TODO For 2025, GloParT calibration files are needed. Using 2023postBPix first!!!!!!!
                 }
             ),
             "fatjet_sf_varation" : "nominal",
@@ -1457,6 +1617,7 @@ def build_config(
                     "2023preBPix": "data/btag_corrections/new_json_2023/2023_Summer23/btagging.json.gz",
                     "2023postBPix": "data/btag_corrections/new_json_2023/2023_Summer23BPix/btagging.json.gz",
                     "2024": "data/2024_correction/BTV/btagging.json.gz",
+                    "2025": "data/2025_correction/BTV/btagging.json.gz",
                 }
             ),
             ######## TODO In general, the efficiency files should be re-calculated for RobustParticleTransformer/UParT !!!!!!!!!!!!!
@@ -1465,8 +1626,9 @@ def build_config(
                     "2022preEE": "data/btag_corrections/loose_ttbar/2022preEE/btagging_efficiency.json",
                     "2022postEE": "data/btag_corrections/loose_ttbar/2022postEE/btagging_efficiency.json",
                     "2023preBPix": "data/btag_corrections/loose_ttbar/2023preBPix/btagging_efficiency.json",
-                    "2023postBPix": "data/btag_corrections/loose_ttbar/2023postBPix/btagging_efficiency.json", #### TODO waiting to be calulated for 2024
+                    "2023postBPix": "data/btag_corrections/loose_ttbar/2023postBPix/btagging_efficiency.json", #### TODO waiting to be calulated for 2024 2025 2026
                     "2024": "data/btag_corrections/loose_ttbar/2023postBPix/btagging_efficiency.json",
+                    "2025": "data/btag_corrections/loose_ttbar/2023postBPix/btagging_efficiency.json",
                 }
             ),
             "medium_btag_eff_file_ttbar": EraModifier(
@@ -1474,8 +1636,9 @@ def build_config(
                     "2022preEE": "data/btag_corrections/medium_ttbar/2022preEE/btagging_efficiency.json",
                     "2022postEE": "data/btag_corrections/medium_ttbar/2022postEE/btagging_efficiency.json",
                     "2023preBPix": "data/btag_corrections/medium_ttbar/2023preBPix/btagging_efficiency.json",
-                    "2023postBPix": "data/btag_corrections/medium_ttbar/2023postBPix/btagging_efficiency.json", #### TODO waiting to be calculated for 2024
+                    "2023postBPix": "data/btag_corrections/medium_ttbar/2023postBPix/btagging_efficiency.json", #### TODO waiting to be calculated for 2024 2025 2026
                     "2024": "data/btag_corrections/medium_ttbar/2023postBPix/btagging_efficiency.json",
+                    "2025": "data/btag_corrections/medium_ttbar/2023postBPix/btagging_efficiency.json",
                 }
             ),
             "loose_btag_eff_file_dy": EraModifier(
@@ -1485,6 +1648,7 @@ def build_config(
                     "2023preBPix": "data/btag_corrections/loose_dy/2023preBPix/btagging_efficiency.json",
                     "2023postBPix": "data/btag_corrections/loose_dy/2023postBPix/btagging_efficiency.json", #### TODO waiting to be calculated for 2024
                     "2024": "data/btag_corrections/loose_dy/2023postBPix/btagging_efficiency.json",
+                    "2025": "data/btag_corrections/loose_dy/2023postBPix/btagging_efficiency.json",
                 }
             ),
             "medium_btag_eff_file_dy": EraModifier(
@@ -1494,6 +1658,7 @@ def build_config(
                     "2023preBPix": "data/btag_corrections/medium_dy/2023preBPix/btagging_efficiency.json",
                     "2023postBPix": "data/btag_corrections/medium_dy/2023postBPix/btagging_efficiency.json", #### TODO waiting to be calculated for 2024
                     "2024": "data/btag_corrections/medium_dy/2023postBPix/btagging_efficiency.json",
+                    "2025": "data/btag_corrections/medium_dy/2023postBPix/btagging_efficiency.json",
                 }
             ),
             "loose_btag_eff_file_vhmm": EraModifier(
@@ -1503,6 +1668,7 @@ def build_config(
                     "2023preBPix": "data/btag_corrections/loose_vhmm/2023preBPix/btagging_efficiency.json",
                     "2023postBPix": "data/btag_corrections/loose_vhmm/2023postBPix/btagging_efficiency.json", #### TODO waiting to be calculated for 2024
                     "2024": "data/btag_corrections/loose_vhmm/2023postBPix/btagging_efficiency.json",
+                    "2025": "data/btag_corrections/loose_vhmm/2023postBPix/btagging_efficiency.json",
                 }
             ),
             "medium_btag_eff_file_vhmm": EraModifier(
@@ -1512,6 +1678,7 @@ def build_config(
                     "2023preBPix": "data/btag_corrections/medium_vhmm/2023preBPix/btagging_efficiency.json",
                     "2023postBPix": "data/btag_corrections/medium_vhmm/2023postBPix/btagging_efficiency.json", #### TODO waiting to be calculated for 2024
                     "2024": "data/btag_corrections/medium_vhmm/2023postBPix/btagging_efficiency.json",
+                    "2025": "data/btag_corrections/medium_vhmm/2023postBPix/btagging_efficiency.json",
                 }
             ),
             "era_name": EraModifier(
@@ -1521,6 +1688,7 @@ def build_config(
                     "2023preBPix": "2023preBPix",
                     "2023postBPix": "2023postBPix",
                     "2024": "2023postBPix", ######## when efficiency is ready, this should be changed to 2024!!!!!!!
+                    "2025": "2023postBPix", ######## when efficiency is ready, this should be changed to 2025!!!!!!!
                 }
             ),
             "btag_sf_label": EraModifier(
@@ -1530,6 +1698,7 @@ def build_config(
                     "2023preBPix": "particleNet",
                     "2023postBPix": "particleNet",
                     "2024": "UParTAK4", 
+                    "2025": "UParTAK4", 
                 }
             ),
             "btag_sf_variation": "central",## TODO: Remember to add the uncertainty to the final BtagWeight!!!!!!!!!
@@ -1556,6 +1725,7 @@ def build_config(
                     "2023preBPix": "robustParticleTransformer_shape",## TODO: update to 2022 recommendation when available. These lines only for testing
                     "2023postBPix": "robustParticleTransformer_shape",
                     "2024": "UParTAK4_comb",
+                    "2025": "UParTAK4_comb",
                 }    
             ),
         },
@@ -1586,6 +1756,7 @@ def build_config(
                     "2023preBPix": 0.0681, # RobustParticleTransformer
                     "2023postBPix":0.0683, # RobustParticleTransformer
                     "2024":0.0246, ###### for 2024, only WP for UParTAK4 is provided
+                    "2025":0.0246, ###### for 2024, only WP for UParTAK4 is provided
                 }
             ),
             # "btag_cut_medium": EraModifier(  # medium
@@ -1607,6 +1778,7 @@ def build_config(
                     "2023preBPix": 0.3487, # RobustParticleTransformer
                     "2023postBPix": 0.3494, # RobustParticleTransformer
                     "2024":0.1272, ###### for 2024, only WP for UParTAK4 is provided
+                    "2025":0.1272, ###### for 2025, only WP for UParTAK4 is provided
                 }
             ),
         },
@@ -1843,7 +2015,7 @@ def build_config(
                 jets.Create_JetTightID_v12,
                 jets.Create_JetTightLepVetoID,
                 jets.JetEnergyCorrection, # vh include pt corr and mass corr
-                fatjets.FatJetEnergyCorrection_v15,
+                fatjets.FatJetEnergyCorrection,
                 # fatjets.Create_FatJetTightLepVetoID,
                 jets.FlagVetoMap,
                 fatjets.FlagFatJetVetoMap,
@@ -1872,7 +2044,7 @@ def build_config(
                 jets.GoodJets_2022_BaseEle_GoodMu, 
             ]
         )
-    elif era == "2024":
+    elif era == "2024" or era == "2025":
         configuration.add_producers(
             "global",
             [
@@ -1881,7 +2053,7 @@ def build_config(
                 fatjets.Create_FatJetTightID_v15,
                 # fatjets.Create_FatJetTightLepVetoID,
                 jets.JetEnergyCorrection,
-                fatjets.FatJetEnergyCorrection_v15,
+                fatjets.FatJetEnergyCorrection,
                 jets.FlagVetoMap,
                 fatjets.FlagFatJetVetoMap,
             ]
@@ -2017,7 +2189,7 @@ def build_config(
             ["fjmm","fjmm_cr","nnmm","e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
             fatjets.GoodFatJets,
         )
-    if era == "2024":
+    if era == "2024" or era == "2025":
         configuration.add_producers(
             ["fjmm","fjmm_cr","nnmm","e2m_dyfakeinge_regionc", "m2m_dyfakeingmu_regionc"],
             fatjets.GoodFatJets_v15,
@@ -4586,17 +4758,45 @@ def build_config(
         configuration.add_modification_rule(
             "global",
             RemoveProducer(
-                producers=[event.PUweights, jets.JetEnergyCorrection, fatjets.FatJetEnergyCorrection_v15, met.BuildGenMetVector,],
+                producers=[event.PUweights, met.BuildGenMetVector,],
                 samples=["data"],
             ),
         )
-    if era == "2024":
+        configuration.add_modification_rule(
+            "global",
+            ReplaceProducer(
+                producers=[jets.JetEnergyCorrection, jets.JetEnergyCorrection_data],
+                samples=["data"],
+            )
+        )
+        configuration.add_modification_rule(
+            "global",
+            ReplaceProducer(
+                producers=[fatjets.FatJetEnergyCorrection, fatjets.FatJetEnergyCorrection_data],
+                samples=["data"],
+            )
+        )
+    if era == "2024" or era == "2025":
         configuration.add_modification_rule(
             "global",
             RemoveProducer(
-                producers=[event.PUweights, jets.JetEnergyCorrection, fatjets.FatJetEnergyCorrection_v15, met.BuildGenMetVector,],
+                producers=[event.PUweights, met.BuildGenMetVector,],
                 samples=["data"],
             ),
+        )
+        configuration.add_modification_rule(
+            "global",
+            ReplaceProducer(
+                producers=[jets.JetEnergyCorrection, jets.JetEnergyCorrection_data],
+                samples=["data"],
+            )
+        )
+        configuration.add_modification_rule(
+            "global",
+            ReplaceProducer(
+                producers=[fatjets.FatJetEnergyCorrection, fatjets.FatJetEnergyCorrection_data],
+                samples=["data"],
+            )
         )
         # configuration.add_modification_rule(
         #     scopes,
@@ -4623,8 +4823,8 @@ def build_config(
             "global",
             AppendProducer(
                 producers=[
-                    jets.RenameJetsData, 
-                    fatjets.RenameFatJetsData, 
+                    # jets.RenameJetsData, 
+                    # fatjets.RenameFatJetsData, 
                     event.JSONFilter,
                     jets.cutsomized_Flag_ecalBadCalibFilter,
                 ],
@@ -4632,13 +4832,13 @@ def build_config(
                 update_output=False,
             ),
         )
-    if era == "2024":
+    if era == "2024" or era == "2025":
         configuration.add_modification_rule(
             "global",
             AppendProducer(
                 producers=[
-                    jets.RenameJetsData_v15, 
-                    fatjets.RenameFatJetsData, 
+                    # jets.RenameJetsData_v15, 
+                    # fatjets.RenameFatJetsData, 
                     event.JSONFilter,
                 ],
                 samples=["data"],
@@ -5320,6 +5520,7 @@ def build_config(
                             "2023preBPix": 0.46,
                             "2023postBPix": 0.46,
                             "2024": 0.46,
+                            "2025": 0.568,
                         }
                     ),
                 }
@@ -5349,6 +5550,7 @@ def build_config(
                             "2023preBPix": 0.46,
                             "2023postBPix": 0.46,
                             "2024": 0.46,
+                            "2025": 0.568,
                         }
                     ),
                 }
@@ -5729,6 +5931,15 @@ def build_config(
                  "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
                     "singlemuon_trigger_sf_mc": EraModifier(
                         {   
+                            "2025": [
+                                {
+                                    # adjust the correction type from nominal to systup or down
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "NUM_IsoMu24_DEN_CutBasedIdMedium_and_PFIsoMedium",
+                                    "mc_muon_sf_correctiontype": "systup",
+                                    "mc_muon_trg_extrapolation": 1.0,
+                                },
+                            ],
                             "2024": [
                                 {
                                     # adjust the correction type from nominal to systup or down
@@ -5843,6 +6054,14 @@ def build_config(
                  "eemm","mmmm","nnmm","fjmm","fjmm_cr"): {
                     "singlemuon_trigger_sf_mc": EraModifier(
                         {   
+                            "2025": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "mc_trigger_sf": "NUM_IsoMu24_DEN_CutBasedIdMedium_and_PFIsoMedium",
+                                    "mc_muon_sf_correctiontype": "systdown",
+                                    "mc_muon_trg_extrapolation": 1.0,
+                                },
+                            ],
                             "2024": [
                                 {
                                     "flagname": "trg_wgt_single_mu24",
@@ -5953,6 +6172,14 @@ def build_config(
                 ("nnmm","fjmm","fjmm_cr"): {
                     "singlemuon_trigger_sf_mc_highPt": EraModifier(
                         {   
+                            "2025": [
+                                {
+                                    "flagname": "trg_wgt_single_mu50",
+                                    "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                                    "mc_muon_sf_correctiontype": "systup",
+                                    "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                                },
+                            ],
                             "2024": [
                                 {
                                     "flagname": "trg_wgt_single_mu50",
@@ -6012,6 +6239,14 @@ def build_config(
                 ("nnmm","fjmm","fjmm_cr"): {
                     "singlemuon_trigger_sf_mc_highPt": EraModifier(
                         {   
+                            "2025": [
+                                {
+                                    "flagname": "trg_wgt_single_mu50",
+                                    "mc_trigger_sf": "NUM_Mu50_or_CascadeMu100_or_HighPtTkMu100_DEN_CutBasedIdTrkHighPt_and_TkIsoLoose",
+                                    "mc_muon_sf_correctiontype": "systdown",
+                                    "mc_muon_trg_extrapolation": 1.0,  # for nominal case
+                                },
+                            ],
                             "2024": [
                                 {
                                     "flagname": "trg_wgt_single_mu50",

@@ -73,7 +73,7 @@ Create_JetTightLepVetoID = Producer( ############# This producer is used to crea
 # )
 JetPtCorrection = Producer(
     name="JetPtCorrection",
-    call="physicsobject::jet::JetPtCorrection_v15({df}, {output}, {input}, {jet_reapplyJES}, {jet_jes_sources}, {jet_jes_shift}, {jet_jer_shift}, {jet_jec_file}, {jet_jer_tag}, {jet_jes_tag}, {jet_jec_algo}, {jet_veto_map}, {jet_veto_tag})",
+    call="physicsobject::jet::JetPtCorrection_v15({df}, {output}, {input}, {jet_reapplyJES}, {jet_jes_sources}, {jet_jes_shift}, {jet_jer_shift}, {jet_jec_file}, {jet_jer_tag}, {jet_jes_tag}, {jet_jec_algo}, {jet_veto_map}, {jet_veto_tag}, {year_id}, {Phi_in_L2Relative})",
     input=[
         nanoAOD.Jet_pt,
         nanoAOD.Jet_eta,
@@ -87,6 +87,24 @@ JetPtCorrection = Producer(
         nanoAOD.rho,
         nanoAOD.Jet_chEmEF,
         nanoAOD.Jet_neEmEF,
+    ],
+    output=[q.Jet_pt_corrected],
+    scopes=["global"],
+)
+JetPtCorrection_data = Producer(
+    name="JetPtCorrection_data",
+    call="physicsobject::jet::JetPtCorrection_v15_data({df}, {output}, {input}, {jet_reapplyJES}, {jet_jec_file}, {jet_jes_tag_data}, {jet_jec_algo}, {jet_veto_map}, {jet_veto_tag}, {year_id}, {Phi_in_L2Relative})",
+    input=[
+        nanoAOD.Jet_pt,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        nanoAOD.Jet_area,
+        nanoAOD.Jet_rawFactor,
+        q.jetTightLepVetoID,
+        nanoAOD.Jet_chEmEF,
+        nanoAOD.Jet_neEmEF,
+        nanoAOD.rho,
+        nanoAOD.run,
     ],
     output=[q.Jet_pt_corrected],
     scopes=["global"],
@@ -120,14 +138,6 @@ JetMassCorrection = Producer(
     output=[q.Jet_mass_corrected],
     scopes=["global"],
 )
-# JetEnergyCorrection = ProducerGroup(
-#     name="JetEnergyCorrection",
-#     call=None,
-#     input=None,
-#     output=None,
-#     scopes=["global"],
-#     subproducers=[JetPtCorrection, JetMassCorrection],
-# )
 JetEnergyCorrection = ProducerGroup(
     name="JetEnergyCorrection",
     call=None,
@@ -152,59 +162,69 @@ JetEnergyCorrection_run2 = ProducerGroup(
 #     output=[q.Jet_pt_corrected],
 #     scopes=["global"],
 # )
-RenameJetPt = Producer(
-    name="RenameJetPt",
-    call="physicsobject::jet::JetVetoMap({df}, {output}, {input}, {jet_veto_map}, {jet_veto_tag})",
-    input=[
-        nanoAOD.Jet_pt,
-        nanoAOD.Jet_eta,
-        nanoAOD.Jet_phi,
-        nanoAOD.Jet_ID,
-        nanoAOD.Jet_chEmEF,
-        nanoAOD.Jet_neEmEF,
-        nanoAOD.Jet_neHEF,
-    ],
-    output=[q.Jet_pt_corrected],
+# RenameJetPt = Producer(
+#     name="RenameJetPt",
+#     call="physicsobject::jet::JetVetoMap({df}, {output}, {input}, {jet_veto_map}, {jet_veto_tag})",
+#     input=[
+#         nanoAOD.Jet_pt,
+#         nanoAOD.Jet_eta,
+#         nanoAOD.Jet_phi,
+#         nanoAOD.Jet_ID,
+#         nanoAOD.Jet_chEmEF,
+#         nanoAOD.Jet_neEmEF,
+#         nanoAOD.Jet_neHEF,
+#     ],
+#     output=[q.Jet_pt_corrected],
+#     scopes=["global"],
+# )
+# RenameJetPt_v15 = Producer(
+#     name="RenameJetPt_v15",
+#     call="physicsobject::jet::JetVetoMap_v15({df}, {output}, {input}, {jet_veto_map}, {jet_veto_tag})",
+#     input=[
+#         nanoAOD.Jet_pt,
+#         nanoAOD.Jet_eta,
+#         nanoAOD.Jet_phi,
+#         q.jetTightLepVetoID,
+#         nanoAOD.Jet_chEmEF,
+#         nanoAOD.Jet_neEmEF,
+#     ],
+#     output=[q.Jet_pt_corrected],
+#     scopes=["global"],
+# )
+
+# RenameJetMass = Producer(
+#     name="RenameJetMass",
+#     call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
+#     input=[nanoAOD.Jet_mass],
+#     output=[q.Jet_mass_corrected],
+#     scopes=["global"],
+# )
+# RenameJetsData = ProducerGroup(
+#     name="RenameJetsData",
+#     call=None,
+#     input=None,
+#     output=None,
+#     scopes=["global"],
+#     subproducers=[RenameJetPt, RenameJetMass],
+# )
+# RenameJetsData_v15 = ProducerGroup(
+#     name="RenameJetsData_v15",
+#     call=None,
+#     input=None,
+#     output=None,
+#     scopes=["global"],
+#     subproducers=[RenameJetPt_v15, RenameJetMass],
+# )
+
+JetEnergyCorrection_data = ProducerGroup(
+    name="JetEnergyCorrection_data",
+    call=None,
+    input=None,
+    output=None,
     scopes=["global"],
-)
-RenameJetPt_v15 = Producer(
-    name="RenameJetPt_v15",
-    call="physicsobject::jet::JetVetoMap_v15({df}, {output}, {input}, {jet_veto_map}, {jet_veto_tag})",
-    input=[
-        nanoAOD.Jet_pt,
-        nanoAOD.Jet_eta,
-        nanoAOD.Jet_phi,
-        q.jetTightLepVetoID,
-        nanoAOD.Jet_chEmEF,
-        nanoAOD.Jet_neEmEF,
-    ],
-    output=[q.Jet_pt_corrected],
-    scopes=["global"],
+    subproducers=[JetPtCorrection_data, JetMassCorrection],
 )
 
-RenameJetMass = Producer(
-    name="RenameJetMass",
-    call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
-    input=[nanoAOD.Jet_mass],
-    output=[q.Jet_mass_corrected],
-    scopes=["global"],
-)
-RenameJetsData = ProducerGroup(
-    name="RenameJetsData",
-    call=None,
-    input=None,
-    output=None,
-    scopes=["global"],
-    subproducers=[RenameJetPt, RenameJetMass],
-)
-RenameJetsData_v15 = ProducerGroup(
-    name="RenameJetsData_v15",
-    call=None,
-    input=None,
-    output=None,
-    scopes=["global"],
-    subproducers=[RenameJetPt_v15, RenameJetMass],
-)
 ### 
 cutsomized_Flag_ecalBadCalibFilter = Producer(
     name="cutsomized_Flag_ecalBadCalibFilter",
