@@ -1199,7 +1199,7 @@ JetPtCorrection_v15_data(ROOT::RDF::RNode df, const std::string &corrected_jet_p
     auto JES_evaluator_L2L3Residual =
         correction::CorrectionSet::from_file(jec_file)->at(
             jes_tag + "_L2L3Residual_" + jec_algo); /// Following previous era, L1L2L3Res is used.
-    auto JetEnergyScaleSF_L2L3Residual = [JES_evaluator_L2L3Residual, jes_tag](const int run, const float eta, const float pt) {
+    auto JetEnergyScaleSF_L2L3Residual = [JES_evaluator_L2L3Residual, jes_tag](const double run, const float eta, const float pt) {
         if (std::abs(eta) < 4.7) {
             if (jes_tag.find("Summer24") != std::string::npos) {
                 if (std::abs(eta) < 2.5 && std::abs(eta) > 2 && pt < 30) {
@@ -1906,7 +1906,7 @@ FatJetPtCorrection_v15_data(ROOT::RDF::RNode df, const std::string &corrected_je
     auto JES_evaluator_L2L3Residual =
         correction::CorrectionSet::from_file(jec_file)->at(
             jes_tag + "_L2L3Residual_" + jec_algo); /// Following previous era, L1L2L3Res is used.
-    auto JetEnergyScaleSF_L2L3Residual = [JES_evaluator_L2L3Residual, jes_tag](const int run, const float eta, const float pt) {
+    auto JetEnergyScaleSF_L2L3Residual = [JES_evaluator_L2L3Residual, jes_tag](const float run, const float eta, const float pt) {
         if (std::abs(eta) < 4.7) {
             if (jes_tag.find("Summer24") != std::string::npos) {
                 if (std::abs(eta) < 2.5 && std::abs(eta) > 2 && pt < 30) {
