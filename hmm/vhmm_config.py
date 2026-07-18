@@ -2323,7 +2323,7 @@ def build_config(
             event.Calc_CosThStar_lep_muSS,
             #
             #muons.LVMu3, # vh 
-            triggers.GenerateSingleMuonTriggerFlags, # vh check trigger matching TODO
+            # vh check trigger matching TODO
             # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
             
             #
@@ -2444,7 +2444,7 @@ def build_config(
             p4.mu2_fromZCR_pt,
             p4.mu2_fromZCR_eta,
             p4.mu2_fromZCR_phi,
-            triggers.GenerateSingleMuonTriggerFlags, # vh check trigger matching TODO
+            # vh check trigger matching TODO
             # # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
             p4.met_pt_uncorrected,
             p4.met_phi_uncorrected,
@@ -2533,7 +2533,6 @@ def build_config(
             ### bwlow start to calc vars #
             ##############################            
             
-            triggers.GenerateSingleMuonTriggerFlags,
             ###
             lepton.Calc_MT_W,
             event.lepton_H_dR,
@@ -2683,7 +2682,6 @@ def build_config(
             p4.mu2_fromZCR_pt,
             p4.mu2_fromZCR_eta,
             p4.mu2_fromZCR_phi,
-            triggers.GenerateSingleMuonTriggerFlags,
             p4.met_pt_uncorrected,
             p4.met_phi_uncorrected,
             p4.genmet_pt,
@@ -2792,7 +2790,6 @@ def build_config(
             event.Calc_CosThStar_lep_muOS,
             event.Calc_CosThStar_lep_muSS,
             #
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
 
             p4.mu1_fromH_pt,
             # p4.mu1_fromH_pt_pureBSC,
@@ -2909,7 +2906,6 @@ def build_config(
             p4.mu2_fromZCR_pt,
             p4.mu2_fromZCR_eta,
             p4.mu2_fromZCR_phi,
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             p4.met_pt_uncorrected,
             p4.met_phi_uncorrected,
             p4.genmet_pt,
@@ -3046,7 +3042,6 @@ def build_config(
             p4.muSS_phi,
 
             ###
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             p4.met_pt_uncorrected,
             p4.met_phi_uncorrected,
             p4.genmet_pt,
@@ -3134,7 +3129,6 @@ def build_config(
             p4.mu2_fromZCR_pt,
             p4.mu2_fromZCR_eta,
             p4.mu2_fromZCR_phi,
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             p4.met_pt_uncorrected,
             p4.met_phi_uncorrected,
             p4.genmet_pt,
@@ -3268,7 +3262,6 @@ def build_config(
             muons.LVMu1_uncorrected,
             muons.LVMu2,
             muons.LVMu2_uncorrected,
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
 
             p4.mu1_fromH_pt,
             # p4.mu1_fromH_pt_pureBSC,
@@ -3401,7 +3394,7 @@ def build_config(
             event.PassFlagDiMuonHiggs,
             event.PassMinDiEleMass,
             # Muon collection for trigger
-            triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel,
+            # triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel,
             
             p4.mu1_fromH_pt,
             # p4.mu1_fromH_pt_pureBSC,
@@ -3538,7 +3531,6 @@ def build_config(
             event.met_mmH_dphi_corrected,
             #
             #muons.LVMu3, # vh 
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
             p4.mu1_fromH_pt,
             # p4.mu1_fromH_pt_pureBSC,
@@ -3665,7 +3657,6 @@ def build_config(
             # event.met_mmH_dphi_corrected, # due to limited importance, drop it
             # #
             # #muons.LVMu3, # vh 
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             # # vh the trigger-matched muon should have pT > 29 (26) for 2017 (2016,18)
             p4.mu1_fromH_pt,
             # p4.mu1_fromH_pt_pureBSC,
@@ -3813,7 +3804,6 @@ def build_config(
 
             event.fatjet_PNet_withMass_WvsQCD,            
             # genparticles.BosonDecayMode,
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
             scalefactors.MuonID_SF,
             scalefactors.MuonIso_SF,
             # add HighPtMuon RECO SF here
@@ -3824,7 +3814,57 @@ def build_config(
             scalefactors.GenerateSingleMuonTriggerSF_MC_highPt,
             # event.FatJetQuantities, # tau1,2,3,4... # drop it
         ],
-    )    
+    )
+    if era == "2022preEE" or era == "2022postEE" or era == "2023preBPix" or era == "2023postBPix":
+        configuration.add_producers(
+            ["e2m","eemm","eemm_cr","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
+            [
+                triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel,
+            ],
+        )
+        configuration.add_producers(
+            ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+            [
+                triggers.GenerateSingleMuonTriggerFlags,
+            ],
+        )
+        configuration.add_producers(
+            ["mmmm","mmmm_cr"],
+            [
+                triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel,
+            ],
+        )
+        configuration.add_producers(
+            ["nnmm_topcontrol"],
+            [
+                triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel,
+            ],
+        )
+    if era == "2024" or era == "2025":
+        configuration.add_producers(
+            ["e2m","eemm","eemm_cr","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
+            [
+                triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel_v15,
+            ],
+        )
+        configuration.add_producers(
+            ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+            [
+                triggers.GenerateSingleMuonTriggerFlags_v15,
+            ],
+        )
+        configuration.add_producers(
+            ["mmmm","mmmm_cr"],
+            [
+                triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel_v15,
+            ],
+        )
+        configuration.add_producers(
+            ["nnmm_topcontrol"],
+            [
+                triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel_v15,
+            ],
+        )
     configuration.add_producers(
         "nnmm_dycontrol",
         [
@@ -3889,7 +3929,6 @@ def build_config(
             cr.elemuCR_phi,
             cr.elemuCR_mass,
             # genparticles.BosonDecayMode,
-            triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel,
             scalefactors.GenerateSingleMuonTriggerSF_MC,
             scalefactors.GenerateSingleMuonTriggerSF_MC_highPt,
             
@@ -4335,35 +4374,60 @@ def build_config(
             q.met_mm_fromZCR_dphi,
         ],
     )
-    configuration.add_outputs(
-        ["nnmm_topcontrol"],
-        [
-            triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel.output_group,
-        ],
-    )
-    configuration.add_outputs(
-        ["m2m","m2m_dyfakeingmu_regionc"],
-        [
-            triggers.GenerateSingleMuonTriggerFlags.output_group,
-        ],
-    )
-    configuration.add_outputs(
-        ["e2m","e2m_dyfakeinge_regionc"],
-        [
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
-        ],
-    )
+    if era == "2022preEE" or era == "2022postEE" or era == "2023preBPix" or era == "2023postBPix":
+        configuration.add_outputs(
+            ["m2m","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
+            [
+                triggers.GenerateSingleMuonTriggerFlags.output_group,
+            ],
+        )
+        configuration.add_outputs(
+            ["e2m","eemm","eemm_cr","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
+            [
+                triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
+            ],
+        )
+        configuration.add_outputs(
+            ["mmmm","mmmm_cr"],
+            [
+                triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel.output_group,
+            ],
+        )
+        configuration.add_outputs(
+            ["nnmm_topcontrol"],
+            [
+                triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel.output_group,
+            ],
+        )
+    if era == "2024" or era == "2025":
+        configuration.add_outputs(
+            ["m2m","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
+            [
+                triggers.GenerateSingleMuonTriggerFlags_v15.output_group,
+            ],
+        )
+        configuration.add_outputs(
+            ["e2m","eemm","eemm_cr","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
+            [
+                triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel_v15.output_group,
+            ],
+        )
+        configuration.add_outputs(
+            ["mmmm","mmmm_cr"],
+            [
+                triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel_v15.output_group,
+            ],
+        )
+        configuration.add_outputs(
+            ["nnmm_topcontrol"],
+            [
+                triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel_v15.output_group,
+            ],
+        )
     configuration.add_outputs(
         ["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
         [
-            q.Flag_GoodEle_Veto,
-            triggers.GenerateSingleMuonTriggerFlags.output_group,            
-        ]
-    )
-    configuration.add_outputs(
-        ["e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
-        [
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
+            q.Flag_GoodEle_Veto,   
         ]
     )
     configuration.add_outputs(
@@ -4405,18 +4469,6 @@ def build_config(
         ]
     )
     configuration.add_outputs(
-        ["eemm","eemm_cr"],
-        [            
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
-        ],
-    )
-    configuration.add_outputs(
-        ["mmmm","mmmm_cr"],
-        [
-            triggers.GenerateSingleMuonTriggerFlagsForQuadMuChannel.output_group,
-        ],
-    )
-    configuration.add_outputs(
         "mmmm_cr",
         [
             q.FlagGoodMuonsFromHiggs,
@@ -4442,7 +4494,7 @@ def build_config(
             q.Flag_LeptonChargeSumVeto,
             q.Flag_GoodEle_Veto,
             q.Flag_DiMuonFromHiggs,
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
+            # triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
             scalefactors.GenerateSingleMuonTriggerSF_MC_highPt.output_group,
             
             # q.genmu1_fromH_pt,
@@ -4474,7 +4526,6 @@ def build_config(
             q.Flag_LeptonChargeSumVeto,
             q.Flag_GoodEle_Veto,
             q.Flag_DiMuonFromHiggs,
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
             scalefactors.GenerateSingleMuonTriggerSF_MC_highPt.output_group,
             
             q.fatjet_msoftdrop,
@@ -4510,7 +4561,6 @@ def build_config(
             q.good_FatJet_particleNet_massCorr,
             q.good_FatJet_rawfactor,
             q.fatjet_PNet_withMass_WvsQCD,
-            triggers.GenerateSingleMuonTriggerFlagsForDiMuChannel.output_group,
             scalefactors.GenerateSingleMuonTriggerSF_MC_highPt.output_group,
             
             q.dimuonCR_pt,

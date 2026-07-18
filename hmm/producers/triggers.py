@@ -2,13 +2,12 @@ from ..quantities import output as q
 from ..quantities import nanoAOD as nanoAOD
 from code_generation.producer import ExtendedVectorProducer
 
-####################
-# Set of producers used for trigger flags
-####################
-
-GenerateSingleMuonTriggerFlags = ExtendedVectorProducer(
-    name="GenerateSingleMuonTriggerFlags",
-    call='trigger::GenerateTripleTriggerORFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {ptcut}, {ptcut}, {etacut}, {etacut}, {etacut}, {trigger_particle_id}, {trigger_particle_id}, {trigger_particle_id}, {filterbit}, {filterbit}, {filterbit}, {max_deltaR_triggermatch} )',
+############################################################
+# Set of producers used for trigger flags for v15
+############################################################
+GenerateSingleMuonTriggerFlags_v15 = ExtendedVectorProducer(
+    name="GenerateSingleMuonTriggerFlags_v15",
+    call='trigger::GenerateTripleTriggerORFlag_v15({df}, {output}, {input}, "{hlt_path}", {ptcut}, {ptcut}, {ptcut}, {etacut}, {etacut}, {etacut}, {trigger_particle_id}, {trigger_particle_id}, {trigger_particle_id}, {filterbit}, {filterbit}, {filterbit}, {max_deltaR_triggermatch} )',
     input=[
         q.muon_p4_1,
         q.muon_p4_2,
@@ -23,9 +22,66 @@ GenerateSingleMuonTriggerFlags = ExtendedVectorProducer(
     scope=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
     vec_config="singlemuon_trigger",
 )
-GenerateSingleMuonTriggerFlags_run2 = ExtendedVectorProducer(
-    name="GenerateSingleMuonTriggerFlags_run2",
-    call='trigger::GenerateTripleTriggerORFlag_run2({df}, {output}, {input}, "{hlt_path}", {ptcut}, {ptcut}, {ptcut}, {etacut}, {etacut}, {etacut}, {trigger_particle_id}, {trigger_particle_id}, {trigger_particle_id}, {filterbit}, {filterbit}, {filterbit}, {max_deltaR_triggermatch} )',
+GenerateSingleMuonTriggerFlagsForDiMuChannel_v15 = ExtendedVectorProducer(
+    name="GenerateSingleMuonTriggerFlagsForDiMuChannel_v15",
+    call='trigger::GenerateDoubleTriggerORFlag_v15({df}, {output}, {input}, "{hlt_path}", {ptcut}, {ptcut}, {etacut}, {etacut}, {trigger_particle_id}, {trigger_particle_id}, {filterbit}, {filterbit}, {max_deltaR_triggermatch} )',
+    input=[
+        q.muon_p4_1,
+        q.muon_p4_2,
+        nanoAOD.TriggerObject_bit,
+        nanoAOD.TriggerObject_id,
+        nanoAOD.TriggerObject_pt,
+        nanoAOD.TriggerObject_eta,
+        nanoAOD.TriggerObject_phi,
+    ],
+    output="flagname",
+    scope=["e2m","eemm","eemm_cr","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
+    vec_config="singlemuon_trigger",
+)
+### for emu top Control Region
+# using the same muon to do the trigger
+GenerateSingleMuonTriggerFlagsForEleMuChannel_v15 = ExtendedVectorProducer(
+    name="GenerateSingleMuonTriggerFlagsForEleMuChannel_v15",
+    call='trigger::GenerateDoubleTriggerORFlag_v15({df}, {output}, {input}, "{hlt_path}", {ptcut}, {ptcut}, {etacut}, {etacut}, {trigger_particle_id}, {trigger_particle_id}, {filterbit}, {filterbit}, {max_deltaR_triggermatch} )',
+    input=[
+        q.muon_p4_1,
+        q.muon_p4_1,
+        nanoAOD.TriggerObject_bit,
+        nanoAOD.TriggerObject_id,
+        nanoAOD.TriggerObject_pt,
+        nanoAOD.TriggerObject_eta,
+        nanoAOD.TriggerObject_phi,
+    ],
+    output="flagname",
+    scope=["nnmm_topcontrol"],
+    vec_config="singlemuon_trigger",
+)
+GenerateSingleMuonTriggerFlagsForQuadMuChannel_v15 = ExtendedVectorProducer(
+    name="GenerateSingleMuonTriggerFlagsForQuadMuChannel_v15",
+    call='trigger::GenerateQuadTriggerORFlag_v15({df}, {output}, {input}, "{hlt_path}", {ptcut}, {ptcut}, {ptcut}, {ptcut}, {etacut}, {etacut}, {etacut}, {etacut}, {trigger_particle_id}, {trigger_particle_id}, {trigger_particle_id}, {trigger_particle_id}, {filterbit}, {filterbit}, {filterbit}, {filterbit}, {max_deltaR_triggermatch} )',
+    input=[
+        q.muon_p4_1,
+        q.muon_p4_2,
+        q.muon_p4_3,
+        q.muon_p4_4,
+        nanoAOD.TriggerObject_bit,
+        nanoAOD.TriggerObject_id,
+        nanoAOD.TriggerObject_pt,
+        nanoAOD.TriggerObject_eta,
+        nanoAOD.TriggerObject_phi,
+    ],
+    output="flagname",
+    scope=["mmmm","mmmm_cr"],
+    vec_config="singlemuon_trigger",
+)
+
+
+############################################################
+# Set of producers used for trigger flags for v12
+############################################################
+GenerateSingleMuonTriggerFlags = ExtendedVectorProducer(
+    name="GenerateSingleMuonTriggerFlags",
+    call='trigger::GenerateTripleTriggerORFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {ptcut}, {ptcut}, {etacut}, {etacut}, {etacut}, {trigger_particle_id}, {trigger_particle_id}, {trigger_particle_id}, {filterbit}, {filterbit}, {filterbit}, {max_deltaR_triggermatch} )',
     input=[
         q.muon_p4_1,
         q.muon_p4_2,
@@ -75,23 +131,6 @@ GenerateSingleMuonTriggerFlagsForEleMuChannel = ExtendedVectorProducer(
     vec_config="singlemuon_trigger",
 )
 
-
-GenerateSingleMuonTriggerFlagsForDiMuChannel_run2 = ExtendedVectorProducer(
-    name="GenerateSingleMuonTriggerFlagsForDiMuChannel_run2",
-    call='trigger::GenerateDoubleTriggerORFlag_run2({df}, {output}, {input}, "{hlt_path}", {ptcut}, {ptcut}, {etacut}, {etacut}, {trigger_particle_id}, {trigger_particle_id}, {filterbit}, {filterbit}, {max_deltaR_triggermatch} )',
-    input=[
-        q.muon_p4_1,
-        q.muon_p4_2,
-        nanoAOD.TriggerObject_bit,
-        nanoAOD.TriggerObject_id,
-        nanoAOD.TriggerObject_pt,
-        nanoAOD.TriggerObject_eta,
-        nanoAOD.TriggerObject_phi,
-    ],
-    output="flagname",
-    scope=["e2m","eemm","eemm_cr","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
-    vec_config="singlemuon_trigger",
-)
 GenerateSingleMuonTriggerFlagsForQuadMuChannel = ExtendedVectorProducer(
     name="GenerateSingleMuonTriggerFlagsForQuadMuChannel",
     call='trigger::GenerateQuadTriggerORFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {ptcut}, {ptcut}, {ptcut}, {etacut}, {etacut}, {etacut}, {etacut}, {trigger_particle_id}, {trigger_particle_id}, {trigger_particle_id}, {trigger_particle_id}, {filterbit}, {filterbit}, {filterbit}, {filterbit}, {max_deltaR_triggermatch} )',
@@ -108,6 +147,44 @@ GenerateSingleMuonTriggerFlagsForQuadMuChannel = ExtendedVectorProducer(
     ],
     output="flagname",
     scope=["mmmm","mmmm_cr"],
+    vec_config="singlemuon_trigger",
+)
+
+
+################################################################
+############### Producers for Run2 trigger flags ###############
+################################################################
+GenerateSingleMuonTriggerFlags_run2 = ExtendedVectorProducer(
+    name="GenerateSingleMuonTriggerFlags_run2",
+    call='trigger::GenerateTripleTriggerORFlag_run2({df}, {output}, {input}, "{hlt_path}", {ptcut}, {ptcut}, {ptcut}, {etacut}, {etacut}, {etacut}, {trigger_particle_id}, {trigger_particle_id}, {trigger_particle_id}, {filterbit}, {filterbit}, {filterbit}, {max_deltaR_triggermatch} )',
+    input=[
+        q.muon_p4_1,
+        q.muon_p4_2,
+        q.muon_p4_3,
+        nanoAOD.TriggerObject_bit,
+        nanoAOD.TriggerObject_id,
+        nanoAOD.TriggerObject_pt,
+        nanoAOD.TriggerObject_eta,
+        nanoAOD.TriggerObject_phi,
+    ],
+    output="flagname",
+    scope=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
+    vec_config="singlemuon_trigger",
+)
+GenerateSingleMuonTriggerFlagsForDiMuChannel_run2 = ExtendedVectorProducer(
+    name="GenerateSingleMuonTriggerFlagsForDiMuChannel_run2",
+    call='trigger::GenerateDoubleTriggerORFlag_run2({df}, {output}, {input}, "{hlt_path}", {ptcut}, {ptcut}, {etacut}, {etacut}, {trigger_particle_id}, {trigger_particle_id}, {filterbit}, {filterbit}, {max_deltaR_triggermatch} )',
+    input=[
+        q.muon_p4_1,
+        q.muon_p4_2,
+        nanoAOD.TriggerObject_bit,
+        nanoAOD.TriggerObject_id,
+        nanoAOD.TriggerObject_pt,
+        nanoAOD.TriggerObject_eta,
+        nanoAOD.TriggerObject_phi,
+    ],
+    output="flagname",
+    scope=["e2m","eemm","eemm_cr","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
     vec_config="singlemuon_trigger",
 )
 GenerateSingleMuonTriggerFlagsForQuadMuChannel_run2 = ExtendedVectorProducer(
