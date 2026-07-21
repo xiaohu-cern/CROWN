@@ -1500,10 +1500,10 @@ def build_config(
                     "2018": '"data/jsonpog-integration/POG/JME/2018_UL/fatJet_jerc.json.gz"',
                     # "2022preEE": '"data/jsonpog-integration/POG/JME/2022_Prompt/fatJet_jerc.json.gz"',
                     # "2022postEE": '"data/jsonpog-integration-beforeCorr/POG/JME/2022_Summer22EE-zhiyuan/fatJet_jerc.json.gz"',
-                    "2022preEE": '"data/22-23_correction_new/JME/2022_Summer22/fatJet_jerc.json.gz"',
-                    "2022postEE": '"data/22-23_correction_new/JME/2022_Summer22EE/fatJet_jerc.json.gz"',
-                    "2023preBPix": '"data/22-23_correction_new/JME/2023_Summer23/fatJet_jerc.json.gz"',
-                    "2023postBPix": '"data/22-23_correction_new/JME/2023_Summer23BPix/fatJet_jerc.json.gz"',
+                    "2022preEE": '"data/22-23_correction_new/JME/2022preEE/fatJet_jerc.json.gz"',
+                    "2022postEE": '"data/22-23_correction_new/JME/2022postEE/fatJet_jerc.json.gz"',
+                    "2023preBPix": '"data/22-23_correction_new/JME/2023preBPix/fatJet_jerc.json.gz"',
+                    "2023postBPix": '"data/22-23_correction_new/JME/2023postBPix/fatJet_jerc.json.gz"',
                     "2024": '"data/2024_correction/JME/fatJet_jerc.json.gz"',
                     "2025": '"data/2025_correction/JME/fatJet_jerc.json.gz"', ####### waiting to be changed
                 }
