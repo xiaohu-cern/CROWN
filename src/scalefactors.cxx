@@ -98,7 +98,9 @@ ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, const
                         s_pt_values[i] = pt_pre_corr_values.at(i);
                     }
                     else {
-                        s_pt_values[i] = 1/(m/pt_pre_corr_values.at(i) + q_values.at(i)*a);
+                        double pt_scale_nom = 1/(m/pt_pre_corr_values.at(i) + q_values.at(i)*a);
+                        if (isnan(pt_scale_nom)) pt_scale_nom = pt_pre_corr_values.at(i);
+                        s_pt_values[i] = pt_scale_nom;
                     }
 
                     // auto log = Logger::get("KIT Muon Momentum Resolution");
@@ -111,10 +113,12 @@ ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, const
                     double unc = pt_pre_corr_values.at(i)*pt_pre_corr_values.at(i)*sqrt(stat_m*stat_m / (pt_pre_corr_values.at(i)*pt_pre_corr_values.at(i)) + stat_a*stat_a + 2*q_values.at(i)*stat_rho*stat_m/pt_pre_corr_values.at(i)*stat_a);
 
                     if (s_variation=="Up"){
-                        s_pt_values[i] = pt_pre_corr_values.at(i) + unc;
+                        if (isnan(unc)) {s_pt_values[i] = pt_pre_corr_values.at(i);}
+                        else{s_pt_values[i] = pt_pre_corr_values.at(i) + unc;}
                     }
                     if (s_variation=="Down"){
-                        s_pt_values[i] = pt_pre_corr_values.at(i) - unc;
+                        if (isnan(unc)) {s_pt_values[i] = pt_pre_corr_values.at(i);}
+                        else{s_pt_values[i] = pt_pre_corr_values.at(i) - unc;}
                     }
                 }
                 else {
@@ -167,13 +171,17 @@ ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, const
                         double k_unc = cset_k_mc->evaluate({std::abs(eta_values.at(i)), "stat"});
                         double std_x_rndm = (corrected_pt_values[i] / s_pt_values.at(i) -1 ) / k;
                         if (variation=="Up") {
-                            corrected_pt_values[i] = s_pt_values.at(i) * (1 + (k+k_unc) * std_x_rndm);
+                            double ptc_up = s_pt_values.at(i) * (1 + (k+k_unc) * std_x_rndm);
+                            if (isnan(ptc_up)) ptc_up = s_pt_values.at(i);
+                            corrected_pt_values[i] = ptc_up;
                             if (corrected_pt_values[i] / s_pt_values.at(i) > 2 || corrected_pt_values[i] / s_pt_values.at(i) < 0.1 || corrected_pt_values[i] < 0) {
                                 corrected_pt_values[i] = s_pt_values.at(i);
                             }   
                         }
                         if (variation=="Down") {
-                            corrected_pt_values[i] = s_pt_values.at(i) * (1 + (k-k_unc) * std_x_rndm);
+                            double ptc_down = s_pt_values.at(i) * (1 + (k-k_unc) * std_x_rndm);
+                            if (isnan(ptc_down)) ptc_down = s_pt_values.at(i);
+                            corrected_pt_values[i] = ptc_down;
                             if (corrected_pt_values[i] / s_pt_values.at(i) > 2 || corrected_pt_values[i] / s_pt_values.at(i) < 0.1 || corrected_pt_values[i] < 0) {
                                 corrected_pt_values[i] = s_pt_values.at(i);
                             }
