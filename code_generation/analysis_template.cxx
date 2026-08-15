@@ -209,6 +209,17 @@ int main(int argc, char *argv[]) {
         fout->Close();
         scope_counter++;
     }
+    bool del = true;
+    for (auto const &output : output_quanties) {
+        if (del) {
+            TFile *fout2 = TFile::Open(output.first.c_str(), "UPDATE");
+            fout2->Delete("shift_quantities_map;*");
+            fout2->Delete("quantities_shift_map;*");
+            fout2->Close();
+            del = false;
+        }
+        else break;
+    }
 
     Logger::get("main")->info("Finished Evaluation");
     Logger::get("main")->info(
