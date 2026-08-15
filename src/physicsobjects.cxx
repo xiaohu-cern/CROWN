@@ -17,6 +17,8 @@
 #include <string>
 #include <type_traits>
 #include <vector>
+#include <TMVA/Reader.h>
+#include <../include/PromptMVA.hxx>
 #include "TVector3.h"
 #include "TLorentzVector.h"
 #include "TLorentzRotation.h"
@@ -2592,6 +2594,60 @@ applyRoccoRMC(ROOT::RDF::RNode df, const std::string &outputname,
                       phiColumn, genPtColumn, nTrackerLayersColumn,
                       rndmColumn});
 }
+ROOT::RDF::RNode Calculate_MuonPromptMVA22To23(ROOT::RDF::RNode df, const std::string &new_MuonPromptMVA, 
+                                               const std::string &Muon_pt, const std::string &Muon_eta,
+                                               const std::string &Muon_pfRelIso03_all, const std::string &Muon_miniPFRelIso_chg, 
+                                               const std::string &Muon_miniPFRelIso_all,
+                                               const std::string &Muon_jetNDauCharged, const std::string &Muon_jetPtRelv2, 
+                                               const std::string &Muon_jetIdx, const std::string &Jet_btagDeepFlavB,
+                                               const std::string &Muon_jetRelIso, const std::string &Muon_sip3d, 
+                                               const std::string &Muon_dxy, const std::string &Muon_dz, 
+                                               const std::string &Muon_segmentComp,
+                                               const std::string &BDT_model_name, const std::string &xmlpath) {
+    auto reader = std::make_shared<MuonPromptReader>(xmlpath);
+    auto df1 = df.Define(
+        new_MuonPromptMVA,
+        [reader, BDT_model_name, xmlpath] (const ROOT::RVec<float> &pt_values,
+                                  const ROOT::RVec<float> &eta_values,
+                                  const ROOT::RVec<float> &pfRelIso03_all_values,
+                                  const ROOT::RVec<float> &miniPFRelIso_chg_values,
+                                  const ROOT::RVec<float> &miniPFRelIso_all_values,
+                                  const ROOT::RVec<UChar_t> &jetNDauCharged_values_char,
+                                  const ROOT::RVec<float> &jetPtRelv2_values,
+                                  const ROOT::RVec<Short_t> &jetIdx_values_short,
+                                  const ROOT::RVec<float> &btagDeepFlavB_values,
+                                  const ROOT::RVec<float> &jetRelIso_values,
+                                  const ROOT::RVec<float> &sip3d_values,
+                                  const ROOT::RVec<float> &dxy_values,
+                                  const ROOT::RVec<float> &dz_values,
+                                  const ROOT::RVec<float> &segmentComp_values) {
+        ROOT::RVec<float> new_MuonPromptMVA_values(pt_values.size());
+        ROOT::RVec<float> jetNDauCharged_values = ROOT::RVec<float>(jetNDauCharged_values_char.begin(), jetNDauCharged_values_char.end());
+        ROOT::RVec<float> jetIdx_values = ROOT::RVec<float>(jetIdx_values_short.begin(), jetIdx_values_short.end());
+
+        for (int i = 0; i < pt_values.size(); i++) {
+            reader->miniRelIsoNeutral = miniPFRelIso_all_values[i] - miniPFRelIso_chg_values[i];
+            reader->jetBTagDeepFlavB = jetIdx_values[i] > -1 ? btagDeepFlavB_values[jetIdx_values[i]] : 0.0f;
+            reader->jetPtRatio = std::min(1/(1+jetRelIso_values[i]), 1.5f);
+            reader->log_dxy = std::log(std::abs(dxy_values[i]));
+            reader->log_dz = std::log(std::abs(dz_values[i]));
+            reader->pt = pt_values[i];
+            reader->eta = eta_values[i];
+            reader->pfRelIso03_all = pfRelIso03_all_values[i];
+            reader->miniPFRelIso_chg = miniPFRelIso_chg_values[i];
+            reader->jetNDauCharged = jetNDauCharged_values[i];
+            reader->jetPtRelv2 = jetPtRelv2_values[i];
+            reader->sip3d = sip3d_values[i];
+            reader->segmentComp = segmentComp_values[i];
+            new_MuonPromptMVA_values[i] = reader->reader.EvaluateMVA(BDT_model_name);
+            // reader->Clear();
+        }return new_MuonPromptMVA_values;
+        },{Muon_pt, Muon_eta, Muon_pfRelIso03_all, Muon_miniPFRelIso_chg, Muon_miniPFRelIso_all,
+          Muon_jetNDauCharged, Muon_jetPtRelv2, Muon_jetIdx, Jet_btagDeepFlavB,
+          Muon_jetRelIso, Muon_sip3d, Muon_dxy, Muon_dz, Muon_segmentComp}
+    );
+    return df1;
+}
 } // end namespace muon
 /// Tau specific functions
 namespace tau {
@@ -3244,6 +3300,62 @@ PtCorrection_smearing(ROOT::RDF::RNode df, const std::string &corrected_pt,
 
     // Apply the correction
     auto df1 = df.Define(corrected_pt, electron_pt_correction_lambda, {pt, r9, deltaEtaSC, eta, phi, event, luminosityBlock});
+    return df1;
+}
+
+ROOT::RDF::RNode Calculate_ElePromptMVA22To23(ROOT::RDF::RNode df, const std::string &new_ElePromptMVA,
+                                                   const std::string &Ele_pt, const std::string &Ele_eta, 
+                                                   const std::string &Ele_pfRelIso03_all, const std::string &Ele_miniPFRelIso_chg,
+                                                   const std::string &Ele_miniPFRelIso_all, const std::string &Ele_jetNDauCharged,
+                                                   const std::string &Ele_jetPtRelv2, const std::string &Ele_jetIdx, 
+                                                   const std::string &Jet_btagDeepFlavB, const std::string &Ele_jetRelIso,
+                                                   const std::string &Ele_sip3d, const std::string &Ele_dxy, const std::string &Ele_dz, 
+                                                   const std::string &Ele_mvaIso, 
+                                                   const std::string &BDT_model_name, const std::string &xmlpath) {
+    auto reader = std::make_shared<ElePromptReader>(xmlpath);
+
+    auto df1 = df.Define(
+        new_ElePromptMVA,
+        [reader, BDT_model_name, xmlpath] (const ROOT::RVec<float> &pt_values,
+                                           const ROOT::RVec<float> &eta_values,
+                                           const ROOT::RVec<float> &pfRelIso03_all_values,
+                                           const ROOT::RVec<float> &miniPFRelIso_chg_values,
+                                           const ROOT::RVec<float> &miniPFRelIso_all_values,
+                                           const ROOT::RVec<UChar_t> &jetNDauCharged_values_char,
+                                           const ROOT::RVec<float> &jetPtRelv2_values,
+                                           const ROOT::RVec<Short_t> &jetIdx_values_short,
+                                           const ROOT::RVec<float> &btagDeepFlavB_values,
+                                           const ROOT::RVec<float> &jetRelIso_values,
+                                           const ROOT::RVec<float> &sip3d_values,
+                                           const ROOT::RVec<float> &dxy_values,
+                                           const ROOT::RVec<float> &dz_values,
+                                           const ROOT::RVec<float> &mvaIso_values) {
+        ROOT::RVec<float> new_ElePromptMVA_values(pt_values.size());
+        ROOT::RVec<float> jetNDauCharged_values = ROOT::RVec<float>(jetNDauCharged_values_char.begin(), jetNDauCharged_values_char.end());
+        ROOT::RVec<float> jetIdx_values = ROOT::RVec<float>(jetIdx_values_short.begin(), jetIdx_values_short.end());
+
+        for (int i = 0; i < pt_values.size(); i++) {
+            reader->miniRelIsoNeutral = miniPFRelIso_all_values[i] - miniPFRelIso_chg_values[i];
+            reader->jetBTagDeepFlavB = jetIdx_values[i] > -1 ? btagDeepFlavB_values[jetIdx_values[i]] : 0.0f;
+            reader->jetPtRatio = std::min(1/(1+jetRelIso_values[i]), 1.5f);
+            reader->log_dxy = std::log(std::max(std::abs(dxy_values[i]),1e-10f));
+            reader->log_dz = std::log(std::max(std::abs(dz_values[i]),1e-10f));
+            reader->pt = pt_values[i];
+            reader->eta = eta_values[i];
+            reader->pfRelIso03_all = pfRelIso03_all_values[i];
+            reader->miniPFRelIso_chg = miniPFRelIso_chg_values[i];
+            reader->jetNDauCharged = jetNDauCharged_values[i];
+            reader->jetPtRelv2 = jetPtRelv2_values[i];
+            reader->sip3d = sip3d_values[i];
+            reader->mvaIso = mvaIso_values[i];
+
+            new_ElePromptMVA_values[i] = reader->reader.EvaluateMVA("BDTG");
+            // reader->Clear();
+        }return new_ElePromptMVA_values;
+        },{Ele_pt, Ele_eta, Ele_pfRelIso03_all, Ele_miniPFRelIso_chg, Ele_miniPFRelIso_all,
+          Ele_jetNDauCharged, Ele_jetPtRelv2, Ele_jetIdx, Jet_btagDeepFlavB, Ele_jetRelIso,
+          Ele_sip3d, Ele_dxy, Ele_dz, Ele_mvaIso}
+    );
     return df1;
 }
 

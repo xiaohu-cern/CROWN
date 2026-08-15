@@ -340,6 +340,16 @@ ROOT::RDF::RNode CheckForDiLeptonPairs(
     const std::string &leptons_charge, const std::string &leptons_mask,
     const float dR_cut);
 namespace muon {
+ROOT::RDF::RNode Calculate_MuonPromptMVA22To23(ROOT::RDF::RNode df, const std::string &new_MuonPromptMVA, 
+                                               const std::string &Muon_pt, const std::string &Muon_eta,
+                                               const std::string &Muon_pfRelIso03_all, const std::string &Muon_miniPFRelIso_chg, 
+                                               const std::string &Muon_miniPFRelIso_all,
+                                               const std::string &Muon_jetNDauCharged, const std::string &Muon_jetPtRelv2, 
+                                               const std::string &Muon_jetIdx, const std::string &Jet_btagDeepFlavB,
+                                               const std::string &Muon_jetRelIso, const std::string &Muon_sip3d, 
+                                               const std::string &Muon_dxy, const std::string &Muon_dz, 
+                                               const std::string &Muon_segmentComp,
+                                               const std::string &BDT_model_name, const std::string &xmlpath);
 ROOT::RDF::RNode CutID(ROOT::RDF::RNode df, const std::string &maskname,
                        const std::string &nameID);
 ROOT::RDF::RNode CutUCharID(ROOT::RDF::RNode df, const std::string &maskname,
@@ -455,6 +465,17 @@ PtCorrection_smearing(ROOT::RDF::RNode df, const std::string &corrected_pt,
                     const std::string &pt, const std::string &r9,
                     const std::string &deltaEtaSC, const std::string &eta, const std::string &phi,
                     const std::string &event, const std::string &luminosityBlock, const std::string &sf_file_random);
+
+ROOT::RDF::RNode Calculate_ElePromptMVA22To23(ROOT::RDF::RNode df, const std::string &new_ElePromptMVA,
+                                                   const std::string &Ele_pt, const std::string &Ele_eta, 
+                                                   const std::string &Ele_pfRelIso03_all, const std::string &Ele_miniPFRelIso_chg,
+                                                   const std::string &Ele_miniPFRelIso_all, const std::string &Ele_jetNDauCharged,
+                                                   const std::string &Ele_jetPtRelv2, const std::string &Ele_jetIdx, 
+                                                   const std::string &Jet_btagDeepFlavB, const std::string &Ele_jetRelIso,
+                                                   const std::string &Ele_sip3d, const std::string &Ele_dxy, const std::string &Ele_dz, 
+                                                   const std::string &Ele_mvaIso, 
+                                                   const std::string &BDT_model_name, const std::string &xmlpath);
+
 
 } // end namespace electron
 } // namespace physicsobject

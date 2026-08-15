@@ -40,6 +40,28 @@ Muon_pfRelIso04_all = NanoAODQuantity("Muon_pfRelIso04_all") # vh
 Muon_mvaTTH = NanoAODQuantity("Muon_mvaTTH")
 Muon_nTrackerLayers = NanoAODQuantity("Muon_nTrackerLayers")
 Muon_highPtId = NanoAODQuantity("Muon_highPtId")
+############# the input for the new muon prompt MVA####################
+Muon_pfRelIso03_all = NanoAODQuantity("Muon_pfRelIso03_all")
+Muon_miniPFRelIso_chg = NanoAODQuantity("Muon_miniPFRelIso_chg")
+Muon_miniPFRelIso_all = NanoAODQuantity("Muon_miniPFRelIso_all")
+Muon_jetNDauCharged = NanoAODQuantity("Muon_jetNDauCharged")
+Muon_jetPtRelv2 = NanoAODQuantity("Muon_jetPtRelv2")
+Muon_jetIdx = NanoAODQuantity("Muon_jetIdx")
+Jet_btagDeepFlavB = NanoAODQuantity("Jet_btagDeepFlavB")
+Muon_jetRelIso = NanoAODQuantity("Muon_jetRelIso")
+Muon_segmentComp = NanoAODQuantity("Muon_segmentComp")
+
+Electron_miniPFRelIso_chg = NanoAODQuantity("Electron_miniPFRelIso_chg")
+Electron_miniPFRelIso_all = NanoAODQuantity("Electron_miniPFRelIso_all")
+Electron_jetNDauCharged = NanoAODQuantity("Electron_jetNDauCharged")
+Electron_jetPtRelv2 = NanoAODQuantity("Electron_jetPtRelv2")
+Electron_jetIdx = NanoAODQuantity("Electron_jetIdx")
+Electron_jetRelIso = NanoAODQuantity("Electron_jetRelIso")
+Electron_mvaIso = NanoAODQuantity("Electron_mvaIso")
+
+
+
+
 
 Electron_pt = NanoAODQuantity("Electron_pt")
 Electron_r9 = NanoAODQuantity("Electron_r9")

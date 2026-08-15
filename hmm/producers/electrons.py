@@ -137,6 +137,13 @@ GoodElectron_mvaTTH_Cut = Producer(
     output=[],
     scopes=["global"],
 )
+GoodElectron_mvaTTH_Cut_22To23 = Producer(
+    name="GoodElectron_mvaTTH_Cut_22To23",
+    call="physicsobject::CutVarMin({df}, {input}, {output}, {min_goodelectron_mvaTTH})",
+    input=[q.new_ElePromptMVA],
+    output=[],
+    scopes=["global"],
+)
 GoodElectronIDCut = Producer(
     name="GoodElectronIDCut",
     call='physicsobject::electron::CutID({df}, {output}, "{good_ele_id}")', # notice here "{good_ele_id}"
@@ -152,6 +159,17 @@ GoodElectrons = ProducerGroup(
     scopes=["global"],
     subproducers=[
         GoodElectron_mvaTTH_Cut,
+        GoodElectronIDCut,
+    ],
+)
+GoodElectrons_22To23 = ProducerGroup(
+    name="GoodElectrons_22To23",
+    call="physicsobject::CombineMasks({df}, {output}, {input})",
+    input=[q.base_electrons_mask],
+    output=[q.good_electrons_mask], # vh these are the final selection muons' mask
+    scopes=["global"],
+    subproducers=[
+        GoodElectron_mvaTTH_Cut_22To23,
         GoodElectronIDCut,
     ],
 )
@@ -278,4 +296,27 @@ ElectronPtCorrectionSmearing = Producer(
     output=[q.Electron_pt_corrected],
     scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
     # scopes=["global"],
+)
+
+Calculate_ElePromptMVA22To23 = Producer(
+    name="Calculate_ElePromptMVA22To23",
+    call='physicsobject::electron::Calculate_ElePromptMVA22To23({df}, {output}, {input}, "{PromptMVA_BDT_electron_name}", "{electron_xml_path}")',
+    input=[
+        nanoAOD.Electron_pt,
+        nanoAOD.Electron_eta,
+        nanoAOD.Electron_iso,
+        nanoAOD.Electron_miniPFRelIso_chg,
+        nanoAOD.Electron_miniPFRelIso_all,
+        nanoAOD.Electron_jetNDauCharged,
+        nanoAOD.Electron_jetPtRelv2,
+        nanoAOD.Electron_jetIdx,
+        nanoAOD.Jet_btagDeepFlavB,
+        nanoAOD.Electron_jetRelIso,
+        nanoAOD.Electron_sip3d,
+        nanoAOD.Electron_dxy,
+        nanoAOD.Electron_dz,
+        nanoAOD.Electron_mvaIso,
+    ],
+    output=[q.new_ElePromptMVA],
+    scopes=["global"],
 )

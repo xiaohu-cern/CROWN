@@ -822,6 +822,8 @@ def build_config(
             
             # for good muon
             "min_goodmuon_mvaTTH" : 0.4,
+            "PromptMVA_BDT_muon_name" : "BDTG",
+            "muon_xml_path": "data/22-23_correction_new/MUO/Muon-mvaTTH.2022EE.weights.xml",
             "good_muon_id_medium": "Muon_mediumId", # vh cut-based atm https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Medium_Muon
             "good_muon_id_highpt": "Muon_highPtId", # vh high pt muon ID
             "good_muon_id_highpt_bit": 1, #### 1 tracker high pt, 2 global high pt. require >=1
@@ -849,6 +851,8 @@ def build_config(
             
             # extract from base ele v1 for good ele
             "min_goodelectron_mvaTTH" : 0.4,
+            "PromptMVA_BDT_electron_name" : "BDTG",
+            "electron_xml_path": "data/22-23_correction_new/EGM/Electron-mvaTTH.2022EE.weights_mvaISO.xml",
             "good_ele_id": EraModifier(
                 {
                     "2016preVFP": "Electron_mvaFall17V2Iso_WP90",
@@ -1916,7 +1920,7 @@ def build_config(
             # change to 50, to check the met for MET channel
             # change to 100, to contain the DNN cr for MET,
             # but remember to keep nfatjet<=0, to remove the overlap with fjmm
-            "min_met" : 50.0,
+            "min_met" : 100.0,
             "flag_MetCut" : 1,
         }
     )
@@ -1939,7 +1943,7 @@ def build_config(
     configuration.add_config_parameters(
         "nnmm_dycontrol", # DY control region m(mumu) from 70 to 110
         {
-            "min_met" : 50.0,            
+            "min_met" : 100.0,            
             "flag_MetCut" : 1,
         }
     )
@@ -1947,7 +1951,7 @@ def build_config(
         "nnmm_topcontrol", # Top control reigon e mu final state
         {
             "vh_good_nmuons" : 1,
-            "min_met" : 150.0,
+            "min_met" : 100.0,
             "flag_EleMuFromTopCR" : 1,
             "flag_MetCut" : 1,
         }
@@ -1973,7 +1977,7 @@ def build_config(
             # need use data driven, collect the low mva ele at scopes
             electrons.BaseElectrons,
             electrons.BaseElectrons_v2, # v2 add cutbaseID from base ele
-            electrons.GoodElectrons, # good ele add mvaTTH and mvaIsoID from base ele
+            # electrons.GoodElectrons, # good ele add mvaTTH and mvaIsoID from base ele
             
             electrons.NumberOfBaseElectrons,
             electrons.NumberOfGoodElectrons,
@@ -1984,18 +1988,56 @@ def build_config(
             met.BuildGenMetVector,
         ],
     )
+    if era == "2022preEE" or era == "2022postEE" or era == "2023preBPix" or era == "2023postBPix":
+        configuration.add_producers(
+            "global",
+            electrons.GoodElectrons_22To23, # good ele add mvaTTH and mvaIsoID from base ele
+        )
+        configuration.add_producers(
+            ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+            [
+                muons.GoodMuons_22To23,
+            ],
+        )
+    if era == "2024" or era == "2025":
+        configuration.add_producers(
+            "global",
+            electrons.GoodElectrons, # good ele add mvaTTH and mvaIsoID from base ele
+        )
+        configuration.add_producers(
+            ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+            [
+                muons.GoodMuons,
+            ],
+        )
     configuration.add_producers(
         ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         [
             muons.BaseMuons,
-            muons.GoodMuons,
+            # muons.GoodMuons,
             muons.NumberOfBaseMuons,
             muons.NumberOfGoodMuons,
             muons.BaseMuonCollection,
             muons.MuonCollection,
         ],
     )
+    if era == "2022preEE" or era == "2022postEE" or era =="2023preBPix" or era == "2023postBPix":
+        configuration.add_producers(
+            ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+            [
+                muons.Calculate_MuonPromptMVA22To23,
+            ],
+        )
+        configuration.add_producers(
+            ["global"],
+            [
+                electrons.Calculate_ElePromptMVA22To23,
+            ],
+        )
     configuration.add_producers(
         ["fjmm_cr", "fjmm", "nnmm"],
         [
@@ -3455,7 +3497,7 @@ def build_config(
         "nnmm",
         [
             event.FilterNGoodMuons, # vh nnmm ==2 muons
-            muons.Muons_use_for_Veto,
+            # muons.Muons_use_for_Veto,
             muons.NumberOfVetoMuons,
             event.Filter2lTriGoodMuons,
             # event.Flag_MetCut,
@@ -3579,7 +3621,7 @@ def build_config(
         [
             event.FilterNGoodMuons, # vh fjmm ==2 muons
             # event.FilterNFatjets_fjmm, # vh fjmm >=1 fatjet
-            muons.Muons_use_for_Veto,
+            # muons.Muons_use_for_Veto,
             muons.NumberOfVetoMuons,
             event.Filter2lTriGoodMuons,
             
@@ -3722,7 +3764,7 @@ def build_config(
             event.FilterNGoodMuons, # vh fjmm ==2 muons
             # event.FilterNFatjets_fjmm, # vh fjmm >=1 fatjet
             muons.NumberOfVetoMuons,
-            muons.Muons_use_for_Veto,
+            # muons.Muons_use_for_Veto,
             event.Filter2lTriGoodMuons,
             event.Flag_MaxMetCut,
             event.FilterFlagMaxMetCut, # MET <= 150
@@ -3840,6 +3882,12 @@ def build_config(
                 triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel,
             ],
         )
+        configuration.add_producers(
+            ["fjmm_cr", "fjmm", "nnmm"],
+            [
+                muons.Muons_use_for_Veto_22To23,
+            ],
+        )
     if era == "2024" or era == "2025":
         configuration.add_producers(
             ["e2m","eemm","eemm_cr","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
@@ -3863,6 +3911,12 @@ def build_config(
             ["nnmm_topcontrol"],
             [
                 triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel_v15,
+            ],
+        )
+        configuration.add_producers(
+            ["fjmm_cr", "fjmm", "nnmm"],
+            [
+                muons.Muons_use_for_Veto,
             ],
         )
     configuration.add_producers(
