@@ -1082,7 +1082,7 @@ JetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
             // https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jetmetUncertainties.py
             float pt_scale_sf = 1.0;
             if (jes_shift != 0.0) {
-                if (jes_shift_sources.at(0) == "") {
+                if (jes_shift_sources.at(0) != "") {
                     // Differentiate between single source and combined source
                     // for reduced scheme
                     if (JetEnergyScaleShifts.size() == 1) {
@@ -1782,7 +1782,7 @@ FatJetPtCorrection_v15(ROOT::RDF::RNode df, const std::string &corrected_jet_pt,
             // https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jetmetUncertainties.py
             float pt_scale_sf = 1.0;
             if (jes_shift != 0.0) {
-                if (jes_shift_sources.at(0) == "") {
+                if (jes_shift_sources.at(0) != "") {
                     // Differentiate between single source and combined source
                     // for reduced scheme
                     if (JetEnergyScaleShifts.size() == 1) {
