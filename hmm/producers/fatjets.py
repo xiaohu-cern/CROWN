@@ -363,3 +363,32 @@ GoodFatjet_RawFactor = Producer(
     output=[q.good_FatJet_rawfactor],
     scopes=["fjmm", "fjmm_cr"],
 )
+
+BuildSubJet1 = Producer(
+    name="BuildSubJet1",
+    call="quantities::jet::buildSubJet({df}, {input}, 0, {output})",
+    input=[
+        nanoAOD.SubJet_pt,
+        nanoAOD.SubJet_eta,
+        nanoAOD.SubJet_phi,
+        nanoAOD.SubJet_mass,
+        q.good_fatjet_collection,
+        nanoAOD.FatJet_subJetIdx1,
+    ],
+    output=[q.subjet_p4_1],
+    scopes=["fjmm", "fjmm_cr"]
+)
+BuildSubJet2 = Producer(
+    name="BuildSubJet2",
+    call="quantities::jet::buildSubJet({df}, {input}, 0, {output})",
+    input=[
+        nanoAOD.SubJet_pt,
+        nanoAOD.SubJet_eta,
+        nanoAOD.SubJet_phi,
+        nanoAOD.SubJet_mass,
+        q.good_fatjet_collection,
+        nanoAOD.FatJet_subJetIdx2,
+    ],
+    output=[q.subjet_p4_2],
+    scopes=["fjmm", "fjmm_cr"]
+)

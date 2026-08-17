@@ -186,6 +186,11 @@ ROOT::RDF::RNode btagValue(ROOT::RDF::RNode df, const std::string &outputname,
 ROOT::RDF::RNode flavor(ROOT::RDF::RNode df, const std::string &outputname,
                         const std::string &flavorcolumn,
                         const std::string &jetcollection, const int &position);
+ROOT::RDF::RNode buildSubJet(ROOT::RDF::RNode df, const std::string &subjet_pt,
+                             const std::string &subjet_eta, const std::string &subjet_phi,
+                             const std::string &subjet_mass, const std::string &fatjet_collection,
+                             const std::string &fatjet_subjetId, const int &position, 
+                             const std::string &subjet_p4);
 } // end namespace jet
 } // end namespace quantities
 #endif /* GUARDJETS_H */

@@ -58,11 +58,6 @@ Electron_jetPtRelv2 = NanoAODQuantity("Electron_jetPtRelv2")
 Electron_jetIdx = NanoAODQuantity("Electron_jetIdx")
 Electron_jetRelIso = NanoAODQuantity("Electron_jetRelIso")
 Electron_mvaIso = NanoAODQuantity("Electron_mvaIso")
-
-
-
-
-
 Electron_pt = NanoAODQuantity("Electron_pt")
 Electron_r9 = NanoAODQuantity("Electron_r9")
 Electron_seedGain = NanoAODQuantity("Electron_seedGain")
@@ -237,3 +232,11 @@ FsrPhoton_eta = NanoAODQuantity("FsrPhoton_eta")
 FsrPhoton_phi = NanoAODQuantity("FsrPhoton_phi")
 FsrPhoton_dROverEt2 = NanoAODQuantity("FsrPhoton_dROverEt2")
 FsrPhoton_relIso03 = NanoAODQuantity("FsrPhoton_relIso03")
+
+SubJet_pt = NanoAODQuantity("SubJet_pt")
+SubJet_eta = NanoAODQuantity("SubJet_eta")
+SubJet_phi = NanoAODQuantity("SubJet_phi")
+SubJet_mass = NanoAODQuantity("SubJet_mass")
+SubJet_rawFactor = NanoAODQuantity("SubJet_rawFactor")
+FatJet_subJetIdx1 = NanoAODQuantity("FatJet_subJetIdx1")
+FatJet_subJetIdx2 = NanoAODQuantity("FatJet_subJetIdx2")

@@ -2438,6 +2438,37 @@ ROOT::RDF::RNode flavor(ROOT::RDF::RNode df, const std::string &outputname,
                      },
                      {flavorcolumn, jetcollection});
 }
+
+ROOT::RDF::RNode buildSubJet(ROOT::RDF::RNode df, const std::string &subjet_pt,
+                             const std::string &subjet_eta, const std::string &subjet_phi,
+                             const std::string &subjet_mass, const std::string &fatjet_collection,
+                             const std::string &fatjet_subjetId, const int &position, 
+                             const std::string &subjet_p4) {
+    auto df1 = df.Define(
+        subjet_p4,
+        [position] (const ROOT::RVec<float> &subjet_pt_values,
+                    const ROOT::RVec<float> &subjet_eta_values,
+                    const ROOT::RVec<float> &subjet_phi_values,
+                    const ROOT::RVec<float> &subjet_mass_values,
+                    const ROOT::RVec<int> &fatjet_collection_values,
+                    const ROOT::RVec<Short_t> &fatjet_subjetId_values) {
+            ROOT::Math::PtEtaPhiMVector subjet_p4_values;
+            try {
+                const int index = fatjet_collection_values.at(position);
+                const int subjetId = fatjet_subjetId_values.at(index);
+
+                subjet_p4_values = ROOT::Math::PtEtaPhiMVector(subjet_pt_values.at(subjetId),
+                                                               subjet_eta_values.at(subjetId),
+                                                               subjet_phi_values.at(subjetId),
+                                                               subjet_mass_values.at(subjetId));
+            } catch (const std::out_of_range &e) {
+                subjet_p4_values = ROOT::Math::PtEtaPhiMVector(default_float, default_float, default_float, default_float);
+            }
+            return subjet_p4_values;
+        }, {subjet_pt, subjet_eta, subjet_phi, subjet_mass, fatjet_collection, fatjet_subjetId});
+        return df1;
+}
+
 } // end namespace jet
 } // end namespace quantities
 #endif /* GUARDJETS_H */
