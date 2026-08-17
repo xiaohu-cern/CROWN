@@ -75,6 +75,14 @@ GenerateSingleMuonTriggerFlagsForQuadMuChannel_v15 = ExtendedVectorProducer(
     vec_config="singlemuon_trigger",
 )
 
+GenerateMETTriggerFlags_v15 = ExtendedVectorProducer(
+    name="GenerateMETTriggerFlags_v15",
+    call='trigger::GenerateMETTriggerFlag_v15({df}, {output}, "{hlt_path}")',
+    input=[],
+    output="flagname",
+    scope=["nnmm"],
+    vec_config="MET_trigger",
+)
 
 ############################################################
 # Set of producers used for trigger flags for v12
@@ -150,6 +158,14 @@ GenerateSingleMuonTriggerFlagsForQuadMuChannel = ExtendedVectorProducer(
     vec_config="singlemuon_trigger",
 )
 
+GenerateMETTriggerFlags = ExtendedVectorProducer(
+    name="GenerateMETTriggerFlags",
+    call='trigger::GenerateMETTriggerFlag({df}, {output}, "{hlt_path}")',
+    input=[],
+    output="flagname",
+    scope=["nnmm"],
+    vec_config="MET_trigger",
+)
 
 ################################################################
 ############### Producers for Run2 trigger flags ###############

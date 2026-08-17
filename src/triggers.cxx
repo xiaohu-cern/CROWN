@@ -244,6 +244,8 @@ bool matchParticle_v15(const ROOT::Math::PtEtaPhiMVector &particle,
     }
     return false;
 };
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////// END END END END //////////////////////////////////////////////////////
 
@@ -1024,6 +1026,40 @@ ROOT::RDF::RNode GenerateDoubleTriggerORFlag(
         return df1;
     }
 }
+
+ROOT::RDF::RNode GenerateMETTriggerFlag(
+    ROOT::RDF::RNode df, const std::string &triggerflag_name,
+    const std::string &hltpath) {
+
+    auto triggermatch = [](bool hltpath) {
+        bool result = false;
+        result = hltpath;
+        return result;
+    };
+    auto available_trigger = df.GetColumnNames();
+    std::vector<std::string> matched_trigger_names;
+    std::regex hltpath_regex = std::regex(hltpath);
+    // loop over all available trigger names and check if the hltpath is
+    // matching any of them
+    for (auto &trigger : available_trigger) {
+        if (std::regex_match(trigger, hltpath_regex)) {
+            matched_trigger_names.push_back(trigger);
+        }
+    }
+    // if no matching trigger was found return the initial dataframe
+    if (matched_trigger_names.size() == 0) {
+        auto df1 = df.Define(triggerflag_name, []() { return false; });
+        return df1;
+    } else if (matched_trigger_names.size() > 1) {
+        throw std::invalid_argument(
+            "received too many matching trigger paths, not implemented yet");
+    } else {
+        auto df1 =
+            df.Define(triggerflag_name, triggermatch,
+                      {matched_trigger_names[0]});
+        return df1;
+    }
+}
 ///////////////////////////// v15 TriggerObject_bits Int_t -> ULong64_t //////////////////////////
 
 ROOT::RDF::RNode GenerateDoubleTriggerORFlag_v15(
@@ -1116,6 +1152,41 @@ ROOT::RDF::RNode GenerateDoubleTriggerORFlag_v15(
         return df1;
     }
 }
+
+ROOT::RDF::RNode GenerateMETTriggerFlag_v15(
+    ROOT::RDF::RNode df, const std::string &triggerflag_name,
+    const std::string &hltpath) {
+
+    auto triggermatch = [](bool hltpath) {
+        bool result = false;
+        result = hltpath;
+        return result;
+    };
+    auto available_trigger = df.GetColumnNames();
+    std::vector<std::string> matched_trigger_names;
+    std::regex hltpath_regex = std::regex(hltpath);
+    // loop over all available trigger names and check if the hltpath is
+    // matching any of them
+    for (auto &trigger : available_trigger) {
+        if (std::regex_match(trigger, hltpath_regex)) {
+            matched_trigger_names.push_back(trigger);
+        }
+    }
+    // if no matching trigger was found return the initial dataframe
+    if (matched_trigger_names.size() == 0) {
+        auto df1 = df.Define(triggerflag_name, []() { return false; });
+        return df1;
+    } else if (matched_trigger_names.size() > 1) {
+        throw std::invalid_argument(
+            "received too many matching trigger paths, not implemented yet");
+    } else {
+        auto df1 =
+            df.Define(triggerflag_name, triggermatch,
+                      {matched_trigger_names[0]});
+        return df1;
+    }
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// END END END END //////////////////////////////////////////////
 
