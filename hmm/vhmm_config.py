@@ -536,66 +536,219 @@ def build_config(
                             "max_deltaR_triggermatch": 0.4,
                         },
                     ],
-                    "2018": [
+                }
+            ),
+        },
+    )
+
+    configuration.add_config_parameters(
+        ["nnmm"],
+        # ["e2m","m2m","eemm","mmmm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb"],
+        {
+            "MET_trigger": EraModifier(
+                {
+                    "2025": [
                         {
-                            "flagname": "trg_single_mu24",
-                            "hlt_path": "HLT_IsoMu24",
-                            "ptcut": 25,
-                            "etacut": 2.5,
-                            "filterbit": 3,
-                            "trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
+                            "flagname": "trg_MET110_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_FilterHF",
                         },
                         {
-                            "flagname": "trg_single_mu27",
-                            "hlt_path": "HLT_IsoMu27",
-                            "ptcut": 28,
-                            "etacut": 2.5,
-                            "filterbit": 3,
-                            "trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                    ],
-                    "2017": [
-                        {
-                            "flagname": "trg_single_mu24",
-                            "hlt_path": "HLT_IsoMu24",
-                            "ptcut": 25,
-                            "etacut": 2.5,
-                            "filterbit": 3,
-                            "trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
+                            "flagname": "trg_MET120_Tight",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
                         },
                         {
-                            "flagname": "trg_single_mu27",
-                            "hlt_path": "HLT_IsoMu27",
-                            "ptcut": 28,
-                            "etacut": 2.5,
-                            "filterbit": 3,
-                            "trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
+                            "flagname": "trg_MET120_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_FilterHF",
                         },
-                    ],
-                    "2016preVFP": [
                         {
-                            "flagname": "trg_single_mu24",
-                            "hlt_path": "HLT_IsoMu24",
-                            "ptcut": 25,
-                            "etacut": 2.5,
-                            "filterbit": 3,
-                            "trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
+                            "flagname": "trg_MET120_Tight_PFHT60",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
+                        },
+                        {
+                            "flagname": "trg_MET130_Tight",
+                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET130_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET140_Tight",
+                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET140_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_FilterHF",
                         },
                     ],
-                    "2016postVFP": [
+                    "2024": [
                         {
-                            "flagname": "trg_single_mu24",
-                            "hlt_path": "HLT_IsoMu24",
-                            "ptcut": 25,
-                            "etacut": 2.5,
-                            "filterbit": 3,
-                            "trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
+                            "flagname": "trg_MET110_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight_PFHT60",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
+                        },
+                        {
+                            "flagname": "trg_MET130_Tight",
+                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET130_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET140_Tight",
+                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET140_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_FilterHF",
+                        },
+                    ],
+                    "2023preBPix": [
+                        {
+                            "flagname": "trg_MET110_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight_PFHT60",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
+                        },
+                        {
+                            "flagname": "trg_MET130_Tight",
+                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET130_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET140_Tight",
+                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET140_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_FilterHF",
+                        },
+                    ],
+                    "2023postBPix": [
+                        {
+                            "flagname": "trg_MET110_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight_PFHT60",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
+                        },
+                        {
+                            "flagname": "trg_MET130_Tight",
+                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET130_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET140_Tight",
+                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET140_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_FilterHF",
+                        },
+                    ],
+                    "2022preEE": [
+                        {
+                            "flagname": "trg_MET110_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight_PFHT60",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
+                        },
+                        {
+                            "flagname": "trg_MET130_Tight",
+                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET130_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET140_Tight",
+                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET140_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_FilterHF",
+                        },
+                    ],
+                    "2022postEE": [
+                        {
+                            "flagname": "trg_MET110_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET120_Tight_PFHT60",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
+                        },
+                        {
+                            "flagname": "trg_MET130_Tight",
+                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET130_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_FilterHF",
+                        },
+                        {
+                            "flagname": "trg_MET140_Tight",
+                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight",
+                        },
+                        {
+                            "flagname": "trg_MET140_Tight_FilterHF",
+                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_FilterHF",
                         },
                     ],
                 }
@@ -3726,6 +3879,28 @@ def build_config(
             p4.fatjet_eta,
             p4.fatjet_phi,
             p4.fatjet_mass,
+            fatjets.BuildSubJet1,
+            fatjets.BuildSubJet2,
+            p4.subjet1_pt,
+            p4.subjet1_eta,
+            p4.subjet1_phi,
+            p4.subjet1_mass,
+            p4.subjet2_pt,
+            p4.subjet2_eta,
+            p4.subjet2_phi,
+            p4.subjet2_mass,
+            p4.subjet1_mu1_deltaR,
+            p4.subjet1_mu2_deltaR,
+            p4.subjet2_mu1_deltaR,
+            p4.subjet2_mu2_deltaR,
+            p4.subjet1_mu1_deltaEta,
+            p4.subjet1_mu2_deltaEta,
+            p4.subjet2_mu1_deltaEta,
+            p4.subjet2_mu2_deltaEta,
+            p4.subjet1_mu1_deltaPhi,
+            p4.subjet1_mu2_deltaPhi,
+            p4.subjet2_mu1_deltaPhi,
+            p4.subjet2_mu2_deltaPhi,
             event.fatjet_mmH_deta_corrected,
             event.fatjet_mmH_dphi_corrected,
             event.fatjet_mmH_dR_corrected,
@@ -3833,6 +4008,28 @@ def build_config(
             p4.fatjet_eta,
             p4.fatjet_phi,
             p4.fatjet_mass,
+            fatjets.BuildSubJet1,
+            fatjets.BuildSubJet2,
+            p4.subjet1_pt,
+            p4.subjet1_eta,
+            p4.subjet1_phi,
+            p4.subjet1_mass,
+            p4.subjet2_pt,
+            p4.subjet2_eta,
+            p4.subjet2_phi,
+            p4.subjet2_mass,
+            p4.subjet1_mu1_deltaR,
+            p4.subjet1_mu2_deltaR,
+            p4.subjet2_mu1_deltaR,
+            p4.subjet2_mu2_deltaR,
+            p4.subjet1_mu1_deltaEta,
+            p4.subjet1_mu2_deltaEta,
+            p4.subjet2_mu1_deltaEta,
+            p4.subjet2_mu2_deltaEta,
+            p4.subjet1_mu1_deltaPhi,
+            p4.subjet1_mu2_deltaPhi,
+            p4.subjet2_mu1_deltaPhi,
+            p4.subjet2_mu2_deltaPhi,
             event.fatjet_ZCR_deta,
             event.fatjet_ZCR_dphi,
             event.fatjet_ZCR_dR,
@@ -3882,6 +4079,12 @@ def build_config(
                 triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel,
             ],
         )
+        # configuration.add_producers(
+        #     ["nnmm"],
+        #     [
+        #         triggers.GenerateMETTriggerFlags,
+        #     ],
+        # )
         configuration.add_producers(
             ["fjmm_cr", "fjmm", "nnmm"],
             [
@@ -3913,6 +4116,12 @@ def build_config(
                 triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel_v15,
             ],
         )
+        # configuration.add_producers(
+        #     ["nnmm"],
+        #     [
+        #         triggers.GenerateMETTriggerFlags_v15,
+        #     ],
+        # )
         configuration.add_producers(
             ["fjmm_cr", "fjmm", "nnmm"],
             [
@@ -4452,7 +4661,14 @@ def build_config(
             [
                 triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel.output_group,
             ],
+        
         )
+        # configuration.add_outputs(
+        #     ["nnmm"],
+        #     [
+        #         triggers.GenerateMETTriggerFlags.output_group,
+        #     ],
+        # )
     if era == "2024" or era == "2025":
         configuration.add_outputs(
             ["m2m","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
@@ -4478,6 +4694,12 @@ def build_config(
                 triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel_v15.output_group,
             ],
         )
+        # configuration.add_outputs(
+        #     ["nnmm"],
+        #     [
+        #         triggers.GenerateMETTriggerFlags_v15.output_group,
+        #     ],
+        # )
     configuration.add_outputs(
         ["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
         [
@@ -4587,6 +4809,26 @@ def build_config(
             q.fatjet_eta,
             q.fatjet_phi,
             q.fatjet_mass,
+            q.subjet1_pt,
+            q.subjet1_eta,
+            q.subjet1_phi,
+            q.subjet1_mass,
+            q.subjet2_pt,
+            q.subjet2_eta,
+            q.subjet2_phi,
+            q.subjet2_mass,
+            q.subjet1_mu1_deltaR,
+            q.subjet1_mu2_deltaR,
+            q.subjet2_mu1_deltaR,
+            q.subjet2_mu2_deltaR,
+            q.subjet1_mu1_deltaEta,
+            q.subjet1_mu2_deltaEta,
+            q.subjet2_mu1_deltaEta,
+            q.subjet2_mu2_deltaEta,
+            q.subjet1_mu1_deltaPhi,
+            q.subjet1_mu2_deltaPhi,
+            q.subjet2_mu1_deltaPhi,
+            q.subjet2_mu2_deltaPhi,
             q.good_FatJet_particleNet_massCorr,
             q.good_FatJet_rawfactor,
             q.fatjet_mmH_deta,
@@ -4612,6 +4854,26 @@ def build_config(
             q.fatjet_eta,
             q.fatjet_phi,
             q.fatjet_mass,
+            q.subjet1_pt,
+            q.subjet1_eta,
+            q.subjet1_phi,
+            q.subjet1_mass,
+            q.subjet2_pt,
+            q.subjet2_eta,
+            q.subjet2_phi,
+            q.subjet2_mass,
+            q.subjet1_mu1_deltaR,
+            q.subjet1_mu2_deltaR,
+            q.subjet2_mu1_deltaR,
+            q.subjet2_mu2_deltaR,
+            q.subjet1_mu1_deltaEta,
+            q.subjet1_mu2_deltaEta,
+            q.subjet2_mu1_deltaEta,
+            q.subjet2_mu2_deltaEta,
+            q.subjet1_mu1_deltaPhi,
+            q.subjet1_mu2_deltaPhi,
+            q.subjet2_mu1_deltaPhi,
+            q.subjet2_mu2_deltaPhi,
             q.good_FatJet_particleNet_massCorr,
             q.good_FatJet_rawfactor,
             q.fatjet_PNet_withMass_WvsQCD,
