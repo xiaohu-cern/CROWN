@@ -549,206 +549,86 @@ def build_config(
                 {
                     "2025": [
                         {
-                            "flagname": "trg_MET110_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_FilterHF",
+                            "flagname": "trg_PFMET105_IsoTrk50",
+                            "hlt_path": "HLT_PFMET105_IsoTrk50",
                         },
                         {
-                            "flagname": "trg_MET120_Tight",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
+                            "flagname": "trg_MET105_IsoTrk50",
+                            "hlt_path": "HLT_MET105_IsoTrk50",
                         },
                         {
-                            "flagname": "trg_MET120_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_FilterHF",
-                        },
-                        {
-                            "flagname": "trg_MET120_Tight_PFHT60",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
-                        },
-                        {
-                            "flagname": "trg_MET130_Tight",
-                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
-                        },
-                        {
-                            "flagname": "trg_MET130_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_FilterHF",
-                        },
-                        {
-                            "flagname": "trg_MET140_Tight",
-                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight",
-                        },
-                        {
-                            "flagname": "trg_MET140_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_FilterHF",
+                            "flagname": "trg_MET120_IsoTrk50",
+                            "hlt_path": "HLT_MET120_IsoTrk50",
                         },
                     ],
                     "2024": [
                         {
-                            "flagname": "trg_MET110_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_FilterHF",
+                            "flagname": "trg_PFMET105_IsoTrk50",
+                            "hlt_path": "HLT_PFMET105_IsoTrk50",
                         },
                         {
-                            "flagname": "trg_MET120_Tight",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
+                            "flagname": "trg_MET105_IsoTrk50",
+                            "hlt_path": "HLT_MET105_IsoTrk50",
                         },
                         {
-                            "flagname": "trg_MET120_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_FilterHF",
-                        },
-                        {
-                            "flagname": "trg_MET120_Tight_PFHT60",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
-                        },
-                        {
-                            "flagname": "trg_MET130_Tight",
-                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
-                        },
-                        {
-                            "flagname": "trg_MET130_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_FilterHF",
-                        },
-                        {
-                            "flagname": "trg_MET140_Tight",
-                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight",
-                        },
-                        {
-                            "flagname": "trg_MET140_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_FilterHF",
+                            "flagname": "trg_MET120_IsoTrk50",
+                            "hlt_path": "HLT_MET120_IsoTrk50",
                         },
                     ],
                     "2023preBPix": [
                         {
-                            "flagname": "trg_MET110_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_FilterHF",
+                            "flagname": "trg_PFMET105_IsoTrk50",
+                            "hlt_path": "HLT_PFMET105_IsoTrk50",
                         },
                         {
-                            "flagname": "trg_MET120_Tight",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
+                            "flagname": "trg_MET105_IsoTrk50",
+                            "hlt_path": "HLT_MET105_IsoTrk50",
                         },
                         {
-                            "flagname": "trg_MET120_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_FilterHF",
-                        },
-                        {
-                            "flagname": "trg_MET120_Tight_PFHT60",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
-                        },
-                        {
-                            "flagname": "trg_MET130_Tight",
-                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
-                        },
-                        {
-                            "flagname": "trg_MET130_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_FilterHF",
-                        },
-                        {
-                            "flagname": "trg_MET140_Tight",
-                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight",
-                        },
-                        {
-                            "flagname": "trg_MET140_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_FilterHF",
+                            "flagname": "trg_MET120_IsoTrk50",
+                            "hlt_path": "HLT_MET120_IsoTrk50",
                         },
                     ],
                     "2023postBPix": [
                         {
-                            "flagname": "trg_MET110_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_FilterHF",
+                            "flagname": "trg_PFMET105_IsoTrk50",
+                            "hlt_path": "HLT_PFMET105_IsoTrk50",
                         },
                         {
-                            "flagname": "trg_MET120_Tight",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
+                            "flagname": "trg_MET105_IsoTrk50",
+                            "hlt_path": "HLT_MET105_IsoTrk50",
                         },
                         {
-                            "flagname": "trg_MET120_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_FilterHF",
-                        },
-                        {
-                            "flagname": "trg_MET120_Tight_PFHT60",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
-                        },
-                        {
-                            "flagname": "trg_MET130_Tight",
-                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
-                        },
-                        {
-                            "flagname": "trg_MET130_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_FilterHF",
-                        },
-                        {
-                            "flagname": "trg_MET140_Tight",
-                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight",
-                        },
-                        {
-                            "flagname": "trg_MET140_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_FilterHF",
+                            "flagname": "trg_MET120_IsoTrk50",
+                            "hlt_path": "HLT_MET120_IsoTrk50",
                         },
                     ],
                     "2022preEE": [
                         {
-                            "flagname": "trg_MET110_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_FilterHF",
+                            "flagname": "trg_PFMET105_IsoTrk50",
+                            "hlt_path": "HLT_PFMET105_IsoTrk50",
                         },
                         {
-                            "flagname": "trg_MET120_Tight",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
+                            "flagname": "trg_MET105_IsoTrk50",
+                            "hlt_path": "HLT_MET105_IsoTrk50",
                         },
                         {
-                            "flagname": "trg_MET120_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_FilterHF",
-                        },
-                        {
-                            "flagname": "trg_MET120_Tight_PFHT60",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
-                        },
-                        {
-                            "flagname": "trg_MET130_Tight",
-                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
-                        },
-                        {
-                            "flagname": "trg_MET130_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_FilterHF",
-                        },
-                        {
-                            "flagname": "trg_MET140_Tight",
-                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight",
-                        },
-                        {
-                            "flagname": "trg_MET140_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_FilterHF",
+                            "flagname": "trg_MET120_IsoTrk50",
+                            "hlt_path": "HLT_MET120_IsoTrk50",
                         },
                     ],
                     "2022postEE": [
                         {
-                            "flagname": "trg_MET110_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_FilterHF",
+                            "flagname": "trg_PFMET105_IsoTrk50",
+                            "hlt_path": "HLT_PFMET105_IsoTrk50",
                         },
                         {
-                            "flagname": "trg_MET120_Tight",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
+                            "flagname": "trg_MET105_IsoTrk50",
+                            "hlt_path": "HLT_MET105_IsoTrk50",
                         },
                         {
-                            "flagname": "trg_MET120_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_FilterHF",
-                        },
-                        {
-                            "flagname": "trg_MET120_Tight_PFHT60",
-                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
-                        },
-                        {
-                            "flagname": "trg_MET130_Tight",
-                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
-                        },
-                        {
-                            "flagname": "trg_MET130_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight_FilterHF",
-                        },
-                        {
-                            "flagname": "trg_MET140_Tight",
-                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight",
-                        },
-                        {
-                            "flagname": "trg_MET140_Tight_FilterHF",
-                            "hlt_path": "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight_FilterHF",
+                            "flagname": "trg_MET120_IsoTrk50",
+                            "hlt_path": "HLT_MET120_IsoTrk50",
                         },
                     ],
                 }
@@ -4079,12 +3959,12 @@ def build_config(
                 triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel,
             ],
         )
-        # configuration.add_producers(
-        #     ["nnmm"],
-        #     [
-        #         triggers.GenerateMETTriggerFlags,
-        #     ],
-        # )
+        configuration.add_producers(
+            ["nnmm"],
+            [
+                triggers.GenerateMETTriggerFlags,
+            ],
+        )
         configuration.add_producers(
             ["fjmm_cr", "fjmm", "nnmm"],
             [
@@ -4116,12 +3996,12 @@ def build_config(
                 triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel_v15,
             ],
         )
-        # configuration.add_producers(
-        #     ["nnmm"],
-        #     [
-        #         triggers.GenerateMETTriggerFlags_v15,
-        #     ],
-        # )
+        configuration.add_producers(
+            ["nnmm"],
+            [
+                triggers.GenerateMETTriggerFlags_v15,
+            ],
+        )
         configuration.add_producers(
             ["fjmm_cr", "fjmm", "nnmm"],
             [
@@ -4663,12 +4543,12 @@ def build_config(
             ],
         
         )
-        # configuration.add_outputs(
-        #     ["nnmm"],
-        #     [
-        #         triggers.GenerateMETTriggerFlags.output_group,
-        #     ],
-        # )
+        configuration.add_outputs(
+            ["nnmm"],
+            [
+                triggers.GenerateMETTriggerFlags.output_group,
+            ],
+        )
     if era == "2024" or era == "2025":
         configuration.add_outputs(
             ["m2m","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
@@ -4694,12 +4574,12 @@ def build_config(
                 triggers.GenerateSingleMuonTriggerFlagsForEleMuChannel_v15.output_group,
             ],
         )
-        # configuration.add_outputs(
-        #     ["nnmm"],
-        #     [
-        #         triggers.GenerateMETTriggerFlags_v15.output_group,
-        #     ],
-        # )
+        configuration.add_outputs(
+            ["nnmm"],
+            [
+                triggers.GenerateMETTriggerFlags_v15.output_group,
+            ],
+        )
     configuration.add_outputs(
         ["m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond"],
         [
