@@ -80,6 +80,8 @@ FatJetPtCorrection_v15 = Producer(
         nanoAOD.GenJetAK8_eta,
         nanoAOD.GenJetAK8_phi,
         nanoAOD.rho,
+        nanoAOD.luminosityBlock,
+        nanoAOD.event,
     ],
     output=[q.FatJet_pt_corrected],
     scopes=["global"],

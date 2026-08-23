@@ -87,6 +87,8 @@ JetPtCorrection = Producer(
         nanoAOD.rho,
         nanoAOD.Jet_chEmEF,
         nanoAOD.Jet_neEmEF,
+        nanoAOD.luminosityBlock,
+        nanoAOD.event,
     ],
     output=[q.Jet_pt_corrected],
     scopes=["global"],

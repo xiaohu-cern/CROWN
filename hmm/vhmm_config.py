@@ -845,7 +845,7 @@ def build_config(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         {
-            "min_muon_pt": 20, # vh change muon min pt 20 to 5
+            "min_muon_pt": 20,
             "max_muon_eta": 2.4, # vh
             "max_muon_dxy": 0.05, # vh
             "max_muon_dz": 0.10, # vh
