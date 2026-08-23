@@ -102,24 +102,6 @@ ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, const
                         if (isnan(pt_scale_nom)) pt_scale_nom = pt_pre_corr_values.at(i);
                         s_pt_values[i] = pt_scale_nom;
                     }
-
-                    // auto log = Logger::get("KIT Muon Momentum Resolution");
-                    // log->set_level(spdlog::level::debug);
-                    // log->info("SCALE!!!!!!!!!!");
-                    double stat_a = cset_a->evaluate({eta_values.at(i), phi_values.at(i), "stat"});
-                    double stat_m = cset_m->evaluate({eta_values.at(i), phi_values.at(i), "stat"});
-                    double stat_rho = cset_m->evaluate({eta_values.at(i), phi_values.at(i), "rho_stat"});
-
-                    double unc = pt_pre_corr_values.at(i)*pt_pre_corr_values.at(i)*sqrt(stat_m*stat_m / (pt_pre_corr_values.at(i)*pt_pre_corr_values.at(i)) + stat_a*stat_a + 2*q_values.at(i)*stat_rho*stat_m/pt_pre_corr_values.at(i)*stat_a);
-
-                    if (s_variation=="Up"){
-                        if (isnan(unc)) {s_pt_values[i] = pt_pre_corr_values.at(i);}
-                        else{s_pt_values[i] = pt_pre_corr_values.at(i) + unc;}
-                    }
-                    if (s_variation=="Down"){
-                        if (isnan(unc)) {s_pt_values[i] = pt_pre_corr_values.at(i);}
-                        else{s_pt_values[i] = pt_pre_corr_values.at(i) - unc;}
-                    }
                 }
                 else {
                     s_pt_values[i] = pt_pre_corr_values.at(i);
@@ -140,7 +122,7 @@ ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, const
                     
                     double rndmseed = cset_rndmseed->evaluate({(int)evtNumber, (int)lumiNumber, phi_values.at(i)}); 
                     double rndm = (double) KIT::get_rndm(mean, sigma, n, alpha, rndmseed);
-                    double std = (double) KIT::get_std(pt_values.at(i), eta_values.at(i), nL_values.at(i), param_0, param_1, param_2);
+                    double std = (double) KIT::get_std(s_pt_values[i], eta_values.at(i), nL_values.at(i), param_0, param_1, param_2);
                     // double rndm = (double) KIT::get_rndm_gaus(eta_values.at(i), phi_values.at(i), nL_values.at(i), evtNumber, lumiNumber, mean, sigma);
                     // double std = 0.02;
                     double k = (double) KIT::get_k(eta_values.at(i), "nom", k_data, k_mc);
@@ -157,12 +139,19 @@ ROOT::RDF::RNode KIT_MuonPtRes(ROOT::RDF::RNode df, const std::string &pt, const
                         ptc = s_pt_values.at(i);
                     }
                     corrected_pt_values[i] = ptc;
-                    // corrected_pt_values[i] = s_pt_values[i];
+                    
+                    double stat_a = cset_a->evaluate({eta_values.at(i), phi_values.at(i), "stat"});
+                    double stat_m = cset_m->evaluate({eta_values.at(i), phi_values.at(i), "stat"});
+                    double stat_rho = cset_m->evaluate({eta_values.at(i), phi_values.at(i), "rho_stat"});
 
+                    double unc = corrected_pt_values[i]*corrected_pt_values[i]*sqrt(stat_m*stat_m / (corrected_pt_values[i]*corrected_pt_values[i]) + stat_a*stat_a + 2*q_values.at(i)*stat_rho*stat_m/corrected_pt_values[i]*stat_a);
 
-                    // auto log = Logger::get("KIT Muon Momentum Resolution");
-                    // log->set_level(spdlog::level::debug);
-                    // log->info("old pt {}", k, "new pt {}", k);
+                    if (s_variation=="Up"){
+                        if (!isnan(unc)) {corrected_pt_values[i] = corrected_pt_values[i] + unc;}
+                    }
+                    if (s_variation=="Down"){
+                        if (!isnan(unc)) {corrected_pt_values[i] = corrected_pt_values[i] - unc;}
+                    }
 
                     if (k==0) {
                         corrected_pt_values[i] = corrected_pt_values[i];
@@ -633,15 +622,8 @@ ROOT::RDF::RNode id_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                 // Logger::get("muon SF file:")->debug("{}", sf_file);
                 // apply sf for muon pt > 200 using HighPt file
                 if (pt >= 200.0 && std::abs(eta) >= 0.0) {
-                    // for High Pt (>200) muon
-                    const float &px = p4.Px();
-                    const float &py = p4.Py();
-                    const float &pz = p4.Pz();
-                    //
-                    float p = std::sqrt(px*px + py*py + pz*pz);
-                    // Logger::get("muon High pt corr:")->debug("pt: {}, p: {}", pt, p);
                     sf = evaluator->evaluate(
-                        {std::abs(eta), p, variation});    
+                        {std::abs(eta), pt, variation});    
                 } else if (pt < 200.0 && std::abs(eta) >= 0.0) {
                     sf = 1.;
                 }
