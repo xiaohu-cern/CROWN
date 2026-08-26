@@ -608,7 +608,7 @@ subjet1_mu1_deltaR = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.subjet1_mu1_deltaR],
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm"],
 )
 subjet1_mu2_deltaR = Producer(
     name="subjet1_mu2_deltaR",
@@ -618,8 +618,31 @@ subjet1_mu2_deltaR = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.subjet1_mu2_deltaR],
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm"],
 )
+#######CR
+subjet1_mu1_deltaR_cr = Producer(
+    name="subjet1_mu1_deltaR_cr",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.subjet_p4_1,
+      q.muon_leadingp4_Z_CR,
+    ],
+    output=[q.subjet1_mu1_deltaR],
+    scopes=["fjmm_cr"],
+)
+subjet1_mu2_deltaR_cr = Producer(
+    name="subjet1_mu2_deltaR_cr",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.subjet_p4_1,
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.subjet1_mu2_deltaR],
+    scopes=["fjmm_cr"],
+)
+#######CR END
+
 subjet1_mu1_deltaEta = Producer(
     name="subjet1_mu1_deltaEta",
     call='quantities::deltaEta({df}, {output}, {input})',
@@ -628,7 +651,7 @@ subjet1_mu1_deltaEta = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.subjet1_mu1_deltaEta],
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm"],
 )
 subjet1_mu2_deltaEta = Producer(
     name="subjet1_mu2_deltaEta",
@@ -638,8 +661,31 @@ subjet1_mu2_deltaEta = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.subjet1_mu2_deltaEta],
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm"],
 )
+######CR
+subjet1_mu1_deltaEta_cr = Producer(
+    name="subjet1_mu1_deltaEta_cr",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.subjet_p4_1,
+      q.muon_leadingp4_Z_CR,
+    ],
+    output=[q.subjet1_mu1_deltaEta],
+    scopes=["fjmm_cr"],
+)
+subjet1_mu2_deltaEta_cr = Producer(
+    name="subjet1_mu2_deltaEta_cr",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.subjet_p4_1,
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.subjet1_mu2_deltaEta],
+    scopes=["fjmm_cr"],
+)
+######CR END
+
 subjet1_mu1_deltaPhi = Producer(
     name="subjet1_mu1_deltaPhi",
     call='quantities::deltaPhi({df}, {output}, {input})',
@@ -648,7 +694,7 @@ subjet1_mu1_deltaPhi = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.subjet1_mu1_deltaPhi],
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm"],
 )
 subjet1_mu2_deltaPhi = Producer(
     name="subjet1_mu2_deltaPhi",
@@ -658,8 +704,30 @@ subjet1_mu2_deltaPhi = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.subjet1_mu2_deltaPhi],
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm"],
 )
+######CR
+subjet1_mu1_deltaPhi_cr = Producer(
+    name="subjet1_mu1_deltaPhi_cr",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.subjet_p4_1,
+      q.muon_leadingp4_Z_CR,
+    ],
+    output=[q.subjet1_mu1_deltaPhi],
+    scopes=["fjmm_cr"],
+)
+subjet1_mu2_deltaPhi_cr = Producer(
+    name="subjet1_mu2_deltaPhi_cr",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.subjet_p4_1,
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.subjet1_mu2_deltaPhi],
+    scopes=["fjmm_cr"],
+)
+######CR END
 
 subjet2_pt = Producer(
     name="subjet2_pt",
@@ -705,7 +773,7 @@ subjet2_mu1_deltaR = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.subjet2_mu1_deltaR],
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm"],
 )
 subjet2_mu2_deltaR = Producer(
     name="subjet2_mu2_deltaR",
@@ -715,8 +783,31 @@ subjet2_mu2_deltaR = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.subjet2_mu2_deltaR],
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm"],
 )
+#####CR
+subjet2_mu1_deltaR_cr = Producer(
+    name="subjet2_mu1_deltaR_cr",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.subjet_p4_2,
+      q.muon_leadingp4_Z_CR,
+    ],
+    output=[q.subjet2_mu1_deltaR],
+    scopes=["fjmm_cr"],
+)
+subjet2_mu2_deltaR_cr = Producer(
+    name="subjet2_mu2_deltaR_cr",
+    call='quantities::deltaR({df}, {output}, {input})',
+    input=[
+      q.subjet_p4_2,
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.subjet2_mu2_deltaR],
+    scopes=["fjmm_cr"],
+)
+########CR END
+
 subjet2_mu1_deltaEta = Producer(
     name="subjet2_mu1_deltaEta",
     call='quantities::deltaEta({df}, {output}, {input})',
@@ -725,7 +816,7 @@ subjet2_mu1_deltaEta = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.subjet2_mu1_deltaEta],
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm"],
 )
 subjet2_mu2_deltaEta = Producer(
     name="subjet2_mu2_deltaEta",
@@ -735,8 +826,31 @@ subjet2_mu2_deltaEta = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.subjet2_mu2_deltaEta],
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm"],
 )
+#####CR
+subjet2_mu1_deltaEta_cr = Producer(
+    name="subjet2_mu1_deltaEta_cr",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.subjet_p4_2,
+      q.muon_leadingp4_Z_CR,
+    ],
+    output=[q.subjet2_mu1_deltaEta],
+    scopes=["fjmm_cr"],
+)
+subjet2_mu2_deltaEta_cr = Producer(
+    name="subjet2_mu2_deltaEta_cr",
+    call='quantities::deltaEta({df}, {output}, {input})',
+    input=[
+      q.subjet_p4_2,
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.subjet2_mu2_deltaEta],
+    scopes=["fjmm_cr"],
+)
+#####CR END
+
 subjet2_mu1_deltaPhi = Producer(
     name="subjet2_mu1_deltaPhi",
     call='quantities::deltaPhi({df}, {output}, {input})',
@@ -745,7 +859,7 @@ subjet2_mu1_deltaPhi = Producer(
       q.muon_leadingp4_H,
     ],
     output=[q.subjet2_mu1_deltaPhi],
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm"],
 )
 subjet2_mu2_deltaPhi = Producer(
     name="subjet2_mu2_deltaPhi",
@@ -755,8 +869,30 @@ subjet2_mu2_deltaPhi = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.subjet2_mu2_deltaPhi],
-    scopes=["fjmm","fjmm_cr"],
+    scopes=["fjmm"],
 )
+######CR
+subjet2_mu1_deltaPhi_cr = Producer(
+    name="subjet2_mu1_deltaPhi_cr",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.subjet_p4_2,
+      q.muon_leadingp4_Z_CR,
+    ],
+    output=[q.subjet2_mu1_deltaPhi],
+    scopes=["fjmm_cr"],
+)
+subjet2_mu2_deltaPhi_cr = Producer(
+    name="subjet2_mu2_deltaPhi_cr",
+    call='quantities::deltaPhi({df}, {output}, {input})',
+    input=[
+      q.subjet_p4_2,
+      q.muon_subleadingp4_Z_CR,
+    ],
+    output=[q.subjet2_mu2_deltaPhi],
+    scopes=["fjmm_cr"],
+)
+######CR END
 
 # Zmass CR's mu1, mu2
 mu1_fromZCR_pt = Producer(
