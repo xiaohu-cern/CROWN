@@ -352,6 +352,154 @@ ROOT::RDF::RNode HighPtScaleData(ROOT::RDF::RNode df, const std::string &pt_raw,
     return df1;
 }
 
+ROOT::RDF::RNode HighPtScaleData_PureTunepPT(ROOT::RDF::RNode df, const std::string &pt_raw, const std::string &pt_BSC, const std::string &pt_ReltuneP, const std::string &pt_BSC_Err,
+                    const std::string &phi, const std::string &eta, 
+                    const std::string &charge, 
+                    const std::string &variation_BSC, const std::string &variation_tuneP, const std::string &pt_corrected, 
+                    const std::string &sf_file,
+                    const std::string &idAlgorithm) {
+    Logger::get("HighPtMuon Momentum Scale")->debug("Setting up functions for muon momentum scale");
+    Logger::get("HighPtMuon Momentum Scale")->debug("Algorithm - Name {}", idAlgorithm);
+    auto evaluator =
+        correction::CorrectionSet::from_file(sf_file)->at(idAlgorithm);
+    auto df1 = df.Define(
+        pt_corrected,
+        [evaluator, variation_BSC, variation_tuneP, sf_file](const ROOT::RVec<float> &pt_values,
+                                                             const ROOT::RVec<float> &pt_BSC_values,
+                                                             const ROOT::RVec<float> &pt_ReltuneP_values,
+                                                             const ROOT::RVec<float> &pt_BSC_Err_values,
+                                                             const ROOT::RVec<float> &phi_values,
+                                                             const ROOT::RVec<float> &eta_values,
+                                                             const ROOT::RVec<int> &q_values) {
+            // maybe can input good muon mask also, to speed up the process
+            // input is phi and eta
+            // https://twiki.cern.ch/twiki/bin/view/CMS/MuonRun32022#Momentum_Scale 
+            // https://twiki.cern.ch/twiki/bin/view/CMS/MuonRun3_2023#Momentum_Scale 
+            // https://indico.cern.ch/event/1411292/contributions/5932367/attachments/2846614/4977311/GEMethod_22+23_29Apr24.pdf 
+            ROOT::RVec<float> corrected_pt_values(pt_values.size());            
+            for (int i = 0; i < pt_values.size(); i++) {
+                Logger::get("muon momentum scale file:")->debug("{}", sf_file);
+                // apply scale for muon pt > 200 using HighPt file
+                if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && eta_values.at(i) > -2.4 && eta_values.at(i) < 2.4) {
+                    if (pt_values.at(i) >= 200) {
+                        // q/pt_corr = q/pt + kappa(TeV^-1)
+                        float tuneP_pt = pt_values.at(i) * pt_ReltuneP_values.at(i);
+                        float kappa = 0;
+                        corrected_pt_values[i] = tuneP_pt;
+                    }
+                    else {
+                        corrected_pt_values[i] = pt_BSC_values.at(i);
+                    }
+                }
+                else {
+                    corrected_pt_values[i] = pt_values.at(i);
+                } 
+            }
+            return corrected_pt_values;
+        },
+        {pt_raw, pt_BSC, pt_ReltuneP, pt_BSC_Err, phi, eta, charge});
+    return df1;
+}
+
+ROOT::RDF::RNode HighPtScaleData_BSCTunepPT(ROOT::RDF::RNode df, const std::string &pt_raw, const std::string &pt_BSC, const std::string &pt_ReltuneP, const std::string &pt_BSC_Err,
+                    const std::string &phi, const std::string &eta, 
+                    const std::string &charge, 
+                    const std::string &variation_BSC, const std::string &variation_tuneP, const std::string &pt_corrected, 
+                    const std::string &sf_file,
+                    const std::string &idAlgorithm) {
+    Logger::get("HighPtMuon Momentum Scale")->debug("Setting up functions for muon momentum scale");
+    Logger::get("HighPtMuon Momentum Scale")->debug("Algorithm - Name {}", idAlgorithm);
+    auto evaluator =
+        correction::CorrectionSet::from_file(sf_file)->at(idAlgorithm);
+    auto df1 = df.Define(
+        pt_corrected,
+        [evaluator, variation_BSC, variation_tuneP, sf_file](const ROOT::RVec<float> &pt_values,
+                                                             const ROOT::RVec<float> &pt_BSC_values,
+                                                             const ROOT::RVec<float> &pt_ReltuneP_values,
+                                                             const ROOT::RVec<float> &pt_BSC_Err_values,
+                                                             const ROOT::RVec<float> &phi_values,
+                                                             const ROOT::RVec<float> &eta_values,
+                                                             const ROOT::RVec<int> &q_values) {
+            // maybe can input good muon mask also, to speed up the process
+            // input is phi and eta
+            // https://twiki.cern.ch/twiki/bin/view/CMS/MuonRun32022#Momentum_Scale 
+            // https://twiki.cern.ch/twiki/bin/view/CMS/MuonRun3_2023#Momentum_Scale 
+            // https://indico.cern.ch/event/1411292/contributions/5932367/attachments/2846614/4977311/GEMethod_22+23_29Apr24.pdf 
+            ROOT::RVec<float> corrected_pt_values(pt_values.size());            
+            for (int i = 0; i < pt_values.size(); i++) {
+                Logger::get("muon momentum scale file:")->debug("{}", sf_file);
+                // apply scale for muon pt > 200 using HighPt file
+                if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && eta_values.at(i) > -2.4 && eta_values.at(i) < 2.4) {
+                    if (pt_values.at(i) >= 200) {
+                        // q/pt_corr = q/pt + kappa(TeV^-1)
+                        float tuneP_pt = pt_BSC_values.at(i) * pt_ReltuneP_values.at(i);
+                        float kappa = 0;
+                        corrected_pt_values[i] = tuneP_pt;
+                    }
+                    else {
+                        corrected_pt_values[i] = pt_BSC_values.at(i);
+                    }
+                }
+                else {
+                    corrected_pt_values[i] = pt_values.at(i);
+                } 
+            }
+            return corrected_pt_values;
+        },
+        {pt_raw, pt_BSC, pt_ReltuneP, pt_BSC_Err, phi, eta, charge});
+    return df1;
+}
+
+ROOT::RDF::RNode HighPtScaleData_BSCTunepPTCorr(ROOT::RDF::RNode df, const std::string &pt_raw, const std::string &pt_BSC, const std::string &pt_ReltuneP, const std::string &pt_BSC_Err,
+                    const std::string &phi, const std::string &eta, 
+                    const std::string &charge, 
+                    const std::string &variation_BSC, const std::string &variation_tuneP, const std::string &pt_corrected, 
+                    const std::string &sf_file,
+                    const std::string &idAlgorithm) {
+    Logger::get("HighPtMuon Momentum Scale")->debug("Setting up functions for muon momentum scale");
+    Logger::get("HighPtMuon Momentum Scale")->debug("Algorithm - Name {}", idAlgorithm);
+    auto evaluator =
+        correction::CorrectionSet::from_file(sf_file)->at(idAlgorithm);
+    auto df1 = df.Define(
+        pt_corrected,
+        [evaluator, variation_BSC, variation_tuneP, sf_file](const ROOT::RVec<float> &pt_values,
+                                                             const ROOT::RVec<float> &pt_BSC_values,
+                                                             const ROOT::RVec<float> &pt_ReltuneP_values,
+                                                             const ROOT::RVec<float> &pt_BSC_Err_values,
+                                                             const ROOT::RVec<float> &phi_values,
+                                                             const ROOT::RVec<float> &eta_values,
+                                                             const ROOT::RVec<int> &q_values) {
+            // maybe can input good muon mask also, to speed up the process
+            // input is phi and eta
+            // https://twiki.cern.ch/twiki/bin/view/CMS/MuonRun32022#Momentum_Scale 
+            // https://twiki.cern.ch/twiki/bin/view/CMS/MuonRun3_2023#Momentum_Scale 
+            // https://indico.cern.ch/event/1411292/contributions/5932367/attachments/2846614/4977311/GEMethod_22+23_29Apr24.pdf 
+            ROOT::RVec<float> corrected_pt_values(pt_values.size());            
+            for (int i = 0; i < pt_values.size(); i++) {
+                Logger::get("muon momentum scale file:")->debug("{}", sf_file);
+                // apply scale for muon pt > 200 using HighPt file
+                if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && eta_values.at(i) > -2.4 && eta_values.at(i) < 2.4) {
+                    if (pt_values.at(i) >= 200) {
+                        // q/pt_corr = q/pt + kappa(TeV^-1)
+                        float tuneP_pt = pt_BSC_values.at(i) * pt_ReltuneP_values.at(i);
+                        float kappa = 0;
+                        kappa = evaluator->evaluate(
+                            {phi_values.at(i), eta_values.at(i), variation_tuneP});
+                        corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) - tuneP_pt * kappa * 0.001);
+                    }
+                    else {
+                        corrected_pt_values[i] = pt_BSC_values.at(i);
+                    }
+                }
+                else {
+                    corrected_pt_values[i] = pt_values.at(i);
+                } 
+            }
+            return corrected_pt_values;
+        },
+        {pt_raw, pt_BSC, pt_ReltuneP, pt_BSC_Err, phi, eta, charge});
+    return df1;
+}
 
 ROOT::RDF::RNode HighPtScale(ROOT::RDF::RNode df, const std::string &pt_raw, const std::string &pt_BSC, const std::string &pt_ReltuneP, const std::string &pt_BSC_Err,
                     const std::string &phi, const std::string &eta, 
@@ -385,6 +533,85 @@ ROOT::RDF::RNode HighPtScale(ROOT::RDF::RNode df, const std::string &pt_raw, con
                     if (pt_values.at(i) >= 200) {
                         // q/pt_corr = q/pt + kappa(TeV^-1)
                         float tuneP_pt = pt_values.at(i) * pt_ReltuneP_values.at(i);
+                        float kappa_up = 0;
+                        float kappa_down = 0;
+                        float kappa = 0;
+                        if (variation_tuneP == "systup") {
+                            kappa_up = evaluator->evaluate(
+                                {phi_values.at(i), eta_values.at(i), variation_tuneP});
+                            kappa = evaluator->evaluate(
+                                {phi_values.at(i), eta_values.at(i), "nominal"});
+                            corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * (kappa_up - kappa) * 0.001);
+                        }
+                        else if (variation_tuneP == "systdown") {
+                            kappa_down = evaluator->evaluate(
+                                {phi_values.at(i), eta_values.at(i), variation_tuneP});
+                            kappa = evaluator->evaluate(
+                                {phi_values.at(i), eta_values.at(i), "nominal"});
+                            corrected_pt_values[i] = (tuneP_pt * q_values.at(i)) / (q_values.at(i) + tuneP_pt * (kappa_down - kappa) * 0.001);
+                        }
+                        else if (variation_tuneP == "nominal") {
+                            corrected_pt_values[i] = tuneP_pt;
+                        }
+                        else {
+                            corrected_pt_values[i] = tuneP_pt;
+                        }
+
+                    }
+                    else {
+                    if (variation_BSC == "Up") {
+                        corrected_pt_values[i] = pt_BSC_values.at(i) + pt_BSC_Err_values.at(i);
+                    }
+                    else if (variation_BSC == "Down") {
+                        corrected_pt_values[i] = pt_BSC_values.at(i) - pt_BSC_Err_values.at(i);
+                    }
+                    else {
+                        corrected_pt_values[i] = pt_BSC_values.at(i);
+                    }
+                    }
+                }
+                else {
+                    corrected_pt_values[i] = pt_values.at(i);
+                } 
+            }
+            return corrected_pt_values;
+        },
+        {pt_raw, pt_BSC, pt_ReltuneP, pt_BSC_Err, phi, eta, charge});
+    return df1;
+}
+
+ROOT::RDF::RNode HighPtScale_BSCTunepPT(ROOT::RDF::RNode df, const std::string &pt_raw, const std::string &pt_BSC, const std::string &pt_ReltuneP, const std::string &pt_BSC_Err,
+                    const std::string &phi, const std::string &eta, 
+                    const std::string &charge, 
+                    const std::string &variation_BSC, const std::string &variation_tuneP, const std::string &pt_corrected, 
+                    const std::string &sf_file,
+                    const std::string &idAlgorithm) {
+    Logger::get("HighPtMuon Momentum Scale")->debug("Setting up functions for muon momentum scale");
+    Logger::get("HighPtMuon Momentum Scale")->debug("Algorithm - Name {}", idAlgorithm);
+    auto evaluator =
+        correction::CorrectionSet::from_file(sf_file)->at(idAlgorithm);
+    auto df1 = df.Define(
+        pt_corrected,
+        [evaluator, variation_BSC, variation_tuneP, sf_file](const ROOT::RVec<float> &pt_values,
+                                                             const ROOT::RVec<float> &pt_BSC_values,
+                                                             const ROOT::RVec<float> &pt_ReltuneP_values,
+                                                             const ROOT::RVec<float> &pt_BSC_Err_values,
+                                                             const ROOT::RVec<float> &phi_values,
+                                                             const ROOT::RVec<float> &eta_values,
+                                                             const ROOT::RVec<int> &q_values) {
+            // maybe can input good muon mask also, to speed up the process
+            // input is phi and eta
+            // https://twiki.cern.ch/twiki/bin/view/CMS/MuonRun32022#Momentum_Scale 
+            // https://twiki.cern.ch/twiki/bin/view/CMS/MuonRun3_2023#Momentum_Scale 
+            // https://indico.cern.ch/event/1411292/contributions/5932367/attachments/2846614/4977311/GEMethod_22+23_29Apr24.pdf 
+            ROOT::RVec<float> corrected_pt_values(pt_values.size());            
+            for (int i = 0; i < pt_values.size(); i++) {
+                Logger::get("muon momentum scale file:")->debug("{}", sf_file);
+                // apply scale for muon pt > 200 using HighPt file
+                if (phi_values.at(i) > -3.14159265 && phi_values.at(i) < 3.14159265 && eta_values.at(i) > -2.4 && eta_values.at(i) < 2.4) {
+                    if (pt_values.at(i) >= 200) {
+                        // q/pt_corr = q/pt + kappa(TeV^-1)
+                        float tuneP_pt =  pt_BSC_values.at(i) * pt_ReltuneP_values.at(i);
                         float kappa_up = 0;
                         float kappa_down = 0;
                         float kappa = 0;

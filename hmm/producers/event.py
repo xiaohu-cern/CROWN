@@ -284,6 +284,41 @@ HiggsToDiMuonPair_p4_noFSR = Producer(
     output=[q.dimuon_p4_Higgs_noFSR],
     scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
+###### for tune pt check ###############
+HiggsToDiMuonPair_p4_noFSR_PureTunepPT = Producer(
+    name="HiggsToDiMuonPair_p4_noFSR_PureTunepPT",
+    call='physicsobject::HiggsToDiMuonPairCollection({df}, {output}, {input})',
+    input=[q.Muon_pt_corrected_PureTunepPT,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           q.dimuon_HiggsCand_collection],
+    output=[q.dimuon_p4_Higgs_noFSR_PureTunepPT],
+    scopes=["nnmm","fjmm"],
+)
+HiggsToDiMuonPair_p4_noFSR_BSCTunepPT = Producer(
+    name="HiggsToDiMuonPair_p4_noFSR_BSCTunepPT",
+    call='physicsobject::HiggsToDiMuonPairCollection({df}, {output}, {input})',
+    input=[q.Muon_pt_corrected_BSCTunepPT,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           q.dimuon_HiggsCand_collection],
+    output=[q.dimuon_p4_Higgs_noFSR_BSCTunepPT],
+    scopes=["nnmm","fjmm"],
+)
+HiggsToDiMuonPair_p4_noFSR_BSCTunepPTCorr = Producer(
+    name="HiggsToDiMuonPair_p4_noFSR_BSCTunepPTCorr",
+    call='physicsobject::HiggsToDiMuonPairCollection({df}, {output}, {input})',
+    input=[q.Muon_pt_corrected_BSCTunepPTCorr,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           q.dimuon_HiggsCand_collection],
+    output=[q.dimuon_p4_Higgs_noFSR_BSCTunepPTCorr],
+    scopes=["nnmm","fjmm"],
+)
+##########################
 HiggsToDiMuonPair_p4_4m_noFSR = Producer(
     name="HiggsToDiMuonPair_p4_4m_noFSR",
     call='physicsobject::HiggsToDiMuonPairCollection({df}, {output}, {input})',
@@ -320,6 +355,46 @@ HiggsToDiMuonPair_p4 = Producer(
            q.FsrPhoton2_phi],
     output=[q.dimuon_p4_Higgs],
     scopes=["e2m","m2m","eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc", "mmmm", "mmmm_cr"],
+)
+
+HiggsToDiMuonPair_p4_PureTunepPT = Producer(
+    name="HiggsToDiMuonPair_p4_PureTunepPT",
+    call='physicsobject::FSR_Recovery_dimuon({df}, {output}, {input})',
+    input=[q.dimuon_p4_Higgs_noFSR_PureTunepPT,
+           q.FsrPhoton1_pt,
+           q.FsrPhoton1_eta,
+           q.FsrPhoton1_phi,
+           q.FsrPhoton2_pt,
+           q.FsrPhoton2_eta,
+           q.FsrPhoton2_phi],
+    output=[q.dimuon_p4_Higgs_PureTunepPT],
+    scopes=["nnmm","fjmm"],
+)
+HiggsToDiMuonPair_p4_BSCTunepPT = Producer(
+    name="HiggsToDiMuonPair_p4_BSCTunepPT",
+    call='physicsobject::FSR_Recovery_dimuon({df}, {output}, {input})',
+    input=[q.dimuon_p4_Higgs_noFSR_BSCTunepPT,
+           q.FsrPhoton1_pt,
+           q.FsrPhoton1_eta,
+           q.FsrPhoton1_phi,
+           q.FsrPhoton2_pt,
+           q.FsrPhoton2_eta,
+           q.FsrPhoton2_phi],
+    output=[q.dimuon_p4_Higgs_BSCTunepPT],
+    scopes=["nnmm","fjmm"],
+)
+HiggsToDiMuonPair_p4_BSCTunepPTCorr = Producer(
+    name="HiggsToDiMuonPair_p4_BSCTunepPTCorr",
+    call='physicsobject::FSR_Recovery_dimuon({df}, {output}, {input})',
+    input=[q.dimuon_p4_Higgs_noFSR_BSCTunepPTCorr,
+           q.FsrPhoton1_pt,
+           q.FsrPhoton1_eta,
+           q.FsrPhoton1_phi,
+           q.FsrPhoton2_pt,
+           q.FsrPhoton2_eta,
+           q.FsrPhoton2_phi],
+    output=[q.dimuon_p4_Higgs_BSCTunepPTCorr],
+    scopes=["nnmm","fjmm"],
 )
 
 

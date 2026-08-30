@@ -854,7 +854,7 @@ def build_config(
             "base_muon_iso_cut" : 0.7,
             
             # for good muon
-            "min_goodmuon_mvaTTH" : 0.4,
+            "min_goodmuon_mvaTTH" : 0.64,
             "PromptMVA_BDT_muon_name" : "BDTG",
             "muon_xml_path": "data/22-23_correction_new/MUO/Muon-mvaTTH.2022EE.weights.xml",
             "good_muon_id_medium": "Muon_mediumId", # vh cut-based atm https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Medium_Muon
@@ -883,7 +883,7 @@ def build_config(
             "base_ele_cutbaseid": 2, # cut-based ID RunIII Winter22 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
             
             # extract from base ele v1 for good ele
-            "min_goodelectron_mvaTTH" : 0.4,
+            "min_goodelectron_mvaTTH" : 0.9,
             "PromptMVA_BDT_electron_name" : "BDTG",
             "electron_xml_path": "data/22-23_correction_new/EGM/Electron-mvaTTH.2022EE.weights_mvaISO.xml",
             "good_ele_id": EraModifier(
@@ -4090,6 +4090,59 @@ def build_config(
         [electrons.ElectronPtCorrectionSmearing],
     )
 
+    configuration.add_producers(
+        ["fjmm", "fjmm_cr", "nnmm"],
+        [
+            momentumscale.MuonPtPreCorrection_PureTunepPT,
+            momentumscale.MuonPtPreCorrection_BSCTunepPT,
+            momentumscale.MuonPtPreCorrection_BSCTunepPTCorr,
+            momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_PureTunepPT,
+            momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPT,
+            momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr,
+        ]
+    )
+    configuration.add_producers(
+        ["fjmm", "nnmm"],
+        [
+            event.HiggsToDiMuonPair_p4_noFSR_PureTunepPT,
+            event.HiggsToDiMuonPair_p4_noFSR_BSCTunepPT,
+            event.HiggsToDiMuonPair_p4_noFSR_BSCTunepPTCorr,
+            event.HiggsToDiMuonPair_p4_PureTunepPT,
+            event.HiggsToDiMuonPair_p4_BSCTunepPT,
+            event.HiggsToDiMuonPair_p4_BSCTunepPTCorr,
+            p4.H_mass_PureTunepPT,
+            p4.H_mass_BSCTunepPT,
+            p4.H_mass_BSCTunepPTCorr,
+        ]
+    )
+    configuration.add_producers(
+        ["fjmm_cr"],
+        [
+            cr.DiMuonPairCR_p4_PureTunepPT,
+            cr.DiMuonPairCR_p4_BSCTunepPT,
+            cr.DiMuonPairCR_p4_BSCTunepPTCorr,
+            cr.dimuonCR_mass_PureTunepPT,
+            cr.dimuonCR_mass_BSCTunepPT,
+            cr.dimuonCR_mass_BSCTunepPTCorr,
+        ]
+    )
+    configuration.add_outputs(
+        ["fjmm", "nnmm"],
+        [
+            q.H_mass_PureTunepPT,
+            q.H_mass_BSCTunepPT,
+            q.H_mass_BSCTunepPTCorr,
+        ]
+    )
+    configuration.add_outputs(
+        ["fjmm_cr"],
+        [
+            q.dimuonCR_mass_PureTunepPT,
+            q.dimuonCR_mass_BSCTunepPT,
+            q.dimuonCR_mass_BSCTunepPTCorr,
+        ]
+    )
+
     configuration.add_outputs(
         scopes,
         [
@@ -5188,6 +5241,48 @@ def build_config(
         ["nnmm","fjmm","fjmm_cr"],
         ReplaceProducer(
             producers=[momentumscale.MuonPtPreCorrection, momentumscale.MuonPtPreCorrectionData],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm","fjmm","fjmm_cr",],
+        ReplaceProducer(
+            producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_PureTunepPT, momentumscale.Data_KIT_MuonPt_Scale_HighPt_PureTunepPT],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm","fjmm","fjmm_cr"],
+        ReplaceProducer(
+            producers=[momentumscale.MuonPtPreCorrection_PureTunepPT, momentumscale.MuonPtPreCorrectionData_PureTunepPT],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm","fjmm","fjmm_cr",],
+        ReplaceProducer(
+            producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPT, momentumscale.Data_KIT_MuonPt_Scale_HighPt_BSCTunepPT],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm","fjmm","fjmm_cr"],
+        ReplaceProducer(
+            producers=[momentumscale.MuonPtPreCorrection_BSCTunepPT, momentumscale.MuonPtPreCorrectionData_BSCTunepPT],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm","fjmm","fjmm_cr",],
+        ReplaceProducer(
+            producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr, momentumscale.Data_KIT_MuonPt_Scale_HighPt_BSCTunepPTCorr],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["nnmm","fjmm","fjmm_cr"],
+        ReplaceProducer(
+            producers=[momentumscale.MuonPtPreCorrection_BSCTunepPTCorr, momentumscale.MuonPtPreCorrectionData_BSCTunepPTCorr],
             samples=["data"],
         ),
     )

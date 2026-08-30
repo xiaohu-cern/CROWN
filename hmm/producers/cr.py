@@ -61,6 +61,39 @@ DiMuonPairCR_p4 = Producer(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
 )
+DiMuonPairCR_p4_PureTunepPT = Producer(
+    name="DiMuonPairCR_p4_PureTunepPT",
+    call='physicsobject::ZControlDiMuonPairP4({df}, {output}, {input})',
+    input=[q.Muon_pt_corrected_PureTunepPT,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           q.dimuon_ZControl_collection],
+    output=[q.dimuon_p4_CR_PureTunepPT],
+    scopes=["fjmm_cr"],
+)
+DiMuonPairCR_p4_BSCTunepPT = Producer(
+    name="DiMuonPairCR_p4_BSCTunepPT",
+    call='physicsobject::ZControlDiMuonPairP4({df}, {output}, {input})',
+    input=[q.Muon_pt_corrected_BSCTunepPT,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           q.dimuon_ZControl_collection],
+    output=[q.dimuon_p4_CR_BSCTunepPT],
+    scopes=["fjmm_cr"],
+)
+DiMuonPairCR_p4_BSCTunepPTCorr = Producer(
+    name="DiMuonPairCR_p4_BSCTunepPTCorr",
+    call='physicsobject::ZControlDiMuonPairP4({df}, {output}, {input})',
+    input=[q.Muon_pt_corrected_BSCTunepPTCorr,
+           nanoAOD.Muon_eta, 
+           nanoAOD.Muon_phi, 
+           nanoAOD.Muon_mass,
+           q.dimuon_ZControl_collection],
+    output=[q.dimuon_p4_CR_BSCTunepPTCorr],
+    scopes=["fjmm_cr"],
+)
 ### cut flag
 FilterFlag_DiMuonFromCR = Producer(
     name="FilterFlag_DiMuonFromCR",
@@ -116,6 +149,33 @@ dimuonCR_mass = Producer(
     scopes=["nnmm_dycontrol","fjmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regiond"],
+)
+dimuonCR_mass_PureTunepPT = Producer(
+    name="dimuonCR_mass_PureTunepPT",
+    call='quantities::mass({df}, {output}, {input})',
+    input=[
+      q.dimuon_p4_CR_PureTunepPT,
+    ],
+    output=[q.dimuonCR_mass_PureTunepPT],
+    scopes=["fjmm_cr"],
+)
+dimuonCR_mass_BSCTunepPT = Producer(
+    name="dimuonCR_mass_BSCTunepPT",
+    call='quantities::mass({df}, {output}, {input})',
+    input=[
+      q.dimuon_p4_CR_BSCTunepPT,
+    ],
+    output=[q.dimuonCR_mass_BSCTunepPT],
+    scopes=["fjmm_cr"],
+)
+dimuonCR_mass_BSCTunepPTCorr = Producer(
+    name="dimuonCR_mass_BSCTunepPTCorr",
+    call='quantities::mass({df}, {output}, {input})',
+    input=[
+      q.dimuon_p4_CR_BSCTunepPTCorr,
+    ],
+    output=[q.dimuonCR_mass_BSCTunepPTCorr],
+    scopes=["fjmm_cr"],
 )
 
 ########

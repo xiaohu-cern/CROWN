@@ -601,58 +601,7 @@ Mu1_H = Producer(
     output=[q.muon_leadingp4_H],
     scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
-############ pureBSC #######################
-Mu1_H_noFSR_pureBSC = Producer(
-    name="Mu1_H_noFSR_pureBSC",
-    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
-    input=[
-        q.dimuon_HiggsCand_collection,
-        q.Muon_pt_corrected_pureBSC,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_leadingp4_H_noFSR_pureBSC],
-    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
-)
-Mu1_H_pureBSC = Producer(
-    name="Mu1_H_pureBSC",
-    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
-    input=[
-        q.muon_leadingp4_H_noFSR_pureBSC,
-        q.FsrPhoton1_pt,
-        q.FsrPhoton1_eta,
-        q.FsrPhoton1_phi,
-    ],
-    output=[q.muon_leadingp4_H_pureBSC],
-    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
-)
-################# raw ############################
-Mu1_H_noFSR_raw = Producer(
-    name="Mu1_H_noFSR_raw",
-    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
-    input=[
-        q.dimuon_HiggsCand_collection,
-        q.Muon_pt_corrected_raw,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_leadingp4_H_noFSR_raw],
-    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
-)
-Mu1_H_raw = Producer(
-    name="Mu1_H_raw",
-    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
-    input=[
-        q.muon_leadingp4_H_noFSR_raw,
-        q.FsrPhoton1_pt,
-        q.FsrPhoton1_eta,
-        q.FsrPhoton1_phi,
-    ],
-    output=[q.muon_leadingp4_H_raw],
-    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
-)
+
 #####################################################
 Mu1_H_uncorrected = Producer(
     name="Mu1_H_uncorrected",
@@ -691,58 +640,6 @@ Mu2_H = Producer(
         q.FsrPhoton2_phi,
     ],
     output=[q.muon_subleadingp4_H],
-    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
-)
-############### pureBSC ###########################
-Mu2_H_noFSR_pureBSC = Producer(
-    name="Mu2_H_noFSR_pureBSC",
-    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
-    input=[
-        q.dimuon_HiggsCand_collection,
-        q.Muon_pt_corrected_pureBSC,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_subleadingp4_H_noFSR_pureBSC],
-    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
-)
-Mu2_H_pureBSC = Producer(
-    name="Mu2_H_pureBSC",
-    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
-    input=[
-        q.muon_subleadingp4_H_noFSR_pureBSC,
-        q.FsrPhoton2_pt,
-        q.FsrPhoton2_eta,
-        q.FsrPhoton2_phi,
-    ],
-    output=[q.muon_subleadingp4_H_pureBSC],
-    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
-)
-################## raw #############################
-Mu2_H_noFSR_raw = Producer(
-    name="Mu2_H_noFSR_raw",
-    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
-    input=[
-        q.dimuon_HiggsCand_collection,
-        q.Muon_pt_corrected_raw,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_subleadingp4_H_noFSR_raw],
-    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
-)
-Mu2_H_raw = Producer(
-    name="Mu2_H_raw",
-    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
-    input=[
-        q.muon_subleadingp4_H_noFSR_raw,
-        q.FsrPhoton2_pt,
-        q.FsrPhoton2_eta,
-        q.FsrPhoton2_phi,
-    ],
-    output=[q.muon_subleadingp4_H_raw],
     scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 #####################################################
@@ -798,58 +695,6 @@ Mu1_H_4m = Producer(
     output=[q.muon_leadingp4_H],
     scopes=["mmmm","mmmm_cr"],
 )
-########### pure BSC ###################
-Mu1_H_4m_noFSR_pureBSC = Producer(
-    name="Mu1_H_4m_noFSR_pureBSC",
-    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
-    input=[
-        q.quadmuon_HiggsZCand_collection,
-        q.Muon_pt_corrected_pureBSC,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_leadingp4_H_noFSR_pureBSC],
-    scopes=["mmmm","mmmm_cr"],
-)
-Mu1_H_4m_pureBSC = Producer(
-    name="Mu1_H_4m_pureBSC",
-    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
-    input=[
-        q.muon_leadingp4_H_noFSR_pureBSC,
-        q.FsrPhoton1_pt,
-        q.FsrPhoton1_eta,
-        q.FsrPhoton1_phi,
-    ],
-    output=[q.muon_leadingp4_H_pureBSC],
-    scopes=["mmmm","mmmm_cr"],
-)
-################ raw ######################
-Mu1_H_4m_noFSR_raw = Producer(
-    name="Mu1_H_4m_noFSR_raw",
-    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
-    input=[
-        q.quadmuon_HiggsZCand_collection,
-        q.Muon_pt_corrected_raw,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_leadingp4_H_noFSR_raw],
-    scopes=["mmmm","mmmm_cr"],
-)
-Mu1_H_4m_raw = Producer(
-    name="Mu1_H_4m_raw",
-    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
-    input=[
-        q.muon_leadingp4_H_noFSR_raw,
-        q.FsrPhoton1_pt,
-        q.FsrPhoton1_eta,
-        q.FsrPhoton1_phi,
-    ],
-    output=[q.muon_leadingp4_H_raw],
-    scopes=["mmmm","mmmm_cr"],
-)
 Mu1_H_4m_uncorrected = Producer(
     name="Mu1_H_4m_uncorrected",
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
@@ -900,58 +745,6 @@ Mu2_H_4m = Producer(
         q.FsrPhoton2_phi,
     ],
     output=[q.muon_subleadingp4_H],
-    scopes=["mmmm","mmmm_cr"],
-)
-############## pureBSC #################
-Mu2_H_4m_noFSR_pureBSC = Producer(
-    name="Mu2_H_4m_noFSR_pureBSC",
-    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
-    input=[
-        q.quadmuon_HiggsZCand_collection,
-        q.Muon_pt_corrected_pureBSC,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_subleadingp4_H_noFSR_pureBSC],
-    scopes=["mmmm","mmmm_cr"],
-)
-Mu2_H_4m_pureBSC = Producer(
-    name="Mu2_H_4m_pureBSC",
-    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
-    input=[
-        q.muon_subleadingp4_H_noFSR_pureBSC,
-        q.FsrPhoton2_pt,
-        q.FsrPhoton2_eta,
-        q.FsrPhoton2_phi,
-    ],
-    output=[q.muon_subleadingp4_H_pureBSC],
-    scopes=["mmmm","mmmm_cr"],
-)
-############### raw #######################
-Mu2_H_4m_noFSR_raw = Producer(
-    name="Mu2_H_4m_noFSR_raw",
-    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
-    input=[
-        q.quadmuon_HiggsZCand_collection,
-        q.Muon_pt_corrected_raw,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_subleadingp4_H_noFSR_raw],
-    scopes=["mmmm","mmmm_cr"],
-)
-Mu2_H_4m_raw = Producer(
-    name="Mu2_H_4m_raw",
-    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
-    input=[
-        q.muon_subleadingp4_H_noFSR_raw,
-        q.FsrPhoton2_pt,
-        q.FsrPhoton2_eta,
-        q.FsrPhoton2_phi,
-    ],
-    output=[q.muon_subleadingp4_H_raw],
     scopes=["mmmm","mmmm_cr"],
 )
 
