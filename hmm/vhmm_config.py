@@ -1392,10 +1392,10 @@ def build_config(
                     # "2022postEE": '"Summer22EEPrompt22_JRV1_MC"',
                     "2022preEE": '"Summer22_22Sep2023_JRV2_MC"', # just for testing (TBD) 2022_Prompt: JR_Winter22Run3_V1_MC
                     "2022postEE": '"Summer22EE_22Sep2023_JRV2_MC"', # just for testing (TBD) beforeCorr: Summer22EEPrompt22_JRV1_MC
-                    "2023preBPix": '"Summer23Prompt23_RunCv123_JRV2_MC"',
-                    "2023postBPix": '"Summer23BPixPrompt23_RunD_JRV2_MC"',
-                    "2024": '"Summer24Prompt24_JRV1_MC"', ## TODO JER for 2024 will be announced soon
-                    "2025": '"Summer24Prompt25_JRV1_MC"',
+                    "2023preBPix": '"Summer23Prompt23_RunCv123_JRV3_MC"',
+                    "2023postBPix": '"Summer23BPixPrompt23_RunD_JRV3_MC"',
+                    "2024": '"Summer24Prompt24_JRV2_MC"', ## TODO JER for 2024 will be announced soon
+                    "2025": '"Summer24Prompt25_JRV2_MC"',
                 }
             ),
             "jet_jes_tag_data": EraModifier(
@@ -1404,8 +1404,8 @@ def build_config(
                     "2022postEE": '"Summer22EE_22Sep2023_V4_DATA"', # just for testing (TBD) beforeCorr: Summer22EEPrompt22_V1_MC
                     "2023preBPix": '"Summer23Prompt23_V4_DATA"',
                     "2023postBPix": '"Summer23BPixPrompt23_V4_DATA"',
-                    "2024": '"Summer24Prompt24_V3_DATA"',
-                    "2025": '"Summer24Prompt25_V1_DATA"',
+                    "2024": '"Summer24Prompt24_V5_DATA"',
+                    "2025": '"Summer24Prompt25_V3_DATA"',
                 }
             ),
             "Phi_in_L2Relative": EraModifier(
@@ -1430,8 +1430,8 @@ def build_config(
                     "2022postEE": '"Summer22EE_22Sep2023_V4_MC"', # just for testing (TBD) beforeCorr: Summer22EEPrompt22_V1_MC
                     "2023preBPix": '"Summer23Prompt23_V4_MC"',
                     "2023postBPix": '"Summer23BPixPrompt23_V4_MC"',
-                    "2024": '"Summer24Prompt24_V3_MC"', ###### Following previous era, L1L2L3Res is used.
-                    "2025": '"Summer24Prompt25_V1_MC"', ###### Following previous era, L1L2L3Res is used.
+                    "2024": '"Summer24Prompt24_V5_MC"', ###### Following previous era, L1L2L3Res is used.
+                    "2025": '"Summer24Prompt25_V3_MC"', ###### Following previous era, L1L2L3Res is used.
                 }
             ),
             # "jet_jec_algo": '"AK4PFPuppi"', # AK4PFchs for run2?
@@ -1557,8 +1557,8 @@ def build_config(
                     "2022postEE": '"Summer22EE_22Sep2023_JRV2_MC"', # just for testing (TBD)
                     "2023preBPix": '"Summer23Prompt23_RunCv123_JRV2_MC"',
                     "2023postBPix": '"Summer23BPixPrompt23_RunD_JRV2_MC"',
-                    "2024": '"Summer24Prompt24_JRV1_MC"', 
-                    "2025": '"Summer24Prompt25_JRV1_MC"',
+                    "2024": '"Summer24Prompt24_JRV2_MC"', 
+                    "2025": '"Summer24Prompt25_JRV2_MC"',
                 }
             ),
             "fatjet_jes_tag_data": EraModifier(
@@ -1567,8 +1567,8 @@ def build_config(
                     "2022postEE": '"Summer22EE_22Sep2023_V4_DATA"', # just for testing (TBD)
                     "2023preBPix": '"Summer23Prompt23_V4_DATA"',
                     "2023postBPix": '"Summer23BPixPrompt23_V4_DATA"',
-                    "2024": '"Summer24Prompt24_V3_DATA"',
-                    "2025": '"Summer24Prompt25_V1_DATA"',
+                    "2024": '"Summer24Prompt24_V5_DATA"',
+                    "2025": '"Summer24Prompt25_V3_DATA"',
                 }
             ),
             "fatjet_jes_tag": EraModifier(
@@ -1583,8 +1583,8 @@ def build_config(
                     "2022postEE": '"Summer22EE_22Sep2023_V4_MC"', # just for testing (TBD)
                     "2023preBPix": '"Summer23Prompt23_V4_MC"',
                     "2023postBPix": '"Summer23BPixPrompt23_V4_MC"',
-                    "2024": '"Summer24Prompt24_V3_MC"',
-                    "2025": '"Summer24Prompt25_V1_MC"',
+                    "2024": '"Summer24Prompt24_V5_MC"',
+                    "2025": '"Summer24Prompt25_V3_MC"',
                 }
             ),
             "fatjet_jec_algo": '"AK8PFPuppi"',
