@@ -1555,8 +1555,8 @@ def build_config(
                     # "2022postEE": '"Summer22EEPrompt22_JRV1_MC"', # just for testing (TBD)
                     "2022preEE": '"Summer22_22Sep2023_JRV2_MC"', # just for testing (TBD)
                     "2022postEE": '"Summer22EE_22Sep2023_JRV2_MC"', # just for testing (TBD)
-                    "2023preBPix": '"Summer23Prompt23_RunCv123_JRV2_MC"',
-                    "2023postBPix": '"Summer23BPixPrompt23_RunD_JRV2_MC"',
+                    "2023preBPix": '"Summer23Prompt23_RunCv123_JRV3_MC"',
+                    "2023postBPix": '"Summer23BPixPrompt23_RunD_JRV3_MC"',
                     "2024": '"Summer24Prompt24_JRV2_MC"', 
                     "2025": '"Summer24Prompt25_JRV2_MC"',
                 }
@@ -2060,7 +2060,7 @@ def build_config(
     if era == "2022preEE" or era == "2022postEE" or era =="2023preBPix" or era == "2023postBPix":
         configuration.add_producers(
             ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond", "fjmm_cr","fjmm","nnmm"],
             [
                 muons.Calculate_MuonPromptMVA22To23,
             ],

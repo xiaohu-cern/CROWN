@@ -1027,6 +1027,7 @@ Calculate_MuonPromptMVA22To23 = Producer(
     ],
     output=[q.new_MuonPromptMVA],
     scopes=["e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc",
-            "m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb", "m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regiond"
+            "m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb", "m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regiond",
+            "fjmm_cr","fjmm","nnmm"
             ],
 )
