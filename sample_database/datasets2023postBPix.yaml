@@ -63,7 +63,7 @@ WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
   nfiles: 34
   nick: WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
   sample_type: diboson
-  xsec: 5.31
+  xsec: 4.924
 WZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
   dbs: /WZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v2/NANOAODSIM
   era: 2023postBPix
@@ -72,7 +72,7 @@ WZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
   nfiles: 55
   nick: WZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
   sample_type: diboson
-  xsec: 8.17
+  xsec: 7.568
 ZZto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
   dbs: /ZZto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
   era: 2023postBPix
@@ -81,7 +81,7 @@ ZZto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
   nfiles: 106
   nick: ZZto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
   sample_type: diboson
-  xsec: 1.19
+  xsec: 1.031
 ZZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
   dbs: /ZZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
   era: 2023postBPix
@@ -90,7 +90,7 @@ ZZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
   nfiles: 65
   nick: ZZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
   sample_type: diboson
-  xsec: 8.08
+  xsec: 6.788
 ZZto4L_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
   dbs: /ZZto4L_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
   era: 2023postBPix
@@ -99,7 +99,7 @@ ZZto4L_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
   nfiles: 81
   nick: ZZto4L_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
   sample_type: diboson
-  xsec: 1.65
+  xsec: 1.39
 WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
   dbs: /WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
   era: 2023postBPix
@@ -108,7 +108,7 @@ WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
   nfiles: 92
   nick: WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
   sample_type: diboson
-  xsec: 12.98
+  xsec: 11.79
 TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
   dbs: /TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
   era: 2023postBPix
