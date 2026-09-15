@@ -1,423 +1,730 @@
-####################
-### 2023 postBPix ###
-####################
-GluGluHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /GluGluHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 300000
-  nfiles: 21
-  nick: GluGluHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: vhmm # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHWG136TeVxsec_extrap
-  xsec: 0.01138614 # 52.23*2.18*10^{-4} = 0.01138614
-VBFHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /VBFHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 600000
-  nfiles: 27
-  nick: VBFHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: vhmm # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHWG136TeVxsec_extrap
-  xsec: 0.000889004 # 4.078*2.18*10^{-4} = 0.000889004
-TTH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /TTH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 300000
-  nfiles: 19
-  nick: TTH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: vhmm # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCHWG136TeVxsec_extrap
-  xsec: 0.0001243 # 0.57*2.18*10^{-4} = 0.00012426
-WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 146160
-  nfiles: 9
-  nick: WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: vhmm
-  xsec: 0.0001237586
-WplusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /WplusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 142160
-  nfiles: 11
-  nick: WplusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: vhmm
-  xsec: 0.00019378
-ZH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /ZH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 243599
-  nfiles: 24
-  nick: ZH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: vhmm
-  xsec: 0.0002057702
-WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 2713000
-  nfiles: 34
-  nick: WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: diboson
-  xsec: 4.924
-WZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /WZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 4267000
-  nfiles: 55
-  nick: WZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: diboson
-  xsec: 7.568
-ZZto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /ZZto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 14931000
-  nfiles: 106
-  nick: ZZto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: diboson
-  xsec: 1.031
-ZZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /ZZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 14907000
-  nfiles: 65
-  nick: ZZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: diboson
-  xsec: 6.788
-ZZto4L_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /ZZto4L_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 14625000
-  nfiles: 81
-  nick: ZZto4L_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: diboson
-  xsec: 1.39
-GluGluToContinto2Zto2E2Mu_TuneCP5_13p6TeV_mcfm701-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /GluGluToContinto2Zto2E2Mu_TuneCP5_13p6TeV_mcfm701-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 512000
-  nfiles: 27
-  nick: GluGluToContinto2Zto2E2Mu_TuneCP5_13p6TeV_mcfm701-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: diboson
-  xsec: 0.006
-GluGluToContinto2Zto2E2Tau_TuneCP5_13p6TeV_mcfm701-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /GluGluToContinto2Zto2E2Tau_TuneCP5_13p6TeV_mcfm701-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 524000
-  nfiles: 17
-  nick: GluGluToContinto2Zto2E2Tau_TuneCP5_13p6TeV_mcfm701-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: diboson
-  xsec: 0.006
-GluGluToContinto2Zto2Mu2Tau_TuneCP5_13p6TeV_mcfm701-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /GluGluToContinto2Zto2Mu2Tau_TuneCP5_13p6TeV_mcfm701-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 516000
-  nfiles: 24
-  nick: GluGluToContinto2Zto2Mu2Tau_TuneCP5_13p6TeV_mcfm701-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: diboson
-  xsec: 0.006
-GluGlutoContinto2Zto4E_TuneCP5_13p6TeV_mcfm-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /GluGlutoContinto2Zto4E_TuneCP5_13p6TeV_mcfm-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 1048000
-  nfiles: 16
-  nick: GluGlutoContinto2Zto4E_TuneCP5_13p6TeV_mcfm-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: diboson
-  xsec: 0.003
-GluGlutoContinto2Zto4Mu_TuneCP5_13p6TeV_mcfm-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /GluGlutoContinto2Zto4Mu_TuneCP5_13p6TeV_mcfm-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 1048000
-  nfiles: 26
-  nick: GluGlutoContinto2Zto4Mu_TuneCP5_13p6TeV_mcfm-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: diboson
-  xsec: 0.003
-GluGlutoContinto2Zto4Tau_TuneCP5_13p6TeV_mcfm-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /GluGlutoContinto2Zto4Tau_TuneCP5_13p6TeV_mcfm-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 1046000
-  nfiles: 23
-  nick: GluGlutoContinto2Zto4Tau_TuneCP5_13p6TeV_mcfm-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: diboson
-  xsec: 0.003
-WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 6390000
-  nfiles: 92
-  nick: WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: diboson
-  xsec: 11.79
-TTLL_MLL-50_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /TTLL_MLL-50_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v3/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 400000
-  nfiles: 7
-  nick: TTLL_MLL-50_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: top
-  xsec: 0.08646
-TTLNu-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-mg35x_130X_mcRun3_2023_realistic_postBPix_v6-v2-130X:
-  dbs: /TTLNu-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-mg35x_130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 1981391
-  nfiles: 10
-  nick: TTLNu-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-mg35x_130X_mcRun3_2023_realistic_postBPix_v6-v2-130X
-  sample_type: top
-  xsec: 0.2505
-TTLNu-EWK_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /TTLNu-EWK_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 294000
-  nfiles: 21
-  nick: TTLNu-EWK_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: top
-  xsec: 0.01769
-TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 24649000
-  nfiles: 150
-  nick: TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: top
-  xsec: 97.45
-TWminusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /TWminusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 2479000
-  nfiles: 30
-  nick: TWminusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: top
-  xsec: 4.70
-TbarWplusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /TbarWplusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 2488000
-  nfiles: 50
-  nick: TbarWplusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: top
-  xsec: 4.70
-WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 466500
-  nfiles: 2
-  nick: WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: triboson
-  xsec: 0.23280
-WWZ_4F_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /WWZ_4F_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 1746000
-  nfiles: 28
-  nick: WWZ_4F_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: triboson
-  xsec: 0.18510
-WZZ_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /WZZ_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 1788000
-  nfiles: 9
-  nick: WZZ_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: triboson
-  xsec: 0.06206
-ZZZ_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /ZZZ_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v2/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 1788000
-  nfiles: 8
-  nick: ZZZ_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: triboson
-  xsec: 0.01591
-DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 95472230
-  nfiles: 221
-  nick: DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: dyjets
-  xsec: 6345.99
-### new dy slice sample using jet number
-DYto2L-2Jets_MLL-50_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /DYto2L-2Jets_MLL-50_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 96625525
-  nfiles: 310
-  nick: DYto2L-2Jets_MLL-50_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: dyjets
-  xsec: 5378.0 # from DAS
-DYto2L-2Jets_MLL-50_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /DYto2L-2Jets_MLL-50_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 91293455
-  nfiles: 330
-  nick: DYto2L-2Jets_MLL-50_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: dyjets
-  xsec: 1017.0 # from DAS
-DYto2L-2Jets_MLL-50_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /DYto2L-2Jets_MLL-50_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 68804529
-  nfiles: 408
-  nick: DYto2L-2Jets_MLL-50_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: dyjets
-  xsec: 385.5 # from DAS
-####
-#### data
-####
 Muon0_Run2023D-22Sep2023_v1-v1:
+  nick: Muon0_Run2023D-22Sep2023_v1-v1
   dbs: /Muon0/Run2023D-22Sep2023_v1-v1/NANOAOD
   era: 2023postBPix
   generator_weight: 1.0
   nevents: 100291308
   nfiles: 125
-  nick: Muon0_Run2023D-22Sep2023_v1-v1
   sample_type: data
   xsec: 1.0
+
 Muon0_Run2023D-22Sep2023_v2-v1:
+  nick: Muon0_Run2023D-22Sep2023_v2-v1
   dbs: /Muon0/Run2023D-22Sep2023_v2-v1/NANOAOD
   era: 2023postBPix
   generator_weight: 1.0
   nevents: 21462916
   nfiles: 32
-  nick: Muon0_Run2023D-22Sep2023_v2-v1
   sample_type: data
   xsec: 1.0
+
 Muon1_Run2023D-22Sep2023_v1-v1:
+  nick: Muon1_Run2023D-22Sep2023_v1-v1
   dbs: /Muon1/Run2023D-22Sep2023_v1-v1/NANOAOD
   era: 2023postBPix
   generator_weight: 1.0
   nevents: 100281976
   nfiles: 100
-  nick: Muon1_Run2023D-22Sep2023_v1-v1
   sample_type: data
   xsec: 1.0
+
 Muon1_Run2023D-22Sep2023_v2-v1:
+  nick: Muon1_Run2023D-22Sep2023_v2-v1
   dbs: /Muon1/Run2023D-22Sep2023_v2-v1/NANOAOD
   era: 2023postBPix
   generator_weight: 1.0
   nevents: 21463645
   nfiles: 30
-  nick: Muon1_Run2023D-22Sep2023_v2-v1
   sample_type: data
   xsec: 1.0
-##### 1J
-DYto2L-2Jets_MLL-50_PTLL-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /DYto2L-2Jets_MLL-50_PTLL-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
+
+GluGluToContinto2Zto2E2Mu_TuneCP5_13p6TeV_mcfm701-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: GluGluToContinto2Zto2E2Mu_TuneCP5_13p6TeV_mcfm701-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /GluGluToContinto2Zto2E2Mu_TuneCP5_13p6TeV_mcfm701-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
   era: 2023postBPix
   generator_weight: 1.0
-  nevents: 51259552
-  nfiles: 184
-  nick: DYto2L-2Jets_MLL-50_PTLL-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
+  nevents: 512000
+  nfiles: 27
+  sample_type: diboson
+  xsec: 0.006
+
+GluGluToContinto2Zto2E2Tau_TuneCP5_13p6TeV_mcfm701-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: GluGluToContinto2Zto2E2Tau_TuneCP5_13p6TeV_mcfm701-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /GluGluToContinto2Zto2E2Tau_TuneCP5_13p6TeV_mcfm701-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 524000
+  nfiles: 17
+  sample_type: diboson
+  xsec: 0.006
+
+GluGluToContinto2Zto2Mu2Tau_TuneCP5_13p6TeV_mcfm701-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: GluGluToContinto2Zto2Mu2Tau_TuneCP5_13p6TeV_mcfm701-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /GluGluToContinto2Zto2Mu2Tau_TuneCP5_13p6TeV_mcfm701-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 516000
+  nfiles: 24
+  sample_type: diboson
+  xsec: 0.006
+
+GluGlutoContinto2Zto4E_TuneCP5_13p6TeV_mcfm-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: GluGlutoContinto2Zto4E_TuneCP5_13p6TeV_mcfm-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /GluGlutoContinto2Zto4E_TuneCP5_13p6TeV_mcfm-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 1048000
+  nfiles: 16
+  sample_type: diboson
+  xsec: 0.003
+
+GluGlutoContinto2Zto4Mu_TuneCP5_13p6TeV_mcfm-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: GluGlutoContinto2Zto4Mu_TuneCP5_13p6TeV_mcfm-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /GluGlutoContinto2Zto4Mu_TuneCP5_13p6TeV_mcfm-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 1048000
+  nfiles: 26
+  sample_type: diboson
+  xsec: 0.003
+
+GluGlutoContinto2Zto4Tau_TuneCP5_13p6TeV_mcfm-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: GluGlutoContinto2Zto4Tau_TuneCP5_13p6TeV_mcfm-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /GluGlutoContinto2Zto4Tau_TuneCP5_13p6TeV_mcfm-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 1046000
+  nfiles: 23
+  sample_type: diboson
+  xsec: 0.003
+
+WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WWto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 6390000
+  nfiles: 92
+  sample_type: diboson
+  xsec: 11.79
+
+WWtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WWtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WWtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 26336000
+  nfiles: 212
+  sample_type: diboson
+  xsec: 15.87
+
+WZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 4267000
+  nfiles: 55
+  sample_type: diboson
+  xsec: 7.568
+
+WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 2713000
+  nfiles: 34
+  sample_type: diboson
+  xsec: 4.924
+
+WZtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WZtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WZtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 8825000
+  nfiles: 68
+  sample_type: diboson
+  xsec: 15.87
+
+ZZto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: ZZto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /ZZto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 14931000
+  nfiles: 106
+  sample_type: diboson
+  xsec: 1.031
+
+ZZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: ZZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /ZZto2L2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 14907000
+  nfiles: 65
+  sample_type: diboson
+  xsec: 6.788
+
+ZZto4L_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: ZZto4L_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /ZZto4L_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 14625000
+  nfiles: 81
+  sample_type: diboson
+  xsec: 1.39
+
+DYto2L-2Jets_MLL-50_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /DYto2L-2Jets_MLL-50_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 96625525
+  nfiles: 310
   sample_type: dyjets
-  xsec: 475.3
+  xsec: 5378.0
+
+DYto2L-2Jets_MLL-50_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /DYto2L-2Jets_MLL-50_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 91293455
+  nfiles: 330
+  sample_type: dyjets
+  xsec: 1017.0
+
+DYto2L-2Jets_MLL-50_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /DYto2L-2Jets_MLL-50_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 68804529
+  nfiles: 408
+  sample_type: dyjets
+  xsec: 385.5
+
 DYto2L-2Jets_MLL-50_PTLL-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_PTLL-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
   dbs: /DYto2L-2Jets_MLL-50_PTLL-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
   era: 2023postBPix
   generator_weight: 1.0
   nevents: 19223496
   nfiles: 133
-  nick: DYto2L-2Jets_MLL-50_PTLL-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
   sample_type: dyjets
   xsec: 45.42
-DYto2L-2Jets_MLL-50_PTLL-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /DYto2L-2Jets_MLL-50_PTLL-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 1921207
-  nfiles: 33
-  nick: DYto2L-2Jets_MLL-50_PTLL-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: dyjets
-  xsec: 3.382
-DYto2L-2Jets_MLL-50_PTLL-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /DYto2L-2Jets_MLL-50_PTLL-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 459553
-  nfiles: 13
-  nick: DYto2L-2Jets_MLL-50_PTLL-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: dyjets
-  xsec: 0.1162
-DYto2L-2Jets_MLL-50_PTLL-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /DYto2L-2Jets_MLL-50_PTLL-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 456439
-  nfiles: 24
-  nick: DYto2L-2Jets_MLL-50_PTLL-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: dyjets
-  xsec: 0.01392
-##### 2J
-DYto2L-2Jets_MLL-50_PTLL-40to100_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
-  dbs: /DYto2L-2Jets_MLL-50_PTLL-40to100_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
-  era: 2023postBPix
-  generator_weight: 1.0
-  nevents: 20410287
-  nfiles: 160
-  nick: DYto2L-2Jets_MLL-50_PTLL-40to100_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
-  sample_type: dyjets
-  xsec: 179.3
+
 DYto2L-2Jets_MLL-50_PTLL-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_PTLL-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
   dbs: /DYto2L-2Jets_MLL-50_PTLL-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
   era: 2023postBPix
   generator_weight: 1.0
   nevents: 19286517
   nfiles: 117
-  nick: DYto2L-2Jets_MLL-50_PTLL-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
   sample_type: dyjets
   xsec: 51.68
+
+DYto2L-2Jets_MLL-50_PTLL-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_PTLL-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /DYto2L-2Jets_MLL-50_PTLL-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 1921207
+  nfiles: 33
+  sample_type: dyjets
+  xsec: 3.382
+
 DYto2L-2Jets_MLL-50_PTLL-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_PTLL-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
   dbs: /DYto2L-2Jets_MLL-50_PTLL-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
   era: 2023postBPix
   generator_weight: 1.0
   nevents: 3623077
   nfiles: 9
-  nick: DYto2L-2Jets_MLL-50_PTLL-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
   sample_type: dyjets
   xsec: 7.159
+
+DYto2L-2Jets_MLL-50_PTLL-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_PTLL-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /DYto2L-2Jets_MLL-50_PTLL-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 459553
+  nfiles: 13
+  sample_type: dyjets
+  xsec: 0.1162
+
 DYto2L-2Jets_MLL-50_PTLL-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_PTLL-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
   dbs: /DYto2L-2Jets_MLL-50_PTLL-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
   era: 2023postBPix
   generator_weight: 1.0
   nevents: 493730
   nfiles: 25
-  nick: DYto2L-2Jets_MLL-50_PTLL-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
   sample_type: dyjets
   xsec: 0.4157
+
+DYto2L-2Jets_MLL-50_PTLL-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_PTLL-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /DYto2L-2Jets_MLL-50_PTLL-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 51259552
+  nfiles: 184
+  sample_type: dyjets
+  xsec: 475.3
+
+DYto2L-2Jets_MLL-50_PTLL-40to100_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_PTLL-40to100_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /DYto2L-2Jets_MLL-50_PTLL-40to100_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 20410287
+  nfiles: 160
+  sample_type: dyjets
+  xsec: 179.3
+
+DYto2L-2Jets_MLL-50_PTLL-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_PTLL-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /DYto2L-2Jets_MLL-50_PTLL-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 456439
+  nfiles: 24
+  sample_type: dyjets
+  xsec: 0.01392
+
 DYto2L-2Jets_MLL-50_PTLL-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_PTLL-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
   dbs: /DYto2L-2Jets_MLL-50_PTLL-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1/NANOAODSIM
   era: 2023postBPix
   generator_weight: 1.0
   nevents: 477040
   nfiles: 29
-  nick: DYto2L-2Jets_MLL-50_PTLL-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
   sample_type: dyjets
   xsec: 0.07019
+
+DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 95472230
+  nfiles: 221
+  sample_type: dyjets
+  xsec: 6345.99
+
+WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 95759797
+  nfiles: 352
+  sample_type: others
+  xsec: 63425.09999999999
+
+GluGluHto2Tau_M-125_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: GluGluHto2Tau_M-125_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /GluGluHto2Tau_M-125_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 3381015
+  nfiles: 48
+  sample_type: singlehiggs
+  xsec: 3.2758656
+
+GluGluHto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-jhugen752-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: GluGluHto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-jhugen752-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /GluGluHto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-jhugen752-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 1697000
+  nfiles: 20
+  sample_type: singlehiggs
+  xsec: 1.1949538642
+
+GluGluHtoZG_Zto2L_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: GluGluHtoZG_Zto2L_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /GluGluHtoZG_Zto2L_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 329999
+  nfiles: 15
+  sample_type: singlehiggs
+  xsec: 0.008086127
+
+GluGluHtoZZto4L_M-125_TuneCP5_13p6TeV_powheg-jhugen-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: GluGluHtoZZto4L_M-125_TuneCP5_13p6TeV_powheg-jhugen-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /GluGluHtoZZto4L_M-125_TuneCP5_13p6TeV_powheg-jhugen-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 121000
+  nfiles: 14
+  sample_type: singlehiggs
+  xsec: 0.0139512
+
+TTH_Hto2Z_4LFilter_M-125_TuneCP5_13p6TeV_powheg-jhugenv752-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TTH_Hto2Z_4LFilter_M-125_TuneCP5_13p6TeV_powheg-jhugenv752-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TTH_Hto2Z_4LFilter_M-125_TuneCP5_13p6TeV_powheg-jhugenv752-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 116569
+  nfiles: 6
+  sample_type: singlehiggs
+  xsec: 0.000152253
+
+VBFHToTauTau_M125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: VBFHToTauTau_M125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /VBFHToTauTau_M125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 3834000
+  nfiles: 24
+  sample_type: singlehiggs
+  xsec: 0.25577216
+
+VBFHto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-jhugen752-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: VBFHto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-jhugen752-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /VBFHto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-jhugen752-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 1688000
+  nfiles: 30
+  sample_type: singlehiggs
+  xsec: 0.0932993
+
+VBFHto2Zto4L_M-125_TuneCP5_13p6TeV_powheg-jhugen-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: VBFHto2Zto4L_M-125_TuneCP5_13p6TeV_powheg-jhugen-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /VBFHto2Zto4L_M-125_TuneCP5_13p6TeV_powheg-jhugen-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 125000
+  nfiles: 11
+  sample_type: singlehiggs
+  xsec: 0.00108928
+
+VBFHtoZG_Zto2L_M-125_TuneCP5_withDipoleRecoil_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: VBFHtoZG_Zto2L_M-125_TuneCP5_withDipoleRecoil_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /VBFHtoZG_Zto2L_M-125_TuneCP5_withDipoleRecoil_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 300000
+  nfiles: 11
+  sample_type: singlehiggs
+  xsec: 0.000631346
+
+WminusH_Hto2Zto4L_M-125_TuneCP5_13p6TeV_powheg2-minlo-HWJ-JHUGenV752-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WminusH_Hto2Zto4L_M-125_TuneCP5_13p6TeV_powheg2-minlo-HWJ-JHUGenV752-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WminusH_Hto2Zto4L_M-125_TuneCP5_13p6TeV_powheg2-minlo-HWJ-JHUGenV752-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 624968
+  nfiles: 5
+  sample_type: singlehiggs
+  xsec: 0.0001516391
+
+WminusH_HtoZGto2LG_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WminusH_HtoZGto2LG_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WminusH_HtoZGto2LG_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 149988
+  nfiles: 17
+  sample_type: singlehiggs
+  xsec: 8.788999e-05
+
+WplusH_Hto2Zto4L_M-125_TuneCP5_13p6TeV_powheg2-minlo-HWJ-JHUGenV752-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WplusH_Hto2Zto4L_M-125_TuneCP5_13p6TeV_powheg2-minlo-HWJ-JHUGenV752-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WplusH_Hto2Zto4L_M-125_TuneCP5_13p6TeV_powheg2-minlo-HWJ-JHUGenV752-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 602963
+  nfiles: 22
+  sample_type: singlehiggs
+  xsec: 0.0002374352
+
+WplusH_HtoZGto2LG_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WplusH_HtoZGto2LG_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WplusH_HtoZGto2LG_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 149991
+  nfiles: 14
+  sample_type: singlehiggs
+  xsec: 0.000137617
+
+ZH_Hto2Z_4LFilter_M-125_TuneCP5_13p6TeV_powheg-jhugen-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: ZH_Hto2Z_4LFilter_M-125_TuneCP5_13p6TeV_powheg-jhugen-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /ZH_Hto2Z_4LFilter_M-125_TuneCP5_13p6TeV_powheg-jhugen-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 151506
+  nfiles: 12
+  sample_type: singlehiggs
+  xsec: 0.00025212634
+
+ZH_HtoZGto2LG_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: ZH_HtoZGto2LG_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /ZH_HtoZGto2LG_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 201850
+  nfiles: 24
+  sample_type: singlehiggs
+  xsec: 0.000146132
+
+ZH_ZtoAll_Hto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-minlo-HZJ-jhugenv752-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: ZH_ZtoAll_Hto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-minlo-HZJ-jhugenv752-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /ZH_ZtoAll_Hto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-minlo-HZJ-jhugenv752-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 1243191
+  nfiles: 58
+  sample_type: singlehiggs
+  xsec: 0.021595193
+
+ttHtoZG_Zto2L_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: ttHtoZG_Zto2L_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /ttHtoZG_Zto2L_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 420000
+  nfiles: 26
+  sample_type: singlehiggs
+  xsec: 8.82460718e-05
+
+TBbarQtoLNu-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TBbarQtoLNu-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TBbarQtoLNu-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v1/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 10319600
+  nfiles: 100
+  sample_type: top
+  xsec: 38.6
+
+TBbartoLplusNuBbar-s-channel-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TBbartoLplusNuBbar-s-channel-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TBbartoLplusNuBbar-s-channel-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 1276000
+  nfiles: 25
+  sample_type: top
+  xsec: 2.3608195999999997
+
+TTLL_MLL-50_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TTLL_MLL-50_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TTLL_MLL-50_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 400000
+  nfiles: 7
+  sample_type: top
+  xsec: 0.08646
+
+TTLNu-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-mg35x_130X_mcRun3_2023_realistic_postBPix_v6-v2-130X:
+  nick: TTLNu-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-mg35x_130X_mcRun3_2023_realistic_postBPix_v6-v2-130X
+  dbs: /TTLNu-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixNanoAODv12-mg35x_130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 1981391
+  nfiles: 10
+  sample_type: top
+  xsec: 0.2505
+
+TTLNu-EWK_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TTLNu-EWK_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TTLNu-EWK_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 294000
+  nfiles: 21
+  sample_type: top
+  xsec: 0.01769
+
+TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 24649000
+  nfiles: 150
+  sample_type: top
+  xsec: 98.09630411599998
+
+TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 82058000
+  nfiles: 492
+  sample_type: top
+  xsec: 405.809871768
+
+TWminusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TWminusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TWminusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 2479000
+  nfiles: 30
+  sample_type: top
+  xsec: 4.663297134400499
+
+TWminustoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TWminustoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TWminustoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 4952467
+  nfiles: 42
+  sample_type: top
+  xsec: 19.291369121198997
+
+TbarBQtoLNu-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TbarBQtoLNu-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TbarBQtoLNu-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v1/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 1486700
+  nfiles: 29
+  sample_type: top
+  xsec: 23.34
+
+TbarBtoLminusNuB-s-channel-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TbarBtoLminusNuB-s-channel-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TbarBtoLminusNuB-s-channel-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 788000
+  nfiles: 21
+  sample_type: top
+  xsec: 1.4776305999999997
+
+TbarWplusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TbarWplusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TbarWplusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 2488000
+  nfiles: 50
+  sample_type: top
+  xsec: 4.6726330645994985
+
+TbarWplustoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TbarWplustoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TbarWplustoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 5177861
+  nfiles: 41
+  sample_type: top
+  xsec: 19.329990480800998
+
+WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 466500
+  nfiles: 2
+  sample_type: triboson
+  xsec: 0.2328
+
+WWZ_4F_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WWZ_4F_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WWZ_4F_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v3/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 1746000
+  nfiles: 28
+  sample_type: triboson
+  xsec: 0.1851
+
+WZZ_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WZZ_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WZZ_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 1788000
+  nfiles: 9
+  sample_type: triboson
+  xsec: 0.06206
+
+ZZZ_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: ZZZ_TuneCP5_13p6TeV_amcatnlo-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /ZZZ_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 1788000
+  nfiles: 8
+  sample_type: triboson
+  xsec: 0.01591
+
+GluGluHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: GluGluHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /GluGluHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 300000
+  nfiles: 21
+  sample_type: vhmm
+  xsec: 0.01138614
+
+TTH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: TTH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /TTH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 300000
+  nfiles: 19
+  sample_type: vhmm
+  xsec: 0.0001243
+
+VBFHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: VBFHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /VBFHto2Mu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 600000
+  nfiles: 27
+  sample_type: vhmm
+  xsec: 0.000889004
+
+WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WminusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 146160
+  nfiles: 9
+  sample_type: vhmm
+  xsec: 0.0001237586
+
+WplusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: WplusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /WplusH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 142160
+  nfiles: 11
+  sample_type: vhmm
+  xsec: 0.00019378
+
+ZH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X:
+  nick: ZH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_Run3Summer23BPixNanoAODv12-130X
+  dbs: /ZH_Hto2Mu_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v6-v2/NANOAODSIM
+  era: 2023postBPix
+  generator_weight: 1.0
+  nevents: 243599
+  nfiles: 24
+  sample_type: vhmm
+  xsec: 0.0002057702
+
