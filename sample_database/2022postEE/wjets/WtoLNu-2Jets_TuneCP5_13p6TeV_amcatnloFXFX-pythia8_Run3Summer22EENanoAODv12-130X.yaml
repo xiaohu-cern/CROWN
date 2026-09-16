@@ -386,5 +386,5 @@ generator_weight: 1.0
 nevents: 281543551
 nfiles: 381
 nick: WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer22EENanoAODv12-130X
-sample_type: others
+sample_type: wjets
 xsec: 63425.09999999999

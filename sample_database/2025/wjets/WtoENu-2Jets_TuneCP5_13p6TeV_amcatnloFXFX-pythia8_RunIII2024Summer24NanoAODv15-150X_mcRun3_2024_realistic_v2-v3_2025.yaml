@@ -1,5 +1,5 @@
 dbs: /WtoENu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3/NANOAODSIM
-era: 2024
+era: 2025
 filelist:
 - root://xrootd-cms.infn.it//store/mc/RunIII2024Summer24NanoAODv15/WtoENu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v3/2530000/a73f9bc0-d88b-43b7-a321-8eba9783406d.root
 - root://xrootd-cms.infn.it//store/mc/RunIII2024Summer24NanoAODv15/WtoENu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/NANOAODSIM/150X_mcRun3_2024_realistic_v2-v3/2530000/6c6901b5-c1e8-4bca-bd00-0169efc7550d.root
@@ -3021,6 +3021,6 @@ filelist:
 generator_weight: 1.0
 nevents: 553868158
 nfiles: 3017
-nick: WtoENu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3
-sample_type: others
+nick: WtoENu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3_2025
+sample_type: wjets
 xsec: 21141.699999999997
