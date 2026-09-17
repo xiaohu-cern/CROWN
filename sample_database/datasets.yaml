@@ -325,7 +325,7 @@ WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer22EENanoAODv12-130X:
   generator_weight: 1.0
   nevents: 281543551
   nfiles: 381
-  sample_type: others
+  sample_type: wjets
   xsec: 63425.09999999999
 
 GluGluHto2Tau_M-125_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer22EENanoAODv12-130X:
@@ -1055,7 +1055,7 @@ WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer22NanoAODv12-130X:
   generator_weight: 1.0
   nevents: 84739011
   nfiles: 148
-  sample_type: others
+  sample_type: wjets
   xsec: 63425.09999999999
 
 GluGluHto2Tau_M-125_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer22NanoAODv12-130X:
@@ -1785,7 +1785,7 @@ WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130
   generator_weight: 1.0
   nevents: 95759797
   nfiles: 352
-  sample_type: others
+  sample_type: wjets
   xsec: 63425.09999999999
 
 GluGluHto2Tau_M-125_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
@@ -2575,7 +2575,7 @@ WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23NanoAODv12-130X:
   generator_weight: 1.0
   nevents: 192893909
   nfiles: 438
-  sample_type: others
+  sample_type: wjets
   xsec: 63425.09999999999
 
 GluGluHto2Tau_M-125_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23NanoAODv12-130X:
@@ -3475,7 +3475,7 @@ WtoENu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-1
   generator_weight: 1.0
   nevents: 553868158
   nfiles: 3017
-  sample_type: others
+  sample_type: wjets
   xsec: 21141.699999999997
 
 WtoMuNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3:
@@ -3485,7 +3485,7 @@ WtoMuNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-
   generator_weight: 1.0
   nevents: 534824098
   nfiles: 2962
-  sample_type: others
+  sample_type: wjets
   xsec: 21141.699999999997
 
 WtoTauNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3:
@@ -3495,7 +3495,7 @@ WtoTauNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15
   generator_weight: 1.0
   nevents: 500139084
   nfiles: 2747
-  sample_type: others
+  sample_type: wjets
   xsec: 21141.699999999997
 
 TBbarQtoLNu-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8_RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2:
@@ -4225,7 +4225,7 @@ WtoENu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-1
   generator_weight: 1.0
   nevents: 553868158
   nfiles: 3017
-  sample_type: others
+  sample_type: wjets
   xsec: 21141.699999999997
 
 WtoMuNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3_2025:
@@ -4235,7 +4235,7 @@ WtoMuNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-
   generator_weight: 1.0
   nevents: 534824098
   nfiles: 2962
-  sample_type: others
+  sample_type: wjets
   xsec: 21141.699999999997
 
 WtoTauNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3_2025:
@@ -4245,7 +4245,7 @@ WtoTauNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15
   generator_weight: 1.0
   nevents: 500139084
   nfiles: 2747
-  sample_type: others
+  sample_type: wjets
   xsec: 21141.699999999997
 
 TBbarQtoLNu-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8_RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2_2025:

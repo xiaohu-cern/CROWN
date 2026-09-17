@@ -495,7 +495,7 @@ WtoENu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-1
   generator_weight: 1.0
   nevents: 553868158
   nfiles: 3017
-  sample_type: others
+  sample_type: wjets
   xsec: 21141.699999999997
 
 WtoMuNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3:
@@ -505,7 +505,7 @@ WtoMuNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-
   generator_weight: 1.0
   nevents: 534824098
   nfiles: 2962
-  sample_type: others
+  sample_type: wjets
   xsec: 21141.699999999997
 
 WtoTauNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3:
@@ -515,7 +515,7 @@ WtoTauNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15
   generator_weight: 1.0
   nevents: 500139084
   nfiles: 2747
-  sample_type: others
+  sample_type: wjets
   xsec: 21141.699999999997
 
 TBbarQtoLNu-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8_RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2:

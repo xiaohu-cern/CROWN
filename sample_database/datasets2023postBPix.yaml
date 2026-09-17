@@ -325,7 +325,7 @@ WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130
   generator_weight: 1.0
   nevents: 95759797
   nfiles: 352
-  sample_type: others
+  sample_type: wjets
   xsec: 63425.09999999999
 
 GluGluHto2Tau_M-125_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_Run3Summer23BPixNanoAODv12-130X:
