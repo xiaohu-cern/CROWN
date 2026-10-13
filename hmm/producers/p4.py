@@ -17,6 +17,15 @@ mu1_fromH_pt = Producer(
     output=[q.mu1_fromH_pt],
     scopes=["e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
+mu1_fromH_pt_uncorrected = Producer(
+    name="mu1_fromH_pt_uncorrected",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.muon_leadingp4_H_uncorrected,
+    ],
+    output=[q.mu1_fromH_pt_uncorrected],
+    scopes=["e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
 ###############################
 mu1_fromH_eta = Producer(
     name="mu1_fromH_eta",
@@ -55,6 +64,15 @@ mu2_fromH_pt = Producer(
       q.muon_subleadingp4_H,
     ],
     output=[q.mu2_fromH_pt],
+    scopes=["e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+)
+mu2_fromH_pt_uncorrected = Producer(
+    name="mu2_fromH_pt_uncorrected",
+    call='quantities::pt({df}, {output}, {input})',
+    input=[
+      q.muon_subleadingp4_H_uncorrected,
+    ],
+    output=[q.mu2_fromH_pt_uncorrected],
     scopes=["e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 #################################
@@ -124,34 +142,15 @@ H_mass = Producer(
     output=[q.H_mass],
     scopes=["e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
-H_mass_PureTunepPT = Producer(
-    name="H_mass_PureTunepPT",
-    call='quantities::mass({df}, {output}, {input})',
-    input=[
-      q.dimuon_p4_Higgs_PureTunepPT,
-    ],
-    output=[q.H_mass_PureTunepPT],
-    scopes=["nnmm","fjmm"],
-)
-H_mass_BSCTunepPT = Producer(
-    name="H_mass_BSCTunepPT",
-    call='quantities::mass({df}, {output}, {input})',
-    input=[
-      q.dimuon_p4_Higgs_BSCTunepPT,
-    ],
-    output=[q.H_mass_BSCTunepPT],
-    scopes=["nnmm","fjmm"],
-)
-H_mass_BSCTunepPTCorr = Producer(
-    name="H_mass_BSCTunepPTCorr",
-    call='quantities::mass({df}, {output}, {input})',
-    input=[
-      q.dimuon_p4_Higgs_BSCTunepPTCorr,
-    ],
-    output=[q.H_mass_BSCTunepPTCorr],
-    scopes=["nnmm","fjmm"],
-)
-
+# H_mass_BSCTunepPT = Producer(
+#     name="H_mass_BSCTunepPT",
+#     call='quantities::mass({df}, {output}, {input})',
+#     input=[
+#       q.dimuon_p4_Higgs_BSCTunepPT,
+#     ],
+#     output=[q.H_mass_BSCTunepPT],
+#     scopes=["nnmm","fjmm"],
+# )
 ##### for met pt and phi
 #####
 met_pt_uncorrected = Producer(

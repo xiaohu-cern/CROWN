@@ -11,7 +11,6 @@ MuonPtCorrection = Producer(
     ],
     output=[q.Muon_pt_uncorrected],
     scopes=["nnmm","fjmm","fjmm_cr","nnmm_topcontrol"],
-    # scopes=["global"],
 )
 RenameMuonPt = Producer(
     name="RenameMuonPt",
@@ -24,42 +23,39 @@ RenameMuonPt = Producer(
             "nnmm_dycontrol","nnmm_topcontrol",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-    # scopes=["global"],
 )
 ########################################This block is for study on the tunep pT################################################
 ########################################This block is for study on the tunep pT################################################
 ########################################This block is for study on the tunep pT################################################
-###### for Data
-MuonPtPreCorrectionData_PureTunepPT = Producer(
-    name="MuonPtPreCorrectionData_PureTunepPT",
-    call='scalefactor::muon::HighPtScaleData_PureTunepPT({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
-    input=[
-        nanoAOD.Muon_pt,
-        nanoAOD.Muon_bsConstrainedPt,
-        nanoAOD.Muon_tunepRelPt,
-        nanoAOD.Muon_bsConstrainedPtErr,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_ptBSC_partial_PureTunepPT],
-    scopes=["nnmm","fjmm","fjmm_cr"],
-)
-MuonPtPreCorrectionData_BSCTunepPT = Producer(
-    name="MuonPtPreCorrectionData_BSCTunepPT",
-    call='scalefactor::muon::HighPtScaleData_BSCTunepPT({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
-    input=[
-        nanoAOD.Muon_pt,
-        nanoAOD.Muon_bsConstrainedPt,
-        nanoAOD.Muon_tunepRelPt,
-        nanoAOD.Muon_bsConstrainedPtErr,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_ptBSC_partial_BSCTunepPT],
-    scopes=["nnmm","fjmm","fjmm_cr"],
-)
+
+# MuonPtPreCorrectionData_BSCTunepPT = Producer(
+#     name="MuonPtPreCorrectionData_BSCTunepPT",
+#     call='scalefactor::muon::HighPtScaleData_BSCTunepPT({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
+#     input=[
+#         nanoAOD.Muon_pt,
+#         nanoAOD.Muon_bsConstrainedPt,
+#         nanoAOD.Muon_tunepRelPt,
+#         nanoAOD.Muon_bsConstrainedPtErr,
+#         nanoAOD.Muon_phi,
+#         nanoAOD.Muon_eta,
+#         nanoAOD.Muon_charge,
+#     ],
+#     output=[q.Muon_ptBSC_partial_BSCTunepPT],
+#     scopes=["nnmm","fjmm","fjmm_cr"],
+# )
+# Data_KIT_MuonPt_Scale_HighPt_BSCTunepPT = Producer(
+#     name="Data_KIT_MuonPt_Scale_HighPt_BSCTunepPT",
+#     call='scalefactor::muon::KIT_MuonPtScale({df}, {input}, {output}, "{KIT_sf_file}", "data")',
+#     input=[
+#         nanoAOD.Muon_pt,
+#         q.Muon_ptBSC_partial_BSCTunepPT,
+#         nanoAOD.Muon_phi, 
+#         nanoAOD.Muon_eta,
+#         nanoAOD.Muon_charge,
+#     ],
+#     output=[q.Muon_pt_corrected_BSCTunepPT],
+#     scopes=["nnmm","fjmm","fjmm_cr"],
+# )
 MuonPtPreCorrectionData_BSCTunepPTCorr = Producer(
     name="MuonPtPreCorrectionData_BSCTunepPTCorr",
     call='scalefactor::muon::HighPtScaleData_BSCTunepPTCorr({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
@@ -75,32 +71,6 @@ MuonPtPreCorrectionData_BSCTunepPTCorr = Producer(
     output=[q.Muon_ptBSC_partial_BSCTunepPTCorr],
     scopes=["nnmm","fjmm","fjmm_cr"],
 )
-Data_KIT_MuonPt_Scale_HighPt_PureTunepPT = Producer(
-    name="Data_KIT_MuonPt_Scale_HighPt_PureTunepPT",
-    call='scalefactor::muon::KIT_MuonPtScale({df}, {input}, {output}, "{KIT_sf_file}", "data")',
-    input=[
-        nanoAOD.Muon_pt,
-        q.Muon_ptBSC_partial_PureTunepPT,
-        nanoAOD.Muon_phi, 
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_pt_corrected_PureTunepPT],
-    scopes=["nnmm","fjmm","fjmm_cr"],
-)
-Data_KIT_MuonPt_Scale_HighPt_BSCTunepPT = Producer(
-    name="Data_KIT_MuonPt_Scale_HighPt_BSCTunepPT",
-    call='scalefactor::muon::KIT_MuonPtScale({df}, {input}, {output}, "{KIT_sf_file}", "data")',
-    input=[
-        nanoAOD.Muon_pt,
-        q.Muon_ptBSC_partial_BSCTunepPT,
-        nanoAOD.Muon_phi, 
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_pt_corrected_BSCTunepPT],
-    scopes=["nnmm","fjmm","fjmm_cr"],
-)
 Data_KIT_MuonPt_Scale_HighPt_BSCTunepPTCorr = Producer(
     name="Data_KIT_MuonPt_Scale_HighPt_BSCTunepPTCorr",
     call='scalefactor::muon::KIT_MuonPtScale({df}, {input}, {output}, "{KIT_sf_file}", "data")',
@@ -111,41 +81,42 @@ Data_KIT_MuonPt_Scale_HighPt_BSCTunepPTCorr = Producer(
         nanoAOD.Muon_eta,
         nanoAOD.Muon_charge,
     ],
-    output=[q.Muon_pt_corrected_BSCTunepPTCorr],
+    output=[q.Muon_pt_corrected],
     scopes=["nnmm","fjmm","fjmm_cr"],
 )
 
 ###### for MC ################
-MuonPtPreCorrection_PureTunepPT = Producer(
-    name="MuonPtPreCorrection_PureTunepPT",
-    call='scalefactor::muon::HighPtScale({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
-    input=[
-        nanoAOD.Muon_pt,
-        nanoAOD.Muon_bsConstrainedPt,
-        nanoAOD.Muon_tunepRelPt,
-        nanoAOD.Muon_bsConstrainedPtErr,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_ptBSC_partial_PureTunepPT],
-    scopes=["nnmm","fjmm","fjmm_cr"],
-)
-MuonPtPreCorrection_BSCTunepPT = Producer(
-    name="MuonPtPreCorrection_BSCTunepPT",
-    call='scalefactor::muon::HighPtScale_BSCTunepPT({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
-    input=[
-        nanoAOD.Muon_pt,
-        nanoAOD.Muon_bsConstrainedPt,
-        nanoAOD.Muon_tunepRelPt,
-        nanoAOD.Muon_bsConstrainedPtErr,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_ptBSC_partial_BSCTunepPT],
-    scopes=["nnmm","fjmm","fjmm_cr"],
-)
+# MuonPtPreCorrection_BSCTunepPT = Producer(
+#     name="MuonPtPreCorrection_BSCTunepPT",
+#     call='scalefactor::muon::HighPtScale_BSCTunepPT({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
+#     input=[
+#         nanoAOD.Muon_pt,
+#         nanoAOD.Muon_bsConstrainedPt,
+#         nanoAOD.Muon_tunepRelPt,
+#         nanoAOD.Muon_bsConstrainedPtErr,
+#         nanoAOD.Muon_phi,
+#         nanoAOD.Muon_eta,
+#         nanoAOD.Muon_charge,
+#     ],
+#     output=[q.Muon_ptBSC_partial_BSCTunepPT],
+#     scopes=["nnmm","fjmm","fjmm_cr"],
+# )
+# MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPT = Producer(
+#     name="MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPT",
+#     call='scalefactor::muon::KIT_MuonPtRes({df}, {input}, {output}, "{KIT_sf_file}", "{KIT_Muon_Pt_Res_variation}", "mc", "{KIT_Muon_Pt_Scale_variation}")',
+#     input=[
+#         nanoAOD.Muon_pt,
+#         q.Muon_ptBSC_partial_BSCTunepPT,
+#         nanoAOD.Muon_phi,
+#         nanoAOD.Muon_eta,
+#         nanoAOD.Muon_nTrackerLayers,
+#         nanoAOD.event,
+#         nanoAOD.luminosityBlock,
+#         nanoAOD.Muon_charge,
+#     ],
+#     output=[q.Muon_pt_corrected_BSCTunepPT],
+#     scopes=["nnmm","fjmm","fjmm_cr"],
+# )
 MuonPtPreCorrection_BSCTunepPTCorr = Producer(
     name="MuonPtPreCorrection_BSCTunepPTCorr",
     call='scalefactor::muon::HighPtScale_BSCTunepPT({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
@@ -161,96 +132,11 @@ MuonPtPreCorrection_BSCTunepPTCorr = Producer(
     output=[q.Muon_ptBSC_partial_BSCTunepPTCorr],
     scopes=["nnmm","fjmm","fjmm_cr"],
 )
-MC_KIT_MuonPt_ScaleRes_HighPt_PureTunepPT = Producer(
-    name="MC_KIT_MuonPt_ScaleRes_HighPt_PureTunepPT",
-    call='scalefactor::muon::KIT_MuonPtRes({df}, {input}, {output}, "{KIT_sf_file}", "{KIT_Muon_Pt_Res_variation}", "mc", "{KIT_Muon_Pt_Scale_variation}")',
-    input=[
-        nanoAOD.Muon_pt,
-        q.Muon_ptBSC_partial_PureTunepPT,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_nTrackerLayers,
-        nanoAOD.event,
-        nanoAOD.luminosityBlock,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_pt_corrected_PureTunepPT],
-    scopes=["nnmm","fjmm","fjmm_cr"],
-)
-MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPT = Producer(
-    name="MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPT",
-    call='scalefactor::muon::KIT_MuonPtRes({df}, {input}, {output}, "{KIT_sf_file}", "{KIT_Muon_Pt_Res_variation}", "mc", "{KIT_Muon_Pt_Scale_variation}")',
-    input=[
-        nanoAOD.Muon_pt,
-        q.Muon_ptBSC_partial_BSCTunepPT,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_nTrackerLayers,
-        nanoAOD.event,
-        nanoAOD.luminosityBlock,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_pt_corrected_BSCTunepPT],
-    scopes=["nnmm","fjmm","fjmm_cr"],
-)
-MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr = Producer(
-    name="MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr",
-    call='scalefactor::muon::KIT_MuonPtRes({df}, {input}, {output}, "{KIT_sf_file}", "{KIT_Muon_Pt_Res_variation}", "mc", "{KIT_Muon_Pt_Scale_variation}")',
-    input=[
-        nanoAOD.Muon_pt,
-        q.Muon_ptBSC_partial_BSCTunepPTCorr,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_nTrackerLayers,
-        nanoAOD.event,
-        nanoAOD.luminosityBlock,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_pt_corrected_BSCTunepPTCorr],
-    scopes=["nnmm","fjmm","fjmm_cr"],
-)
-
-########################################This block is for study on the tunep pT################################################
-########################################This block is for study on the tunep pT################################################
-########################################This block is for study on the tunep pT################################################
-
-
-######################################## BSC and tuneP ################################################
-MuonPtPreCorrectionData = Producer(
-    name="MuonPtPreCorrectionData",
-    call='scalefactor::muon::HighPtScaleData({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
-    input=[
-        nanoAOD.Muon_pt,
-        nanoAOD.Muon_bsConstrainedPt,
-        nanoAOD.Muon_tunepRelPt,
-        nanoAOD.Muon_bsConstrainedPtErr,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_ptBSC_partial],
-    scopes=["nnmm","fjmm","fjmm_cr"],
-)
-MuonPtPreCorrection = Producer(
-    name="MuonPtPreCorrection",
-    call='scalefactor::muon::HighPtScale({df}, {input}, "{muon_momentum_BSC_variation}", "{muon_momentum_scale_variation}", {output}, "{muon_momentum_scale_corr_file}", "{muon_momentum_scale_name}")',
-    input=[
-        nanoAOD.Muon_pt,
-        nanoAOD.Muon_bsConstrainedPt,
-        nanoAOD.Muon_tunepRelPt,
-        nanoAOD.Muon_bsConstrainedPtErr,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_ptBSC_partial],
-    scopes=["nnmm","fjmm","fjmm_cr"],
-)
 MuonPtPreSmear = Producer(
     name="MuonPtPreSmear",
     call='scalefactor::muon::HighPtSmear({df}, {input}, {output}, {a_barrel}, {b_barrel}, {c_barrel}, {d_barrel}, {a_endcap}, {b_endcap}, {c_endcap}, {d_endcap}, {highpt_smear_factor}, "{RandomSeed_file}")',
     input=[
-        q.Muon_ptBSC_partial,
+        q.Muon_ptBSC_partial_BSCTunepPTCorr,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_nTrackerLayers,
@@ -260,6 +146,27 @@ MuonPtPreSmear = Producer(
     output=[q.Muon_ptBSC],
     scopes=["nnmm","fjmm","fjmm_cr"],
 )
+MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr = Producer(
+    name="MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr",
+    call='scalefactor::muon::KIT_MuonPtRes({df}, {input}, {output}, "{KIT_sf_file}", "{KIT_Muon_Pt_Res_variation}", "mc", "{KIT_Muon_Pt_Scale_variation}")',
+    input=[
+        nanoAOD.Muon_pt,
+        q.Muon_ptBSC,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_nTrackerLayers,
+        nanoAOD.event,
+        nanoAOD.luminosityBlock,
+        nanoAOD.Muon_charge,
+    ],
+    output=[q.Muon_pt_corrected],
+    scopes=["nnmm","fjmm","fjmm_cr"],
+)
+
+########################################This block is for study on the tunep pT################################################
+########################################This block is for study on the tunep pT################################################
+########################################This block is for study on the tunep pT################################################
+
 ######################################## KIT ################################################
 Data_KIT_MuonPt_Scale = Producer(
     name="Data_KIT_MuonPt_Scale",
@@ -276,21 +183,6 @@ Data_KIT_MuonPt_Scale = Producer(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
-
-Data_KIT_MuonPt_Scale_HighPt = Producer(
-    name="Data_KIT_MuonPt_Scale_HighPt",
-    call='scalefactor::muon::KIT_MuonPtScale({df}, {input}, {output}, "{KIT_sf_file}", "data")',
-    input=[
-        nanoAOD.Muon_pt,
-        q.Muon_ptBSC_partial,
-        nanoAOD.Muon_phi, 
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_pt_corrected],
-    scopes=["nnmm","fjmm","fjmm_cr"],
-)
-
 MC_KIT_MuonPt_ScaleRes = Producer(
     name="MC_KIT_MuonPt_ScaleRes",
     call='scalefactor::muon::KIT_MuonPtRes({df}, {input}, {output}, "{KIT_sf_file}", "{KIT_Muon_Pt_Res_variation}", "mc", "{KIT_Muon_Pt_Scale_variation}")',
@@ -308,38 +200,6 @@ MC_KIT_MuonPt_ScaleRes = Producer(
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-)
-# MC_KIT_MuonPt_ScaleRes_HighPt = Producer(
-#     name="MC_KIT_MuonPt_ScaleRes_HighPt",
-#     call='scalefactor::muon::KIT_MuonPtRes({df}, {input}, {output}, "{KIT_sf_file}", "{KIT_Muon_Pt_Res_variation}", "mc", "{KIT_Muon_Pt_Scale_variation}")',
-#     input=[
-#         nanoAOD.Muon_pt,
-#         q.Muon_ptBSC,
-#         nanoAOD.Muon_phi,
-#         nanoAOD.Muon_eta,
-#         nanoAOD.Muon_nTrackerLayers,
-#         nanoAOD.event,
-#         nanoAOD.luminosityBlock,
-#         nanoAOD.Muon_charge,
-#     ],
-#     output=[q.Muon_pt_corrected],
-#     scopes=["nnmm","fjmm","fjmm_cr"],
-# )
-MC_KIT_MuonPt_ScaleRes_HighPt = Producer(
-    name="MC_KIT_MuonPt_ScaleRes_HighPt",
-    call='scalefactor::muon::KIT_MuonPtRes({df}, {input}, {output}, "{KIT_sf_file}", "{KIT_Muon_Pt_Res_variation}", "mc", "{KIT_Muon_Pt_Scale_variation}")',
-    input=[
-        nanoAOD.Muon_pt,
-        q.Muon_ptBSC_partial,
-        nanoAOD.Muon_phi,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_nTrackerLayers,
-        nanoAOD.event,
-        nanoAOD.luminosityBlock,
-        nanoAOD.Muon_charge,
-    ],
-    output=[q.Muon_pt_corrected],
-    scopes=["nnmm","fjmm","fjmm_cr"],
 )
 ################################ KIT End ####################################################
 ######################################## Rochester ################################################

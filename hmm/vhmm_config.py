@@ -2359,7 +2359,7 @@ def build_config(
     configuration.add_producers(
         ["nnmm","fjmm","fjmm_cr"],
         [
-            momentumscale.MuonPtPreCorrection,
+            # momentumscale.MuonPtPreCorrection,
             momentumscale.MuonPtPreSmear,
         ]
     )
@@ -2371,12 +2371,6 @@ def build_config(
             momentumscale.MC_KIT_MuonPt_ScaleRes,
             # momentumscale.MC_KIT_MuonPt_ScaleRes_pureBSC,
             # momentumscale.MC_KIT_MuonPt_ScaleRes_raw,
-        ]
-    )
-    configuration.add_producers(
-        ["nnmm","fjmm","fjmm_cr"],
-        [
-            momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt,
         ]
     )
     # configuration.add_producers(
@@ -4086,6 +4080,13 @@ def build_config(
             # event.FatJetQuantities, # tau1,2,3,4... # drop it
         ],
     )
+    configuration.add_producers(
+        ["e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+        [
+            p4.mu2_fromH_pt_uncorrected,
+            p4.mu1_fromH_pt_uncorrected,
+        ]
+    )
     if era == "2022preEE" or era == "2022postEE" or era == "2023preBPix" or era == "2023postBPix":
         configuration.add_producers(
             ["e2m","eemm","eemm_cr","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
@@ -4245,55 +4246,40 @@ def build_config(
     configuration.add_producers(
         ["fjmm", "fjmm_cr", "nnmm"],
         [
-            momentumscale.MuonPtPreCorrection_PureTunepPT,
-            momentumscale.MuonPtPreCorrection_BSCTunepPT,
+            # momentumscale.MuonPtPreCorrection_BSCTunepPT,
             momentumscale.MuonPtPreCorrection_BSCTunepPTCorr,
-            momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_PureTunepPT,
-            momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPT,
+
+            # momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPT,
             momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr,
         ]
     )
-    configuration.add_producers(
-        ["fjmm", "nnmm"],
-        [
-            event.HiggsToDiMuonPair_p4_noFSR_PureTunepPT,
-            event.HiggsToDiMuonPair_p4_noFSR_BSCTunepPT,
-            event.HiggsToDiMuonPair_p4_noFSR_BSCTunepPTCorr,
-            event.HiggsToDiMuonPair_p4_PureTunepPT,
-            event.HiggsToDiMuonPair_p4_BSCTunepPT,
-            event.HiggsToDiMuonPair_p4_BSCTunepPTCorr,
-            p4.H_mass_PureTunepPT,
-            p4.H_mass_BSCTunepPT,
-            p4.H_mass_BSCTunepPTCorr,
-        ]
-    )
-    configuration.add_producers(
-        ["fjmm_cr"],
-        [
-            cr.DiMuonPairCR_p4_PureTunepPT,
-            cr.DiMuonPairCR_p4_BSCTunepPT,
-            cr.DiMuonPairCR_p4_BSCTunepPTCorr,
-            cr.dimuonCR_mass_PureTunepPT,
-            cr.dimuonCR_mass_BSCTunepPT,
-            cr.dimuonCR_mass_BSCTunepPTCorr,
-        ]
-    )
-    configuration.add_outputs(
-        ["fjmm", "nnmm"],
-        [
-            q.H_mass_PureTunepPT,
-            q.H_mass_BSCTunepPT,
-            q.H_mass_BSCTunepPTCorr,
-        ]
-    )
-    configuration.add_outputs(
-        ["fjmm_cr"],
-        [
-            q.dimuonCR_mass_PureTunepPT,
-            q.dimuonCR_mass_BSCTunepPT,
-            q.dimuonCR_mass_BSCTunepPTCorr,
-        ]
-    )
+    # configuration.add_producers(
+    #     ["fjmm", "nnmm"],
+    #     [
+    #         event.HiggsToDiMuonPair_p4_noFSR_BSCTunepPT,
+    #         event.HiggsToDiMuonPair_p4_BSCTunepPT,
+    #         p4.H_mass_BSCTunepPT,
+    #     ]
+    # )
+    # configuration.add_producers(
+    #     ["fjmm_cr"],
+    #     [
+    #         cr.DiMuonPairCR_p4_BSCTunepPT,
+    #         cr.dimuonCR_mass_BSCTunepPT,
+    #     ]
+    # )
+    # configuration.add_outputs(
+    #     ["fjmm", "nnmm"],
+    #     [ 
+    #         q.H_mass_BSCTunepPT,
+    #     ]
+    # )
+    # configuration.add_outputs(
+    #     ["fjmm_cr"],
+    #     [
+    #         q.dimuonCR_mass_BSCTunepPT,
+    #     ]
+    # )
 
     configuration.add_outputs(
         scopes,
@@ -5033,6 +5019,13 @@ def build_config(
             q.FsrPhoton2_relIso03,
         ]
     )
+    configuration.add_outputs(
+        ["e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
+        [
+            q.mu2_fromH_pt_uncorrected,
+            q.mu1_fromH_pt_uncorrected,
+        ]
+    )
     # configuration.add_outputs(
     #     ["mmmm", "mmmm_cr"],
     #     [
@@ -5382,48 +5375,20 @@ def build_config(
             samples=["data"],
         ),
     )
-    configuration.add_modification_rule(
-        ["nnmm","fjmm","fjmm_cr",],
-        ReplaceProducer(
-            producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt, momentumscale.Data_KIT_MuonPt_Scale_HighPt],
-            samples=["data"],
-        ),
-    )
-    configuration.add_modification_rule(
-        ["nnmm","fjmm","fjmm_cr"],
-        ReplaceProducer(
-            producers=[momentumscale.MuonPtPreCorrection, momentumscale.MuonPtPreCorrectionData],
-            samples=["data"],
-        ),
-    )
-    configuration.add_modification_rule(
-        ["nnmm","fjmm","fjmm_cr",],
-        ReplaceProducer(
-            producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_PureTunepPT, momentumscale.Data_KIT_MuonPt_Scale_HighPt_PureTunepPT],
-            samples=["data"],
-        ),
-    )
-    configuration.add_modification_rule(
-        ["nnmm","fjmm","fjmm_cr"],
-        ReplaceProducer(
-            producers=[momentumscale.MuonPtPreCorrection_PureTunepPT, momentumscale.MuonPtPreCorrectionData_PureTunepPT],
-            samples=["data"],
-        ),
-    )
-    configuration.add_modification_rule(
-        ["nnmm","fjmm","fjmm_cr",],
-        ReplaceProducer(
-            producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPT, momentumscale.Data_KIT_MuonPt_Scale_HighPt_BSCTunepPT],
-            samples=["data"],
-        ),
-    )
-    configuration.add_modification_rule(
-        ["nnmm","fjmm","fjmm_cr"],
-        ReplaceProducer(
-            producers=[momentumscale.MuonPtPreCorrection_BSCTunepPT, momentumscale.MuonPtPreCorrectionData_BSCTunepPT],
-            samples=["data"],
-        ),
-    )
+    # configuration.add_modification_rule(
+    #     ["nnmm","fjmm","fjmm_cr",],
+    #     ReplaceProducer(
+    #         producers=[momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPT, momentumscale.Data_KIT_MuonPt_Scale_HighPt_BSCTunepPT],
+    #         samples=["data"],
+    #     ),
+    # )
+    # configuration.add_modification_rule(
+    #     ["nnmm","fjmm","fjmm_cr"],
+    #     ReplaceProducer(
+    #         producers=[momentumscale.MuonPtPreCorrection_BSCTunepPT, momentumscale.MuonPtPreCorrectionData_BSCTunepPT],
+    #         samples=["data"],
+    #     ),
+    # )
     configuration.add_modification_rule(
         ["nnmm","fjmm","fjmm_cr",],
         ReplaceProducer(
@@ -5969,7 +5934,7 @@ def build_config(
             },
             producers={
                 ("nnmm","fjmm","fjmm_cr"): [
-                    momentumscale.MuonPtPreCorrection,
+                    momentumscale.MuonPtPreCorrection_BSCTunepPTCorr,
                 ]
             },
         ),
@@ -5990,7 +5955,7 @@ def build_config(
             },
             producers={
                 ("nnmm","fjmm","fjmm_cr"): [
-                    momentumscale.MuonPtPreCorrection,
+                    momentumscale.MuonPtPreCorrection_BSCTunepPTCorr,
                 ]
             },
         ),
@@ -6163,7 +6128,7 @@ def build_config(
             },
             producers={
                 ("nnmm","fjmm","fjmm_cr"): [
-                    momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt,
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr,
                 ]
             },
         )
@@ -6179,7 +6144,7 @@ def build_config(
             },
             producers={
                 ("nnmm","fjmm","fjmm_cr"): [
-                    momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt,
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr,
                 ]
             },
         )
@@ -6195,7 +6160,7 @@ def build_config(
             },
             producers={
                 ("nnmm","fjmm","fjmm_cr"): [
-                    momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt,
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr,
                 ]
             },
         )
@@ -6211,7 +6176,7 @@ def build_config(
             },
             producers={
                 ("nnmm","fjmm","fjmm_cr"): [
-                    momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt,
+                    momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr,
                 ]
             },
         )

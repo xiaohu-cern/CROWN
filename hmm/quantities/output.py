@@ -374,11 +374,13 @@ Z_H_cosThStar = Quantity("Z_H_cosThStar")
 Flag_MetCut = Quantity("Flag_MetCut")
 
 mu1_fromH_pt = Quantity("mu1_fromH_pt")
+mu1_fromH_pt_uncorrected = Quantity("mu1_fromH_pt_uncorrected")
 mu1_fromH_eta = Quantity("mu1_fromH_eta")
 mu1_fromH_phi = Quantity("mu1_fromH_phi")
 mu1_fromH_mass = Quantity("mu1_fromH_mass")
 
 mu2_fromH_pt = Quantity("mu2_fromH_pt")
+mu2_fromH_pt_uncorrected = Quantity("mu2_fromH_pt_uncorrected")
 mu2_fromH_eta = Quantity("mu2_fromH_eta")
 mu2_fromH_phi = Quantity("mu2_fromH_phi")
 mu2_fromH_mass = Quantity("mu2_fromH_mass")
