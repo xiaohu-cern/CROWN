@@ -27,7 +27,10 @@ Tau_ID_vsEle = NanoAODQuantity("Tau_idDeepTau2018v2p5VSe")
 Tau_ID_vsMu = NanoAODQuantity("Tau_idDeepTau2018v2p5VSmu")
 ######
 
+Muon_isGlobal = NanoAODQuantity("Muon_isGlobal")
+Muon_isTracker = NanoAODQuantity("Muon_isTracker")
 Muon_pt = NanoAODQuantity("Muon_pt")
+Muon_jetDF = NanoAODQuantity("Muon_jetDF")
 Muon_bsConstrainedPt = NanoAODQuantity("Muon_bsConstrainedPt")
 Muon_bsConstrainedPtErr = NanoAODQuantity("Muon_bsConstrainedPtErr")
 Muon_tunepRelPt = NanoAODQuantity("Muon_tunepRelPt")
@@ -40,7 +43,8 @@ Muon_charge = NanoAODQuantity("Muon_charge")
 Muon_genMatch = NanoAODQuantity("Muon_genPartFlav")
 Muon_indexToGen = NanoAODQuantity("Muon_genPartIdx")
 Muon_sip3d = NanoAODQuantity("Muon_sip3d") # vh
-Muon_pfRelIso04_all = NanoAODQuantity("Muon_pfRelIso04_all") # vh
+# Muon_pfRelIso04_all = NanoAODQuantity("Muon_pfRelIso04_all") # vh
+# Muon_miniPFRelIso_all = NanoAODQuantity("Muon_miniPFRelIso_all") # vh
 ### 24
 Muon_mvaTTH = NanoAODQuantity("Muon_promptMVA")
 ######
@@ -48,6 +52,7 @@ Muon_nTrackerLayers = NanoAODQuantity("Muon_nTrackerLayers")
 Muon_highPtId = NanoAODQuantity("Muon_highPtId")
 
 Electron_pt = NanoAODQuantity("Electron_pt")
+Electron_jetDF = NanoAODQuantity("Electron_jetDF")
 Electron_r9 = NanoAODQuantity("Electron_r9")
 Electron_seedGain = NanoAODQuantity("Electron_seedGain")
 Electron_eta = NanoAODQuantity("Electron_eta")
@@ -56,6 +61,7 @@ Electron_dz = NanoAODQuantity("Electron_dz")
 Electron_phi = NanoAODQuantity("Electron_phi")
 Electron_mass = NanoAODQuantity("Electron_mass")
 Electron_iso = NanoAODQuantity("Electron_pfRelIso03_all")
+Electron_miniPFRelIso_all = NanoAODQuantity("Electron_miniPFRelIso_all")
 Electron_charge = NanoAODQuantity("Electron_charge")
 Electron_indexToGen = NanoAODQuantity("Electron_genPartIdx")
 # write by botao

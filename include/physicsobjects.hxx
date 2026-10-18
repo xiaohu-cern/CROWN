@@ -350,6 +350,8 @@ ROOT::RDF::RNode Calculate_MuonPromptMVA22To23(ROOT::RDF::RNode df, const std::s
                                                const std::string &Muon_dxy, const std::string &Muon_dz, 
                                                const std::string &Muon_segmentComp,
                                                const std::string &BDT_model_name, const std::string &xmlpath);
+ROOT::RDF::RNode Calculate_MuonJetDF22To23(ROOT::RDF::RNode df, const std::string &MuonJetDF, 
+                                           const std::string &Muon_jetIdx, const std::string &Jet_btagDeepFlavB);
 ROOT::RDF::RNode CutID(ROOT::RDF::RNode df, const std::string &maskname,
                        const std::string &nameID);
 ROOT::RDF::RNode CutUCharID(ROOT::RDF::RNode df, const std::string &maskname,

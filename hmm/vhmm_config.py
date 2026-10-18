@@ -942,8 +942,9 @@ def build_config(
             "max_muon_dxy": 0.05, # vh
             "max_muon_dz": 0.10, # vh
             "muon_max_sip3d" : 8.0, # vh
-            "base_muon_id" : "Muon_looseId",
-            "base_muon_iso_cut" : 0.7,
+            "base_muon_id" : "Muon_mediumId",
+            "base_muon_iso_cut" : 0.4,
+            "muon_jet_DF_cut": 0.2435,
             
             # for good muon
             "min_goodmuon_mvaTTH" : 0.64,
@@ -952,7 +953,8 @@ def build_config(
             "good_muon_id_medium": "Muon_mediumId", # vh cut-based atm https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Medium_Muon
             "good_muon_id_highpt": "Muon_highPtId", # vh high pt muon ID
             "good_muon_id_highpt_bit": 1, #### 1 tracker high pt, 2 global high pt. require >=1
-            "good_muon_iso_cut": 0.25, # vh PFIsoLoose dR=0.4 https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Particle_Flow_isolation
+            # "good_muon_iso_cut": 0.25, # vh PFIsoLoose dR=0.4 https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Particle_Flow_isolation
+            "good_muon_iso_cut": 0.4, ## cut on Muon_miniPFRelIso_all
         },
     )
     # electron base selection:
@@ -969,15 +971,18 @@ def build_config(
             "ele_conv_veto": "Electron_convVeto",
             "ele_missing_hits": 2,
             "ele_max_sip3d" : 8.0, # vh
+            "ele_jet_DF_cut": 0.2435,
             
             # extract from base ele v1 for base ele v2
             # UChar_t for v12, Int_t for v9
             "base_ele_cutbaseid": 2, # cut-based ID RunIII Winter22 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
+            "base_ele_iso_cut": 0.4, # vh cut on Electron_miniPFRelIso_all
             
             # extract from base ele v1 for good ele
             "min_goodelectron_mvaTTH" : 0.9,
             "PromptMVA_BDT_electron_name" : "BDTG",
             "electron_xml_path": "data/22-23_correction_new/EGM/Electron-mvaTTH.2022EE.weights_mvaISO.xml",
+            "good_ele_iso_cut": 0.4, # vh cut on Electron_miniPFRelIso_all
             "good_ele_id": EraModifier(
                 {
                     "2016preVFP": "Electron_mvaFall17V2Iso_WP90",
@@ -1924,47 +1929,33 @@ def build_config(
         {
             "min_bjet_pt": 25, # vh
             "max_bjet_eta": 2.5,
-            # "btag_cut_loose": EraModifier(  # loose # (vhmm Run2 use DeepCSV) https://btv-wiki.docs.cern.ch/ScaleFactors/UL2018/
-            #     {
-            #         "2016preVFP": 0.2027, # 2016preVFP: 0.2027, 2016postVFP: 0.1918 (DeepCSV)
-            #         "2016postVFP": 0.1918, # 2016preVFP: 0.2027, 2016postVFP: 0.1918 (DeepCSV)
-            #         "2017": 0.1355, # 2017: 0.1355 (DeepCSV)
-            #         "2018": 0.1208, # 2018: 0.1208 (DeepCSV)
-            #         "2022preEE": 0.047, # (PNet)
-            #         "2022postEE": 0.0499, # (PNet)
-            #         "2023preBPix": 0.0358, # PNet
-            #         "2023postBPix":0.0359, # PNet
-            #     }
-            # ),
             "btag_cut_loose": EraModifier(  
                 {
-                    "2022preEE": 0.0849, # RobustParticleTransformer
-                    "2022postEE": 0.0897, # RobustParticleTransformer
-                    "2023preBPix": 0.0681, # RobustParticleTransformer
-                    "2023postBPix":0.0683, # RobustParticleTransformer
+                    # "2022preEE": 0.0849, # RobustParticleTransformer
+                    # "2022postEE": 0.0897, # RobustParticleTransformer
+                    # "2023preBPix": 0.0681, # RobustParticleTransformer
+                    # "2023postBPix":0.0683, # RobustParticleTransformer
+                    #### change RobustParT back to PNet to synchronize with other groups
+                    "2022preEE": 0.047, # (PNet)
+                    "2022postEE": 0.0499, # (PNet)
+                    "2023preBPix": 0.0358, # PNet
+                    "2023postBPix":0.0359, # PNet
                     "2024":0.0246, ###### for 2024, only WP for UParTAK4 is provided
                     "2025":0.0246, ###### for 2024, only WP for UParTAK4 is provided
                     "2026":0.0246, ###### for 2026, only WP for UParTAK4 is provided
                 }
             ),
-            # "btag_cut_medium": EraModifier(  # medium
-            #     {
-            #         "2016preVFP": 0.6001, # 2016preVFP: 0.6001, 2016postVFP: 0.5847
-            #         "2016postVFP": 0.5847, # 2016preVFP: 0.6001, 2016postVFP: 0.5847
-            #         "2017": 0.4506, # 2017: 0.4506
-            #         "2018": 0.4168, # 2018: 0.4168
-            #         "2022preEE": 0.245, # (PNet)
-            #         "2022postEE": 0.2605, # (PNet)
-            #         "2023preBPix": 0.1917, # PNet
-            #         "2023postBPix": 0.1919, # PNet
-            #     }
-            # ),
             "btag_cut_medium": EraModifier(  # medium
                 {
-                    "2022preEE": 0.4319, # RobustParticleTransformer
-                    "2022postEE": 0.451, # RobustParticleTransformer
-                    "2023preBPix": 0.3487, # RobustParticleTransformer
-                    "2023postBPix": 0.3494, # RobustParticleTransformer
+                    # "2022preEE": 0.4319, # RobustParticleTransformer
+                    # "2022postEE": 0.451, # RobustParticleTransformer
+                    # "2023preBPix": 0.3487, # RobustParticleTransformer
+                    # "2023postBPix": 0.3494, # RobustParticleTransformer
+                    #### change RobustParT back to PNet to synchronize with other groups
+                    "2022preEE": 0.245, # (PNet)
+                    "2022postEE": 0.2605, # (PNet)
+                    "2023preBPix": 0.1917, # PNet
+                    "2023postBPix": 0.1919, # PNet
                     "2024":0.1272, ###### for 2024, only WP for UParTAK4 is provided
                     "2025":0.1272, ###### for 2025, only WP for UParTAK4 is provided
                     "2026":0.1272, ###### for 2026, only WP for UParTAK4 is provided
@@ -2215,12 +2206,21 @@ def build_config(
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond", "fjmm_cr","fjmm","nnmm"],
             [
                 muons.Calculate_MuonPromptMVA22To23,
+                muons.Calculate_MuonJetDF22to23,
             ],
         )
         configuration.add_producers(
             ["global"],
             [
                 electrons.Calculate_ElePromptMVA22To23,
+            ],
+        )
+    if era == "2024" or era == "2025" or era == "2026":
+        configuration.add_producers(
+            ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond", "fjmm_cr","fjmm","nnmm"],
+            [
+                muons.Rename_MuonJetDF,
             ],
         )
     configuration.add_producers(

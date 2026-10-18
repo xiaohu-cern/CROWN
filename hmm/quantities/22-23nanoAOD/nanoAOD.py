@@ -23,6 +23,8 @@ Tau_ID_vsJet = NanoAODQuantity("Tau_idDeepTau2017v2p1VSjet")
 Tau_ID_vsEle = NanoAODQuantity("Tau_idDeepTau2017v2p1VSe")
 Tau_ID_vsMu = NanoAODQuantity("Tau_idDeepTau2017v2p1VSmu")
 
+Muon_isGlobal = NanoAODQuantity("Muon_isGlobal")
+Muon_isTracker = NanoAODQuantity("Muon_isTracker")
 Muon_pt = NanoAODQuantity("Muon_pt")
 Muon_bsConstrainedPt = NanoAODQuantity("Muon_bsConstrainedPt")
 Muon_bsConstrainedPtErr = NanoAODQuantity("Muon_bsConstrainedPtErr")
@@ -36,7 +38,9 @@ Muon_charge = NanoAODQuantity("Muon_charge")
 Muon_genMatch = NanoAODQuantity("Muon_genPartFlav")
 Muon_indexToGen = NanoAODQuantity("Muon_genPartIdx")
 Muon_sip3d = NanoAODQuantity("Muon_sip3d") # vh
-Muon_pfRelIso04_all = NanoAODQuantity("Muon_pfRelIso04_all") # vh
+# Muon_pfRelIso04_all = NanoAODQuantity("Muon_pfRelIso04_all") # vh
+### change from Muon_pfRelIso04_all to Muon_miniPFRelIso_all to synchronize with other groups
+# Muon_miniPFRelIso_all = NanoAODQuantity("Muon_miniPFRelIso_all") # vh
 Muon_mvaTTH = NanoAODQuantity("Muon_mvaTTH")
 Muon_nTrackerLayers = NanoAODQuantity("Muon_nTrackerLayers")
 Muon_highPtId = NanoAODQuantity("Muon_highPtId")
@@ -67,6 +71,7 @@ Electron_dz = NanoAODQuantity("Electron_dz")
 Electron_phi = NanoAODQuantity("Electron_phi")
 Electron_mass = NanoAODQuantity("Electron_mass")
 Electron_iso = NanoAODQuantity("Electron_pfRelIso03_all")
+Electron_miniPFRelIso_all = NanoAODQuantity("Electron_miniPFRelIso_all")
 Electron_charge = NanoAODQuantity("Electron_charge")
 Electron_indexToGen = NanoAODQuantity("Electron_genPartIdx")
 # write by botao
@@ -104,9 +109,10 @@ Jet_chHEF = NanoAODQuantity("Jet_chHEF")
 Jet_associatedGenJet = NanoAODQuantity("Jet_genJetIdx")
 # BJet_discriminator = NanoAODQuantity("Jet_btagDeepFlavB") # DeepFlavour
 BJet_discriminator = NanoAODQuantity("Jet_btagDeepB") # vh DeepCSV it seems previous work using Jet_btagDeepB
-# BJet_discriminator_PNet = NanoAODQuantity("Jet_btagPNetB") # PNet 
-### synchronize with GloParT
-BJet_discriminator_PNet = NanoAODQuantity("Jet_btagRobustParTAK4B")
+
+### change RobustParT back to PNet to synchronize with other groups
+# BJet_discriminator_PNet = NanoAODQuantity("Jet_btagRobustParTAK4B")
+BJet_discriminator_PNet = NanoAODQuantity("Jet_btagPNetB") # PNet 
 
 Pileup_nTrueInt = NanoAODQuantity("Pileup_nTrueInt")
 rho = NanoAODQuantity("Rho_fixedGridRhoFastjetAll")

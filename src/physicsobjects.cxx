@@ -2648,6 +2648,23 @@ ROOT::RDF::RNode Calculate_MuonPromptMVA22To23(ROOT::RDF::RNode df, const std::s
     );
     return df1;
 }
+
+ROOT::RDF::RNode Calculate_MuonJetDF22To23(ROOT::RDF::RNode df, const std::string &MuonJetDF, 
+                                           const std::string &Muon_jetIdx, const std::string &Jet_btagDeepFlavB) {
+    auto df1 = df.Define(
+        MuonJetDF,
+        [](const ROOT::RVec<Short_t> &jetIdx_values,
+           const ROOT::RVec<float> &btagDeepFlavB_values) {
+            ROOT::RVec<float> MuonJetDF_values(jetIdx_values.size());
+            for (int i = 0; i < jetIdx_values.size(); i++) {
+                MuonJetDF_values[i] = jetIdx_values[i] > -1 ? btagDeepFlavB_values[jetIdx_values[i]] : 0.0f;
+            }
+            return MuonJetDF_values;
+        },{Muon_jetIdx, Jet_btagDeepFlavB}
+    );
+    return df1;
+}
+
 } // end namespace muon
 /// Tau specific functions
 namespace tau {

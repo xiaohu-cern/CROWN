@@ -24,6 +24,33 @@ MuonEtaCut = Producer(
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
+MuonGlobalCut = Producer(
+    name="MuonGlobalCut",
+    call="physicsobject::jet::CutBoolID({df}, {output}, {input})",
+    input=[nanoAOD.Muon_isGlobal],
+    output=[],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+MuonTrackerCut = Producer(
+    name="MuonTrackerCut",
+    call="physicsobject::jet::CutBoolID({df}, {output}, {input})",
+    input=[nanoAOD.Muon_isTracker],
+    output=[],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+Muon_JetDFCut = Producer(
+    name="Muon_JetDFCut",
+    call="physicsobject::CutVarMax({df}, {input}, {output}, {muon_jet_DF_cut})",
+    input=[q.muon_jet_DF],
+    output=[],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
 MuonDxyCut = Producer(
     name="MuonDxyCut",
     call="physicsobject::CutDxy({df}, {input}, {output}, {max_muon_dxy})",
@@ -72,7 +99,7 @@ MuonIDCut = Producer(
 MuonIsoCut = Producer(
     name="MuonIsoCut",
     call="physicsobject::muon::CutIsolation({df}, {output}, {input}, {base_muon_iso_cut})",
-    input=[nanoAOD.Muon_pfRelIso04_all], # vh
+    input=[nanoAOD.Muon_miniPFRelIso_all], # vh
     output=[],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -94,6 +121,8 @@ BaseMuons = ProducerGroup(
         MuonDxyCut,
         MuonDzCut,
         MuonSIP3DCut,
+        MuonGlobalCut,
+        MuonTrackerCut,
         # these 3 cut used as good muon
         # Muon_mvaTTH_Cut,
         MuonIDCut,
@@ -110,7 +139,7 @@ BaseMuons = ProducerGroup(
 GoodMuonIsoCut = Producer(
     name="GoodMuonIsoCut",
     call="physicsobject::electron::CutIsolation({df}, {output}, {input}, {good_muon_iso_cut})",
-    input=[nanoAOD.Muon_pfRelIso04_all],
+    input=[nanoAOD.Muon_miniPFRelIso_all],
     output=[],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -173,6 +202,7 @@ GoodMuons = ProducerGroup(
         GoodMuon_mvaTTH_Cut,
         GoodMuonIDCut,
         GoodMuonIsoCut,
+        Muon_JetDFCut,
     ],
 )
 
@@ -201,6 +231,8 @@ BaseMuons_HighPt = ProducerGroup(
     subproducers=[
         MuonPtCut,
         MuonEtaCut,
+        MuonGlobalCut,
+        MuonTrackerCut,
         MuonDxyCut,
         MuonDzCut,
         MuonSIP3DCut,
@@ -1030,4 +1062,25 @@ Calculate_MuonPromptMVA22To23 = Producer(
             "m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb", "m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regiond",
             "fjmm_cr","fjmm","nnmm"
             ],
+)
+Calculate_MuonJetDF22to23 = Producer(
+    name="Calculate_MuonJetDF22to23",
+    call="physicsobject::muon::Calculate_MuonJetDF22To23({df}, {output}, {input})",
+    input=[
+        nanoAOD.Muon_jetIdx,
+        nanoAOD.Jet_btagDeepFlavB,
+    ],
+    output=[q.muon_jet_DF],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+Rename_MuonJetDF = Producer(
+    name="Rename_MuonJetDF",
+    call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
+    input=[nanoAOD.Muon_jetDF],
+    output=[q.muon_jet_DF],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
