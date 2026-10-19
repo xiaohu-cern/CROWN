@@ -256,6 +256,8 @@ ROOT::RDF::RNode LeadingFatJetVar(ROOT::RDF::RNode df, const std::string &output
 //                                  const std::vector<ROOT::Math::PtEtaPhiMVector> &input_p4_vec,
 //                                  const std::string &outputname);
 ///
+ROOT::RDF::RNode Base_Not_Good(ROOT::RDF::RNode df, const std::string &new_mask,
+                       const std::string &maskname1, const std::string &maskname2);
 ROOT::RDF::RNode CutVarMin(ROOT::RDF::RNode df, const std::string &quantity,
                        const std::string &maskname, const float &threshold);
 ROOT::RDF::RNode CutVarMax(ROOT::RDF::RNode df, const std::string &quantity,

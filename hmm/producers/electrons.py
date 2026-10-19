@@ -176,7 +176,7 @@ GoodElectronIDCut = Producer(
 GoodElectrons = ProducerGroup(
     name="GoodElectrons",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
-    input=[q.base_electrons_mask],
+    input=[q.base_electrons_v2_mask],
     output=[q.good_electrons_mask], # vh these are the final selection muons' mask
     scopes=["global"],
     subproducers=[
@@ -187,6 +187,16 @@ GoodElectrons = ProducerGroup(
         ElectronHOECut,
         ElectroneInvMinusPInvCut,
     ],
+)
+BaseNotGoodElectrons = Producer(
+    name="BaseNotGoodElectrons",
+    call="physicsobject::Base_Not_Good({df}, {output}, {input})",
+    input=[
+        q.base_electrons_v2_mask,
+        q.good_electrons_mask,
+    ],
+    output=[q.base_not_good_electrons_mask],
+    scopes=["global"],
 )
 NumberOfBaseElectrons = Producer(
     name="NumberOfBaseElectrons",
@@ -200,6 +210,13 @@ NumberOfGoodElectrons = Producer(
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
     input=[q.good_electrons_mask],
     output=[q.nelectrons],
+    scopes=["global"],
+)
+NumberOfBaseNotGoodElectrons = Producer(
+    name="NumberOfBaseNotGoodElectrons",
+    call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
+    input=[q.base_not_good_electrons_mask],
+    output=[q.nbaseNotgoodelectrons],
     scopes=["global"],
 )
 GoodEle_Veto = Producer(

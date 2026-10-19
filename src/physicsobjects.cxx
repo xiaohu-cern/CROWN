@@ -1991,6 +1991,21 @@ ROOT::RDF::RNode CutVarMin(ROOT::RDF::RNode df, const std::string &quantity,
         df.Define(maskname, basefunctions::FilterMin(threshold), {quantity});
     return df1;
 }
+
+ROOT::RDF::RNode Base_Not_Good(ROOT::RDF::RNode df, const std::string &new_mask,
+                       const std::string &maskname1, const std::string &maskname2) {
+    auto df1 =
+        df.Define(new_mask,
+                  [](const ROOT::RVec<int> &mask1, const ROOT::RVec<int> &mask2) {
+                      ROOT::RVec<int> new_mask(mask1.size(), 0);
+                      for (size_t i = 0; i < mask1.size(); ++i) {
+                          new_mask[i] = (mask1[i] == 1 && mask2[i] == 0) ? 1 : 0;
+                      }
+                      return new_mask;
+                  }, {maskname1, maskname2});
+    return df1;
+}
+
 /// Function to select objects below a threshold on a variable, using
 /// basefunctions::FilterMax
 ///

@@ -2162,6 +2162,8 @@ def build_config(
             
             electrons.NumberOfBaseElectrons,
             electrons.NumberOfGoodElectrons,
+            electrons.NumberOfBaseNotGoodElectrons,
+            electrons.BaseNotGoodElectrons,
             electrons.BaseElectronCollection, # collect ordered by pt
             electrons.ElectronCollection,
 
@@ -2177,6 +2179,8 @@ def build_config(
             # muons.GoodMuons,
             muons.NumberOfBaseMuons,
             muons.NumberOfGoodMuons,
+            muons.NumberOfBaseNotGoodMuons,
+            muons.BaseNotGoodMuons,
             muons.BaseMuonCollection,
             muons.MuonCollection,
         ],
@@ -4304,8 +4308,9 @@ def build_config(
             
             q.nbasemuons,
             q.nmuons,
-            q.nbaseelectrons,
+            q.nbaseNotgoodmuons,
             q.nelectrons,
+            q.nbaseNotgoodelectrons,
             q.njets,
             q.nbjets_loose,
             q.nbjets_medium,
