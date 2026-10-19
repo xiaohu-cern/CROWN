@@ -969,9 +969,14 @@ def build_config(
             "max_ele_dxy": 0.05,
             "max_ele_dz": 0.10,
             "ele_conv_veto": "Electron_convVeto",
-            "ele_missing_hits": 2,
+            "base_ele_missing_hits": 2,
+            "good_ele_missing_hits": 1,
             "ele_max_sip3d" : 8.0, # vh
             "ele_jet_DF_cut": 0.2435,
+            "ele_hoe_cut": 0.10,
+            "ele_eInvMinusPInv_cut": -0.04,
+            "EB_sieie": 0.011,
+            "nonEB_sieie": 0.013,
             
             # extract from base ele v1 for base ele v2
             # UChar_t for v12, Int_t for v9
@@ -2164,30 +2169,6 @@ def build_config(
             met.BuildGenMetVector,
         ],
     )
-    if era == "2022preEE" or era == "2022postEE" or era == "2023preBPix" or era == "2023postBPix":
-        configuration.add_producers(
-            "global",
-            electrons.GoodElectrons_22To23, # good ele add mvaTTH and mvaIsoID from base ele
-        )
-        configuration.add_producers(
-            ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-            [
-                muons.GoodMuons_22To23,
-            ],
-        )
-    if era == "2024" or era == "2025" or era == "2026":
-        configuration.add_producers(
-            "global",
-            electrons.GoodElectrons, # good ele add mvaTTH and mvaIsoID from base ele
-        )
-        configuration.add_producers(
-            ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-            [
-                muons.GoodMuons,
-            ],
-        )
     configuration.add_producers(
         ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -2213,6 +2194,7 @@ def build_config(
             ["global"],
             [
                 electrons.Calculate_ElePromptMVA22To23,
+                electrons.Calculate_EleJetDF22to23,
             ],
         )
     if era == "2024" or era == "2025" or era == "2026":
@@ -2221,8 +2203,30 @@ def build_config(
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond", "fjmm_cr","fjmm","nnmm"],
             [
                 muons.Rename_MuonJetDF,
+                muons.Rename_MuonMVAttH,
             ],
         )
+        configuration.add_producers(
+            ["global"],
+            [
+                electrons.Rename_EleJetDF,
+                electrons.Rename_EleMVAttH,
+            ],
+        )
+    configuration.add_producers(
+        ["global"],
+        [
+            electrons.GoodElectrons,
+        ]
+    )
+    configuration.add_producers(
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        [
+            muons.GoodMuons,
+        ]
+    )
     configuration.add_producers(
         ["fjmm_cr", "fjmm", "nnmm"],
         [
@@ -4118,12 +4122,6 @@ def build_config(
                 triggers.GenerateMETTriggerFlags,
             ],
         )
-        configuration.add_producers(
-            ["fjmm_cr", "fjmm", "nnmm"],
-            [
-                muons.Muons_use_for_Veto_22To23,
-            ],
-        )
     if era == "2024" or era == "2025" or era == "2026":
         configuration.add_producers(
             ["e2m","eemm","eemm_cr","nnmm","fjmm","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","fjmm_cr"],
@@ -4155,12 +4153,12 @@ def build_config(
                 triggers.GenerateMETTriggerFlags_v15,
             ],
         )
-        configuration.add_producers(
-            ["fjmm_cr", "fjmm", "nnmm"],
-            [
-                muons.Muons_use_for_Veto,
-            ],
-        )
+    configuration.add_producers(
+        ["fjmm_cr", "fjmm", "nnmm"],
+        [
+            muons.Muons_use_for_Veto,
+        ],
+    )
     configuration.add_producers(
         "nnmm_dycontrol",
         [

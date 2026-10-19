@@ -38,6 +38,7 @@ Muon_charge = NanoAODQuantity("Muon_charge")
 Muon_genMatch = NanoAODQuantity("Muon_genPartFlav")
 Muon_indexToGen = NanoAODQuantity("Muon_genPartIdx")
 Muon_sip3d = NanoAODQuantity("Muon_sip3d") # vh
+Muon_pdgId = NanoAODQuantity("Muon_pdgId")
 # Muon_pfRelIso04_all = NanoAODQuantity("Muon_pfRelIso04_all") # vh
 ### change from Muon_pfRelIso04_all to Muon_miniPFRelIso_all to synchronize with other groups
 # Muon_miniPFRelIso_all = NanoAODQuantity("Muon_miniPFRelIso_all") # vh
@@ -82,7 +83,11 @@ Electron_convVeto = NanoAODQuantity("Electron_convVeto")
 Electron_lostHits = NanoAODQuantity("Electron_lostHits")
 Electron_mvaTTH = NanoAODQuantity("Electron_mvaTTH")
 Electron_pdgId = NanoAODQuantity("Electron_pdgId")
-Muon_pdgId = NanoAODQuantity("Muon_pdgId")
+Electron_hoe = NanoAODQuantity("Electron_hoe")
+Electron_eInvMinusPInv = NanoAODQuantity("Electron_eInvMinusPInv")
+Electron_isEB = NanoAODQuantity("Electron_isEB")
+Electron_sieie = NanoAODQuantity("Electron_sieie")
+
 # end write
 
 GenJet_pt = NanoAODQuantity("GenJet_pt")

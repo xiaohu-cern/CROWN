@@ -23,6 +23,34 @@ ElectronECalGapVeto = Producer(
     output=[],
     scopes=["global"],
 )
+ElectronJetDFCut = Producer(
+    name="ElectronJetDFCut",
+    call="physicsobject::CutVarMax({df}, {input}, {output}, {ele_jet_DF_cut})",
+    input=[q.ele_jet_DF],
+    output=[],
+    scopes=["global"],
+)
+ElectronIsoCut = Producer(
+    name="ElectronIsoCut",
+    call="physicsobject::muon::CutIsolation({df}, {output}, {input}, {base_ele_iso_cut})",
+    input=[nanoAOD.Electron_miniPFRelIso_all],
+    output=[],
+    scopes=["global"],
+)
+ElectronHOECut = Producer(
+    name="ElectronHOECut",
+    call="physicsobject::CutVarMax({df}, {input}, {output}, {ele_hoe_cut})",
+    input=[nanoAOD.Electron_hoe],
+    output=[],
+    scopes=["global"],
+)
+ElectroneInvMinusPInvCut = Producer(
+    name="ElectroneInvMinusPInvCut",
+    call="physicsobject::CutVarMin({df}, {input}, {output}, {ele_eInvMinusPInv_cut})",
+    input=[nanoAOD.Electron_eInvMinusPInv],
+    output=[],
+    scopes=["global"],
+)
 ElectronDxyCut = Producer(
     name="ElectronDxyCut",
     call="physicsobject::CutDxy({df}, {input}, {output}, {max_ele_dxy})",
@@ -34,13 +62,6 @@ ElectronDzCut = Producer(
     name="ElectronDzCut",
     call="physicsobject::CutDz({df}, {input}, {output}, {max_ele_dz})",
     input=[nanoAOD.Electron_dz],
-    output=[],
-    scopes=["global"],
-)
-Electron_mvaTTH_Cut = Producer(
-    name="Electron_mvaTTH_Cut",
-    call="physicsobject::CutVarMin({df}, {input}, {output}, {min_electron_mvaTTH})",
-    input=[nanoAOD.Electron_mvaTTH],
     output=[],
     scopes=["global"],
 )
@@ -66,7 +87,7 @@ ElectronIntIDCut = Producer(
     scopes=["global"],
 )
 ElectronSIP3DCut = Producer(
-    name="MuonSIP3DCut",
+    name="ElectronSIP3DCut",
     call="physicsobject::CutVarMax({df}, {input}, {output}, {ele_max_sip3d})",
     input=[nanoAOD.Electron_sip3d],
     output=[],
@@ -88,7 +109,14 @@ ElectronMissingHitsCut = Producer(
 )
 ElectronMissingHitsCut_UChar = Producer(
     name="ElectronMissingHitsCut_UChar",
-    call="physicsobject::CutVarMaxUChar({df}, {input}, {output}, {ele_missing_hits})",
+    call="physicsobject::CutVarMaxUChar({df}, {input}, {output}, {base_ele_missing_hits})",
+    input=[nanoAOD.Electron_lostHits],
+    output=[],
+    scopes=["global"],
+)
+GoodElectronMissingHitsCut_UChar = Producer(
+    name="GoodElectronMissingHitsCut_UChar",
+    call="physicsobject::CutVarMaxUChar({df}, {input}, {output}, {good_ele_missing_hits})",
     input=[nanoAOD.Electron_lostHits],
     output=[],
     scopes=["global"],
@@ -107,6 +135,7 @@ BaseElectrons = ProducerGroup(
         ElectronSIP3DCut,
         ElectronConvVeto,
         ElectronMissingHitsCut_UChar,
+        ElectronIsoCut
     ],
 )
 
@@ -133,13 +162,6 @@ BaseElectrons_v2_run2 = ProducerGroup(
 GoodElectron_mvaTTH_Cut = Producer(
     name="GoodElectron_mvaTTH_Cut",
     call="physicsobject::CutVarMin({df}, {input}, {output}, {min_goodelectron_mvaTTH})",
-    input=[nanoAOD.Electron_mvaTTH],
-    output=[],
-    scopes=["global"],
-)
-GoodElectron_mvaTTH_Cut_22To23 = Producer(
-    name="GoodElectron_mvaTTH_Cut_22To23",
-    call="physicsobject::CutVarMin({df}, {input}, {output}, {min_goodelectron_mvaTTH})",
     input=[q.new_ElePromptMVA],
     output=[],
     scopes=["global"],
@@ -160,17 +182,10 @@ GoodElectrons = ProducerGroup(
     subproducers=[
         GoodElectron_mvaTTH_Cut,
         GoodElectronIDCut,
-    ],
-)
-GoodElectrons_22To23 = ProducerGroup(
-    name="GoodElectrons_22To23",
-    call="physicsobject::CombineMasks({df}, {output}, {input})",
-    input=[q.base_electrons_mask],
-    output=[q.good_electrons_mask], # vh these are the final selection muons' mask
-    scopes=["global"],
-    subproducers=[
-        GoodElectron_mvaTTH_Cut_22To23,
-        GoodElectronIDCut,
+        GoodElectronMissingHitsCut_UChar,
+        ElectronJetDFCut,
+        ElectronHOECut,
+        ElectroneInvMinusPInvCut,
     ],
 )
 NumberOfBaseElectrons = Producer(
@@ -317,6 +332,30 @@ Calculate_ElePromptMVA22To23 = Producer(
         nanoAOD.Electron_dz,
         nanoAOD.Electron_mvaIso,
     ],
+    output=[q.new_ElePromptMVA],
+    scopes=["global"],
+)
+Calculate_EleJetDF22to23 = Producer(
+    name="Calculate_EleJetDF22to23",
+    call="physicsobject::muon::Calculate_MuonJetDF22To23({df}, {output}, {input})",
+    input=[
+        nanoAOD.Electron_jetIdx,
+        nanoAOD.Jet_btagDeepFlavB,
+    ],
+    output=[q.ele_jet_DF],
+    scopes=["global"],
+)
+Rename_EleJetDF = Producer(
+    name="Rename_EleJetDF",
+    call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
+    input=[nanoAOD.Electron_jetDF],
+    output=[q.ele_jet_DF],
+    scopes=["global"],
+)
+Rename_EleMVAttH = Producer(
+    name="Rename_EleMVAttH",
+    call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
+    input=[nanoAOD.Electron_mvaTTH],
     output=[q.new_ElePromptMVA],
     scopes=["global"],
 )
