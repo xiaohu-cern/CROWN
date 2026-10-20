@@ -219,11 +219,11 @@ NumberOfBaseNotGoodElectrons = Producer(
     output=[q.nbaseNotgoodelectrons],
     scopes=["global"],
 )
-GoodEle_Veto = Producer(
-    name="GoodEle_Veto",
+BaseEle_Veto = Producer(
+    name="BaseEle_Veto",
     call="physicsobject::Ele_Veto({df}, {output}, {input})",
-    input=[q.good_electrons_mask],
-    output=[q.Flag_GoodEle_Veto],
+    input=[q.base_electrons_mask],
+    output=[q.Flag_BaseEle_Veto],
     scopes=["m2m","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 ### Electron collection and their properties

@@ -3,6 +3,9 @@
 
 namespace jet {
 ROOT::RDF::RNode
+SpecificJetPtCut(ROOT::RDF::RNode df, const std::string &mask, const std::string &jet_pt, const std::string &jet_eta,
+                 const std::string &year_id, const float &min_pt1, const float &min_pt2);
+ROOT::RDF::RNode
 VetoOverlappingJets(ROOT::RDF::RNode df, const std::string &output_col,
                     const std::string &jet_eta, const std::string &jet_phi,
                     const std::string &muon_eta, const std::string &muon_phi, const std::string &muon_mask,

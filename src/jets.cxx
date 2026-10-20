@@ -16,6 +16,37 @@
 
 namespace jet {
 
+ROOT::RDF::RNode
+SpecificJetPtCut(ROOT::RDF::RNode df, const std::string &mask, const std::string &jet_pt, const std::string &jet_eta,
+                 const std::string &year_id, const float &min_pt1, const float &min_pt2) {
+    auto df1 = 
+        df.Define(mask,
+        [year_id, min_pt1, min_pt2](const ROOT::RVec<float> &pt_values, const ROOT::RVec<float> &eta_values) {
+            ROOT::RVec<int> mask(pt_values.size(), 0);
+            for (size_t i = 0; i < pt_values.size(); ++i) {
+                if (year_id.find("2022") != std::string::npos || year_id.find("2023") != std::string::npos) {
+                    if (std::abs(eta_values.at(i)) > 2.5) {
+                        mask[i] = (pt_values.at(i) > min_pt2) ? 1 : 0;
+                    } else {
+                        mask[i] = (pt_values.at(i) > min_pt1) ? 1 : 0;
+                    }
+                }
+                if (year_id.find("2024") != std::string::npos) {
+                    if (std::abs(eta_values.at(i)) > 2.5 && std::abs(eta_values.at(i)) < 3) {
+                        mask[i] = (pt_values.at(i) > min_pt2) ? 1 : 0;
+                    } else {
+                        mask[i] = (pt_values.at(i) > min_pt1) ? 1 : 0;
+                    }
+                }
+                if (year_id.find("2025") != std::string::npos || year_id.find("2026") != std::string::npos) {
+                    mask[i] = (pt_values.at(i) > min_pt1) ? 1 : 0;
+                }
+            }
+            return mask;
+        }, {jet_pt, jet_eta});
+    return df1;                
+}
+
 // vhmm extend to N particle overlap removal
 /// Function to veto jets overlapping with particle candidates
 ///

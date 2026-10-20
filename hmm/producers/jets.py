@@ -254,20 +254,46 @@ FlagVetoMap = Producer(
 )
 
 ### selecting jets
+# JetPtCut = Producer(
+#     name="JetPtCut",
+#     call="physicsobject::CutPt({df}, {input}, {output}, {min_jet_pt})",
+#     input=[q.Jet_pt_corrected],
+#     output=[],
+#     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+#             "nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb",
+#             "m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb",
+#             "e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+# )
 JetPtCut = Producer(
     name="JetPtCut",
-    call="physicsobject::CutPt({df}, {input}, {output}, {min_jet_pt})",
-    input=[q.Jet_pt_corrected],
+    call="jet::SpecificJetPtCut({df}, {output}, {input}, {jet_year_id}, {min_jet_pt}, {min_jet_pt_horn})",
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+    ],
     output=[],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
             "nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb",
             "m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb",
             "e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
+# BJetPtCut = Producer(
+#     name="BJetPtCut",
+#     call="physicsobject::CutPt({df}, {input}, {output}, {min_bjet_pt})",
+#     input=[q.Jet_pt_corrected],
+#     output=[],
+#     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
+#             "nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb",
+#             "m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb",
+#             "e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+# )
 BJetPtCut = Producer(
     name="BJetPtCut",
-    call="physicsobject::CutPt({df}, {input}, {output}, {min_bjet_pt})",
-    input=[q.Jet_pt_corrected],
+    call="jet::SpecificJetPtCut({df}, {output}, {input}, {jet_year_id}, {min_bjet_pt}, {min_bjet_pt_horn})",
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+    ],
     output=[],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
             "nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb",
@@ -385,16 +411,18 @@ VetoOverlappingJets_GoodMuon = Producer(
     call="jet::VetoOverlappingJets({df}, {output}, {input}, {deltaR_jet_veto})",
     input=[nanoAOD.Jet_eta, nanoAOD.Jet_phi, nanoAOD.Muon_eta, nanoAOD.Muon_phi, q.good_muon_collection],
     output=[q.jet_overlap_veto_mask],
-    scopes=["m2m","e2m","mmmm","eemm","eemm_cr","nnmm","fjmm","fjmm_cr",
-            "nnmm_dycontrol","nnmm_topcontrol",
-            "m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+    scopes=["nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr",
+            "m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr", "m2m","mmmm", "m2m_dyfakeingmu_regionb",
+            "e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm_cr", "e2m_dyfakeinge_regionb", "e2m", "eemm"],
 )
 VetoOverlappingJets_GoodEle = Producer(
     name="VetoOverlappingJets_GoodEle",
     call="jet::VetoOverlappingJets({df}, {output}, {input}, {deltaR_jet_veto})",
     input=[nanoAOD.Jet_eta, nanoAOD.Jet_phi, nanoAOD.Electron_eta, nanoAOD.Electron_phi, q.good_electron_collection],
     output=[q.jet_overlap_veto_ele_mask],
-    scopes=["m2m","e2m","mmmm","eemm","nnmm","fjmm","fjmm_cr","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb"],
+    scopes=["nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr",
+            "m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr", "m2m","mmmm", "m2m_dyfakeingmu_regionb",
+            "e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm_cr", "e2m_dyfakeinge_regionb", "e2m", "eemm"],
 )
 # overlap with base muon for m2m regionc and regiond, they require 3 base muon
 VetoOverlappingJets_BaseMuon = Producer(
@@ -402,7 +430,9 @@ VetoOverlappingJets_BaseMuon = Producer(
     call="jet::VetoOverlappingJets({df}, {output}, {input}, {deltaR_jet_veto})",
     input=[nanoAOD.Jet_eta, nanoAOD.Jet_phi, nanoAOD.Muon_eta, nanoAOD.Muon_phi, q.base_muon_collection],
     output=[q.jet_overlap_veto_mask],
-    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
+    scopes=["nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr",
+            "m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr", "m2m","mmmm", "m2m_dyfakeingmu_regionb",
+            "e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm_cr", "e2m_dyfakeinge_regionb", "e2m", "eemm"],
 )
 # overlap with base ele, good mu for e2m regionc and regiond
 VetoOverlappingJets_BaseEle = Producer(
@@ -410,25 +440,27 @@ VetoOverlappingJets_BaseEle = Producer(
     call="jet::VetoOverlappingJets({df}, {output}, {input}, {deltaR_jet_veto})",
     input=[nanoAOD.Jet_eta, nanoAOD.Jet_phi, nanoAOD.Electron_eta, nanoAOD.Electron_phi, q.base_electron_collection],
     output=[q.jet_overlap_veto_ele_mask],
-    scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm_cr",],
+    scopes=["nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr",
+            "m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr", "m2m","mmmm", "m2m_dyfakeingmu_regionb",
+            "e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm_cr", "e2m_dyfakeinge_regionb", "e2m", "eemm"],
 )
 ########################
 ########################
 ########################
-GoodJets_2022_GoodMu_GoodEle = ProducerGroup(
-    name="GoodJets_2022_GoodMu_GoodEle",
+GoodJets_2022_GoodMu = ProducerGroup(
+    name="GoodJets_2022_GoodMu",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.good_jets_mask],
-    scopes=["m2m","e2m","mmmm","eemm","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","e2m_dyfakeinge_regionb","fjmm_cr"],
-    subproducers=[JetPtCut, JetEtaCut, JetIDCut_Bool, VetoOverlappingJets_GoodMuon, VetoOverlappingJets_GoodEle],
+    scopes=["nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
+    subproducers=[JetPtCut, JetEtaCut, JetIDCut_Bool, VetoOverlappingJets_GoodMuon],
 )
 GoodJets_2022_BaseMu = ProducerGroup(
     name="GoodJets_2022_BaseMu",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.good_jets_mask],
-    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr"],
+    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr", "m2m","mmmm", "m2m_dyfakeingmu_regionb"],
     subproducers=[JetPtCut, JetEtaCut, JetIDCut_Bool, VetoOverlappingJets_BaseMuon],
 )
 GoodJets_2022_BaseEle_GoodMu = ProducerGroup(
@@ -436,7 +468,7 @@ GoodJets_2022_BaseEle_GoodMu = ProducerGroup(
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.good_jets_mask],
-    scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm_cr"],
+    scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm_cr", "e2m_dyfakeinge_regionb", "e2m", "eemm"],
     subproducers=[JetPtCut, JetEtaCut, JetIDCut_Bool, VetoOverlappingJets_BaseEle, VetoOverlappingJets_GoodMuon],
 )
 ################# For 2024 #####################################

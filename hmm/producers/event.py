@@ -178,23 +178,67 @@ PUweights = Producer(
 #             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
 #             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 # )
-ExactTwoGoodMuons = Producer(
-    name="ExactTwoGoodMuons",
+# ExactTwoGoodMuons = Producer(
+#     name="ExactTwoGoodMuons",
+#     call='physicsobject::flagQuantity({df}, {output}, {input}, {vh_good_nmuons}, "==")',
+#     input=[q.nmuons],
+#     output=[],
+#     scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+#             "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+#             "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
+# )
+ExactNGoodMuons = Producer(
+    name="ExactNGoodMuons",
     call='physicsobject::flagQuantity({df}, {output}, {input}, {vh_good_nmuons}, "==")',
     input=[q.nmuons],
     output=[],
-    scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-            "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "eemm","eemm_cr","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
 )
+AtLeastNGoodMuons = Producer(
+    name="AtLeastNGoodMuons",
+    call='physicsobject::flagQuantity({df}, {output}, {input}, {vh_good_nmuons}, ">=")',
+    input=[q.nmuons],
+    output=[],
+    scopes=["m2m","m2m_dyfakeingmu_regionb", "mmmm"],
+)
+AtLeastNBaseNotGoodMuons = Producer(
+    name="AtLeastNBaseNotGoodMuons",
+    call='physicsobject::flagQuantity({df}, {output}, {input}, {vh_base_not_good_nmuons}, ">=")',
+    input=[q.nbaseNotgoodmuons],
+    output=[],
+    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond", "mmmm_cr"],
+)
+# FilterNGoodMuons = Filter(
+#     name="FilterGoodNMuons",
+#     call='basefunctions::FilterFlagsAny({df}, "Number of muons", {input})',
+#     input=[],
+#     scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+#             "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+#             "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
+#     subproducers=[ExactTwoGoodMuons]
+# )
 FilterNGoodMuons = Filter(
-    name="FilterGoodNMuons",
+    name="FilterNGoodMuons",
     call='basefunctions::FilterFlagsAny({df}, "Number of muons", {input})',
     input=[],
-    scopes=["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-            "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
-    subproducers=[ExactTwoGoodMuons]
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+            "eemm","eemm_cr", "nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
+    subproducers=[ExactNGoodMuons]
+)
+FilterAtLeastNGoodMuons = Filter(
+    name="FilterAtLeastNGoodMuons",
+    call='basefunctions::FilterFlagsAny({df}, "Number of muons", {input})',
+    input=[],
+    scopes=["m2m","m2m_dyfakeingmu_regionb", "mmmm"],
+    subproducers=[AtLeastNGoodMuons]
+)
+FilterAtLeastNBaseNotGoodMuons = Filter(
+    name="FilterAtLeastNBaseNotGoodMuons",
+    call='basefunctions::FilterFlagsAny({df}, "Number of muons", {input})',
+    input=[],
+    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond", "mmmm_cr"],
+    subproducers=[AtLeastNBaseNotGoodMuons]
 )
 Veto2lTriGoodMuons = Producer(
     name="Veto2lTriGoodMuons",
@@ -215,7 +259,8 @@ FilterNBaseMuons = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {vh_base_nmuons}, "==", "Number of base muons {vh_base_nmuons}, mvaTTH > -1 ")',
     input=[q.nbasemuons],
     output=None,
-    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","mmmm_cr"],
+    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","m2m","m2m_dyfakeingmu_regionb","mmmm", "eemm", "eemm_cr", "e2m", "e2m_dyfakeinge_regionb",
+            "e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","mmmm_cr", "nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
 )
 # write by botao
 ### e2m
@@ -224,14 +269,21 @@ FilterNGoodElectrons = Producer(
     call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nelectrons}, "==", "Number of good electrons {vh_good_nelectrons}")',
     input=[q.nelectrons],
     output=None,
-    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm","nnmm_topcontrol"],
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm_cr","nnmm_topcontrol"],
+)
+FilterAtLeastNGoodElectrons = Producer(
+    name="FilterAtLeastNGoodElectrons",
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_good_nelectrons}, ">=", "Number of good electrons {vh_good_nelectrons}")',
+    input=[q.nelectrons],
+    output=None,
+    scopes=["eemm"],
 )
 FilterNBaseElectrons = Producer(
     name="FilterNBaseElectrons",
     call='basefunctions::FilterThreshold({df}, {input}, {vh_base_nelectrons}, "==", "Number of base electrons {vh_base_nelectrons}")',
     input=[q.nbaseelectrons],
     output=None,
-    scopes=["e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm_cr"],
+    scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm_cr", "eemm"],
 )
 # FilterNFatjets_fjmm = Producer(
 #     name="FilterNFatjets_fjmm",
@@ -951,10 +1003,10 @@ FilterFlagLepChargeSum = Producer(
     output=None,
     scopes=["e2m","m2m","eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr","nnmm_dycontrol","nnmm_topcontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
-FilterFlagGoodEleVeto = Producer(
-    name="FilterFlagGoodEleVeto",
-    call='basefunctions::FilterThreshold({df}, {input}, {flag_GoodEle_Veto}, "==", "Electron Veto")',
-    input=[q.Flag_GoodEle_Veto],
+FilterFlagBaseEleVeto = Producer(
+    name="FilterFlagBaseEleVeto",
+    call='basefunctions::FilterThreshold({df}, {input}, {flag_BaseEle_Veto}, "==", "Electron Veto")',
+    input=[q.Flag_BaseEle_Veto],
     output=None,
     scopes=["m2m","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr","nnmm_dycontrol","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
@@ -1109,7 +1161,7 @@ PassFlagGoodEleVeto = Producer(
     name="PassFlagGoodEleVeto",
     call='physicsobject::PassFlag({df}, {output})',
     input=[],
-    output=[q.Flag_GoodEle_Veto], # e2m, eemm channel using this all pass flag
+    output=[q.Flag_BaseEle_Veto], # e2m, eemm channel using this all pass flag
     scopes=["e2m","eemm","eemm_cr","e2m_dyfakeinge_regionc"],
 )
 PassFlagZZVeto = Producer(
