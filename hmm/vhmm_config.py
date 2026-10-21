@@ -1082,31 +1082,55 @@ def build_config(
             "muon_id_sf_name_mvaTTH": "NUM_goodMuon_DEN_goodMuon_others",
             "muon_id_sf_name_dxydz3dsip": "NUM_baseMuon_3Dcut_DEN_baseMuon",
             # "muon_iso_sf_name": "NUM_TightRelIso_DEN_MediumID", # for run2?
+            # "muon_iso_sf_name": EraModifier(
+            #     {
+            #         # Z file has id and Iso type
+            #         "2016preVFP": "NUM_TightRelIso_DEN_MediumID",
+            #         "2016postVFP": "NUM_TightRelIso_DEN_MediumID",
+            #         "2017": "NUM_TightRelIso_DEN_MediumID",
+            #         "2018": "NUM_TightRelIso_DEN_MediumID",
+                    
+            #         "2022preEE": "NUM_TightPFIso_DEN_MediumID",
+            #         "2022postEE": "NUM_TightPFIso_DEN_MediumID",
+            #         "2023preBPix": "NUM_TightPFIso_DEN_MediumID",
+            #         "2023postBPix": "NUM_TightPFIso_DEN_MediumID",
+            #         "2024": "NUM_TightPFIso_DEN_MediumID",
+            #         "2025": "NUM_TightPFIso_DEN_MediumID",
+            #         "2026": "NUM_TightPFIso_DEN_MediumID",
+            #     }
+            # ),
             "muon_iso_sf_name": EraModifier(
                 {
                     # Z file has id and Iso type
-                    "2016preVFP": "NUM_TightRelIso_DEN_MediumID",
-                    "2016postVFP": "NUM_TightRelIso_DEN_MediumID",
-                    "2017": "NUM_TightRelIso_DEN_MediumID",
-                    "2018": "NUM_TightRelIso_DEN_MediumID",
-                    
-                    "2022preEE": "NUM_TightPFIso_DEN_MediumID",
-                    "2022postEE": "NUM_TightPFIso_DEN_MediumID",
-                    "2023preBPix": "NUM_TightPFIso_DEN_MediumID",
-                    "2023postBPix": "NUM_TightPFIso_DEN_MediumID",
-                    "2024": "NUM_TightPFIso_DEN_MediumID",
-                    "2025": "NUM_TightPFIso_DEN_MediumID",
-                    "2026": "NUM_TightPFIso_DEN_MediumID",
+                    "2022preEE": "NUM_LooseMiniIso_DEN_MediumID",
+                    "2022postEE": "NUM_LooseMiniIso_DEN_MediumID",
+                    "2023preBPix": "NUM_LooseMiniIso_DEN_MediumID",
+                    "2023postBPix": "NUM_LooseMiniIso_DEN_MediumID",
+                    "2024": "NUM_LooseMiniIso_DEN_MediumID",
+                    "2025": "NUM_LooseMiniIso_DEN_MediumID",
+                    "2026": "NUM_LooseMiniIso_DEN_MediumID",
                 }
             ),
+            # "muon_highpt_iso_sf_name": EraModifier(
+            #     {
+            #         # Z file has id and Iso type
+            #         "2016preVFP": "NUM_TightRelIso_DEN_HighPtID",
+            #         "2016postVFP": "NUM_TightRelIso_DEN_HighPtID",
+            #         "2017": "NUM_TightRelIso_DEN_HighPtID",
+            #         "2018": "NUM_TightRelIso_DEN_HighPtID",
+                    
+            #         "2022preEE": "NUM_TightRelTkIso_DEN_HighPtID",
+            #         "2022postEE": "NUM_TightRelTkIso_DEN_HighPtID",
+            #         "2023preBPix": "NUM_TightRelTkIso_DEN_HighPtID",
+            #         "2023postBPix": "NUM_TightRelTkIso_DEN_HighPtID",
+            #         "2024": "NUM_TightRelTkIso_DEN_HighPtID",
+            #         "2025": "NUM_TightRelTkIso_DEN_HighPtID",
+            #         "2026": "NUM_TightRelTkIso_DEN_HighPtID",
+            #     }
+            # ),
             "muon_highpt_iso_sf_name": EraModifier(
                 {
                     # Z file has id and Iso type
-                    "2016preVFP": "NUM_TightRelIso_DEN_HighPtID",
-                    "2016postVFP": "NUM_TightRelIso_DEN_HighPtID",
-                    "2017": "NUM_TightRelIso_DEN_HighPtID",
-                    "2018": "NUM_TightRelIso_DEN_HighPtID",
-                    
                     "2022preEE": "NUM_TightRelTkIso_DEN_HighPtID",
                     "2022postEE": "NUM_TightRelTkIso_DEN_HighPtID",
                     "2023preBPix": "NUM_TightRelTkIso_DEN_HighPtID",
@@ -4591,22 +4615,22 @@ def build_config(
             q.id_wgt_mu_dxydz3dsip_2,
         ],
     )
-    configuration.add_outputs(
-        ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-         "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-         "eemm","eemm_cr","mmmm","mmmm_cr"],
-        [
-            q.id_wgt_mu_1_below15,
-            q.id_wgt_mu_2_below15,
-        ],
-    )
+    # configuration.add_outputs(
+    #     ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #      "e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+    #      "eemm","eemm_cr","mmmm","mmmm_cr"],
+    #     [
+    #         q.id_wgt_mu_1_below15,
+    #         q.id_wgt_mu_2_below15,
+    #     ],
+    # )
     configuration.add_outputs(
         ["m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm","mmmm_cr"],
         [
             q.id_wgt_mu_3,
             q.iso_wgt_mu_3,
             
-            q.id_wgt_mu_3_below15,
+            # q.id_wgt_mu_3_below15,
             
             q.id_wgt_mu_3_above200,
             q.iso_wgt_mu_3_above200,
@@ -4623,7 +4647,7 @@ def build_config(
             q.id_wgt_mu_4,
             q.iso_wgt_mu_4,
             
-            q.id_wgt_mu_4_below15,
+            # q.id_wgt_mu_4_below15,
             
             q.id_wgt_mu_4_above200,
             q.iso_wgt_mu_4_above200,
@@ -5030,7 +5054,7 @@ def build_config(
 
             q.id_wgt_mu_1,
             q.iso_wgt_mu_1,
-            q.id_wgt_mu_1_below15,
+            # q.id_wgt_mu_1_below15,
             q.id_wgt_mu_mvatth_1,
             q.id_wgt_mu_dxydz3dsip_1,
             
