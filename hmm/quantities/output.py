@@ -4,6 +4,7 @@ lumi = Quantity("lumi")
 puweight = Quantity("puweight")
 prefireweight = Quantity("prefiring_wgt")
 
+base_muons_veto_mask = Quantity("base_muons_veto_mask")
 base_taus_mask = Quantity("base_taus_mask")
 good_taus_mask = Quantity("good_taus_mask")
 base_muons_mask = Quantity("base_muons_mask")

@@ -2271,7 +2271,7 @@ def build_config(
         ]
     )
     configuration.add_producers(
-        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         [
@@ -2287,6 +2287,7 @@ def build_config(
             muons.NumberOfGoodMuons,
             muons.BaseMuonCollection,
             muons.MuonCollection,
+            muons.BaseMuons_HighPt_Veto,
         ],
     )
     # as different lepton in final state, so need to overlap at each scope
@@ -4222,12 +4223,12 @@ def build_config(
                 triggers.GenerateMETTriggerFlags_v15,
             ],
         )
-    configuration.add_producers(
-        ["fjmm_cr", "fjmm", "nnmm"],
-        [
-            muons.Muons_use_for_Veto,
-        ],
-    )
+    # configuration.add_producers(
+    #     ["fjmm_cr", "fjmm", "nnmm"],
+    #     [
+    #         muons.Muons_use_for_Veto,
+    #     ],
+    # )
     configuration.add_producers(
         "nnmm_dycontrol",
         [
@@ -4373,7 +4374,7 @@ def build_config(
             
             q.nbasemuons,
             q.nmuons,
-            q.nbaseNotgoodmuons,
+            # q.nbaseNotgoodmuons,
             q.nelectrons,
             q.nbaseNotgoodelectrons,
             q.njets,
@@ -4396,6 +4397,15 @@ def build_config(
             q.genmet_phi,
             scalefactors.GenerateSingleMuonTriggerSF_MC.output_group,
         ],
+    )
+    configuration.add_outputs(
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
+         "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+         "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        [
+            q.nbaseNotgoodmuons,
+        ]
+        
     )
     configuration.add_outputs(
         ["e2m","m2m","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],

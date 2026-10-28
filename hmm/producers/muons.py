@@ -111,10 +111,9 @@ BaseMuons = ProducerGroup(
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.base_muons_mask],
-    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
-    # scopes=["global"],
     subproducers=[
         MuonPtCut,
         MuonEtaCut,
@@ -144,7 +143,7 @@ GoodMuonIsoCut = Producer(
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 GoodMuonIDCut = Producer(
-    name="MuonIDCut",
+    name="GoodMuonIDCut",
     call='physicsobject::muon::CutID({df}, {output}, "{good_muon_id_medium}")',
     input=[],
     output=[],
@@ -154,7 +153,7 @@ GoodMuonIDCut = Producer(
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 GoodMuonIDCut_HighPt = Producer(
-    name="MuonIDCut",
+    name="GoodMuonIDCut_HighPt",
     call='physicsobject::muon::CutUCharID({df}, {output}, {input}, {good_muon_id_highpt_bit})',
     input=[nanoAOD.Muon_highPtId],
     output=[q.mu_uchar_id_mask],
@@ -184,7 +183,7 @@ GoodMuons = ProducerGroup(
     input=[q.base_muons_mask],
     output=[q.good_muons_mask], # vh these are the final selection muons' mask
     # scopes=["global"],
-    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
     subproducers=[
@@ -202,7 +201,7 @@ BaseNotGoodMuons = Producer(
         q.good_muons_mask,
     ],
     output=[q.base_not_good_muons_mask],
-    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
@@ -225,6 +224,16 @@ BaseMuons_HighPt = ProducerGroup(
         GoodMuonIsoCut,
     ],
 )
+BaseMuons_HighPt_Veto = ProducerGroup(
+    name="BaseMuons_HighPt",
+    call="physicsobject::CombineMasks({df}, {output}, {input})",
+    input=[q.base_muons_mask],
+    output=[q.base_muons_veto_mask],
+    scopes=["fjmm_cr", "fjmm", "nnmm"],
+    subproducers=[
+        MuonIDCut,
+    ],
+)
 GoodMuons_HighPt = ProducerGroup(
     name="GoodMuons_HighPt",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
@@ -236,18 +245,18 @@ GoodMuons_HighPt = ProducerGroup(
     ],
 )
 
-Muons_use_for_Veto = ProducerGroup(
-    name = "Muons_use_for_Veto",
-    call="physicsobject::CombineMasks({df}, {output}, {input})",
-    input=[q.base_muons_mask],
-    output=[q.veto_2l_muons_mask],
-    scopes=["fjmm_cr", "fjmm", "nnmm"],
-    subproducers=[
-        MuonIDCut,
-        GoodMuon_mvaTTH_Cut,
-        GoodMuonIDCut,
-    ],
-)
+# Muons_use_for_Veto = ProducerGroup(
+#     name = "Muons_use_for_Veto",
+#     call="physicsobject::CombineMasks({df}, {output}, {input})",
+#     input=[q.base_muons_veto_mask],
+#     output=[q.veto_2l_muons_mask],
+#     scopes=["fjmm_cr", "fjmm", "nnmm"],
+#     subproducers=[
+#         MuonIDCut,
+#         GoodMuon_mvaTTH_Cut,
+#         GoodMuonIDCut,
+#     ],
+# )
 
 NumberOfGoodMuons = Producer(
     name="NumberOfGoodMuons",
@@ -263,14 +272,14 @@ NumberOfBaseNotGoodMuons = Producer(
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
     input=[q.base_not_good_muons_mask],
     output=[q.nbaseNotgoodmuons],
-    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 )
 NumberOfVetoMuons = Producer(
     name="NumberOfVetoMuons",
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
-    input=[q.veto_2l_muons_mask],
+    input=[q.base_muons_veto_mask],
     output=[q.nvetomuons],
     scopes=["fjmm_cr", "fjmm", "nnmm"],
 )
