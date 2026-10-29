@@ -52,6 +52,8 @@ Muon_mvaTTH = NanoAODQuantity("Muon_promptMVA")
 Muon_nTrackerLayers = NanoAODQuantity("Muon_nTrackerLayers")
 Muon_highPtId = NanoAODQuantity("Muon_highPtId")
 
+####### only in v15
+Electron_isEB = NanoAODQuantity("Electron_isEB")
 Electron_pt = NanoAODQuantity("Electron_pt")
 Electron_jetDF = NanoAODQuantity("Electron_jetDF")
 Electron_r9 = NanoAODQuantity("Electron_r9")

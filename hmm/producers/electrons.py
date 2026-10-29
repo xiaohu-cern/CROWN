@@ -72,20 +72,20 @@ ElectronDzCut = Producer(
 #     output=[],
 #     scopes=["global"],
 # )
-ElectronUCharIDCut = Producer(
-    name="ElectronUCharIDCut",
-    call='physicsobject::electron::CutUCharID({df}, {output}, {input}, {base_ele_cutbaseid})', 
-    input=[nanoAOD.Electron_cutBased],
-    output=[q.ele_uchar_id_mask],
-    scopes=["global"],
-)
-ElectronIntIDCut = Producer(
-    name="ElectronIntIDCut",
-    call='physicsobject::electron::CutCBID({df}, {output}, {input}, {base_ele_cutbaseid})', 
-    input=[nanoAOD.Electron_cutBased],
-    output=[q.ele_int_id_mask],
-    scopes=["global"],
-)
+# ElectronUCharIDCut = Producer(
+#     name="ElectronUCharIDCut",
+#     call='physicsobject::electron::CutUCharID({df}, {output}, {input}, {base_ele_cutbaseid})', 
+#     input=[nanoAOD.Electron_cutBased],
+#     output=[q.ele_uchar_id_mask],
+#     scopes=["global"],
+# )
+# ElectronIntIDCut = Producer(
+#     name="ElectronIntIDCut",
+#     call='physicsobject::electron::CutCBID({df}, {output}, {input}, {base_ele_cutbaseid})', 
+#     input=[nanoAOD.Electron_cutBased],
+#     output=[q.ele_int_id_mask],
+#     scopes=["global"],
+# )
 ElectronSIP3DCut = Producer(
     name="ElectronSIP3DCut",
     call="physicsobject::CutVarMax({df}, {input}, {output}, {ele_max_sip3d})",
@@ -121,6 +121,16 @@ GoodElectronMissingHitsCut_UChar = Producer(
     output=[],
     scopes=["global"],
 )
+GoodElectronEBsieieCut = Producer(
+    name="GoodElectronEBsieieCut",
+    call="physicsobject::electron::EleEBsieieCut({df}, {output}, {input})",
+    output=[],
+    input=[
+        q.EleEB,
+        nanoAOD.Electron_sieie,
+    ],
+    scopes=["global"]
+)
 BaseElectrons = ProducerGroup(
     name="BaseElectrons",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
@@ -139,26 +149,26 @@ BaseElectrons = ProducerGroup(
     ],
 )
 
-BaseElectrons_v2 = ProducerGroup(
-    name="BaseElectrons_v2",
-    call="physicsobject::CombineMasks({df}, {output}, {input})",
-    input=[q.base_electrons_mask],
-    output=[q.base_electrons_v2_mask],
-    scopes=["global"],
-    subproducers=[
-        ElectronUCharIDCut,
-    ],
-)
-BaseElectrons_v2_run2 = ProducerGroup(
-    name="BaseElectrons_v2_run2",
-    call="physicsobject::CombineMasks({df}, {output}, {input})",
-    input=[q.base_electrons_mask],
-    output=[q.base_electrons_v2_mask],
-    scopes=["global"],
-    subproducers=[
-        ElectronIntIDCut,
-    ],
-)
+# BaseElectrons_v2 = ProducerGroup(
+#     name="BaseElectrons_v2",
+#     call="physicsobject::CombineMasks({df}, {output}, {input})",
+#     input=[q.base_electrons_mask],
+#     output=[q.base_electrons_v2_mask],
+#     scopes=["global"],
+#     subproducers=[
+#         ElectronUCharIDCut,
+#     ],
+# )
+# BaseElectrons_v2_run2 = ProducerGroup(
+#     name="BaseElectrons_v2_run2",
+#     call="physicsobject::CombineMasks({df}, {output}, {input})",
+#     input=[q.base_electrons_mask],
+#     output=[q.base_electrons_v2_mask],
+#     scopes=["global"],
+#     subproducers=[
+#         ElectronIntIDCut,
+#     ],
+# )
 GoodElectron_mvaTTH_Cut = Producer(
     name="GoodElectron_mvaTTH_Cut",
     call="physicsobject::CutVarMin({df}, {input}, {output}, {min_goodelectron_mvaTTH})",
@@ -166,33 +176,34 @@ GoodElectron_mvaTTH_Cut = Producer(
     output=[],
     scopes=["global"],
 )
-GoodElectronIDCut = Producer(
-    name="GoodElectronIDCut",
-    call='physicsobject::electron::CutID({df}, {output}, "{good_ele_id}")', # notice here "{good_ele_id}"
-    input=[],
-    output=[],
-    scopes=["global"],
-)
+# GoodElectronIDCut = Producer(
+#     name="GoodElectronIDCut",
+#     call='physicsobject::electron::CutID({df}, {output}, "{good_ele_id}")', # notice here "{good_ele_id}"
+#     input=[],
+#     output=[],
+#     scopes=["global"],
+# )
 GoodElectrons = ProducerGroup(
     name="GoodElectrons",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
-    input=[q.base_electrons_v2_mask],
+    input=[q.base_electrons_mask],
     output=[q.good_electrons_mask], # vh these are the final selection muons' mask
     scopes=["global"],
     subproducers=[
         GoodElectron_mvaTTH_Cut,
-        GoodElectronIDCut,
+        # GoodElectronIDCut,
         GoodElectronMissingHitsCut_UChar,
         ElectronJetDFCut,
         ElectronHOECut,
         ElectroneInvMinusPInvCut,
+        GoodElectronEBsieieCut,
     ],
 )
 BaseNotGoodElectrons = Producer(
     name="BaseNotGoodElectrons",
     call="physicsobject::Base_Not_Good({df}, {output}, {input})",
     input=[
-        q.base_electrons_v2_mask,
+        q.base_electrons_mask,
         q.good_electrons_mask,
     ],
     output=[q.base_not_good_electrons_mask],
@@ -201,7 +212,7 @@ BaseNotGoodElectrons = Producer(
 NumberOfBaseElectrons = Producer(
     name="NumberOfBaseElectrons",
     call="quantities::NumberOfGoodObjects({df}, {output}, {input})",
-    input=[q.base_electrons_v2_mask],
+    input=[q.base_electrons_mask],
     output=[q.nbaseelectrons],
     scopes=["global"],
 )
@@ -238,7 +249,7 @@ ElectronCollection = Producer(
 BaseElectronCollection = Producer(
     name="BaseElectronCollection",
     call="jet::OrderJetsByPt({df}, {output}, {input})",
-    input=[nanoAOD.Electron_pt, q.base_electrons_v2_mask],
+    input=[nanoAOD.Electron_pt, q.base_electrons_mask],
     output=[q.base_electron_collection],  # eles after ordered by pt
     scopes=["global"],
 )
@@ -362,6 +373,16 @@ Calculate_EleJetDF22to23 = Producer(
     output=[q.ele_jet_DF],
     scopes=["global"],
 )
+Calculate_EleEB22to23 = Producer(
+    name="Calculate_ElectronEB22to23",
+    call="physicsobject::electron::Calculate_EleEB22To23({df}, {output}, {input})",
+    input=[
+        nanoAOD.Electron_eta,
+        nanoAOD.Electron_deltaEtaSC,
+    ],
+    output=[q.EleEB],
+    scopes=["global"]
+)
 Rename_EleJetDF = Producer(
     name="Rename_EleJetDF",
     call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
@@ -374,5 +395,12 @@ Rename_EleMVAttH = Producer(
     call="basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})",
     input=[nanoAOD.Electron_mvaTTH],
     output=[q.new_ElePromptMVA],
+    scopes=["global"],
+)
+Rename_EleEB = Producer(
+    name="Rename_EleEB",
+    call="basefunctions::rename<ROOT::RVec<bool>>({df}, {input}, {output})",
+    input=[nanoAOD.Electron_isEB],
+    output=[q.EleEB],
     scopes=["global"],
 )

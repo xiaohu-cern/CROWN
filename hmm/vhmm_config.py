@@ -2072,13 +2072,13 @@ def build_config(
     configuration.add_config_parameters(
         ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
         {
-            "vh_base_not_good_nmuons" : 2, # at least 2 base but not good muons
+            "vh_good_nmuons" : 2, # exact 2 good muons
         }
     )
     configuration.add_config_parameters(
         ["m2m","m2m_dyfakeingmu_regionb"],
         {
-            "vh_good_nmuons" : 2, # at least 2 good muons
+            "vh_good_nmuons" : 3, # exact 3 good muons
         }
     )
     configuration.add_config_parameters(
@@ -2204,7 +2204,7 @@ def build_config(
             
             # need use data driven, collect the low mva ele at scopes
             electrons.BaseElectrons,
-            electrons.BaseElectrons_v2, # v2 add cutbaseID from base ele
+            # electrons.BaseElectrons_v2, # v2 add cutbaseID from base ele
             # electrons.GoodElectrons, # good ele add mvaTTH and mvaIsoID from base ele
             
             electrons.NumberOfBaseElectrons,
@@ -2246,6 +2246,7 @@ def build_config(
             [
                 electrons.Calculate_ElePromptMVA22To23,
                 electrons.Calculate_EleJetDF22to23,
+                electrons.Calculate_EleEB22to23,
             ],
         )
     if era == "2024" or era == "2025" or era == "2026":
@@ -2262,6 +2263,7 @@ def build_config(
             [
                 electrons.Rename_EleJetDF,
                 electrons.Rename_EleMVAttH,
+                electrons.Rename_EleEB,
             ],
         )
     configuration.add_producers(
@@ -2502,8 +2504,8 @@ def build_config(
     configuration.add_producers(
         "m2m",
         [
-            # event.FilterNGoodMuons, # vh ==3 muons
-            event.FilterAtLeastNGoodMuons,
+            event.FilterNGoodMuons, # vh ==3 muons
+            # event.FilterAtLeastNGoodMuons,
             event.FilterNBaseMuons,
             # write by botao
             lepton.CalcSmallestDiMuonMass,  # SFOS, m2m only has m
@@ -2650,8 +2652,8 @@ def build_config(
         # Region B: pass 3 medium muons and fail m(mm) in [110,150], actually in [70,110]
         "m2m_dyfakeingmu_regionb",
         [
-            # event.FilterNGoodMuons, # vh ==3 muons
-            event.FilterAtLeastNGoodMuons,
+            event.FilterNGoodMuons, # vh ==3 muons
+            # event.FilterAtLeastNGoodMuons,
             event.FilterNBaseMuons,
             # write by botao
             lepton.CalcSmallestDiMuonMass,
@@ -2743,8 +2745,8 @@ def build_config(
         "m2m_dyfakeingmu_regionc",
         [
             event.FilterNBaseMuons,
-            # event.FilterNGoodMuons, # vh reigon c, d ==2 medium good muons
-            event.FilterAtLeastNBaseNotGoodMuons,
+            event.FilterNGoodMuons, # vh reigon c, d ==2 medium good muons
+            # event.FilterAtLeastNBaseNotGoodMuons,
             # lepton.CalcSmallestDiMuonMass,
             lepton.CalcSmallestBaseDiMuonMass,
             event.DimuonMinMassCut, # filter cut dimuon mass < 12 GeV
@@ -2888,8 +2890,8 @@ def build_config(
         "m2m_dyfakeingmu_regiond",
         [
             event.FilterNBaseMuons,
-            # event.FilterNGoodMuons, # vh reigon c, d ==2 muons
-            event.FilterAtLeastNBaseNotGoodMuons,
+            event.FilterNGoodMuons, # vh reigon c, d ==2 muons
+            # event.FilterAtLeastNBaseNotGoodMuons,
             # lepton.CalcSmallestDiMuonMass,
             lepton.CalcSmallestBaseDiMuonMass,
             event.DimuonMinMassCut, # filter cut dimuon mass < 12 GeV

@@ -828,6 +828,8 @@ fatjetTightLepVetoID = Quantity("fatjetTightLepVetoID")
 new_MuonPromptMVA = Quantity("new_MuonPromptMVA")
 new_ElePromptMVA = Quantity("new_ElePromptMVA")
 
+EleEB = Quantity("EleEB")
+
 subjet_p4_1 = Quantity("subjet_p4_1")
 subjet_p4_2 = Quantity("subjet_p4_2")
 subjet1_pt = Quantity("subjet1_pt")

@@ -85,7 +85,7 @@ Electron_mvaTTH = NanoAODQuantity("Electron_mvaTTH")
 Electron_pdgId = NanoAODQuantity("Electron_pdgId")
 Electron_hoe = NanoAODQuantity("Electron_hoe")
 Electron_eInvMinusPInv = NanoAODQuantity("Electron_eInvMinusPInv")
-Electron_isEB = NanoAODQuantity("Electron_isEB")
+# Electron_isEB = NanoAODQuantity("Electron_isEB")
 Electron_sieie = NanoAODQuantity("Electron_sieie")
 
 # end write

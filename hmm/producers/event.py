@@ -193,21 +193,22 @@ ExactNGoodMuons = Producer(
     input=[q.nmuons],
     output=[],
     scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-            "eemm","eemm_cr","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
+            "eemm","eemm_cr","nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr", 
+            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
 )
 AtLeastNGoodMuons = Producer(
     name="AtLeastNGoodMuons",
     call='physicsobject::flagQuantity({df}, {output}, {input}, {vh_good_nmuons}, ">=")',
     input=[q.nmuons],
     output=[],
-    scopes=["m2m","m2m_dyfakeingmu_regionb", "mmmm"],
+    scopes=["mmmm"],
 )
 AtLeastNBaseNotGoodMuons = Producer(
     name="AtLeastNBaseNotGoodMuons",
     call='physicsobject::flagQuantity({df}, {output}, {input}, {vh_base_not_good_nmuons}, ">=")',
     input=[q.nbaseNotgoodmuons],
     output=[],
-    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond", "mmmm_cr"],
+    scopes=["mmmm_cr"],
 )
 # FilterNGoodMuons = Filter(
 #     name="FilterGoodNMuons",
@@ -223,21 +224,22 @@ FilterNGoodMuons = Filter(
     call='basefunctions::FilterFlagsAny({df}, "Number of muons", {input})',
     input=[],
     scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-            "eemm","eemm_cr", "nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
+            "eemm","eemm_cr", "nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr", 
+            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond"],
     subproducers=[ExactNGoodMuons]
 )
 FilterAtLeastNGoodMuons = Filter(
     name="FilterAtLeastNGoodMuons",
     call='basefunctions::FilterFlagsAny({df}, "Number of muons", {input})',
     input=[],
-    scopes=["m2m","m2m_dyfakeingmu_regionb", "mmmm"],
+    scopes=["mmmm"],
     subproducers=[AtLeastNGoodMuons]
 )
 FilterAtLeastNBaseNotGoodMuons = Filter(
     name="FilterAtLeastNBaseNotGoodMuons",
     call='basefunctions::FilterFlagsAny({df}, "Number of muons", {input})',
     input=[],
-    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond", "mmmm_cr"],
+    scopes=["mmmm_cr"],
     subproducers=[AtLeastNBaseNotGoodMuons]
 )
 Veto2lTriGoodMuons = Producer(
@@ -256,7 +258,7 @@ Filter2lTriGoodMuons = Filter(
 )
 FilterNBaseMuons = Producer(
     name="FilterNBaseMuons",
-    call='basefunctions::FilterThreshold({df}, {input}, {vh_base_nmuons}, "==", "Number of base muons {vh_base_nmuons}, mvaTTH > -1 ")',
+    call='basefunctions::FilterThreshold({df}, {input}, {vh_base_nmuons}, "==", "Number of base muons {vh_base_nmuons}")',
     input=[q.nbasemuons],
     output=None,
     scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","m2m","m2m_dyfakeingmu_regionb","mmmm", "eemm", "eemm_cr", "e2m", "e2m_dyfakeinge_regionb",

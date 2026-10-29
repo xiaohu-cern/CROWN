@@ -3390,7 +3390,41 @@ ROOT::RDF::RNode Calculate_ElePromptMVA22To23(ROOT::RDF::RNode df, const std::st
     );
     return df1;
 }
-
+ROOT::RDF::RNode Calculate_EleEB22To23(ROOT::RDF::RNode df, const std::string &EleEB,
+                                       const std::string &Ele_Eta, const std::string &Electron_deltaEtaSC) {
+    auto df1 = df.Define(
+        EleEB,
+        [](const ROOT::RVec<float> &eta_values, const ROOT::RVec<float> &deltaEtaSC_values) {
+            ROOT::RVec<bool> EleEB_values(eta_values.size());
+            for (int i = 0; i < eta_values.size(); i++) {
+                EleEB_values[i] = std::abs(eta_values[i] + deltaEtaSC_values[i]) < 1.4 ? 1 : 0;
+            }
+            return EleEB_values;
+        },
+        {Ele_Eta, Electron_deltaEtaSC}
+    );
+    return df1;
+}
+ROOT::RDF::RNode EleEBsieieCut(ROOT::RDF::RNode df, const std::string &mask,
+                               const std::string &EleEB, const std::string &Electron_sieie) {
+    auto df1 = df.Define(
+        mask,
+        [](const ROOT::RVec<bool> &EleEB_values, const ROOT::RVec<float> &Electron_sieie) {
+            ROOT::RVec<int> mask(EleEB_values.size());
+            for (int i = 0; i < EleEB_values.size(); i++) {
+                if (EleEB_values[i]) {
+                    mask[i] = Electron_sieie[i] < 0.011 ? 1 : 0;
+                } 
+                else {
+                    mask[i] = Electron_sieie[i] < 0.030 ? 1 : 0;
+                }
+            }
+            return mask;
+        },
+        {EleEB, Electron_sieie}
+    );
+    return df1;
+}
 } // end namespace electron
 
 } // namespace physicsobject
