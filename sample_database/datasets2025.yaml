@@ -693,8 +693,8 @@ GluGluH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powheg-pythia8_RunIII2024Summer24NanoAO
   dbs: /GluGluH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM
   era: 2025
   generator_weight: 1.0
-  nevents: 2800000
-  nfiles: 72
+  nevents: 5600000
+  nfiles: 113
   sample_type: vhmm
   xsec: 0.01138614
 
@@ -703,8 +703,8 @@ TTH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powheg-pythia8_RunIII2024Summer24NanoAODv15
   dbs: /TTH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM
   era: 2025
   generator_weight: 1.0
-  nevents: 2787634
-  nfiles: 65
+  nevents: 5584634
+  nfiles: 156
   sample_type: vhmm
   xsec: 0.00012426
 
@@ -713,8 +713,8 @@ VBFH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powheg-pythia8_RunIII2024Summer24NanoAODv1
   dbs: /VBFH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM
   era: 2025
   generator_weight: 1.0
-  nevents: 5593000
-  nfiles: 99
+  nevents: 11190000
+  nfiles: 190
   sample_type: vhmm
   xsec: 0.000889004
 
