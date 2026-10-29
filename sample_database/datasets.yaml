@@ -3703,8 +3703,8 @@ WminusH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powhegMINLO-pythia8_RunIII2024Summer24N
   dbs: /WminusH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powhegMINLO-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3/NANOAODSIM
   era: 2024
   generator_weight: 1.0
-  nevents: 1680000
-  nfiles: 9
+  nevents: 3360000
+  nfiles: 48
   sample_type: vhmm
   xsec: 0.0001237586
 
@@ -3713,8 +3713,8 @@ WplusH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powhegMINLO-pythia8_RunIII2024Summer24Na
   dbs: /WplusH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powhegMINLO-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3/NANOAODSIM
   era: 2024
   generator_weight: 1.0
-  nevents: 1680000
-  nfiles: 30
+  nevents: 3360000
+  nfiles: 73
   sample_type: vhmm
   xsec: 0.00019378
 
@@ -3723,8 +3723,8 @@ ZH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powhegMINLO-pythia8_RunIII2024Summer24NanoAO
   dbs: /ZH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powhegMINLO-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3/NANOAODSIM
   era: 2024
   generator_weight: 1.0
-  nevents: 2797436
-  nfiles: 65
+  nevents: 5597436
+  nfiles: 190
   sample_type: vhmm
   xsec: 0.0002057702
 
@@ -4453,8 +4453,8 @@ WminusH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powhegMINLO-pythia8_RunIII2024Summer24N
   dbs: /WminusH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powhegMINLO-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3/NANOAODSIM
   era: 2025
   generator_weight: 1.0
-  nevents: 1680000
-  nfiles: 9
+  nevents: 3360000
+  nfiles: 48
   sample_type: vhmm
   xsec: 0.0001237586
 
@@ -4463,8 +4463,8 @@ WplusH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powhegMINLO-pythia8_RunIII2024Summer24Na
   dbs: /WplusH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powhegMINLO-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3/NANOAODSIM
   era: 2025
   generator_weight: 1.0
-  nevents: 1680000
-  nfiles: 30
+  nevents: 3360000
+  nfiles: 73
   sample_type: vhmm
   xsec: 0.00019378
 
@@ -4473,8 +4473,8 @@ ZH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powhegMINLO-pythia8_RunIII2024Summer24NanoAO
   dbs: /ZH-Hto2Mu_Par-M-125_TuneCP5_13p6TeV_powhegMINLO-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3/NANOAODSIM
   era: 2025
   generator_weight: 1.0
-  nevents: 2797436
-  nfiles: 65
+  nevents: 5597436
+  nfiles: 190
   sample_type: vhmm
   xsec: 0.0002057702
 
