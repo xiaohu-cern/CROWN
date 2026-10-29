@@ -479,8 +479,10 @@ ROOT::RDF::RNode Calculate_ElePromptMVA22To23(ROOT::RDF::RNode df, const std::st
                                                    const std::string &Ele_sip3d, const std::string &Ele_dxy, const std::string &Ele_dz, 
                                                    const std::string &Ele_mvaIso, 
                                                    const std::string &BDT_model_name, const std::string &xmlpath);
-
-
+ROOT::RDF::RNode Calculate_EleEB22To23(ROOT::RDF::RNode df, const std::string &EleEB,
+                                       const std::string &Ele_Eta, const std::string &Electron_deltaEtaSC);
+ROOT::RDF::RNode EleEBsieieCut(ROOT::RDF::RNode df, const std::string &mask,
+                               const std::string &EleEB, const std::string &Electron_sieie);                             
 } // end namespace electron
 } // namespace physicsobject
 #endif /* GUARD_PHYSICSOBJECTS_H */
