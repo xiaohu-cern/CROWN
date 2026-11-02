@@ -2185,6 +2185,24 @@ def build_config(
             "flag_MetCut" : 1,
         }
     )
+
+    if era == "2024" or era == "2025":
+        configuration.add_producers(
+            "global",
+            [
+                event.EventSplit24to25,
+            ]
+        )
+        configuration.add_modification_rule(
+            "global",
+            RemoveProducer(
+                producers=[
+                    event.EventSplit24to25,
+                ],
+                samples=["data"],
+            ),
+        )
+
     
     configuration.add_producers(
         "global",

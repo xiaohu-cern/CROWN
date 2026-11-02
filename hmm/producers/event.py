@@ -126,6 +126,18 @@ SampleFlags = ProducerGroup(
     ],
 )
 
+EventSplit24to25 = Producer(
+    name="EventSplit24to25",
+    call='eventsplit::ApplyEventSplit({df}, {year_id}, "event_split_24to25", {input})',
+    input=[
+        nanoAOD.run,
+        nanoAOD.luminosityBlock,
+        nanoAOD.event,
+    ],
+    output=None,
+    scopes=["global"],
+)
+
 MetFilter = VectorProducer(
     name="MetFilter",
     call='metfilter::ApplyMetFilter({df}, "{met_filters}", "{met_filters}")',

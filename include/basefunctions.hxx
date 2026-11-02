@@ -9,10 +9,33 @@
 #include "utility/RooFunctorThreadsafe.hxx"
 #include "utility/utility.hxx"
 #include <nlohmann/json.hpp>
+#include <cstdint>
 
 enum Channel { MT = 0, ET = 1, TT = 2, EM = 3 };
 
 namespace basefunctions {
+
+/////// this two functions are used to split the Summer24 MC to 2 parts, one for 2024 and the other for 2025.
+inline uint64_t SplitMix64(uint64_t x) {
+    x += 0x9e3779b97f4a7c15ULL;
+    x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
+    x = (x ^ (x >> 27)) * 0x94d049bb133111ebULL;
+    return x ^ (x >> 31);
+}
+
+inline int EventSplit(UInt_t run,
+                      UInt_t luminosityBlock,
+                      ULong64_t event) {
+    const uint64_t runLumi =
+        (static_cast<uint64_t>(run) << 32) |
+        static_cast<uint64_t>(luminosityBlock);
+
+    const uint64_t hash =
+        SplitMix64(runLumi ^ SplitMix64(event));
+
+    return static_cast<int>(hash % 2);
+}
+/////// End of event split functions
 
 // vh extension
 /// Require events with its quantity to be "?" to the threshold
