@@ -304,3 +304,27 @@ MMTrueGenDiTauPairQuantities = ProducerGroup(
         gen_m_vis,
     ],
 )
+GenLepPDG_id = Producer(
+    name="GenLepPDG_id",
+    call="physicsobject::GenLepPDG_id({df}, {output}, {input})",
+    output=[q.genlep_pdgid],
+    input=[
+        nanoAOD.GenParticle_pdgId,
+        nanoAOD.GenParticle_statusFlags,
+    ],
+    scopes=["global"]
+)
+lhe_Vpt_output = Producer(
+    name="lhe_Vpt_output",
+    call="basefunctions::rename<float>({df}, {input}, {output})",
+    input=[nanoAOD.lhe_Vpt],
+    output=[q.lhe_Vpt],
+    scopes=["global"]
+)
+lhe_NpNLO_output = Producer(
+    name="lhe_NpNLO_output",
+    call="basefunctions::rename<UChar_t>({df}, {input}, {output})",
+    input=[nanoAOD.lhe_NpNLO],
+    output=[q.lhe_NpNLO],
+    scopes=["global"]
+)

@@ -3,6 +3,9 @@ from code_generation.quantity import Quantity
 lumi = Quantity("lumi")
 puweight = Quantity("puweight")
 prefireweight = Quantity("prefiring_wgt")
+genlep_pdgid = Quantity("genlep_pdgid")
+lhe_Vpt = Quantity("lhe_Vpt")
+lhe_NpNLO = Quantity("lhe_NpNLO")
 
 base_muons_veto_mask = Quantity("base_muons_veto_mask")
 base_taus_mask = Quantity("base_taus_mask")

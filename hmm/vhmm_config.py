@@ -4342,6 +4342,14 @@ def build_config(
             momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr,
         ]
     )
+    configuration.add_producers(
+        ["global"],
+        [
+            genparticles.GenLepPDG_id,
+            genparticles.lhe_Vpt_output,
+            genparticles.lhe_NpNLO_output
+        ]
+    )
     # configuration.add_producers(
     #     ["fjmm", "nnmm"],
     #     [
@@ -5134,6 +5142,14 @@ def build_config(
     #     ]
     # )
     # add genWeight for everything but data
+    configuration.add_outputs(
+        "global",
+        [
+            q.genlep_pdgid,
+            q.lhe_Vpt,
+            q.lhe_NpNLO,
+        ]
+    )
     if sample != "data":
         configuration.add_outputs(
             scopes,

@@ -35,6 +35,26 @@
 /// multiple cuts can be combined by multiplying masks using
 /// physicsobject::CombineMasks.
 namespace physicsobject {
+ROOT::RDF::RNode GenLepPDG_id (ROOT::RDF::RNode df, const std::string &output, 
+                               const std::string &GenPart_pdgId, const std::string &GenPart_statusFlags) {
+    auto return_genlep_pdgid = [] (const ROOT::RVec<Int_t> &pdgId_values, const ROOT::RVec<int> &statusFlags_values) {
+        if (pdgId_values.size() != statusFlags_values.size()) {
+            return -999;
+        }
+        for (int i = 0; i < pdgId_values.size(); i++) {
+            if ((statusFlags_values[i] & (1 << 7)) == 0) {
+                continue;
+            }
+            int abs_pdg = std::abs(pdgId_values[i]);
+            if (abs_pdg == 11 || abs_pdg == 13 || abs_pdg == 15) {
+                return abs_pdg;
+            }
+        }
+        return -10;
+    };
+    auto df1 = df.Define(output, return_genlep_pdgid, {GenPart_pdgId, GenPart_statusFlags});
+    return df1;
+}
 ROOT::RDF::RNode FsrPhoton_idx (ROOT::RDF::RNode df, const std::string &fsrphoton_index, 
                                 const std::string &dimuons_index, const std::string &photon_index, 
                                 const std::string &photon_reliso, const std::string &photon_dROverEt2, 
