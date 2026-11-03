@@ -128,12 +128,8 @@ SampleFlags = ProducerGroup(
 
 EventSplit24to25 = Producer(
     name="EventSplit24to25",
-    call='eventsplit::ApplyEventSplit({df}, {year_id}, "event_split_24to25", {input})',
-    input=[
-        nanoAOD.run,
-        nanoAOD.luminosityBlock,
-        nanoAOD.event,
-    ],
+    call='eventsplit::ApplyEventSplit({df}, {year_id}, "event_split_24to25")',
+    input=[],
     output=None,
     scopes=["global"],
 )
