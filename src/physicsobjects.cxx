@@ -41,14 +41,26 @@ ROOT::RDF::RNode GenLepPDG_id (ROOT::RDF::RNode df, const std::string &output,
         if (pdgId_values.size() != statusFlags_values.size()) {
             return -999;
         }
+        bool foundE = false;
+        bool foundMu = false;
+        bool foundTau = false;
         for (int i = 0; i < pdgId_values.size(); i++) {
             if ((statusFlags_values[i] & (1 << 7)) == 0) {
                 continue;
             }
             int abs_pdg = std::abs(pdgId_values[i]);
-            if (abs_pdg == 11 || abs_pdg == 13 || abs_pdg == 15) {
-                return abs_pdg;
-            }
+            if (abs_pdg == 11) foundE = true;
+            if (abs_pdg == 13) foundMu = true;
+            if (abs_pdg == 15) foundTau = true;
+        }
+        if (foundE) {
+            return 11;
+        }
+        else if (foundMu && !foundE) {
+            return 13;
+        }
+        else if (foundTau && !foundE && !foundMu) {
+            return 15;
         }
         return -10;
     };
