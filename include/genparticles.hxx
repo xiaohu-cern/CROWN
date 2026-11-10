@@ -11,6 +11,8 @@
 #include <cmath>
 
 namespace genmatching {
+ROOT::RDF::RNode CalGenLepPDG_id (ROOT::RDF::RNode df, const std::string &HardProcessLep_pdgId,
+                               const std::string &GenPart_pdgId, const std::string &GenPart_statusFlags);
 namespace tau {
 ROOT::RDF::RNode genmatching(ROOT::RDF::RNode df, const std::string &outputname,
                              const std::string &genTaus,

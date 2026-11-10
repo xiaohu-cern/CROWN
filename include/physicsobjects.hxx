@@ -2,8 +2,6 @@
 #define GUARD_PHYSICSOBJECTS_H
 
 namespace physicsobject {
-ROOT::RDF::RNode GenLepPDG_id (ROOT::RDF::RNode df, const std::string &output, 
-                               const std::string &GenPart_pdgId, const std::string &GenPart_statusFlags);
 ROOT::RDF::RNode FsrPhoton_idx (ROOT::RDF::RNode df, const std::string &fsrphoton_index, 
                                 const std::string &dimuons_index, const std::string &photon_index, 
                                 const std::string &photon_reliso, const std::string &photon_dROverEt2, 

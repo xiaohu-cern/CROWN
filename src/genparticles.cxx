@@ -24,6 +24,40 @@ enum class GenMatchingCode : int {
 };
 
 namespace genmatching {
+ROOT::RDF::RNode CalGenLepPDG_id (ROOT::RDF::RNode df, const std::string &HardProcessLep_pdgId,
+                               const std::string &GenPart_pdgId, const std::string &GenPart_statusFlags) {
+    auto return_genlep_pdgid = [] (const ROOT::RVec<Int_t> &pdgId_values, 
+                                   ROOT::RVec<UShort_t> &statusFlags_values) {
+
+        if (pdgId_values.size() != statusFlags_values.size()) {
+            return -999;
+        }
+        bool foundE = false;
+        bool foundMu = false;
+        bool foundTau = false;
+        for (int i = 0; i < pdgId_values.size(); i++) {
+            if ((statusFlags_values[i] & (1 << 7)) == 0) {
+                continue;
+            }
+            int abs_pdg = std::abs(pdgId_values[i]);
+            if (abs_pdg == 11) foundE = true;
+            if (abs_pdg == 13) foundMu = true;
+            if (abs_pdg == 15) foundTau = true;
+        }
+        if (foundE) {
+            return 11;
+        }
+        else if (foundMu && !foundE) {
+            return 13;
+        }
+        else if (foundTau && !foundE && !foundMu) {
+            return 15;
+        }
+        return -10;
+    };
+    auto df1 = df.Define(HardProcessLep_pdgId, return_genlep_pdgid, {GenPart_pdgId, GenPart_statusFlags});
+    return df1;
+}
 
 namespace tau {
 /**

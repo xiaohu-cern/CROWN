@@ -24,6 +24,29 @@
 #include "TLorentzRotation.h"
 #include <Math/Boost.h>
 #include "../include/KIT_Corr.hxx"
+#include "RtypesCore.h"
+#include <cmath>
+
+// The meaning of the genparticle statusflag codes is listed in the table below.
+
+//  Meaning                             | Value | Bit (value used in the config)
+// -------------------------------------|-------|-------
+//  isPrompt                            | 1     | 0
+//  isDecayedLeptonHadron               | 2     | 1
+//  isTauDecayProduct                   | 4     | 2
+//  isPromptTauDecayProduct             | 8     | 3
+//  isDirectTauDecayProduct             | 16    | 4
+//  isDirectPromptTauDecayProduct       | 32    | 5
+//  isDirectHadronDecayProduct          | 64    | 6
+//  isHardProcess                       | 128   | 7
+//  fromHardProcess                     | 256   | 8
+//  isHardProcessTauDecayProduct        | 512   | 9
+//  isDirectHardProcessTauDecayProduct  | 1024  | 10
+//  fromHardProcessBeforeFSR            | 2048  | 11
+//  isFirstCopy                         | 4096  | 12
+//  isLastCopy                          | 8192  | 13
+//  isLastCopyBeforeFSR                 | 16384 | 14
+
 /// Namespace containing function to apply cuts on physics objects. The
 /// cut results are typically stored within a mask, which is represented by
 /// an `ROOT::RVec<int>`.
@@ -35,38 +58,6 @@
 /// multiple cuts can be combined by multiplying masks using
 /// physicsobject::CombineMasks.
 namespace physicsobject {
-ROOT::RDF::RNode GenLepPDG_id (ROOT::RDF::RNode df, const std::string &output, 
-                               const std::string &GenPart_pdgId, const std::string &GenPart_statusFlags) {
-    auto return_genlep_pdgid = [] (const ROOT::RVec<Int_t> &pdgId_values, const ROOT::RVec<int> &statusFlags_values) {
-        if (pdgId_values.size() != statusFlags_values.size()) {
-            return -999;
-        }
-        bool foundE = false;
-        bool foundMu = false;
-        bool foundTau = false;
-        for (int i = 0; i < pdgId_values.size(); i++) {
-            if ((statusFlags_values[i] & (1 << 7)) == 0) {
-                continue;
-            }
-            int abs_pdg = std::abs(pdgId_values[i]);
-            if (abs_pdg == 11) foundE = true;
-            if (abs_pdg == 13) foundMu = true;
-            if (abs_pdg == 15) foundTau = true;
-        }
-        if (foundE) {
-            return 11;
-        }
-        else if (foundMu && !foundE) {
-            return 13;
-        }
-        else if (foundTau && !foundE && !foundMu) {
-            return 15;
-        }
-        return -10;
-    };
-    auto df1 = df.Define(output, return_genlep_pdgid, {GenPart_pdgId, GenPart_statusFlags});
-    return df1;
-}
 ROOT::RDF::RNode FsrPhoton_idx (ROOT::RDF::RNode df, const std::string &fsrphoton_index, 
                                 const std::string &dimuons_index, const std::string &photon_index, 
                                 const std::string &photon_reliso, const std::string &photon_dROverEt2, 

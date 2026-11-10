@@ -69,11 +69,12 @@ ROOT::RDF::RNode calculateGenBosonVector(
            const ROOT::RVec<float> &genparticle_mass,
            const ROOT::RVec<int> &genparticle_id,
            const ROOT::RVec<int> &genparticle_status,
-           const ROOT::RVec<int> &genparticle_statusflag) {
+           const ROOT::RVec<UShort_t> &genparticle_statusflag) {
             ROOT::Math::PtEtaPhiMVector genBoson;
             ROOT::Math::PtEtaPhiMVector visgenBoson;
             ROOT::Math::PtEtaPhiMVector genparticle;
             // now loop though all genparticles in the event
+            auto status_flags = static_cast<ROOT::RVec<int>>(genparticle_statusflag);
             for (std::size_t index = 0; index < genparticle_id.size();
                  ++index) {
                 // consider a genparticle,

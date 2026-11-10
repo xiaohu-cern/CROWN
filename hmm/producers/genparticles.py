@@ -306,7 +306,7 @@ MMTrueGenDiTauPairQuantities = ProducerGroup(
 )
 GenLepPDG_id = Producer(
     name="GenLepPDG_id",
-    call="physicsobject::GenLepPDG_id({df}, {output}, {input})",
+    call="genmatching::CalGenLepPDG_id({df}, {output}, {input})",
     output=[q.genlep_pdgid],
     input=[
         nanoAOD.GenParticle_pdgId,
