@@ -117,6 +117,14 @@ ROOT::RDF::RNode HiggsAndZFourMuonsCollection(ROOT::RDF::RNode df, const std::st
                                  const std::string &particle_masses,
                                  const std::string &particle_charges,
                                  const std::string &goodmuons_index);
+ROOT::RDF::RNode HiggsAndZFourMuonsCollectionSR(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &particle_pts,
+                                 const std::string &particle_etas,
+                                 const std::string &particle_phis,
+                                 const std::string &particle_masses,
+                                 const std::string &particle_charges,
+                                 const std::string &basemuons_index, 
+                                 const std::string &goodmuons_index);
 ROOT::RDF::RNode FSR_Recovery_dimuon(ROOT::RDF::RNode df, const std::string &new_4vec, const std::string &ini_4vec,
                               const std::string &photon1_pt, const std::string &photon1_eta, const std::string &photon1_phi,
                               const std::string &photon2_pt, const std::string &photon2_eta, const std::string &photon2_phi);

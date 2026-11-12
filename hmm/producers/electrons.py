@@ -143,9 +143,8 @@ BaseElectrons = ProducerGroup(
         ElectronDxyCut,
         ElectronDzCut,
         ElectronSIP3DCut,
-        ElectronConvVeto,
         ElectronMissingHitsCut_UChar,
-        ElectronIsoCut
+        ElectronIsoCut,
     ],
 )
 
@@ -193,6 +192,7 @@ GoodElectrons = ProducerGroup(
         GoodElectron_mvaTTH_Cut,
         # GoodElectronIDCut,
         GoodElectronMissingHitsCut_UChar,
+        ElectronConvVeto,
         ElectronJetDFCut,
         ElectronHOECut,
         ElectroneInvMinusPInvCut,

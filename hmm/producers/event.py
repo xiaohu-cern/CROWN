@@ -496,7 +496,7 @@ Mask_DiElectronPair = Producer(
            nanoAOD.Electron_phi,
            nanoAOD.Electron_mass,
            nanoAOD.Electron_charge,
-           q.good_electron_collection],
+           q.base_electron_collection],
     output=[q.dielectron_ZCand_collection], # index about the two selected electrons may from Z boson
     scopes=["eemm"],
 )
@@ -515,12 +515,13 @@ Mask_DiBaseElectronPair = Producer(
 # output: index about the four muons, first two stand HiggsCand, second two stand ZCand
 Mask_QuadMuonPair = Producer(
     name="Mask_QuadMuonPair",
-    call='physicsobject::HiggsAndZFourMuonsCollection({df}, {output}, {input})',
+    call='physicsobject::HiggsAndZFourMuonsCollectionSR({df}, {output}, {input})',
     input=[q.Muon_pt_corrected,
            nanoAOD.Muon_eta, 
            nanoAOD.Muon_phi, 
            nanoAOD.Muon_mass,
            nanoAOD.Muon_charge,
+           q.base_muon_collection,
            q.good_muon_collection],
     output=[q.quadmuon_HiggsZCand_collection],
     scopes=["mmmm"],

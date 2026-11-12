@@ -1063,6 +1063,113 @@ ROOT::RDF::RNode HiggsAndZFourMuonsCollection(ROOT::RDF::RNode df, const std::st
         df.Define(outputname, pair_calc_p4, {particle_pts, particle_etas, particle_phis, particle_masses, particle_charges, goodmuons_index});
     return df1;
 }
+
+ROOT::RDF::RNode HiggsAndZFourMuonsCollectionSR(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &particle_pts,
+                                 const std::string &particle_etas,
+                                 const std::string &particle_phis,
+                                 const std::string &particle_masses,
+                                 const std::string &particle_charges,
+                                 const std::string &basemuons_index, 
+                                 const std::string &goodmuons_index) {
+    auto pair_calc_p4 = [](const ROOT::RVec<float> &particle_pts,
+                               const ROOT::RVec<float> &particle_etas,
+                               const ROOT::RVec<float> &particle_phis,
+                               const ROOT::RVec<float> &particle_masses,
+                               const ROOT::RVec<int> &particle_charges,
+                               const ROOT::RVec<int> &basemuons_index,
+                               const ROOT::RVec<int> &goodmuons_index) {
+                                std::vector<ROOT::Math::PtEtaPhiMVector> p4;
+                                for (unsigned int k = 0; k < (int)basemuons_index.size(); ++k) {
+                                    try {
+                                        p4.push_back(ROOT::Math::PtEtaPhiMVector(particle_pts.at(basemuons_index[k]),  ///basemuons_index[k] points to the base muon index k
+                                                                         particle_etas.at(basemuons_index[k]),          // k = 0, points to basemuon_index[0]
+                                                                         particle_phis.at(basemuons_index[k]),          // k ,points to basemuon_index[k]
+                                                                         particle_masses.at(basemuons_index[k])));      // index what I want is basemuon_index[k] k,i or j
+                                    } catch (const std::out_of_range &e) {
+                                        p4.push_back(ROOT::Math::PtEtaPhiMVector(default_float, default_float,default_float, default_float));
+                                    }
+                                }
+                                int index1 = -1, index2 = -1, index3 = -1, index4 = -1;
+                                float min_mass_diff = 999999.0;
+                                for (unsigned int i = 0; i < p4.size(); ++i) {
+                                    for (unsigned int j = i + 1; j < p4.size(); ++j) {
+                                        int pair1_index1 = i;
+                                        int pair1_index2 = j;
+                                        int pair2_index1 = -1, pair2_index2 = -1;
+                                        for (unsigned int k = 0; k < p4.size(); ++k) {
+                                            if (k != i && k != j) {
+                                                if (pair2_index1 == -1) {
+                                                    pair2_index1 = k;
+                                                } else {
+                                                    pair2_index2 = k;
+                                                }
+                                            }
+                                        }
+                                        if (p4[pair1_index1].pt() < 0.0 || p4[pair1_index2].pt() < 0.0 
+                                        || p4[pair2_index1].pt() < 0.0 || p4[pair2_index2].pt() < 0.0) {
+                                            continue;
+                                        }
+                                        /// need SFOS
+                                        if ( particle_charges[basemuons_index[pair1_index1]] + particle_charges[basemuons_index[pair1_index2]] != 0 ) {
+                                            continue;
+                                        }
+                                        if ( particle_charges[basemuons_index[pair2_index1]] + particle_charges[basemuons_index[pair2_index2]] != 0 ) {
+                                            continue;
+                                        }
+                                        /// two muon mass and the other two muon
+                                        float dimuon_mass_1 = (p4[pair1_index1] + p4[pair1_index2]).mass();
+                                        float dimuon_mass_2 = (p4[pair2_index1] + p4[pair2_index2]).mass();
+                                        ///
+                                        /// Another, if two pairs both in Z window, return {-1,-1,-1,-1} at once
+                                        if ( dimuon_mass_1 > 81 && dimuon_mass_1 < 101 ) {
+                                            if (dimuon_mass_2 > 81 && dimuon_mass_2 < 101) {
+                                                return ROOT::RVec<int> {-1,-1,-1,-1};
+                                            }
+                                        }
+                                        ///
+                                        /// this if can select one pair in Higgs and another in Z
+                                        if ( dimuon_mass_1 > 110 && dimuon_mass_1 < 150 ) {
+                                            if (dimuon_mass_2 > 81 && dimuon_mass_2 < 101) {
+                                                /// require 2 H candidate muons must be in goodmuons_index, otherwise continue
+                                                if (std::find(goodmuons_index.begin(), goodmuons_index.end(), basemuons_index[pair1_index1]) == goodmuons_index.end() ||
+                                                    std::find(goodmuons_index.begin(), goodmuons_index.end(), basemuons_index[pair1_index2]) == goodmuons_index.end()) {
+                                                    continue;
+                                                }
+                                                /// need Z cand pair close to 91
+                                                /// the first time will always be true in below if
+                                                /// this if can select the ZCand which dimuon mass closer to 91 GeV
+                                                if ( fabs(dimuon_mass_2 - 91) < fabs( min_mass_diff -91 ) ) {
+                                                    min_mass_diff = dimuon_mass_2;
+                                                    /// pt ordering
+                                                    if ( p4[pair1_index1].pt() > p4[pair1_index2].pt() ) {
+                                                        index1 = basemuons_index[pair1_index1];
+                                                        index2 = basemuons_index[pair1_index2];
+                                                    } else {
+                                                        index1 = basemuons_index[pair1_index2];
+                                                        index2 = basemuons_index[pair1_index1];
+                                                    }
+                                                    if ( p4[pair2_index1].pt() > p4[pair2_index2].pt() ) {
+                                                        index3 = basemuons_index[pair2_index1];
+                                                        index4 = basemuons_index[pair2_index2];
+                                                    } else {
+                                                        index3 = basemuons_index[pair2_index2];
+                                                        index4 = basemuons_index[pair2_index1];
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                /// if no two pairs both in Z window among all the loop, return the four goodmuons index
+                                ROOT::RVec<int> fourmuons_idx = {index1, index2, index3, index4};
+                                return fourmuons_idx;
+                            };
+    auto df1 = 
+        df.Define(outputname, pair_calc_p4, {particle_pts, particle_etas, particle_phis, particle_masses, particle_charges, basemuons_index, goodmuons_index});
+    return df1;
+}
+
 ///
 ///
 ROOT::RDF::RNode QuadMuonFromZZVeto(ROOT::RDF::RNode df, const std::string &outputname,
