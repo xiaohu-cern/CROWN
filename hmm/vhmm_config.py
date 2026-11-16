@@ -3490,7 +3490,8 @@ def build_config(
             event.FilterAtLeastNGoodElectrons,
             event.FilterNBaseElectrons,
             event.Mask_DiElectronPair,
-            lepton.LeptonChargeSumVeto_elemu, # only in e2m and 2e2m channel
+            # lepton.LeptonChargeSumVeto_elemu, # only in e2m and 2e2m channel
+            lepton.LeptonChargeSumVeto_mubaseele,
         ]
     )
     configuration.add_producers(
@@ -3625,7 +3626,8 @@ def build_config(
             event.FilterNBaseMuons,
             lepton.CalcSmallestDiMuonMass,
             event.Mask_QuadMuonPair,
-            lepton.LeptonChargeSumVeto,
+            # lepton.LeptonChargeSumVeto,
+            lepton.BaseLeptonChargeSumVeto,
             muons.LVMu1,
             muons.LVMu1_uncorrected,
             muons.LVMu2,

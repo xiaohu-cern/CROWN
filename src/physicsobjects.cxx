@@ -1134,6 +1134,7 @@ ROOT::RDF::RNode HiggsAndZFourMuonsCollectionSR(ROOT::RDF::RNode df, const std::
                                                 /// require 2 H candidate muons must be in goodmuons_index, otherwise continue
                                                 if (std::find(goodmuons_index.begin(), goodmuons_index.end(), basemuons_index[pair1_index1]) == goodmuons_index.end() ||
                                                     std::find(goodmuons_index.begin(), goodmuons_index.end(), basemuons_index[pair1_index2]) == goodmuons_index.end()) {
+                                                    index1 = -1, index2 = -1, index3 = -1, index4 = -1;
                                                     continue;
                                                 }
                                                 /// need Z cand pair close to 91
