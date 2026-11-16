@@ -452,7 +452,7 @@ GoodJets_2022_GoodMu = ProducerGroup(
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.good_jets_mask],
-    scopes=["nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
+    scopes=["nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr", "m2m", "m2m_dyfakeingmu_regionb"],
     subproducers=[JetPtCut, JetEtaCut, JetIDCut_Bool, VetoOverlappingJets_GoodMuon],
 )
 GoodJets_2022_BaseMu = ProducerGroup(
@@ -460,7 +460,7 @@ GoodJets_2022_BaseMu = ProducerGroup(
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.good_jets_mask],
-    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr", "m2m","mmmm", "m2m_dyfakeingmu_regionb"],
+    scopes=["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr","mmmm"],
     subproducers=[JetPtCut, JetEtaCut, JetIDCut_Bool, VetoOverlappingJets_BaseMuon],
 )
 GoodJets_2022_BaseEle_GoodMu = ProducerGroup(

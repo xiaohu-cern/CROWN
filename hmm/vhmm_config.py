@@ -2327,7 +2327,7 @@ def build_config(
         )
         configuration.add_producers(
             # overlap with good muon and good ele
-            ["nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
+            ["nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr", "m2m", "m2m_dyfakeingmu_regionb"],
             [
                 jets.GoodJets_2022_GoodMu, 
                 # jets.GoodJets_2022,
@@ -2335,7 +2335,7 @@ def build_config(
         )
         configuration.add_producers(
             # overlap with base muon
-            ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr", "m2m","mmmm", "m2m_dyfakeingmu_regionb"],
+            ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr", "mmmm"],
             [
                 jets.GoodJets_2022_BaseMu, 
             ]
@@ -2363,14 +2363,14 @@ def build_config(
         )
         configuration.add_producers(
             # overlap with good muon and good ele
-            ["nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr"],
+            ["nnmm","fjmm","nnmm_dycontrol","nnmm_topcontrol","fjmm_cr", "m2m", "m2m_dyfakeingmu_regionb"],
             [
                 jets.GoodJets_2022_GoodMu, 
             ]
         )
         configuration.add_producers(
             # overlap with base muon
-            ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr", "m2m","mmmm", "m2m_dyfakeingmu_regionb"],
+            ["m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond","mmmm_cr","mmmm"],
             [
                 jets.GoodJets_2022_BaseMu, 
             ]
@@ -2426,7 +2426,8 @@ def build_config(
          "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
         [
             momentumscale.RenameMuonPt,
-            scalefactors.btagging_SF_2WPs_3l_4l, ###update btag sf by Mingxuan
+            # scalefactors.btagging_SF_2WPs_3l_4l, ###update btag sf by Mingxuan
+            scalefactors.btagging_SF_2WPs,
             # scalefactors.btagging_SF_2WPs_3l_4l_dy,
             # scalefactors.btagging_SF_2WPs_3l_4l_vhmm,
         ]
@@ -2497,7 +2498,8 @@ def build_config(
             fatjets.FatJetCollection,
             fatjets.FilterNFatjets_fjmm, # vh fjmm >=1 fatjet
             fatjets.LVFatJet1,
-            scalefactors.btagging_SF_2WPs_fjmm, ###update btag sf by Mingxuan
+            # scalefactors.btagging_SF_2WPs_fjmm, ###update btag sf by Mingxuan
+            scalefactors.btagging_SF_2WPs,
             # scalefactors.btagging_SF_2WPs_fjmm_dy,
             # scalefactors.btagging_SF_2WPs_fjmm_vhmm,
             fatjets.Pnet_Fatjet_Mass_Corr,
@@ -2515,7 +2517,8 @@ def build_config(
         ["nnmm"],
         [
             fatjets.NumberOfGoodFatJets,
-            scalefactors.btagging_SF_2WPs_met, ###update btag sf by Mingxuan
+            # scalefactors.btagging_SF_2WPs_met, ###update btag sf by Mingxuan
+            scalefactors.btagging_SF_2WPs,
             # scalefactors.btagging_SF_2WPs_met_dy,
             # scalefactors.btagging_SF_2WPs_met_vhmm,
         ]
@@ -5559,84 +5562,85 @@ def build_config(
             samples=["data"],
         ),
     )
-    configuration.add_modification_rule(
-        ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "eemm","mmmm", "eemm_cr", "mmmm_cr"],
-            ReplaceProducer(
-                producers=[scalefactors.btagging_SF_2WPs_3l_4l, scalefactors.btagging_SF_2WPs_3l_4l_dy],
-                samples=["dyjets"],
-            ),
-    )
-    configuration.add_modification_rule(
-        ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
-            "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "eemm","mmmm", "eemm_cr", "mmmm_cr"],
-            ReplaceProducer(
-                producers=[scalefactors.btagging_SF_2WPs_3l_4l, scalefactors.btagging_SF_2WPs_3l_4l_vhmm],
-                samples=["vhmm", "singlehiggs"],
-            ),
-    )
+    # configuration.add_modification_rule(
+    #     ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+    #         "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #         "eemm","mmmm", "eemm_cr", "mmmm_cr"],
+    #         ReplaceProducer(
+    #             producers=[scalefactors.btagging_SF_2WPs_3l_4l, scalefactors.btagging_SF_2WPs_3l_4l_dy],
+    #             samples=["dyjets"],
+    #         ),
+    # )
+    # configuration.add_modification_rule(
+    #     ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
+    #         "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+    #         "eemm","mmmm", "eemm_cr", "mmmm_cr"],
+    #         ReplaceProducer(
+    #             producers=[scalefactors.btagging_SF_2WPs_3l_4l, scalefactors.btagging_SF_2WPs_3l_4l_vhmm],
+    #             samples=["vhmm", "singlehiggs"],
+    #         ),
+    # )
 
-    configuration.add_modification_rule(
-        ["fjmm","fjmm_cr"],
-            ReplaceProducer(
-                producers=[scalefactors.btagging_SF_2WPs_fjmm, scalefactors.btagging_SF_2WPs_fjmm_dy],
-                samples=["dyjets"],
-            ),
-    )
-    configuration.add_modification_rule(
-        ["fjmm","fjmm_cr"],
-            ReplaceProducer(
-                producers=[scalefactors.btagging_SF_2WPs_fjmm, scalefactors.btagging_SF_2WPs_fjmm_vhmm],
-                samples=["vhmm", "singlehiggs"],
-            ),
-    )
+    # configuration.add_modification_rule(
+    #     ["fjmm","fjmm_cr"],
+    #         ReplaceProducer(
+    #             producers=[scalefactors.btagging_SF_2WPs_fjmm, scalefactors.btagging_SF_2WPs_fjmm_dy],
+    #             samples=["dyjets"],
+    #         ),
+    # )
+    # configuration.add_modification_rule(
+    #     ["fjmm","fjmm_cr"],
+    #         ReplaceProducer(
+    #             producers=[scalefactors.btagging_SF_2WPs_fjmm, scalefactors.btagging_SF_2WPs_fjmm_vhmm],
+    #             samples=["vhmm", "singlehiggs"],
+    #         ),
+    # )
 
-    configuration.add_modification_rule(
-        ["nnmm"],
-            ReplaceProducer(
-                producers=[scalefactors.btagging_SF_2WPs_met, scalefactors.btagging_SF_2WPs_met_dy],
-                samples=["dyjets"],
-            ),
-    )
-    configuration.add_modification_rule(
-        ["nnmm"],
-            ReplaceProducer(
-                producers=[scalefactors.btagging_SF_2WPs_met, scalefactors.btagging_SF_2WPs_met_vhmm],
-                samples=["vhmm", "singlehiggs"],
-            ),
-    )
+    # configuration.add_modification_rule(
+    #     ["nnmm"],
+    #         ReplaceProducer(
+    #             producers=[scalefactors.btagging_SF_2WPs_met, scalefactors.btagging_SF_2WPs_met_dy],
+    #             samples=["dyjets"],
+    #         ),
+    # )
+    # configuration.add_modification_rule(
+    #     ["nnmm"],
+    #         ReplaceProducer(
+    #             producers=[scalefactors.btagging_SF_2WPs_met, scalefactors.btagging_SF_2WPs_met_vhmm],
+    #             samples=["vhmm", "singlehiggs"],
+    #         ),
+    # )
     #### update btag sf by Mingxuan ####
     configuration.add_modification_rule(
-        ["e2m","m2m", "eemm","mmmm","eemm_cr","mmmm_cr",
+        ["e2m","m2m", "eemm","mmmm","eemm_cr","mmmm_cr","nnmm","fjmm","fjmm_cr",
          "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
          "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
          RemoveProducer(
             producers=[
-                scalefactors.btagging_SF_2WPs_3l_4l,
+                # scalefactors.btagging_SF_2WPs_3l_4l,
+                scalefactors.btagging_SF_2WPs,
             ],
             samples=["data"],
          ),
     )
-    configuration.add_modification_rule(
-        ["fjmm", "fjmm_cr"],
-         RemoveProducer(
-            producers=[
-                scalefactors.btagging_SF_2WPs_fjmm,
-            ],
-            samples=["data"],
-         ),
-    )
-    configuration.add_modification_rule(
-        ["nnmm"],
-         RemoveProducer(
-            producers=[
-                scalefactors.btagging_SF_2WPs_met,
-            ],
-            samples=["data"],
-         ),
-    )
+    # configuration.add_modification_rule(
+    #     ["fjmm", "fjmm_cr"],
+    #      RemoveProducer(
+    #         producers=[
+    #             scalefactors.btagging_SF_2WPs_fjmm,
+    #         ],
+    #         samples=["data"],
+    #      ),
+    # )
+    # configuration.add_modification_rule(
+    #     ["nnmm"],
+    #      RemoveProducer(
+    #         producers=[
+    #             scalefactors.btagging_SF_2WPs_met,
+    #         ],
+    #         samples=["data"],
+    #      ),
+    # )
     ##########################################################
     # configuration.add_modification_rule(
     #     ["nnmm","fjmm"],
@@ -5763,110 +5767,106 @@ def build_config(
             shift_config={
                 ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
             "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "eemm","mmmm", "eemm_cr", "mmmm_cr"): {
+            "eemm","mmmm", "eemm_cr", "mmmm_cr","nnmm","fjmm","fjmm_cr"): {
                 "BtagWeightVariation": "up"
                 }
             },
             producers={
                 ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
             "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "eemm","mmmm", "eemm_cr", "mmmm_cr"): {
-                scalefactors.btagging_SF_2WPs_3l_4l,
-                scalefactors.btagging_SF_2WPs_3l_4l_dy,
-                scalefactors.btagging_SF_2WPs_3l_4l_vhmm,
+            "eemm","mmmm", "eemm_cr", "mmmm_cr","nnmm","fjmm","fjmm_cr"): {
+                scalefactors.btagging_SF_2WPs,
                 }
             },
         )
     )
-    configuration.add_shift(
-        SystematicShift(
-            name="BtagWeightUp",
-            shift_config={
-                ("fjmm", "fjmm_cr"): {
-                "BtagWeightVariation": "up"
-                }
-            },
-            producers={
-                ("fjmm", "fjmm_cr"): {
-                scalefactors.btagging_SF_2WPs_fjmm,
-                scalefactors.btagging_SF_2WPs_fjmm_dy,
-                scalefactors.btagging_SF_2WPs_fjmm_vhmm,
-                }
-            },
-        )
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="BtagWeightUp",
-            shift_config={
-                ("nnmm"): {
-                "BtagWeightVariation": "up"
-                }
-            },
-            producers={
-                ("nnmm"): {
-                scalefactors.btagging_SF_2WPs_met,
-                scalefactors.btagging_SF_2WPs_met_dy,
-                scalefactors.btagging_SF_2WPs_met_vhmm,
-                }
-            },
-        )
-    )
+    # configuration.add_shift(
+    #     SystematicShift(
+    #         name="BtagWeightUp",
+    #         shift_config={
+    #             ("fjmm", "fjmm_cr"): {
+    #             "BtagWeightVariation": "up"
+    #             }
+    #         },
+    #         producers={
+    #             ("fjmm", "fjmm_cr"): {
+    #             scalefactors.btagging_SF_2WPs_fjmm,
+    #             scalefactors.btagging_SF_2WPs_fjmm_dy,
+    #             scalefactors.btagging_SF_2WPs_fjmm_vhmm,
+    #             }
+    #         },
+    #     )
+    # )
+    # configuration.add_shift(
+    #     SystematicShift(
+    #         name="BtagWeightUp",
+    #         shift_config={
+    #             ("nnmm"): {
+    #             "BtagWeightVariation": "up"
+    #             }
+    #         },
+    #         producers={
+    #             ("nnmm"): {
+    #             scalefactors.btagging_SF_2WPs_met,
+    #             scalefactors.btagging_SF_2WPs_met_dy,
+    #             scalefactors.btagging_SF_2WPs_met_vhmm,
+    #             }
+    #         },
+    #     )
+    # )
     configuration.add_shift(
         SystematicShift(
             name="BtagWeightDown",
             shift_config={
                 ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
             "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "eemm","mmmm", "eemm_cr", "mmmm_cr"): {
+            "eemm","mmmm", "eemm_cr", "mmmm_cr", "nnmm","fjmm","fjmm_cr"): {
                 "BtagWeightVariation": "down"
                 }
             },
             producers={
                 ("e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond",
             "m2m","m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
-            "eemm","mmmm", "eemm_cr", "mmmm_cr"): {
-                scalefactors.btagging_SF_2WPs_3l_4l,
-                scalefactors.btagging_SF_2WPs_3l_4l_dy,
-                scalefactors.btagging_SF_2WPs_3l_4l_vhmm,
+            "eemm","mmmm", "eemm_cr", "mmmm_cr", "nnmm","fjmm","fjmm_cr"): {
+                scalefactors.btagging_SF_2WPs,
                 }
             },
         )
     )
-    configuration.add_shift(
-        SystematicShift(
-            name="BtagWeightDown",
-            shift_config={
-                ("fjmm", "fjmm_cr"): {
-                "BtagWeightVariation": "down"
-                }
-            },
-            producers={
-                ("fjmm", "fjmm_cr"): {
-                scalefactors.btagging_SF_2WPs_fjmm,
-                scalefactors.btagging_SF_2WPs_fjmm_dy,
-                scalefactors.btagging_SF_2WPs_fjmm_vhmm,
-                }
-            },
-        )
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="BtagWeightDown",
-            shift_config={
-                ("nnmm"): {
-                "BtagWeightVariation": "down"
-                }
-            },
-            producers={
-                ("nnmm"): {
-                scalefactors.btagging_SF_2WPs_met,
-                scalefactors.btagging_SF_2WPs_met_dy,
-                scalefactors.btagging_SF_2WPs_met_vhmm,
-                }
-            },
-        )
-    )
+    # configuration.add_shift(
+    #     SystematicShift(
+    #         name="BtagWeightDown",
+    #         shift_config={
+    #             ("fjmm", "fjmm_cr"): {
+    #             "BtagWeightVariation": "down"
+    #             }
+    #         },
+    #         producers={
+    #             ("fjmm", "fjmm_cr"): {
+    #             scalefactors.btagging_SF_2WPs_fjmm,
+    #             scalefactors.btagging_SF_2WPs_fjmm_dy,
+    #             scalefactors.btagging_SF_2WPs_fjmm_vhmm,
+    #             }
+    #         },
+    #     )
+    # )
+    # configuration.add_shift(
+    #     SystematicShift(
+    #         name="BtagWeightDown",
+    #         shift_config={
+    #             ("nnmm"): {
+    #             "BtagWeightVariation": "down"
+    #             }
+    #         },
+    #         producers={
+    #             ("nnmm"): {
+    #             scalefactors.btagging_SF_2WPs_met,
+    #             scalefactors.btagging_SF_2WPs_met_dy,
+    #             scalefactors.btagging_SF_2WPs_met_vhmm,
+    #             }
+    #         },
+    #     )
+    # )
     ##########################
     #### Muon ID shift ####
     ##########################
