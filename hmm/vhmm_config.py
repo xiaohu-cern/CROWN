@@ -4706,24 +4706,24 @@ def build_config(
     configuration.add_outputs(
         ["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm","eemm_cr","nnmm_topcontrol"],
         [
-            q.id_wgt_ele_loose_1,
-            q.id_wgt_ele_loose_1_below10,
-            q.id_wgt_ele_wp90Iso_1,
-            q.id_wgt_ele_wp90Iso_1_below10,
+            # q.id_wgt_ele_loose_1,
+            # q.id_wgt_ele_loose_1_below10,
+            # q.id_wgt_ele_wp90Iso_1,
+            # q.id_wgt_ele_wp90Iso_1_below10,
             q.reco_wgt_ele_1,
-            q.reco_wgt_ele_1_below10,
+            # q.reco_wgt_ele_1_below10,
             q.id_wgt_ele_mvatth_1,
         ],
     )
     configuration.add_outputs(
         ["eemm","eemm_cr"],
         [
-            q.id_wgt_ele_loose_2,
-            q.id_wgt_ele_loose_2_below10,
-            q.id_wgt_ele_wp90Iso_2,
-            q.id_wgt_ele_wp90Iso_2_below10,
+            # q.id_wgt_ele_loose_2,
+            # q.id_wgt_ele_loose_2_below10,
+            # q.id_wgt_ele_wp90Iso_2,
+            # q.id_wgt_ele_wp90Iso_2_below10,
             q.reco_wgt_ele_2,
-            q.reco_wgt_ele_2_below10,
+            # q.reco_wgt_ele_2_below10,
             q.id_wgt_ele_mvatth_2,
         ],
     )

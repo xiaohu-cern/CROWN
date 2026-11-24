@@ -1502,62 +1502,62 @@ EleID_SF = ProducerGroup(
     scopes=["e2m","e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond","eemm","eemm_cr","nnmm_topcontrol"],
     subproducers={
         "e2m": [
-            Ele_1_Loose_SF_e2m, # for 2022
-            Ele_1_Loose_SF_e2m_below10,
-            Ele_1_IDWP90_SF_e2m,
-            Ele_1_IDWP90_SF_e2m_below10,
+            # Ele_1_Loose_SF_e2m, # for 2022
+            # Ele_1_Loose_SF_e2m_below10,
+            # Ele_1_IDWP90_SF_e2m,
+            # Ele_1_IDWP90_SF_e2m_below10,
             Ele_1_mvaTTH_SF_e2m,
         ],
         "e2m_dyfakeinge_regionb": [
-            Ele_1_Loose_SF_e2m, # for 2022
-            Ele_1_Loose_SF_e2m_below10,
-            Ele_1_IDWP90_SF_e2m,
-            Ele_1_IDWP90_SF_e2m_below10,
+            # Ele_1_Loose_SF_e2m, # for 2022
+            # Ele_1_Loose_SF_e2m_below10,
+            # Ele_1_IDWP90_SF_e2m,
+            # Ele_1_IDWP90_SF_e2m_below10,
             Ele_1_mvaTTH_SF_e2m,
         ],
         "e2m_dyfakeinge_regionc": [
-            Ele_1_Loose_SF_e2m, # for 2022
-            Ele_1_Loose_SF_e2m_below10,
-            Ele_1_IDWP90_SF_e2m,
-            Ele_1_IDWP90_SF_e2m_below10,
+            # Ele_1_Loose_SF_e2m, # for 2022
+            # Ele_1_Loose_SF_e2m_below10,
+            # Ele_1_IDWP90_SF_e2m,
+            # Ele_1_IDWP90_SF_e2m_below10,
             Ele_1_mvaTTH_SF_e2m,
         ],
         "e2m_dyfakeinge_regiond": [
-            Ele_1_Loose_SF_e2m, # for 2022
-            Ele_1_Loose_SF_e2m_below10,
-            Ele_1_IDWP90_SF_e2m,
-            Ele_1_IDWP90_SF_e2m_below10,
+            # Ele_1_Loose_SF_e2m, # for 2022
+            # Ele_1_Loose_SF_e2m_below10,
+            # Ele_1_IDWP90_SF_e2m,
+            # Ele_1_IDWP90_SF_e2m_below10,
             Ele_1_mvaTTH_SF_e2m,
         ],
         "eemm": [
-            Ele_1_Loose_SF_eemm,
-            Ele_1_Loose_SF_eemm_below10,
-            Ele_2_Loose_SF_eemm,
-            Ele_2_Loose_SF_eemm_below10,
-            Ele_1_IDWP90_SF_eemm,
-            Ele_1_IDWP90_SF_eemm_below10,
-            Ele_2_IDWP90_SF_eemm,
-            Ele_2_IDWP90_SF_eemm_below10,
+            # Ele_1_Loose_SF_eemm,
+            # Ele_1_Loose_SF_eemm_below10,
+            # Ele_2_Loose_SF_eemm,
+            # Ele_2_Loose_SF_eemm_below10,
+            # Ele_1_IDWP90_SF_eemm,
+            # Ele_1_IDWP90_SF_eemm_below10,
+            # Ele_2_IDWP90_SF_eemm,
+            # Ele_2_IDWP90_SF_eemm_below10,
             Ele_1_mvaTTH_SF_eemm,
             Ele_2_mvaTTH_SF_eemm,
         ],
         "eemm_cr": [
-            Ele_1_Loose_SF_eemm,
-            Ele_1_Loose_SF_eemm_below10,
-            Ele_2_Loose_SF_eemm,
-            Ele_2_Loose_SF_eemm_below10,
-            Ele_1_IDWP90_SF_eemm,
-            Ele_1_IDWP90_SF_eemm_below10,
-            Ele_2_IDWP90_SF_eemm,
-            Ele_2_IDWP90_SF_eemm_below10,
+            # Ele_1_Loose_SF_eemm,
+            # Ele_1_Loose_SF_eemm_below10,
+            # Ele_2_Loose_SF_eemm,
+            # Ele_2_Loose_SF_eemm_below10,
+            # Ele_1_IDWP90_SF_eemm,
+            # Ele_1_IDWP90_SF_eemm_below10,
+            # Ele_2_IDWP90_SF_eemm,
+            # Ele_2_IDWP90_SF_eemm_below10,
             Ele_1_mvaTTH_SF_eemm,
             Ele_2_mvaTTH_SF_eemm,
         ],
         "nnmm_topcontrol": [
-            Ele_1_Loose_SF_TopCR,
-            Ele_1_Loose_SF_TopCR_below10,
-            Ele_1_IDWP90_SF_TopCR,
-            Ele_1_IDWP90_SF_TopCR_below10,
+            # Ele_1_Loose_SF_TopCR,
+            # Ele_1_Loose_SF_TopCR_below10,
+            # Ele_1_IDWP90_SF_TopCR,
+            # Ele_1_IDWP90_SF_TopCR_below10,
             Ele_1_mvaTTH_SF_TopCR
         ]
     },
@@ -1638,35 +1638,35 @@ EleReco_SF = ProducerGroup(
     subproducers={
         "e2m": [
             Ele_1_Reco_SF_e2m,
-            Ele_1_Reco_SF_e2m_below10,
+            # Ele_1_Reco_SF_e2m_below10,
         ],
         "e2m_dyfakeinge_regionb": [
             Ele_1_Reco_SF_e2m,
-            Ele_1_Reco_SF_e2m_below10,
+            # Ele_1_Reco_SF_e2m_below10,
         ],
         "e2m_dyfakeinge_regionc": [
             Ele_1_Reco_SF_e2m,
-            Ele_1_Reco_SF_e2m_below10,
+            # Ele_1_Reco_SF_e2m_below10,
         ],
         "e2m_dyfakeinge_regiond": [
             Ele_1_Reco_SF_e2m,
-            Ele_1_Reco_SF_e2m_below10,
+            # Ele_1_Reco_SF_e2m_below10,
         ],
         "eemm": [
             Ele_1_Reco_SF_eemm,
-            Ele_1_Reco_SF_eemm_below10,
+            # Ele_1_Reco_SF_eemm_below10,
             Ele_2_Reco_SF_eemm,
-            Ele_2_Reco_SF_eemm_below10,
+            # Ele_2_Reco_SF_eemm_below10,
         ],
         "eemm_cr": [
             Ele_1_Reco_SF_eemm,
-            Ele_1_Reco_SF_eemm_below10,
+            # Ele_1_Reco_SF_eemm_below10,
             Ele_2_Reco_SF_eemm,
-            Ele_2_Reco_SF_eemm_below10,
+            # Ele_2_Reco_SF_eemm_below10,
         ],
         "nnmm_topcontrol": [
             Ele_1_Reco_SF_TopCR,
-            Ele_1_Reco_SF_TopCR_below10,
+            # Ele_1_Reco_SF_TopCR_below10,
         ],
     },
 )
