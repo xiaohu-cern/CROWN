@@ -1134,7 +1134,7 @@ ROOT::RDF::RNode HiggsAndZFourMuonsCollectionSR(ROOT::RDF::RNode df, const std::
                                                 /// require 2 H candidate muons must be in goodmuons_index, otherwise continue
                                                 if (std::find(goodmuons_index.begin(), goodmuons_index.end(), basemuons_index[pair1_index1]) == goodmuons_index.end() ||
                                                     std::find(goodmuons_index.begin(), goodmuons_index.end(), basemuons_index[pair1_index2]) == goodmuons_index.end()) {
-                                                    index1 = -1, index2 = -1, index3 = -1, index4 = -1;
+                                                    index1 = 0, index2 = 0, index3 = 0, index4 = 0;
                                                     continue;
                                                 }
                                                 /// need Z cand pair close to 91
@@ -1179,6 +1179,21 @@ ROOT::RDF::RNode QuadMuonFromZZVeto(ROOT::RDF::RNode df, const std::string &outp
                                  ROOT::Math::PtEtaPhiMVector p4_dimuon;
                                  std::vector<ROOT::Math::PtEtaPhiMVector> p4;
                                  if ( quadmuons_index.at(0) == -1 || quadmuons_index.at(1) == -1 || quadmuons_index.at(2) == -1 || quadmuons_index.at(3) == -1 ) {
+                                    return 0;
+                                 } else { // else exist four muons that may from Higgs and Z
+                                    return 1;
+                                 }
+                             };
+    auto df1 = 
+        df.Define(outputname, HiggsZCand_Flag, {quadmuons_index});
+    return df1;
+}
+ROOT::RDF::RNode BaseMuonInDimuonVetoFor4Muons(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &quadmuons_index) {
+    auto HiggsZCand_Flag = [](const ROOT::RVec<int> &quadmuons_index) {
+                                 ROOT::Math::PtEtaPhiMVector p4_dimuon;
+                                 std::vector<ROOT::Math::PtEtaPhiMVector> p4;
+                                 if ( quadmuons_index.at(0) == 0 && quadmuons_index.at(1) == 0 && quadmuons_index.at(2) == 0 && quadmuons_index.at(3) == 0 ) {
                                     return 0;
                                  } else { // else exist four muons that may from Higgs and Z
                                     return 1;

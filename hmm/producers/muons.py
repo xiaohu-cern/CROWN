@@ -9,7 +9,8 @@ from code_generation.producer import Producer, ProducerGroup
 MuonPtCut = Producer(
     name="MuonPtCut",
     call="physicsobject::CutPt({df}, {input}, {output}, {min_muon_pt_base})",
-    input=[nanoAOD.Muon_bsConstrainedPt],
+    # input=[nanoAOD.Muon_bsConstrainedPt],
+    input=[q.Muon_pt_corrected],
     output=[],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -18,7 +19,8 @@ MuonPtCut = Producer(
 GoodMuonPtCut = Producer(
     name="GoodMuonPtCut",
     call="physicsobject::CutPt({df}, {input}, {output}, {min_muon_pt_good})",
-    input=[nanoAOD.Muon_bsConstrainedPt],
+    # input=[nanoAOD.Muon_bsConstrainedPt],
+    input=[q.Muon_pt_corrected],
     output=[],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",

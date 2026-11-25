@@ -9,7 +9,8 @@ from code_generation.producer import Producer, ProducerGroup
 ElectronPtCut = Producer(
     name="ElectronPtCut",
     call="physicsobject::CutPt({df}, {input}, {output}, {min_ele_pt})",
-    input=[nanoAOD.Electron_pt],
+    # input=[nanoAOD.Electron_pt],
+    input=[q.Electron_pt_corrected],
     output=[],
     scopes=["global"],
 )
@@ -320,8 +321,8 @@ ElectronPtCorrectionScaling = Producer(
         
     ],
     output=[q.Electron_pt_corrected],
-    scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
-    # scopes=["global"],
+    # scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
+    scopes=["global"],
 )
 
 ElectronPtCorrectionSmearing = Producer(
@@ -337,8 +338,8 @@ ElectronPtCorrectionSmearing = Producer(
         nanoAOD.luminosityBlock,
     ],
     output=[q.Electron_pt_corrected],
-    scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
-    # scopes=["global"],
+    # scopes=["e2m", "eemm", "eemm_cr", "e2m_dyfakeinge_regionb", "e2m_dyfakeinge_regionc", "e2m_dyfakeinge_regiond"],
+    scopes=["global"],
 )
 
 Calculate_ElePromptMVA22To23 = Producer(

@@ -545,6 +545,13 @@ Flag_ZZVeto = Producer(
     output=[q.Flag_ZZVeto], # 0 stands two Z Cand
     scopes=["mmmm","mmmm_cr"],
 )
+Flag_BaseMuonInDimuonVeto = Producer(
+    name="Flag_BaseMuonInDimuonVeto",
+    call='physicsobject::BaseMuonInDimuonVetoFor4Muons({df}, {output}, {input})',
+    input=[q.quadmuon_HiggsZCand_collection],
+    output=[q.Flag_BaseMuonInDimuonVeto],
+    scopes=["mmmm","mmmm_cr"],
+)
 lepton_H_dR = Producer(
     name="lepton_H_dR",
     call='quantities::deltaR({df}, {output}, {input})',

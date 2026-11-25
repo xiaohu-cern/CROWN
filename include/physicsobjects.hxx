@@ -132,6 +132,8 @@ ROOT::RDF::RNode FSR_Recovery_singlemuon(ROOT::RDF::RNode df, const std::string 
                               const std::string &photon_pt, const std::string &photon_eta, const std::string &photon_phi);
 ROOT::RDF::RNode QuadMuonFromZZVeto(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &quadmuons_index);
+ROOT::RDF::RNode BaseMuonInDimuonVetoFor4Muons(ROOT::RDF::RNode df, const std::string &outputname,
+                                 const std::string &quadmuons_index);
 ROOT::RDF::RNode ZToSecondMuonPairCollection(ROOT::RDF::RNode df, const std::string &outputname,
                                  const std::string &particle_pts,
                                  const std::string &particle_etas,

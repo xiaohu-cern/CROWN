@@ -307,6 +307,7 @@ dielectron_p4_byPt = Quantity("dielectron_p4_byPt")
 # 4m
 quadmuon_HiggsZCand_collection = Quantity("quadmuon_HiggsZCand_collection")
 Flag_ZZVeto = Quantity("Flag_ZZVeto")
+Flag_BaseMuonInDimuonVeto = Quantity("Flag_BaseMuonInDimuonVeto")
 dimuon_p4_Higgs = Quantity("dimuon_p4_Higgs")
 dimuon_p4_Higgs_PureTunepPT = Quantity("dimuon_p4_Higgs_PureTunepPT")
 dimuon_p4_Higgs_BSCTunepPT = Quantity("dimuon_p4_Higgs_BSCTunepPT")
