@@ -14,6 +14,55 @@
 /// namespace used for scale factor related functions
 namespace scalefactor {
 namespace muon {
+//////// FSR recovery/////////
+ROOT::RDF::RNode FsrPhoton_recovery (ROOT::RDF::RNode df, const std::string &newP4, 
+                                const std::string &photon_index, 
+                                const std::string &photon_reliso, const std::string &photon_dROverEt2, 
+                                const std::string &photon_pt, const std::string &photon_eta, const std::string &photon_phi, 
+                                const std::string &muon_pt, const std::string &muon_eta, const std::string &muon_phi, const std::string &muon_mass) {
+    auto select_fsrphoton = [] (const ROOT::RVec<short> &photon_index,
+                                const ROOT::RVec<float> &photon_reliso,
+                                const ROOT::RVec<float> &photon_dROverEt2,
+                                const ROOT::RVec<float> &photon_pt,
+                                const ROOT::RVec<float> &photon_eta,
+                                const ROOT::RVec<float> &photon_phi,
+                                const ROOT::RVec<float> &muon_pt,
+                                const ROOT::RVec<float> &muon_eta,
+                                const ROOT::RVec<float> &muon_phi,
+                                const ROOT::RVec<float> &muon_mass) { 
+        const size_t nMuons = muon_pt.size();
+        const size_t nPhotons = photon_pt.size();
+
+        ROOT::RVec<ROOT::Math::PtEtaPhiMVector> newP4;
+        newP4.reserve(nMuons);
+
+        for (size_t i = 0; i < nMuons; i++) {
+            ROOT::Math::PtEtaPhiMVector mu_p4(muon_pt[i], muon_eta[i], muon_phi[i], muon_mass[i]);
+
+            if (i < photon_index.size()) {
+                short fsr_index = photon_index[i];
+                float muonPt = muon_pt[i];
+
+                if (fsr_index >= 0 && static_cast<size_t>(fsr_index) < nPhotons && muonPt > 0) {
+                    if (photon_reliso[fsr_index] < 1.8 && photon_dROverEt2[fsr_index] < 0.012 && photon_pt[fsr_index] / muonPt < 0.4) {
+                        
+                        mu_p4 += ROOT::Math::PtEtaPhiMVector(photon_pt[fsr_index], photon_eta[fsr_index], photon_phi[fsr_index], 0.0);
+                    }
+                }
+            }
+            newP4.push_back(mu_p4);
+        }
+        return newP4;
+    };
+
+    auto df1 = df.Define(newP4, select_fsrphoton, {
+        photon_index, photon_reliso, photon_dROverEt2, 
+        photon_pt, photon_eta, photon_phi, 
+        muon_pt, muon_eta, muon_phi, muon_mass
+    });
+    return df1;
+}
+
 ///////KIT Correction/////////
 //////////////////muon pt scale////////////////////////////
 ROOT::RDF::RNode KIT_MuonPtScale(ROOT::RDF::RNode df, const std::string &pt, const std::string &pt_pre_corr,
@@ -821,7 +870,7 @@ ROOT::RDF::RNode id_vhmm(ROOT::RDF::RNode df, const std::string &p4,
             if (sf_file.find("muon_Z") < sf_file.length()) {
                 // Logger::get("muon SF file:")->debug("{}", sf_file);
                 // apply sf for muon pt > 15 using Z file
-                if (pt < 200.0 && pt > 15.0 && std::abs(eta) >= 0.0) {
+                if (pt < 200.0 && pt > 15.0 && std::abs(eta) >= 0.0 && std::abs(eta) < 2.4) {
                     if (year_id.find("202") < year_id.length()) {
                         sf = evaluator->evaluate(
                             {std::abs(eta), pt, variation});    
@@ -835,23 +884,32 @@ ROOT::RDF::RNode id_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                 } else if (pt >= 200.0 && std::abs(eta) >= 0.0) {
                     sf = 1.;
                 }
+                else {
+                    sf = 1.;
+                }
             } else if (sf_file.find("muon_JPsi") < sf_file.length()) {
                 // Logger::get("muon SF file:")->debug("{}", sf_file);
                 // apply sf for muon pt < 15 using JPsi file
                 // JPsi has no year_id
-                if (pt >= 0.0 && pt <= 15.0 && std::abs(eta) >= 0.0) {
+                if (pt >= 0.0 && pt <= 15.0 && std::abs(eta) >= 0.0 && std::abs(eta) < 2.4) {
                     sf = evaluator->evaluate(
                         {std::abs(eta), pt, variation});    
                 } else if (pt > 15.0 && std::abs(eta) >= 0.0) {
                     sf = 1.;
                 }
+                else {
+                    sf = 1.;
+                }
             } else if (sf_file.find("muon_HighPt") < sf_file.length()) {
                 // Logger::get("muon SF file:")->debug("{}", sf_file);
                 // apply sf for muon pt > 200 using HighPt file
-                if (pt >= 200.0 && std::abs(eta) >= 0.0) {
+                if (pt >= 200.0 && std::abs(eta) >= 0.0 && std::abs(eta) < 2.4) {
                     sf = evaluator->evaluate(
                         {std::abs(eta), pt, variation});    
                 } else if (pt < 200.0 && std::abs(eta) >= 0.0) {
+                    sf = 1.;
+                }
+                else {
                     sf = 1.;
                 }
             }
@@ -963,7 +1021,7 @@ ROOT::RDF::RNode iso_vhmm(ROOT::RDF::RNode df, const std::string &p4,
             if (sf_file.find("muon_Z") < sf_file.length()) {
                 Logger::get("muon SF file:")->debug("{}", sf_file);
                 // apply sf for muon pt > 15 using Z file
-                if (pt < 200.0 && pt > 15.0 && std::abs(eta) >= 0.0) {
+                if (pt < 200.0 && pt > 15.0 && std::abs(eta) >= 0.0 && std::abs(eta) < 2.4) {
                     if (year_id.find("202") < year_id.length()) {
                         sf = evaluator->evaluate(
                             {std::abs(eta), pt, variation});    
@@ -976,6 +1034,9 @@ ROOT::RDF::RNode iso_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                 } else if (pt >= 200.0 && std::abs(eta) >= 0.0) {
                     sf = 1.;
                 }
+                else {
+                    sf = 1.;
+                }
             } else if (sf_file.find("muon_JPsi") < sf_file.length()) {
                 // apply sf for muon pt < 15 using JPsi file
                 // Since muon_JPsi has no Iso type for SF
@@ -983,7 +1044,7 @@ ROOT::RDF::RNode iso_vhmm(ROOT::RDF::RNode df, const std::string &p4,
             } else if (sf_file.find("muon_HighPt") < sf_file.length()) {
                 Logger::get("muon SF file:")->debug("{}", sf_file);
                 // apply sf for muon pt > 200 using HighPt file
-                if (pt >= 200.0 && std::abs(eta) >= 0.0) {
+                if (pt >= 200.0 && std::abs(eta) >= 0.0 && std::abs(eta) < 2.4) {
                     // for High Pt (>200) muon
                     const float &px = p4.Px();
                     const float &py = p4.Py();
@@ -994,6 +1055,9 @@ ROOT::RDF::RNode iso_vhmm(ROOT::RDF::RNode df, const std::string &p4,
                     sf = evaluator->evaluate(
                         {std::abs(eta), p, variation});    
                 } else if (pt < 200.0 && std::abs(eta) >= 0.0) {
+                    sf = 1.;
+                }
+                else {
                     sf = 1.;
                 }
             }

@@ -242,7 +242,7 @@ BaseEle_Veto = Producer(
 ElectronCollection = Producer(
     name="ElectronCollection",
     call="jet::OrderJetsByPt({df}, {output}, {input})",
-    input=[nanoAOD.Electron_pt, q.good_electrons_mask],
+    input=[q.Electron_pt_corrected, q.good_electrons_mask],
     output=[q.good_electron_collection],  # eles after ordered by pt
     scopes=["global"],
 )
@@ -250,7 +250,7 @@ ElectronCollection = Producer(
 BaseElectronCollection = Producer(
     name="BaseElectronCollection",
     call="jet::OrderJetsByPt({df}, {output}, {input})",
-    input=[nanoAOD.Electron_pt, q.base_electrons_mask],
+    input=[q.Electron_pt_corrected, q.base_electrons_mask],
     output=[q.base_electron_collection],  # eles after ordered by pt
     scopes=["global"],
 )

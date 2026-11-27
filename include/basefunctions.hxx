@@ -14,29 +14,36 @@
 enum Channel { MT = 0, ET = 1, TT = 2, EM = 3 };
 
 namespace basefunctions {
-
-/////// this two functions are used to split the Summer24 MC to 2 parts, one for 2024 and the other for 2025.
-// inline uint64_t SplitMix64(uint64_t x) {
-//     x += 0x9e3779b97f4a7c15ULL;
-//     x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
-//     x = (x ^ (x >> 27)) * 0x94d049bb133111ebULL;
-//     return x ^ (x >> 31);
-// }
-
-// inline int EventSplit(UInt_t run,
-//                       UInt_t luminosityBlock,
-//                       ULong64_t event) {
-//     const uint64_t runLumi =
-//         (static_cast<uint64_t>(run) << 32) |
-//         static_cast<uint64_t>(luminosityBlock);
-
-//     const uint64_t hash =
-//         SplitMix64(runLumi ^ SplitMix64(event));
-
-//     return static_cast<int>(hash % 2);
-// }
-/////// End of event split functions
-
+inline ROOT::RDF::RNode get_PtArray(ROOT::RDF::RNode df, const std::string &outputname,
+                                   const std::string &p4name) {
+    return df.Define(outputname, [](const ROOT::RVec<ROOT::Math::PtEtaPhiMVector> &p4) {
+        ROOT::RVec<float> pt;
+        for (const auto &vec : p4) {
+            pt.push_back(vec.Pt());
+        }
+        return pt;
+    }, {p4name});
+}
+inline ROOT::RDF::RNode get_EtaArray(ROOT::RDF::RNode df, const std::string &outputname,
+                                   const std::string &p4name) {
+    return df.Define(outputname, [](const ROOT::RVec<ROOT::Math::PtEtaPhiMVector> &p4) {
+        ROOT::RVec<float> eta;
+        for (const auto &vec : p4) {
+            eta.push_back(vec.Eta());
+        }
+        return eta;
+    }, {p4name});
+}
+inline ROOT::RDF::RNode get_PhiArray(ROOT::RDF::RNode df, const std::string &outputname,
+                                   const std::string &p4name) {
+    return df.Define(outputname, [](const ROOT::RVec<ROOT::Math::PtEtaPhiMVector> &p4) {
+        ROOT::RVec<float> phi;
+        for (const auto &vec : p4) {
+            phi.push_back(vec.Phi());
+        }
+        return phi;
+    }, {p4name});
+}
 // vh extension
 /// Require events with its quantity to be "?" to the threshold
 /// "?" can be set to any comparison ">", "<=", "==" etc.

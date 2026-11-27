@@ -81,7 +81,7 @@ Data_KIT_MuonPt_Scale_HighPt_BSCTunepPTCorr = Producer(
         nanoAOD.Muon_eta,
         nanoAOD.Muon_charge,
     ],
-    output=[q.Muon_pt_corrected],
+    output=[q.Muon_pt_corrected_noFSR],
     scopes=["nnmm","fjmm","fjmm_cr"],
 )
 
@@ -159,7 +159,7 @@ MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr = Producer(
         nanoAOD.luminosityBlock,
         nanoAOD.Muon_charge,
     ],
-    output=[q.Muon_pt_corrected],
+    output=[q.Muon_pt_corrected_noFSR],
     scopes=["nnmm","fjmm","fjmm_cr"],
 )
 
@@ -178,7 +178,7 @@ Data_KIT_MuonPt_Scale = Producer(
         nanoAOD.Muon_eta,
         nanoAOD.Muon_charge,
     ],
-    output=[q.Muon_pt_corrected],
+    output=[q.Muon_pt_corrected_noFSR],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -196,7 +196,7 @@ MC_KIT_MuonPt_ScaleRes = Producer(
         nanoAOD.luminosityBlock,
         nanoAOD.Muon_charge,
     ],
-    output=[q.Muon_pt_corrected],
+    output=[q.Muon_pt_corrected_noFSR],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
@@ -218,7 +218,7 @@ MC_KIT_MuonPt_ScaleRes = Producer(
 #         nanoAOD.event,
 #         nanoAOD.luminosityBlock,
 #     ],
-#     output=[q.Muon_pt_corrected],
+#     output=[q.Muon_pt_corrected_noFSR],
 #     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
 #             "nnmm_dycontrol","nnmm_topcontrol",
 #             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -239,19 +239,75 @@ MC_KIT_MuonPt_ScaleRes = Producer(
 #         nanoAOD.event,
 #         nanoAOD.luminosityBlock,
 #     ],
-#     output=[q.Muon_pt_corrected],
+#     output=[q.Muon_pt_corrected_noFSR],
 #     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr","nnmm","fjmm","fjmm_cr",
 #             "nnmm_dycontrol","nnmm_topcontrol",
 #             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
 #             "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
 # )
 ################################ Rochester End ####################################################
+################################ FSR revovery start ####################################################
+FsrPhoton_recovery_all = Producer(
+    name="FsrPhoton_recovery_all",
+    call='scalefactor::muon::FsrPhoton_recovery({df}, {output}, {input})',
+    input=[
+        nanoAOD.Muon_fsrPhotonIdx,
+        nanoAOD.FsrPhoton_relIso03,
+        nanoAOD.FsrPhoton_dROverEt2,
+        nanoAOD.FsrPhoton_pt,
+        nanoAOD.FsrPhoton_eta,
+        nanoAOD.FsrPhoton_phi,
+        q.Muon_pt_corrected_noFSR,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+    ],
+    output=[q.Muon_p4_corrected],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "nnmm", "fjmm", "fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+Fetch_pT_all = Producer(
+    name="Fetch_pT_all",
+    call='basefunctions::get_PtArray({df}, {output}, {input})',
+    input=[
+        q.Muon_p4_corrected
+    ],
+    output=[q.Muon_pt_corrected],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "nnmm", "fjmm", "fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+Fetch_eta_all = Producer(
+    name="Fetch_eta_all",
+    call='basefunctions::get_EtaArray({df}, {output}, {input})',
+    # call='basefunctions::rename<ROOT::RVec<float>>({df}, {input}, {output})',
+    input=[
+        q.Muon_p4_corrected
+        # nanoAOD.Muon_eta,
+    ],
+    output=[q.Muon_eta_corrected],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "nnmm", "fjmm", "fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
+Fetch_phi_all = Producer(
+    name="Fetch_phi_all",
+    call='basefunctions::get_PhiArray({df}, {output}, {input})',
+    input=[
+        q.Muon_p4_corrected
+    ],
+    output=[q.Muon_phi_corrected],
+    scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "nnmm", "fjmm", "fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+)
 Mu_Top_CR_corrected = Producer(
     name="Mu_Top_CR_corrected",
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.elemu_TopControl_collection,
-        q.Muon_pt_corrected,
+        q.Muon_pt_corrected_noFSR,
         nanoAOD.Muon_eta,
         nanoAOD.Muon_phi,
         nanoAOD.Muon_mass,

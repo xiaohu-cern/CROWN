@@ -3,7 +3,11 @@
 
 namespace scalefactor {
 namespace muon {
-
+ROOT::RDF::RNode FsrPhoton_recovery (ROOT::RDF::RNode df, const std::string &fsrphoton_index, 
+                                const std::string &photon_index, 
+                                const std::string &photon_reliso, const std::string &photon_dROverEt2, 
+                                const std::string &photon_pt, const std::string &photon_phi, const std::string &photon_eta, 
+                                const std::string &muon_pt, const std::string &muon_phi, const std::string &muon_eta, const std::string &muon_mass);
 ROOT::RDF::RNode KIT_MuonPtScale(ROOT::RDF::RNode df, const std::string &pt, const std::string &pt_pre_corr,
                     const std::string &phi, const std::string &eta, 
                     const std::string &charge, const std::string &pt_corrected, 

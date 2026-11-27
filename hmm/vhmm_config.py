@@ -2538,8 +2538,7 @@ def build_config(
             event.DimuonMinMassCut,
             ###
             event.Mask_DiMuonPair, # dimuonHiggs index
-            event.Flag_DiMuonFromHiggs,
-            event.HiggsToDiMuonPair_p4_noFSR, # select the dimuon pairs in [110,150] and order by pt
+            event.Flag_DiMuonFromHiggs, # select the dimuon pairs in [110,150] and order by pt
             ###FSR###
             fsrphoton.leadingmuon_FsrPhotonIdx,
             fsrphoton.subleadingmuon_FsrPhotonIdx,
@@ -2574,16 +2573,10 @@ def build_config(
             muons.Mu1_H, # vh
             # muons.Mu1_H_pureBSC,
             # muons.Mu1_H_raw,
-            muons.Mu1_H_noFSR,
-            # muons.Mu1_H_noFSR_pureBSC,
-            # muons.Mu1_H_noFSR_raw,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H, # vh
             # muons.Mu2_H_pureBSC,
             # muons.Mu2_H_raw,
-            muons.Mu2_H_noFSR,
-            # muons.Mu2_H_noFSR_pureBSC,
-            # muons.Mu2_H_noFSR_raw,
             muons.Mu2_H_uncorrected,
             ### extra muon in m2m
             lepton.Mu1_W_m2m_index, # extra muon index
@@ -2808,22 +2801,15 @@ def build_config(
             event.HiggsToDiMuonPair_p4,
             # event.Mask_BaseDiMuonPair, # select the dimuon index in [110,150]
             event.Flag_DiMuonFromHiggs, # create the flag
-            event.HiggsToDiMuonPair_p4_noFSR, # make dimuon p4
             event.FilterFlagDiMuFromH, # flag dimuon Higgs cut
             ###
             muons.Mu1_H,
             # muons.Mu1_H_pureBSC,
             # muons.Mu1_H_raw,
-            muons.Mu1_H_noFSR,
-            # muons.Mu1_H_noFSR_pureBSC,
-            # muons.Mu1_H_noFSR_raw,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H,
             # muons.Mu2_H_pureBSC,
             # muons.Mu2_H_raw,
-            muons.Mu2_H_noFSR,
-            # muons.Mu2_H_noFSR_pureBSC,
-            # muons.Mu2_H_noFSR_raw,
             muons.Mu2_H_uncorrected,
             # muons.LVMu1,
             # muons.LVMu2,
@@ -3018,7 +3004,6 @@ def build_config(
             ###
             event.Mask_DiMuonPair,
             event.Flag_DiMuonFromHiggs,
-            event.HiggsToDiMuonPair_p4_noFSR, # select the first dimuon pairs in [110,150] that ordered by pt
             ###FSR####
             fsrphoton.leadingmuon_FsrPhotonIdx,
             fsrphoton.subleadingmuon_FsrPhotonIdx,
@@ -3045,16 +3030,10 @@ def build_config(
             muons.Mu1_H,
             # muons.Mu1_H_pureBSC,
             # muons.Mu1_H_raw,
-            muons.Mu1_H_noFSR,
-            # muons.Mu1_H_noFSR_pureBSC,
-            # muons.Mu1_H_noFSR_raw,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H,
             # muons.Mu2_H_pureBSC,
             # muons.Mu2_H_raw,
-            muons.Mu2_H_noFSR,
-            # muons.Mu2_H_noFSR_pureBSC,
-            # muons.Mu2_H_noFSR_raw,
             muons.Mu2_H_uncorrected,
 
             lepton.Ele1_W_e2m, # output extra lep p4
@@ -3254,23 +3233,16 @@ def build_config(
             ###
             event.Mask_DiMuonPair, # select the dimuon index in [110,150]
             event.Flag_DiMuonFromHiggs, # create the flag
-            event.HiggsToDiMuonPair_p4_noFSR, # make dimuon p4
             event.FilterFlagDiMuFromH, # flag dimuon Higgs cut
             event.Flag_MaxMetCut,
             event.FilterFlagMaxMetCut,
             muons.Mu1_H,
             # muons.Mu1_H_pureBSC,
             # muons.Mu1_H_raw,
-            muons.Mu1_H_noFSR,
-            # muons.Mu1_H_noFSR_pureBSC,
-            # muons.Mu1_H_noFSR_raw,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H,
             # muons.Mu2_H_pureBSC,
             # muons.Mu2_H_raw,
-            muons.Mu2_H_noFSR,
-            # muons.Mu2_H_noFSR_pureBSC,
-            # muons.Mu2_H_noFSR_raw,
             muons.Mu2_H_uncorrected,
             ###FSR####
             fsrphoton.leadingmuon_FsrPhotonIdx,
@@ -3524,7 +3496,6 @@ def build_config(
             ###
             event.Mask_DiMuonPair,
             event.Flag_DiMuonFromHiggs,
-            event.HiggsToDiMuonPair_p4_noFSR, # select the first dimuon pairs in [110,150] that ordered by pt
             ###
             event.Flag_DiEleFromZ,  ### need ZCand m(ee) in [70,110]
             event.ZToDiElectronPair_p4,
@@ -3553,16 +3524,10 @@ def build_config(
             muons.Mu1_H,
             # muons.Mu1_H_pureBSC,
             # muons.Mu1_H_raw,
-            muons.Mu1_H_noFSR,
-            # muons.Mu1_H_noFSR_pureBSC,
-            # muons.Mu1_H_noFSR_raw,
             muons.Mu1_H_uncorrected,
             muons.Mu2_H,
             # muons.Mu2_H_pureBSC,
             # muons.Mu2_H_raw,
-            muons.Mu2_H_noFSR,
-            # muons.Mu2_H_noFSR_pureBSC,
-            # muons.Mu2_H_noFSR_raw,
             muons.Mu2_H_uncorrected,
             event.mumuH_dR,
             event.mumuH_dphi,
@@ -3677,7 +3642,7 @@ def build_config(
             event.Flag_ZZVeto,
             event.Flag_BaseMuonInDimuonVeto,
             # Higgs p4
-            event.HiggsToDiMuonPair_p4_4m_noFSR,
+            event.HiggsToDiMuonPair_p4_4m,
             event.ZToDiMuonPair_p4_4m,
             # Z p4
             ###
@@ -3691,16 +3656,10 @@ def build_config(
             muons.Mu1_H_4m,
             # muons.Mu1_H_4m_pureBSC,
             # muons.Mu1_H_4m_raw,
-            muons.Mu1_H_4m_noFSR,
-            # muons.Mu1_H_4m_noFSR_pureBSC,
-            # muons.Mu1_H_4m_noFSR_raw,
             muons.Mu1_H_4m_uncorrected,
             muons.Mu2_H_4m,
             # muons.Mu2_H_4m_pureBSC,
             # muons.Mu2_H_4m_raw,
-            muons.Mu2_H_4m_noFSR,
-            # muons.Mu2_H_4m_noFSR_pureBSC,
-            # muons.Mu2_H_4m_noFSR_raw,
             muons.Mu2_H_4m_uncorrected,
             event.mumuH_dR,
             event.mumuH_dphi,
@@ -3793,7 +3752,6 @@ def build_config(
             ###
             event.Mask_DiMuonPair, # dimuonHiggs index
             event.Flag_DiMuonFromHiggs,
-            event.HiggsToDiMuonPair_p4_noFSR,
             # event.HiggsToDiMuonPair_p4_corrected, # select the dimuon pairs in [110,150] and order by pt
             ###FSR###
             fsrphoton.leadingmuon_FsrPhotonIdx,
@@ -3821,15 +3779,9 @@ def build_config(
             muons.Mu1_H, # vh
             # muons.Mu1_H_pureBSC,
             # muons.Mu1_H_raw,
-            muons.Mu1_H_noFSR,
-            # muons.Mu1_H_noFSR_pureBSC,
-            # muons.Mu1_H_noFSR_raw,
             muons.Mu2_H, # vh
             # muons.Mu2_H_pureBSC,
             # muons.Mu2_H_raw,
-            muons.Mu2_H_noFSR,
-            # muons.Mu2_H_noFSR_pureBSC,
-            # muons.Mu2_H_noFSR_raw,
             muons.LVMu1,
             muons.LVMu1_uncorrected,
             muons.LVMu2,
@@ -3919,7 +3871,6 @@ def build_config(
             ###
             event.Mask_DiMuonPair, # dimuonHiggs index
             event.Flag_DiMuonFromHiggs,
-            event.HiggsToDiMuonPair_p4_noFSR,
             # event.HiggsToDiMuonPair_p4_corrected, # select the dimuon pairs in [110,150] and order by pt
             ###FSR###
             fsrphoton.leadingmuon_FsrPhotonIdx,
@@ -3947,15 +3898,9 @@ def build_config(
             muons.Mu1_H, # vh
             # muons.Mu1_H_pureBSC,
             # muons.Mu1_H_raw,
-            muons.Mu1_H_noFSR,
-            # muons.Mu1_H_noFSR_pureBSC,
-            # muons.Mu1_H_noFSR_raw,
             muons.Mu2_H, # vh
             # muons.Mu2_H_pureBSC,
             # muons.Mu2_H_raw,
-            muons.Mu2_H_noFSR,
-            # muons.Mu2_H_noFSR_pureBSC,
-            # muons.Mu2_H_noFSR_raw,
             muons.LVMu1,
             muons.LVMu1_uncorrected,
             muons.LVMu2,
@@ -4353,6 +4298,17 @@ def build_config(
             momentumscale.MC_KIT_MuonPt_ScaleRes_HighPt_BSCTunepPTCorr,
         ]
     )
+    configuration.add_producers(
+        ["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "nnmm", "fjmm", "fjmm_cr",
+            "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
+            "e2m_dyfakeinge_regionb","e2m_dyfakeinge_regionc","e2m_dyfakeinge_regiond"],
+        [
+            momentumscale.FsrPhoton_recovery_all,
+            momentumscale.Fetch_pT_all,
+            momentumscale.Fetch_eta_all,
+            momentumscale.Fetch_phi_all,
+        ]
+    )
     if sample == "dyjets":
         configuration.add_producers(
             ["global"],
@@ -4362,33 +4318,6 @@ def build_config(
                 genparticles.lhe_NpNLO_output
             ]
         )
-    # configuration.add_producers(
-    #     ["fjmm", "nnmm"],
-    #     [
-    #         event.HiggsToDiMuonPair_p4_noFSR_BSCTunepPT,
-    #         event.HiggsToDiMuonPair_p4_BSCTunepPT,
-    #         p4.H_mass_BSCTunepPT,
-    #     ]
-    # )
-    # configuration.add_producers(
-    #     ["fjmm_cr"],
-    #     [
-    #         cr.DiMuonPairCR_p4_BSCTunepPT,
-    #         cr.dimuonCR_mass_BSCTunepPT,
-    #     ]
-    # )
-    # configuration.add_outputs(
-    #     ["fjmm", "nnmm"],
-    #     [ 
-    #         q.H_mass_BSCTunepPT,
-    #     ]
-    # )
-    # configuration.add_outputs(
-    #     ["fjmm_cr"],
-    #     [
-    #         q.dimuonCR_mass_BSCTunepPT,
-    #     ]
-    # )
 
     configuration.add_outputs(
         scopes,

@@ -29,7 +29,7 @@ GoodMuonPtCut = Producer(
 MuonEtaCut = Producer(
     name="MuonEtaCut",
     call="physicsobject::CutEta({df}, {input}, {output}, {max_muon_eta})",
-    input=[nanoAOD.Muon_eta],
+    input=[q.Muon_eta_corrected],
     output=[],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -363,8 +363,8 @@ DiMuonVeto = ProducerGroup(
     call="physicsobject::CheckForDiLeptonPairs({df}, {output}, {input}, {dileptonveto_dR})",
     input=[
         nanoAOD.Muon_pt,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
         nanoAOD.Muon_charge,
     ],
@@ -378,7 +378,7 @@ MuonCollection = Producer(
     name="MuonCollection",
     call="jet::OrderJetsByPt({df}, {output}, {input})",
     # input=[nanoAOD.Muon_pt, q.good_muons_mask],
-    input=[nanoAOD.Muon_pt, q.good_muons_mask],
+    input=[q.Muon_pt_corrected, q.good_muons_mask],
     output=[q.good_muon_collection],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -387,7 +387,7 @@ MuonCollection = Producer(
 BaseMuonCollection = Producer(
     name="BaseMuonCollection",
     call="jet::OrderJetsByPt({df}, {output}, {input})",
-    input=[nanoAOD.Muon_pt, q.base_muons_mask],
+    input=[q.Muon_pt_corrected, q.base_muons_mask],
     output=[q.base_muon_collection],
     scopes=["e2m","m2m", "eemm","eemm_cr","mmmm","mmmm_cr", "fjmm_cr", "fjmm", "nnmm",
             "m2m_dyfakeingmu_regionb","m2m_dyfakeingmu_regionc","m2m_dyfakeingmu_regiond",
@@ -399,8 +399,8 @@ BaseLVMu1 = Producer(
     input=[
         q.base_muon_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_1],
@@ -425,8 +425,8 @@ LVMu1 = Producer(
     input=[
         q.good_muon_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_1],
@@ -455,8 +455,8 @@ BaseLVMu2 = Producer(
     input=[
         q.base_muon_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_2],
@@ -481,8 +481,8 @@ LVMu2 = Producer(
     input=[
         q.good_muon_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_2],
@@ -511,8 +511,8 @@ BaseLVMu3 = Producer(
     input=[
         q.base_muon_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_3],
@@ -537,8 +537,8 @@ LVMu3 = Producer(
     input=[
         q.good_muon_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_3],
@@ -563,8 +563,8 @@ LVMu4 = Producer(
     input=[
         q.good_muon_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_4],
@@ -589,8 +589,8 @@ BaseLVMu4 = Producer(
     input=[
         q.base_muon_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_p4_4],
@@ -611,32 +611,19 @@ BaseLVMu4_uncorrected = Producer(
 )
 ##### 
 ##### The leading muon from Higgs
-Mu1_H_noFSR = Producer(
-    name="Mu1_H_noFSR",
+Mu1_H = Producer(
+    name="Mu1_H",
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.dimuon_HiggsCand_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_leadingp4_H_noFSR],
-    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
-)
-Mu1_H = Producer(
-    name="Mu1_H",
-    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
-    input=[
-        q.muon_leadingp4_H_noFSR,
-        q.FsrPhoton1_pt,
-        q.FsrPhoton1_eta,
-        q.FsrPhoton1_phi,
     ],
     output=[q.muon_leadingp4_H],
     scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
-
 #####################################################
 Mu1_H_uncorrected = Producer(
     name="Mu1_H_uncorrected",
@@ -652,27 +639,15 @@ Mu1_H_uncorrected = Producer(
     scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
 )
 ##### The sub leading muon form Higgs
-Mu2_H_noFSR = Producer(
-    name="Mu2_H_noFSR",
+Mu2_H = Producer(
+    name="Mu2_H",
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
     input=[
         q.dimuon_HiggsCand_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_subleadingp4_H_noFSR],
-    scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
-)
-Mu2_H = Producer(
-    name="Mu2_H",
-    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
-    input=[
-        q.muon_subleadingp4_H_noFSR,
-        q.FsrPhoton2_pt,
-        q.FsrPhoton2_eta,
-        q.FsrPhoton2_phi,
     ],
     output=[q.muon_subleadingp4_H],
     scopes=["e2m","m2m", "eemm","eemm_cr","nnmm","fjmm","m2m_dyfakeingmu_regionc","e2m_dyfakeinge_regionc"],
@@ -705,27 +680,15 @@ Mu2_H_uncorrected = Producer(
 #     output=[q.muon_leadingp4_H],
 #     scopes=["mmmm","mmmm_cr"],
 # )
-Mu1_H_4m_noFSR = Producer(
-    name="Mu1_H_4m_noFSR",
+Mu1_H_4m = Producer(
+    name="Mu1_H_4m",
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
     input=[
         q.quadmuon_HiggsZCand_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_leadingp4_H_noFSR],
-    scopes=["mmmm","mmmm_cr"],
-)
-Mu1_H_4m = Producer(
-    name="Mu1_H_4m",
-    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
-    input=[
-        q.muon_leadingp4_H_noFSR,
-        q.FsrPhoton1_pt,
-        q.FsrPhoton1_eta,
-        q.FsrPhoton1_phi,
     ],
     output=[q.muon_leadingp4_H],
     scopes=["mmmm","mmmm_cr"],
@@ -757,32 +720,19 @@ Mu1_H_4m_uncorrected = Producer(
 #     output=[q.muon_subleadingp4_H],
 #     scopes=["mmmm","mmmm_cr"],
 # )
-Mu2_H_4m_noFSR = Producer(
-    name="Mu2_H_4m_noFSR",
+Mu2_H_4m = Producer(
+    name="Mu2_H_4m",
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
     input=[
         q.quadmuon_HiggsZCand_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
-    ],
-    output=[q.muon_subleadingp4_H_noFSR],
-    scopes=["mmmm","mmmm_cr"],
-)
-Mu2_H_4m = Producer(
-    name="Mu2_H_4m",
-    call="physicsobject::FSR_Recovery_singlemuon({df}, {output}, {input})",
-    input=[
-        q.muon_subleadingp4_H_noFSR,
-        q.FsrPhoton2_pt,
-        q.FsrPhoton2_eta,
-        q.FsrPhoton2_phi,
     ],
     output=[q.muon_subleadingp4_H],
     scopes=["mmmm","mmmm_cr"],
 )
-
 Mu2_H_4m_uncorrected = Producer(
     name="Mu2_H_4m_uncorrected",
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
@@ -803,8 +753,8 @@ Mu1_Z_4m = Producer(
     input=[
         q.quadmuon_HiggsZCand_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
     ],
     output=[q.lepton_leadingp4_Z],
@@ -829,8 +779,8 @@ Mu2_Z_4m = Producer(
     input=[
         q.quadmuon_HiggsZCand_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
     ],
     output=[q.lepton_subleadingp4_Z],
@@ -856,8 +806,8 @@ Mu1_Z_CR = Producer(
     input=[
         q.dimuon_ZControl_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_leadingp4_Z_CR],
@@ -886,8 +836,8 @@ Mu2_Z_CR = Producer(
     input=[
         q.dimuon_ZControl_collection,
         q.Muon_pt_corrected,
-        nanoAOD.Muon_eta,
-        nanoAOD.Muon_phi,
+        q.Muon_eta_corrected,
+        q.Muon_phi_corrected,
         nanoAOD.Muon_mass,
     ],
     output=[q.muon_subleadingp4_Z_CR],
